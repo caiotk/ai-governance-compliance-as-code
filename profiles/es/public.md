@@ -13,6 +13,13 @@
 | [ISO/IEC 27001:2022 + Amd 1:2024](https://www.iso.org/standard/27001) | Organisational baseline (voluntary) | ✓ primary |
 | [ISO/IEC 42001:2023 AI management system](https://www.iso.org/standard/81230.html) | Organisational baseline (voluntary) | ◐ secondary |
 | [Zero trust (NIST SP 800-207, CISA ZTMM v2.0)](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) | Organisational baseline (voluntary) | ✓ primary |
+| [NIST AI Risk Management Framework 1.0 + Generative AI Profile](https://www.nist.gov/itl/ai-risk-management-framework) | Organisational baseline (voluntary) | ✓ primary |
+| [NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management (CSF 2.0 Community Profile)](https://csrc.nist.gov/pubs/sp/800/61/r3/final) | Organisational baseline (voluntary) | ✓ primary |
+| [ISO 19011:2026 Guidelines for auditing management systems](https://www.iso.org/standard/19011) | Organisational baseline (voluntary) | ✓ primary |
+| [ISO/IEC 42005:2025 AI system impact assessment](https://www.iso.org/standard/44545.html) | Organisational baseline (voluntary) | ✓ primary |
+| [OWASP GenAI Security Project — LLM Top 10 (2026) and Top 10 for Agentic Applications](https://genai.owasp.org/llm-top-10/) | Organisational baseline (voluntary) | ✓ primary |
+| [MITRE ATLAS (release 2026.09)](https://atlas.mitre.org/) | Organisational baseline (voluntary) | ✓ primary |
+| [Anthropic — Zero Trust for AI Agents (eBook and CISO guidance)](https://claude.com/blog/zero-trust-for-ai-agents) | Organisational baseline (voluntary) | ✓ primary |
 
 ## Laws, regulations and guidance
 
@@ -86,28 +93,29 @@
 
 ★ = emphasised for this sector (stricter evidence expected).
 
-| Control | Driven by | anthropic-claude | aws-bedrock | azure-foundry | copilot-studio | gcp-vertex | meta-llama | openai |
-|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| **AIG-01** AI governance, policy and accountable ownership ★ | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust | · | · | ○ | ○ | · | · | · |
-| **AIG-02** AI system and agent inventory ★ | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust | ● | ○ | ○ | ● | ○ | · | ● |
-| **AIG-03** Risk classification and impact assessment ★ | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; AI Act Art 27 fundamental rights impact assessment | · | · | ○ | ○ | · | · | · |
-| **AIG-04** Data governance, quality and provenance | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system | · | · | ○ | ○ | · | · | ● |
-| **AIG-05** Personal data protection and minimisation | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales | ○ | ● | ○ | ● | ● | · | ● |
-| **AIG-06** Approved models and AI supply chain | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust | ○ | ● | ● | ● | ● | ● | ● |
-| **AIG-07** Workload and agent identity with least privilege | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIS2 Directive; Esquema Nacional de Seguridad and NIS1-era law | ● | ● | ● | ● | ● | ○ | ● |
-| **AIG-08** Network isolation and data residency ★ | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; Zero trust | ○ | ● | ● | ● | ● | ○ | ○ |
-| **AIG-09** Encryption and key management | GDPR; ISO/IEC 27001:2022 + Amd 1:2024; Zero trust | ○ | ● | ● | ○ | ● | · | ○ |
-| **AIG-10** Runtime guardrails and content safety | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust | ○ | ● | ● | ○ | ● | ● | ● |
-| **AIG-11** Human oversight of consequential decisions and actions ★ | EU AI Act; GDPR; ISO/IEC 42001:2023 AI management system; Zero trust | · | ○ | ○ | ○ | ○ | · | ○ |
-| **AIG-12** Transparency, notice and explanation ★ | EU AI Act; GDPR; ISO/IEC 42001:2023 AI management system; AI Act Art 27 fundamental rights impact assessment; Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales | · | · | ○ | ○ | · | ○ | · |
-| **AIG-13** Logging, monitoring and record-keeping | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIS2 Directive; Esquema Nacional de Seguridad and NIS1-era law | ● | ● | ● | ● | ● | ○ | ● |
-| **AIG-14** Pre-deployment testing, evaluation and red-teaming | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system | · | · | ○ | ○ | · | ○ | · |
-| **AIG-15** Change management and model lifecycle | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system | · | ● | ● | ● | · | · | · |
-| **AIG-16** Incident management and regulator notification | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIS2 Directive; AESIA — Agencia Española de Supervisión de la Inteligencia Artificial; Esquema Nacional de Seguridad and NIS1-era law | · | · | ● | ○ | · | · | · |
-| **AIG-17** Operational resilience, outsourcing and exit | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system | ● | · | ○ | ○ | · | · | ● |
-| **AIG-18** Cross-border transfer safeguards ★ | GDPR; ISO/IEC 27001:2022 + Amd 1:2024; Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales | ● | · | ○ | ● | ● | ○ | ● |
-| **AIG-19** AI literacy and training | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system | · | · | ○ | ○ | · | · | · |
-| **AIG-20** Fairness and non-discrimination ★ | EU AI Act; GDPR; ISO/IEC 42001:2023 AI management system | · | · | ○ | ○ | · | · | · |
+| Control | Driven by | anthropic-claude | aws-bedrock | azure-foundry | copilot-studio | gcp-vertex | meta-llama | mistral | openai |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| **AIG-01** AI governance, policy and accountable ownership ★ | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; Anthropic | · | · | ○ | ○ | · | · | · | · |
+| **AIG-02** AI system and agent inventory ★ | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | ● | ○ | ○ | ● | ○ | · | ● | ● |
+| **AIG-03** Risk classification and impact assessment ★ | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; AI Act Art 27 fundamental rights impact assessment | · | · | ○ | ○ | · | · | · | · |
+| **AIG-04** Data governance, quality and provenance | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | · | · | ○ | ○ | · | · | · | ● |
+| **AIG-05** Personal data protection and minimisation | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales | ○ | ● | ○ | ● | ● | · | ○ | ● |
+| **AIG-06** Approved models and AI supply chain | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | ○ | ● | ● | ● | ● | ● | ○ | ● |
+| **AIG-07** Workload and agent identity with least privilege | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; NIS2 Directive; Esquema Nacional de Seguridad and NIS1-era law | ● | ● | ● | ● | ● | ○ | ● | ● |
+| **AIG-08** Network isolation and data residency ★ | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; Zero trust; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | ○ | ● | ● | ● | ● | ○ | ○ | ○ |
+| **AIG-09** Encryption and key management | GDPR; ISO/IEC 27001:2022 + Amd 1:2024; Zero trust; MITRE ATLAS; Anthropic | ○ | ● | ● | ○ | ● | · | ○ | ○ |
+| **AIG-10** Runtime guardrails and content safety | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | ○ | ● | ● | ○ | ● | ● | ● | ● |
+| **AIG-11** Human oversight of consequential decisions and actions ★ | EU AI Act; GDPR; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | · | ○ | ○ | ○ | ○ | · | ○ | ○ |
+| **AIG-12** Transparency, notice and explanation ★ | EU AI Act; GDPR; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; AI Act Art 27 fundamental rights impact assessment; Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales | · | · | ○ | ○ | · | ○ | · | · |
+| **AIG-13** Logging, monitoring and record-keeping | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; NIST SP 800-61 Rev. 3; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; NIS2 Directive; Esquema Nacional de Seguridad and NIS1-era law | ● | ● | ● | ● | ● | ○ | ● | ● |
+| **AIG-14** Pre-deployment testing, evaluation and red-teaming | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | · | · | ○ | ○ | · | ○ | ● | · |
+| **AIG-15** Change management and model lifecycle | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; MITRE ATLAS | · | ● | ● | ● | · | · | · | · |
+| **AIG-16** Incident management and regulator notification | EU AI Act; GDPR; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; NIST SP 800-61 Rev. 3; OWASP GenAI Security Project; Anthropic; NIS2 Directive; AESIA — Agencia Española de Supervisión de la Inteligencia Artificial; Esquema Nacional de Seguridad and NIS1-era law | · | · | ● | ○ | · | · | · | · |
+| **AIG-17** Operational resilience, outsourcing and exit | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; NIST SP 800-61 Rev. 3; OWASP GenAI Security Project | ● | · | ○ | ○ | · | · | ○ | ● |
+| **AIG-18** Cross-border transfer safeguards ★ | GDPR; ISO/IEC 27001:2022 + Amd 1:2024; Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales | ● | · | ○ | ● | ● | ○ | ● | ● |
+| **AIG-19** AI literacy and training | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO 19011:2026 Guidelines for auditing management systems; MITRE ATLAS | · | · | ○ | ○ | · | · | · | · |
+| **AIG-20** Fairness and non-discrimination ★ | EU AI Act; GDPR; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment | · | · | ○ | ○ | · | · | · | · |
+| **AIG-21** Internal audit and independent assurance | EU AI Act; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO 19011:2026 Guidelines for auditing management systems | · | · | · | · | · | · | · | · |
 
 ● vendor pack enforces or evidences the control · ○ documented platform gap (handle in process or another layer) · · not applicable
 

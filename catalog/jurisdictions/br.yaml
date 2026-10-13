@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: BR
 name: Brazil
-frameworks: [br-lgpd, iso27001, iso42001, zero-trust]
+frameworks: [br-lgpd]
 sector_frameworks:
   health: [br-cfm]
 notes: No AI statute in force. PL 2338/2023 passed the Senate (Dec 2024) and sits with a Chamber special committee; a vote is expected after the Oct 2026 elections.

@@ -384,3 +384,142 @@ zt_agent_ok if {
 	yes(["security", "short_lived_credentials"])
 	yes(["security", "tool_allowlist"])
 }
+
+# ── ISO 19011:2026 — auditing the management system ──────────────────────────
+# ISO 19011 is guidance, so its findings are warnings; the programme itself is
+# AIG-21 (deny) because ISO/IEC 42001 9.2 and ISO/IEC 27001 9.2 require it.
+
+framework_findings contains ff("iso19011", "AIG-21", "warn", "ISO 19011 cl. 5.5 / ISO/IEC 42001 9.2: no internal audit has been recorded for this system (governance.internal_audit.last_audit); audit within the programme cycle") if {
+	yes(["governance", "internal_audit", "programme"])
+	not present(["governance", "internal_audit", "last_audit"])
+}
+
+framework_findings contains ff("iso19011", "AIG-21", "warn", sprintf("ISO 19011 cl. 5.4–5.5: the last internal audit (%s) is outside the programme cycle (12 months in this repository; ISO 19011 sets no cadence); re-audit", [last_audit])) if {
+	present(["governance", "internal_audit", "last_audit"])
+	last_audit := get(["governance", "internal_audit", "last_audit"])
+	regex.match(`^\d{4}-\d{2}-\d{2}$`, last_audit)
+	audit_overdue(last_audit)
+}
+
+framework_findings contains ff("iso19011", "AIG-21", "warn", "governance.internal_audit.last_audit must be a calendar date (YYYY-MM-DD) so the audit cycle can be evaluated") if {
+	present(["governance", "internal_audit", "last_audit"])
+	not regex.match(`^\d{4}-\d{2}-\d{2}$`, get(["governance", "internal_audit", "last_audit"]))
+}
+
+audit_overdue(d) if {
+	t := time.parse_rfc3339_ns(sprintf("%sT00:00:00Z", [d]))
+	e := time.parse_rfc3339_ns(sprintf("%sT00:00:00Z", [eval_date]))
+	e - t > (((365 * 24) * 60) * 60) * 1000000000
+}
+
+framework_findings contains ff("iso19011", "AIG-21", "warn", "ISO 19011 cl. 6.7 / ISO/IEC 42001 10.2: audit findings must be tracked to closure (governance.internal_audit.findings_tracked)") if {
+	yes(["governance", "internal_audit", "programme"])
+	no(["governance", "internal_audit", "findings_tracked"])
+}
+
+# ── ISO/IEC 42005:2025 — AI system impact assessment method ──────────────────
+
+framework_findings contains ff("iso42005", "AIG-03", "warn", "ISO/IEC 42005 cl. 5.2 (documenting the process): record the impact-assessment method used (risk.impact_assessment.method, e.g. \"ISO/IEC 42005:2025\") so the assessment is repeatable and reviewable") if {
+	yes(["risk", "impact_assessment", "completed"])
+	not present(["risk", "impact_assessment", "method"])
+}
+
+framework_findings contains ff("iso42005", "AIG-03", "warn", "ISO/IEC 42005 cl. 5.12: high-risk and consequential systems need a scheduled review of the impact assessment (risk.impact_assessment.review_date)") if {
+	yes(["risk", "impact_assessment", "completed"])
+	impact_review_needed
+	not present(["risk", "impact_assessment", "review_date"])
+}
+
+impact_review_needed if high_risk
+
+impact_review_needed if consequential
+
+framework_findings contains ff("iso42005", "AIG-20", "warn", "ISO/IEC 42005 cl. 6.7 / Annex C: identify the interested parties who may be affected and the benefits and harms to each (risk.impact_assessment.interested_parties_identified)") if {
+	consequential
+	no(["risk", "impact_assessment", "interested_parties_identified"])
+}
+
+# ── NIST AI RMF 1.0 — GOVERN / MAP / MEASURE / MANAGE ────────────────────────
+
+framework_findings contains ff("nist-ai-rmf", "AIG-01", "warn", "NIST AI RMF MAP 1.5 / GOVERN 1.3: document the organisation's risk tolerance for this system's use case (governance.risk_tolerance_defined)") if {
+	no(["governance", "risk_tolerance_defined"])
+}
+
+framework_findings contains ff("nist-ai-rmf", "AIG-13", "warn", "NIST AI RMF MEASURE 2.4 / MANAGE 4.1: deployed systems need post-deployment monitoring for drift and bias (monitoring.drift_and_bias)") if {
+	no(["monitoring", "drift_and_bias"])
+}
+
+# ── NIST SP 800-61 Rev. 3 — incident response on CSF 2.0 ─────────────────────
+
+framework_findings contains ff("nist-sp-800-61", "AIG-16", "warn", "NIST SP 800-61r3 ID.IM-03/04: run post-incident lessons-learned and feed them back into the runbook (incident.lessons_learned)") if {
+	yes(["incident", "runbook"])
+	no(["incident", "lessons_learned"])
+}
+
+framework_findings contains ff("nist-sp-800-61", "AIG-13", "warn", "NIST SP 800-61r3 DE.CM / DE.AE: AI telemetry (prompts, tool calls, guardrail hits) must reach the SOC for detection and analysis (logging.siem_integrated)") if {
+	no(["logging", "siem_integrated"])
+}
+
+# ── OWASP GenAI Security Project — LLM Top 10 2026 and Agentic Top 10 ────────
+# OWASP, MITRE ATLAS and the Anthropic guidance are awareness material and
+# vendor guidance, not law. The "deny" severities below are this repository's
+# ORGANISATIONAL BASELINE for agentic systems (an agent that acts without a
+# threat model, output validation, telemetry, egress control or per-action
+# approval is not promotable); everything else is a warning.
+
+framework_findings contains ff("owasp-genai", "AIG-14", "deny", "OWASP Agentic Top 10 (organisational baseline): agentic systems need a documented threat model covering goal hijack, tool misuse, identity and privilege abuse, supply chain and code execution (testing.threat_model.completed)") if {
+	yes(["system", "agentic"])
+	no(["testing", "threat_model", "completed"])
+}
+
+framework_findings contains ff("owasp-genai", "AIG-14", "warn", "OWASP LLM Top 10 2026: user-facing systems should be threat-modelled for prompt injection, sensitive information disclosure, supply chain and improper output handling (testing.threat_model.completed)") if {
+	yes(["system", "user_facing"])
+	not yes(["system", "agentic"])
+	no(["testing", "threat_model", "completed"])
+}
+
+framework_findings contains ff("owasp-genai", "AIG-14", "warn", "OWASP: list the threat catalogues the model was built against (testing.threat_model.references, e.g. OWASP-LLM-2026, OWASP-ASI-2026, MITRE-ATLAS-2026.09)") if {
+	yes(["testing", "threat_model", "completed"])
+	count(object.get(input, ["testing", "threat_model", "references"], [])) == 0
+}
+
+framework_findings contains ff("owasp-genai", "AIG-10", "deny", "OWASP LLM10:2026 Improper Output Handling / ASI05 Unexpected Code Execution: agents that execute code or call tools must validate and sanitise model output before it is acted on (runtime.output_validation)") if {
+	yes(["system", "agentic"])
+	no(["runtime", "output_validation"])
+}
+
+# ── MITRE ATLAS — adversarial threat landscape and mitigations ────────────────
+
+framework_findings contains ff("mitre-atlas", "AIG-13", "deny", "MITRE ATLAS AML.M0024 AI Telemetry Logging / AML.M0038 AI Agent Scope Drift Detection: agents must emit per-action telemetry (tool, parameters, outcome) so drift from the assigned task is detectable (monitoring.agent_telemetry)") if {
+	yes(["system", "agentic"])
+	no(["monitoring", "agent_telemetry"])
+}
+
+framework_findings contains ff("mitre-atlas", "AIG-06", "warn", "MITRE ATLAS AML.M0023 AI Bill of Materials / AML.T0110 AI Agent Tool Poisoning: maintain an AI BOM listing models, tools, MCP servers and datasets with provenance (supplier.ai_bom)") if {
+	no(["supplier", "ai_bom"])
+}
+
+# ── Anthropic zero trust for AI agents (CISO guide, 2026) ─────────────────────
+# Vendor-neutral practices for agentic systems: identity from the IdP, egress
+# allow-listing, sandboxed execution, per-action approval, telemetry to SIEM.
+
+framework_findings contains ff("anthropic-zero-trust", "AIG-08", "deny", "Anthropic CISO guide: egress allow-listing is the strongest control against prompt injection — agents may only reach approved domains (security.egress_allowlist)") if {
+	yes(["system", "agentic"])
+	no(["security", "egress_allowlist"])
+}
+
+framework_findings contains ff("anthropic-zero-trust", "AIG-10", "warn", "Anthropic CISO guide / Claude Code sandbox settings: run agent tool execution in a sandbox with filesystem and network isolation (security.sandboxed_execution)") if {
+	yes(["system", "agentic"])
+	no(["security", "sandboxed_execution"])
+}
+
+framework_findings contains ff("anthropic-zero-trust", "AIG-07", "warn", "Anthropic CISO guide: agent and user identity must come from the corporate IdP (SSO + SCIM), not vendor-local accounts or long-lived API keys (security.idp_federated_identity)") if {
+	yes(["system", "agentic"])
+	no(["security", "idp_federated_identity"])
+}
+
+framework_findings contains ff("anthropic-zero-trust", "AIG-11", "deny", "Anthropic CISO guide: irreversible actions (payments, deletions, sending) require per-action human approval (oversight.per_action_approval)") if {
+	yes(["system", "agentic"])
+	yes(["system", "irreversible_actions"])
+	no(["oversight", "per_action_approval"])
+}

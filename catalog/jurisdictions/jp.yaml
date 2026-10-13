@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: JP
 name: Japan
-frameworks: [jp-appi, iso27001, iso42001, zero-trust]
+frameworks: [jp-appi]
 notes: The AI Promotion Act is promotional with no penalties; obligations come from APPI, sector rules and voluntary guidelines.
 instruments:
   horizontal:

@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: NZ
 name: New Zealand
-frameworks: [nz-privacy, iso27001, iso42001, zero-trust]
+frameworks: [nz-privacy]
 sector_frameworks:
   fsi: [rbnz-bs11]
 notes: No AI-specific statute; the AI Strategy (Jul 2025) is adoption-first. BS11 applies only to NZ-incorporated registered banks with liabilities ≥ NZ$10bn.

@@ -15,10 +15,23 @@
         "entity_type": "nz_registered_bank"
       }
     },
+    "baseline": [
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
+    ],
     "controls": {
       "AIG-01": {
         "title": "AI governance, policy and accountable ownership",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "au-privacy",
           "br-cfm",
@@ -26,6 +39,7 @@
           "gdpr",
           "iso27001",
           "iso42001",
+          "nist-ai-rmf",
           "nz-privacy",
           "rbnz-bs11",
           "sg-mas-airm",
@@ -36,12 +50,16 @@
       "AIG-02": {
         "title": "AI system and agent inventory",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "au-privacy",
           "eu-ai-act",
           "iso27001",
           "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
           "nz-privacy",
+          "owasp-genai",
           "sg-mas-airm",
           "us-ai",
           "zero-trust"
@@ -57,6 +75,8 @@
           "gdpr",
           "iso27001",
           "iso42001",
+          "iso42005",
+          "nist-ai-rmf",
           "nz-privacy",
           "sg-mas-airm",
           "us-ai"
@@ -65,14 +85,19 @@
       "AIG-04": {
         "title": "Data governance, quality and provenance",
         "frameworks": [
+          "anthropic-zero-trust",
           "au-privacy",
           "br-lgpd",
           "eu-ai-act",
           "gdpr",
           "iso27001",
           "iso42001",
+          "iso42005",
           "jp-appi",
+          "mitre-atlas",
+          "nist-ai-rmf",
           "nz-privacy",
+          "owasp-genai",
           "sg-pdpa",
           "us-ai"
         ]
@@ -89,7 +114,10 @@
           "iso27001",
           "iso42001",
           "jp-appi",
+          "mitre-atlas",
+          "nist-ai-rmf",
           "nz-privacy",
+          "owasp-genai",
           "sg-pdpa",
           "us-ai"
         ]
@@ -97,11 +125,15 @@
       "AIG-06": {
         "title": "Approved models and AI supply chain",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "eu-ai-act",
           "gdpr",
           "iso27001",
           "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
+          "owasp-genai",
           "rbnz-bs11",
           "sg-mas-airm",
           "us-ai",
@@ -111,6 +143,7 @@
       "AIG-07": {
         "title": "Workload and agent identity with least privilege",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "au-privacy",
           "cl-21663",
@@ -118,19 +151,25 @@
           "gdpr",
           "iso27001",
           "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
           "nz-privacy",
+          "owasp-genai",
           "zero-trust"
         ]
       },
       "AIG-08": {
         "title": "Network isolation and data residency",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "au-privacy",
           "eu-ai-act",
           "gdpr",
           "iso27001",
+          "mitre-atlas",
           "nz-privacy",
+          "owasp-genai",
           "rbnz-bs11",
           "zero-trust"
         ]
@@ -138,10 +177,12 @@
       "AIG-09": {
         "title": "Encryption and key management",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "au-privacy",
           "gdpr",
           "iso27001",
+          "mitre-atlas",
           "nz-privacy",
           "us-ai",
           "zero-trust"
@@ -150,10 +191,14 @@
       "AIG-10": {
         "title": "Runtime guardrails and content safety",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "eu-ai-act",
           "iso27001",
           "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
+          "owasp-genai",
           "us-ai",
           "zero-trust"
         ]
@@ -161,6 +206,7 @@
       "AIG-11": {
         "title": "Human oversight of consequential decisions and actions",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "ar-25326",
           "au-privacy",
@@ -170,7 +216,10 @@
           "eu-ai-act",
           "gdpr",
           "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
           "nz-privacy",
+          "owasp-genai",
           "us-ai",
           "zero-trust"
         ]
@@ -184,7 +233,9 @@
           "eu-ai-act",
           "gdpr",
           "iso42001",
+          "nist-ai-rmf",
           "nz-privacy",
+          "owasp-genai",
           "sg-pdpa",
           "us-ai"
         ]
@@ -192,11 +243,16 @@
       "AIG-13": {
         "title": "Logging, monitoring and record-keeping",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "br-cfm",
           "eu-ai-act",
           "iso27001",
           "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
+          "nist-sp-800-61",
+          "owasp-genai",
           "sg-mas-airm",
           "us-ai",
           "zero-trust"
@@ -205,11 +261,16 @@
       "AIG-14": {
         "title": "Pre-deployment testing, evaluation and red-teaming",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "au-privacy",
           "eu-ai-act",
           "iso27001",
           "iso42001",
+          "iso42005",
+          "mitre-atlas",
+          "nist-ai-rmf",
+          "owasp-genai",
           "sg-mas-airm",
           "us-ai"
         ]
@@ -221,6 +282,9 @@
           "eu-ai-act",
           "iso27001",
           "iso42001",
+          "iso42005",
+          "mitre-atlas",
+          "nist-ai-rmf",
           "sg-mas-airm",
           "us-ai"
         ]
@@ -228,6 +292,7 @@
       "AIG-16": {
         "title": "Incident management and regulator notification",
         "frameworks": [
+          "anthropic-zero-trust",
           "apra",
           "au-privacy",
           "cl-21663",
@@ -235,7 +300,10 @@
           "gdpr",
           "iso27001",
           "iso42001",
+          "nist-ai-rmf",
+          "nist-sp-800-61",
           "nz-privacy",
+          "owasp-genai",
           "us-ai"
         ]
       },
@@ -246,6 +314,9 @@
           "eu-ai-act",
           "iso27001",
           "iso42001",
+          "nist-ai-rmf",
+          "nist-sp-800-61",
+          "owasp-genai",
           "rbnz-bs11"
         ]
       },
@@ -269,8 +340,11 @@
         "frameworks": [
           "apra",
           "eu-ai-act",
+          "iso19011",
           "iso27001",
           "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
           "us-ai"
         ]
       },
@@ -282,27 +356,34 @@
           "eu-ai-act",
           "gdpr",
           "iso42001",
+          "iso42005",
+          "nist-ai-rmf",
           "nz-privacy",
           "us-ai"
+        ]
+      },
+      "AIG-21": {
+        "title": "Internal audit and independent assurance",
+        "frameworks": [
+          "apra",
+          "eu-ai-act",
+          "iso19011",
+          "iso27001",
+          "iso42001",
+          "nist-ai-rmf"
         ]
       }
     },
     "jurisdictions": {
       "AR": {
         "frameworks": [
-          "ar-25326",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "ar-25326"
         ],
         "sector_frameworks": {}
       },
       "AU": {
         "frameworks": [
-          "au-privacy",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "au-privacy"
         ],
         "sector_frameworks": {
           "fsi": [
@@ -312,10 +393,7 @@
       },
       "BR": {
         "frameworks": [
-          "br-lgpd",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "br-lgpd"
         ],
         "sector_frameworks": {
           "health": [
@@ -326,20 +404,14 @@
       "CL": {
         "frameworks": [
           "cl-21719",
-          "cl-21663",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "cl-21663"
         ],
         "sector_frameworks": {}
       },
       "ES": {
         "frameworks": [
           "eu-ai-act",
-          "gdpr",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "gdpr"
         ],
         "sector_frameworks": {}
       },
@@ -352,19 +424,13 @@
       },
       "JP": {
         "frameworks": [
-          "jp-appi",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "jp-appi"
         ],
         "sector_frameworks": {}
       },
       "NZ": {
         "frameworks": [
-          "nz-privacy",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "nz-privacy"
         ],
         "sector_frameworks": {
           "fsi": [
@@ -375,19 +441,13 @@
       "PT": {
         "frameworks": [
           "eu-ai-act",
-          "gdpr",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "gdpr"
         ],
         "sector_frameworks": {}
       },
       "SG": {
         "frameworks": [
-          "sg-pdpa",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "sg-pdpa"
         ],
         "sector_frameworks": {
           "fsi": [
@@ -397,10 +457,7 @@
       },
       "US": {
         "frameworks": [
-          "us-ai",
-          "iso27001",
-          "iso42001",
-          "zero-trust"
+          "us-ai"
         ],
         "sector_frameworks": {}
       }

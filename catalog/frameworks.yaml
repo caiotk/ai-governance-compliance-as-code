@@ -103,9 +103,129 @@ frameworks:
       - { id: sr26-2, name: "SR 26-2 Supervisory Guidance on Model Risk Management (Fed/FDIC/OCC; supersedes SR 11-7; excludes generative AI)", effective: "2026-04-17", verification: secondary }
       - { id: omb-m-25-21, name: "OMB M-25-21 Accelerating Federal Use of AI", effective: "2025-04-03", verification: secondary }
       - { id: hipaa, name: "HIPAA Privacy and Security Rules (45 CFR Parts 160, 164)", effective: "in force", verification: unverified }
-      - { id: nist-ai-rmf, name: "NIST AI RMF 1.0 + NIST AI 600-1 Generative AI Profile (voluntary)", effective: "2023-01-26 / 2024-07-26", verification: primary }
     url: https://www.nist.gov/itl/ai-risk-management-framework
     verification: secondary
+
+  # ── Security, assurance and threat frameworks (voluntary baselines) ────────
+
+  - id: nist-ai-rmf
+    name: NIST AI Risk Management Framework 1.0 + Generative AI Profile
+    type: voluntary-framework
+    scope: global (US origin)
+    issuer: NIST
+    status: voluntary
+    baseline: true
+    components:
+      - NIST AI 100-1 AI RMF 1.0 (26 Jan 2023) — GOVERN 1–6, MAP 1–5, MEASURE 1–4, MANAGE 1–4; 19 categories, 72 subcategories
+      - NIST AI 600-1 Generative AI Profile (26 Jul 2024) — 12 GAI risks
+      - AI RMF Playbook (airc.nist.gov)
+    notes: >-
+      nist.gov states the AI RMF 1.0 "is being revised as part of the White House AI Action Plan"; no draft, number or date
+      has been published. NIST AI 800-1 (misuse risk for dual-use foundation models) remains a second public draft.
+      NIST IR 8596 Cyber AI Profile is an initial preliminary draft (16 Dec 2025).
+    url: https://www.nist.gov/itl/ai-risk-management-framework
+    verification: primary
+
+  - id: nist-sp-800-61
+    name: NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management (CSF 2.0 Community Profile)
+    type: voluntary-framework
+    scope: global (US origin)
+    issuer: NIST
+    status: voluntary
+    baseline: true
+    notes: >-
+      Rev. 3 (April 2025) supersedes Rev. 2 "Computer Security Incident Handling Guide" (Aug 2012), which CSRC marks
+      withdrawn on 3 Apr 2025. Rev. 3 maps the Rev. 2 phases (Preparation; Detection & Analysis; Containment,
+      Eradication & Recovery; Post-Incident Activity) onto CSF 2.0 Govern/Identify/Protect (preparation) and
+      Detect/Respond/Recover (incident response), with Identify → Improvement (ID.IM) feeding lessons learned.
+      Policies here cite Rev. 3 and keep the Rev. 2 phase names as aliases for existing runbooks.
+    superseded:
+      - { id: nist-sp-800-61r2, name: "NIST SP 800-61 Rev. 2 Computer Security Incident Handling Guide", withdrawn: "2025-04-03", url: "https://csrc.nist.gov/pubs/sp/800/61/r2/final" }
+    url: https://csrc.nist.gov/pubs/sp/800/61/r3/final
+    verification: primary
+
+  - id: iso19011
+    name: ISO 19011:2026 Guidelines for auditing management systems
+    type: guidance-standard
+    scope: global
+    issuer: ISO/TMBG (ISO/PC 302)
+    status: voluntary
+    baseline: true
+    notes: >-
+      Edition 4, published 27 May 2026; ISO 19011:2018 was withdrawn the same day. Seven principles of auditing
+      (cl. 4.2–4.8): integrity, fair presentation, due professional care, confidentiality, independence, evidence-based
+      approach, risk-based approach. Cl. 5 audit programme, cl. 6 conducting an audit, cl. 7 auditor competence;
+      2026 edition expands remote auditing guidance. Supports ISO/IEC 42001 cl. 9.2 and ISO/IEC 27001 cl. 9.2 internal
+      audit. Third-party certification bodies follow ISO/IEC 42006:2025 (+ ISO/IEC 17021-1) instead.
+    url: https://www.iso.org/standard/19011
+    verification: primary
+
+  - id: iso42005
+    name: ISO/IEC 42005:2025 AI system impact assessment
+    type: guidance-standard
+    scope: global
+    issuer: ISO/IEC JTC 1/SC 42
+    status: voluntary
+    baseline: true
+    notes: >-
+      Published 28 May 2025. Clause 5 sets the impact assessment process (5.4 timing, 5.7 thresholds for sensitive and
+      restricted uses, 5.11 approval, 5.12 monitoring and review); clause 6 the documentation (6.3 system information
+      incl. intended and unintended uses, 6.4 data quality, 6.5 algorithm and model, 6.7 interested parties, 6.8 benefits
+      and harms incl. foreseeable misuse, 6.9 measures). Annex A guides use with ISO/IEC 42001 (cl. 6.1.4 and 8.4),
+      Annex B with ISO/IEC 23894, Annex D aligns with other assessments (privacy/DPIA, human rights, etc.). It is the method this repository
+      expects behind risk.impact_assessment.
+    url: https://www.iso.org/standard/44545.html
+    verification: primary
+
+  - id: owasp-genai
+    name: OWASP GenAI Security Project — LLM Top 10 (2026) and Top 10 for Agentic Applications
+    type: threat-framework
+    scope: global
+    issuer: OWASP Foundation
+    status: voluntary
+    baseline: true
+    components:
+      - OWASP GenAI LLM Top 10 2026 (3 Aug 2026) — LLM01 Prompt Injection; LLM02 Sensitive Information Disclosure; LLM03 Excessive Agency; LLM04 Supply Chain; LLM05 Data and Model Poisoning; LLM06 Unbounded Consumption; LLM07 Misinformation; LLM08 Hidden Context Exposure; LLM09 Vector and Embedding Weaknesses; LLM10 Improper Output Handling
+      - OWASP Top 10 for Agentic Applications for 2026 (9 Dec 2025) — ASI01 Agent Goal Hijack; ASI02 Tool Misuse and Exploitation; ASI03 Identity and Privilege Abuse; ASI04 Agentic Supply Chain Vulnerabilities; ASI05 Unexpected Code Execution (RCE); ASI06 Memory & Context Poisoning; ASI07 Insecure Inter-Agent Communication; ASI08 Cascading Failures; ASI09 Human-Agent Trust Exploitation; ASI10 Rogue Agents
+      - Agentic AI Threats and Mitigations v1.1 (Dec 2025); State of Agentic AI Security and Governance v2.01 (1 Jun 2026); Agent Control Standard (1 Sep 2026); AI Exchange (owaspai.org); LLM Applications Cybersecurity and Governance Checklist v1.1 (7 May 2024)
+    notes: The 2025 LLM Top 10 numbering differs (e.g. LLM07:2025 System Prompt Leakage became LLM08:2026 Hidden Context Exposure); mappings below use the 2026 IDs.
+    url: https://genai.owasp.org/llm-top-10/
+    verification: primary
+
+  - id: mitre-atlas
+    name: MITRE ATLAS (release 2026.09)
+    type: threat-framework
+    scope: global
+    issuer: MITRE
+    status: voluntary
+    baseline: true
+    notes: >-
+      Release 2026.09 (15 Sep 2026; data format 6.0.0): 16 tactics, 120 techniques + 88 sub-techniques, 40 mitigations,
+      73 case studies; platforms Predictive AI, Generative AI, Agentic AI, Enterprise. Releases are now dated YYYY.MM
+      (the 5.x scheme ended at 5.6.1). Several mitigation titles differ from older references (e.g. AML.M0004 Limit AI Service Query
+      Volume and Rate; AML.M0005 Control Access to AI Models and Data at Rest; AML.M0019 Control Access to AI Models and
+      Data in Production); AML.M0002 and AML.M0015 were renamed in 2026.07. MCP tool poisoning appears in AML.T0110 and case studies CS0045, CS0053, CS0054.
+    url: https://atlas.mitre.org/
+    verification: primary
+
+  - id: anthropic-zero-trust
+    name: Anthropic — Zero Trust for AI Agents (eBook and CISO guidance)
+    type: vendor-guidance
+    scope: global
+    issuer: Anthropic (Claude by Anthropic)
+    status: voluntary
+    baseline: true
+    components:
+      - Zero Trust for AI Agents eBook (May 2026) — tiers Foundation / Enterprise / Advanced; eight phases (identify requirements, manage supply chain risks, define agent boundaries, defend against prompt injection, secure tool access, protect agent credentials, safeguard agent memory, measure what matters)
+      - Blog "Zero risk isn't the job: a CISO's guide to agentic AI" (17 Jul 2026) — least agency; IdP identity with SCIM; connector allow-lists; per-tool per-action approval; sandboxed execution; egress allow-listing; OpenTelemetry to SIEM; org-wide off switch
+      - Blog "Trustworthy agents in practice" (9 Apr 2026) — five principles
+      - Claude Code managed settings, sandboxing and security docs; Workload Identity Federation; Compliance API
+    notes: >-
+      Vendor guidance, applied here as an agent-security baseline whose controls are vendor-neutral (identity, least
+      agency, sandboxing, egress allow-listing, telemetry). The blog page summarises the tiers as Foundation / Advanced /
+      Optimized; the eBook wording (Foundation / Enterprise / Advanced) is used.
+    url: https://claude.com/blog/zero-trust-for-ai-agents
+    verification: primary
 
   # ── National laws outside the horizontal frameworks (keyed on country) ──────
 

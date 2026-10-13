@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: AR
 name: Argentina
-frameworks: [ar-25326, iso27001, iso42001, zero-trust]
+frameworks: [ar-25326]
 notes: No AI law. 53 AI-related bills were filed in 2025; none enacted as of Apr 2026.
 instruments:
   horizontal:

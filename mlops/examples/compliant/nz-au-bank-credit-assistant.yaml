@@ -29,9 +29,11 @@ governance:
   policy_approved: true
   registered_in_inventory: true
   ai_literacy_training: true
+  risk_tolerance_defined: true
+  internal_audit: { programme: true, last_audit: "2026-03-10", findings_tracked: true }
 risk:
   classification: high
-  impact_assessment: { completed: true, date: "2026-08-01", method: ISO/IEC 42005 }
+  impact_assessment: { completed: true, date: "2026-08-01", method: "ISO/IEC 42005:2025", review_date: "2027-08-01", interested_parties_identified: true }
   dpia: { completed: true, date: "2026-08-01" }
 data:
   personal_data: true
@@ -49,6 +51,7 @@ supplier:
   register_entry: true
   outsourced: true
   regulator_access_assured: true
+  ai_bom: true
 security:
   local_auth_disabled: true
   managed_identity: true
@@ -64,9 +67,13 @@ transparency:
   adverse_decision_explanation: true
   privacy_policy_adm_disclosure: true
   indirect_collection_notice: true
-logging: { invocation_logging: true, retention_days: 2555 }
+logging: { invocation_logging: true, retention_days: 2555, siem_integrated: true }
 monitoring: { drift_and_bias: true }
-testing: { evaluation_completed: true, red_team_completed: true, bias_assessment: true }
+testing:
+  evaluation_completed: true
+  red_team_completed: true
+  bias_assessment: true
+  threat_model: { completed: true, references: [OWASP-LLM-2026, MITRE-ATLAS-2026.09] }
 lifecycle: { versioned: true, promotion_gate: true }
-incident: { runbook: true, notification_matrix: ["APRA:72h", "OAIC:NDB", "OPC:notifiable-breach", "RBNZ"] }
+incident: { runbook: true, notification_matrix: ["APRA:72h", "OAIC:NDB", "OPC:notifiable-breach", "RBNZ"], lessons_learned: true }
 resilience: { tolerance_levels_set: true, fallback_tested: true, exit_plan: true, backup_capability: true }

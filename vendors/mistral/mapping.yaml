@@ -1,0 +1,109 @@
+apiVersion: aigov/v1
+kind: VendorPack
+vendor: mistral
+name: Mistral AI (La Plateforme / Admin API / Moderation API)
+verified: "2026-10-13"
+native_tools:
+  - name: Admin API (Enterprise plans; users, workspaces, API keys, audit logs, user groups)
+    url: https://docs.mistral.ai/admin/admin-api/overview
+  - name: Admin API authentication (x-api-key)
+    url: https://docs.mistral.ai/admin/admin-api/authentication
+  - name: Audit logs
+    url: https://docs.mistral.ai/admin/monitor-comply/audit-logs/overview
+  - name: Roles and permissions
+    url: https://docs.mistral.ai/admin/identity-access/roles-permissions
+  - name: Organizations and Workspaces
+    url: https://docs.mistral.ai/admin/security-access/organization
+  - name: API keys (Workspace-scoped, expiry policy)
+    url: https://docs.mistral.ai/admin/security-access/api-keys
+  - name: SAML SSO (Enterprise)
+    url: https://docs.mistral.ai/admin/security-access/sso
+  - name: Zero Data Retention
+    url: https://docs.mistral.ai/admin/monitor-comply/zero-data-retention
+  - name: Moderation and guardrails (Moderation API, guardrails parameter)
+    url: https://docs.mistral.ai/capabilities/guardrailing
+  - name: Classifiers API reference (/v1/moderations, /v1/chat/moderations)
+    url: https://docs.mistral.ai/api/endpoint/classifiers
+  - name: hashicorp/http (posture verification only; no official Mistral provider)
+    url: https://registry.terraform.io/providers/hashicorp/http/latest
+attestations:
+  - name: SOC 2 Type II
+    url: https://help.mistral.ai/en/articles/323772-do-you-have-soc2-or-iso27001-certification
+    scope: Help article dated 2026-08-12; reports via trust.mistral.ai/resources (gated)
+  - name: ISO/IEC 27001 and ISO/IEC 27701
+    url: https://help.mistral.ai/en/articles/323772-do-you-have-soc2-or-iso27001-certification
+    scope: Same article; certificate scope not visible without Trust Center access
+policies:
+  - name: Usage Policy
+    url: https://legal.mistral.ai/terms/usage-policy
+    effective: "2026-06-11"
+  - name: Commercial Terms of Service
+    url: https://legal.mistral.ai/terms/commercial-terms-of-service
+    effective: "2026-09-25"
+  - name: Privacy Policy
+    url: https://legal.mistral.ai/terms/privacy-policy
+    effective: "2026-09-03"
+  - name: Data Processing Addendum
+    url: https://legal.mistral.ai/terms/data-processing-addendum
+implements:
+  - control: AIG-02
+    summary: Organization member inventory with roles read from GET /v1/admin/users; the Terraform module reports when the first page is full so the inventory is never silently truncated.
+    terraform:
+      - terraform/main.tf#data.http.admin_users
+      - terraform/main.tf#check.user_inventory_complete
+      - terraform/outputs.tf#member_inventory
+    native:
+      - native/admin-api.sh
+  - control: AIG-07
+    summary: organization_admin holders counted against a threshold (full access to every Workspace, security, billing and audit logs); role catalogue read from GET /v1/admin/roles; Workspace-scoped keys with expiry policy and SAML SSO documented as the identity baseline.
+    terraform:
+      - terraform/main.tf#check.org_admin_count_below_threshold
+      - terraform/main.tf#data.http.roles
+      - terraform/outputs.tf#organization_admins
+    native:
+      - native/admin-api.sh
+  - control: AIG-10
+    summary: Moderation API wired as a CI gate for prompts, examples and evaluation sets (fails on any flagged category); server-side `guardrails` with moderation_llm_v2 action=block on chat completions and agents (HTTP 403 on violation); Terraform smoke-tests the moderation endpoint and the category keys the gate relies on.
+    terraform:
+      - terraform/main.tf#data.http.moderation_smoke
+      - terraform/main.tf#check.moderation_categories_present
+    native:
+      - native/moderation-gate.sh
+      - native/guardrails-request.json
+  - control: AIG-13
+    summary: Audit logs (enabled automatically on Enterprise) exported from GET /v1/admin/audit-logs to JSON Lines for the SIEM — the only export path, since the Admin Panel has no UI export; Terraform asserts the log is reachable and non-empty.
+    terraform:
+      - terraform/main.tf#data.http.audit_logs
+      - terraform/main.tf#check.audit_logs_have_entries
+      - terraform/outputs.tf#audit_log_sample_event_types
+    native:
+      - native/admin-api.sh
+  - control: AIG-14
+    summary: Red-team and evaluation corpora scored through the moderation gate before promotion, so adversarial content is catalogued rather than shipped in prompts.
+    terraform: []
+    native:
+      - native/moderation-gate.sh
+  - control: AIG-18
+    summary: Processing location (Sweden), 30-day abuse-monitoring retention, ZDR scope and the training exclusion for Labs/Preview models documented with the contractual artefacts to file as transfer evidence.
+    terraform: []
+    native:
+      - native/data-residency.md
+gaps:
+  - control: AIG-06
+    note: No organization- or workspace-level model allow-list is documented. Enforce approved models in an API gateway or application config; keep Labs/Preview models (training-eligible, no ZDR) off the list. When Mistral models are consumed via Azure AI, Bedrock or Vertex, use those platforms' model-access policy.
+  - control: AIG-08
+    note: No private network path or customer-selectable region is documented for api.mistral.ai; processing is in Sweden. For private endpoints and in-region hosting outside the EU, consume Mistral through a hyperscaler (see the cloud packs) or self-deploy with vLLM.
+  - control: AIG-09
+    note: No customer-managed encryption key option is documented for La Plateforme.
+  - control: AIG-07
+    note: SCIM provisioning is not mentioned on the SSO page (UNVERIFIED); SSO is SAML 2.0 only (no OIDC) and Enterprise only. API keys cannot be created or rotated through the documented Admin API reference used here; rotation is create-new + delete-old in the Admin Panel. Workspace and API-key Admin API response shapes were not verified, so Terraform does not evaluate them.
+  - control: AIG-13
+    note: Audit-log retention and pagination parameters are not documented; the Admin API is Enterprise-only, so Team/Scale plans have no programmatic audit export. The authentication header differs between the authentication page (x-api-key) and the audit-logs reference (Bearer) — both are supported here.
+  - control: AIG-05
+    note: ZDR is granted on request and excludes Agents, Batch, Conversations, Libraries and Files; PII masking must be done in the application (the moderation `pii` category detects, it does not redact).
+  - control: AIG-11
+    note: No platform-side human-approval step for agent actions; implement approval in the orchestrating application (see the Rego rule anthropic-zero-trust/AIG-11 for the evidence the gate expects).
+  - control: AIG-17
+    note: Workspace spend limits exist in the Admin Panel but their API is unverified; no rate-limit API was verified. Set limits in the Admin Panel and record them in the system record.
+  - control: AIG-02
+    note: ISO/IEC 42001 certification is UNVERIFIED (Trust Center is gated); record the supplier assessment on SOC 2 Type II and ISO 27001/27701 only.

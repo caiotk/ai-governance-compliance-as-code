@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: SG
 name: Singapore
-frameworks: [sg-pdpa, iso27001, iso42001, zero-trust]
+frameworks: [sg-pdpa]
 sector_frameworks:
   fsi: [sg-mas-airm]
 notes: No AI statute; model governance frameworks and sector guidelines. MAS AI Risk Management Guidelines were finalised in Oct 2026.

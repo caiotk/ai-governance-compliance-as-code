@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: US
 name: United States
-frameworks: [us-ai, iso27001, iso42001, zero-trust]
+frameworks: [us-ai]
 notes: >-
   No federal AI statute. State laws apply by where the people affected are; EO 14365 (11 Dec 2025)
   challenges state AI laws but does not itself preempt them. Profiles list the main state laws; scope them to the states you operate in.

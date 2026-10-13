@@ -173,12 +173,18 @@ def instruments_for(jid: str, sector: str) -> list[tuple[str, str, dict]]:
     return out
 
 
+# Standards marked `baseline: true` are the organisation's voluntary baseline and
+# apply in every jurisdiction and sector without being listed per country.
+BASELINE = [fid for fid, f in frameworks.items() if f.get("baseline")]
+
+
 def frameworks_for(jid: str, sector: str) -> list[str]:
     j = jurisdictions[jid]
     fws = list(j.get("frameworks", []))
     for src in j.get("inherits", []):
         fws += [f for f in jurisdictions[src].get("frameworks", []) if f not in fws]
     fws += [f for f in j.get("sector_frameworks", {}).get(sector, []) if f not in fws]
+    fws += [f for f in BASELINE if f not in fws]
     return fws
 
 
@@ -206,12 +212,13 @@ GATE_LABEL = {
 catalog_json = {
     "asOf": frameworks_doc.get("asOf"),
     "gates": GATES,
+    "baseline": BASELINE,
     "controls": {
         cid: {"title": c["title"], "frameworks": sorted(c["mappings"].keys())} for cid, c in controls.items()
     },
     "jurisdictions": {
         jid: {
-            "frameworks": frameworks_for(jid, "") if jid != "EU" else j.get("frameworks", []),
+            "frameworks": [f for f in frameworks_for(jid, "") if f not in BASELINE] if jid != "EU" else j.get("frameworks", []),
             "sector_frameworks": j.get("sector_frameworks", {}),
         }
         for jid, j in jurisdictions.items()
@@ -359,30 +366,37 @@ def profile(jid: str, sector: str) -> tuple[str, dict, str]:
             "model": {"vendor": "other", "model_id": "", "hosting_region": ""},
         },
         "governance": {"policy_approved": False, "registered_in_inventory": False, "ai_literacy_training": False,
-                       "eu_database_registered": False},
-        "risk": {"classification": "limited", "impact_assessment": {"completed": False}, "dpia": {"completed": False},
+                       "eu_database_registered": False, "risk_tolerance_defined": False,
+                       "internal_audit": {"programme": False, "last_audit": "FILL IN: YYYY-MM-DD of last internal audit", "findings_tracked": False}},
+        "risk": {"classification": "limited",
+                 "impact_assessment": {"completed": False, "method": "FILL IN: e.g. ISO/IEC 42005:2025",
+                                       "review_date": "FILL IN: YYYY-MM-DD scheduled review", "interested_parties_identified": False},
+                 "dpia": {"completed": False},
                  "fria": {"completed": False}, "biometric_proportionality_assessment": False},
         "data": {"personal_data": True, "special_category": sector == "health", "provenance_documented": False,
                  "lawful_basis": "FILL IN: lawful basis for processing personal data", "cross_border_transfer": False,
                  "transfer_mechanism": "FILL IN: transfer mechanism, or leave if cross_border_transfer is false", "indirect_collection": False},
         "model": {"approved": False},
         "supplier": {"assessed": False, "no_training_on_customer_data": False, "outsourced": False,
-                     "material_service_provider": False, "register_entry": False, "regulator_access_assured": False},
+                     "material_service_provider": False, "register_entry": False, "regulator_access_assured": False, "ai_bom": False},
         "security": {"local_auth_disabled": False, "least_privilege": False, "private_network": False,
                      "data_residency_region": "FILL IN: processing region", "cmk": False, "short_lived_credentials": False, "tool_allowlist": False,
-                     "non_human_identity_pam": False},
+                     "non_human_identity_pam": False, "egress_allowlist": False, "sandboxed_execution": False,
+                     "idp_federated_identity": False},
         "runtime": {"content_filters": False, "prompt_attack_detection": False, "pii_filtering": False,
-                    "guardrail_enforced_centrally": False},
-        "oversight": {"human_in_the_loop": False, "override_and_stop": False, "contest_and_review": False},
+                    "guardrail_enforced_centrally": False, "output_validation": False},
+        "oversight": {"human_in_the_loop": False, "override_and_stop": False, "contest_and_review": False,
+                      "per_action_approval": False},
         "transparency": {"ai_disclosure": False, "adm_notice": False, "adverse_decision_explanation": False,
                          "synthetic_content_marking": False, "privacy_policy_adm_disclosure": False,
                          "indirect_collection_notice": False},
-        "logging": {"invocation_logging": False, "retention_days": 0},
-        "monitoring": {"drift_and_bias": False},
+        "logging": {"invocation_logging": False, "retention_days": 0, "siem_integrated": False},
+        "monitoring": {"drift_and_bias": False, "agent_telemetry": False},
         "testing": {"evaluation_completed": False, "red_team_completed": False, "bias_assessment": False,
-                    "independent_bias_audit": False, "independent_validation": False},
+                    "independent_bias_audit": False, "independent_validation": False,
+                    "threat_model": {"completed": False, "references": []}},
         "lifecycle": {"versioned": False, "promotion_gate": False},
-        "incident": {"runbook": False, "notification_matrix": []},
+        "incident": {"runbook": False, "notification_matrix": [], "lessons_learned": False},
         "resilience": {"fallback_tested": False, "exit_plan": False, "tolerance_levels_set": False, "backup_capability": False},
     }
     if jid == "US":
@@ -449,6 +463,7 @@ outputs[ROOT / "docs/CROSSWALK.md"] = crosswalk()
 site = {
     "asOf": frameworks_doc.get("asOf"),
     "frameworks": frameworks_doc["frameworks"],
+    "baseline": BASELINE,
     "controls": controls_doc["controls"],
     "sectors": sectors_doc["sectors"],
     "vendors": {vid: {k: vp.get(k) for k in ("name", "native_tools", "attestations", "implements", "gaps")} for vid, vp in vendor_packs.items()},

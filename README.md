@@ -10,13 +10,30 @@ Vendor-native AI governance policies, an MLOps compliance gate, and country × s
 
 | Layer | Where | What it gives you |
 |---|---|---|
-| **Unified control set** | [`catalog/controls.yaml`](catalog/controls.yaml) | 20 controls (AIG-01 … AIG-20) mapped clause-by-clause to ISO/IEC 27001, ISO/IEC 42001, zero trust, the EU AI Act (as amended by Reg (EU) 2026/1744), US federal and state law, GDPR, APRA CPS 230/234, RBNZ BS11, the Australian Privacy Act and the NZ Privacy Act, plus national laws for Brazil, Chile, Argentina, Japan and Singapore. [Crosswalk](docs/CROSSWALK.md). |
-| **Vendor policy packs** | [`vendors/`](vendors/) | Terraform **and** native-format policies for Microsoft Foundry, Copilot Studio, Amazon Bedrock, Google Cloud Vertex AI, OpenAI, Anthropic Claude and Meta Llama, each mapped to the controls and validated in CI. |
+| **Unified control set** | [`catalog/controls.yaml`](catalog/controls.yaml) | 21 controls (AIG-01 … AIG-21) mapped clause-by-clause to ISO/IEC 27001, ISO/IEC 42001, ISO/IEC 42005 (impact assessment), ISO 19011:2026 (auditing), NIST AI RMF 1.0 and AI 600-1, NIST SP 800-61r3 (incident response), OWASP LLM Top 10 2026 and Agentic Top 10, MITRE ATLAS, zero trust (SP 800-207 and Anthropic's zero-trust-for-agents guidance), the EU AI Act (as amended by Reg (EU) 2026/1744), US federal and state law, GDPR, APRA CPS 230/234, RBNZ BS11, the Australian Privacy Act and the NZ Privacy Act, plus national laws for Brazil, Chile, Argentina, Japan and Singapore. [Crosswalk](docs/CROSSWALK.md). |
+| **Vendor policy packs** | [`vendors/`](vendors/) | Terraform **and** native-format policies for Microsoft Foundry, Copilot Studio, Amazon Bedrock, Google Cloud Vertex AI, OpenAI, Anthropic Claude, Mistral AI and Meta Llama, each mapped to the controls and validated in CI. |
 | **MLOps governance gate** | [`mlops/`](mlops/) | OPA/Rego policies that evaluate an AI system record against every framework that applies to its countries, sector and entity types. Date-aware: obligations not yet in force are warnings with their start date. Reusable as a GitHub Actions workflow. |
 | **Compliance profiles** | [`profiles/`](profiles/) | 60 generated profiles (10 countries × 6 sectors): the laws and guidance that apply, what pushes a system into higher risk, the required controls, which vendor packs cover them, and a pre-filled system record to run through the gate. |
 
 Countries: Brazil, Chile, Argentina, Portugal, Spain, United States, Australia, New Zealand, Japan, Singapore.
 Sectors: health, financial services, public sector, agriculture, mining, technology companies.
+
+### Organisational baseline standards
+
+Standards marked `baseline: true` in [`catalog/frameworks.yaml`](catalog/frameworks.yaml) apply to every system in every country and sector, on top of the law that binds it:
+
+| Standard | What the gate checks |
+|---|---|
+| ISO/IEC 27001:2022, ISO/IEC 42001:2023 | Management-system controls behind AIG-01 … AIG-21; AIG-21 requires the system to sit in a planned internal audit programme (cl. 9.2). |
+| ISO 19011:2026 | Audit programme, last audit within the programme cycle (12 months here; ISO 19011 sets no cadence), findings tracked to closure (warnings). |
+| ISO/IEC 42005:2025 | Impact-assessment method recorded, scheduled review for high-risk/consequential systems, interested parties identified (warnings). |
+| NIST AI RMF 1.0 + AI 600-1 | Risk tolerance documented (MAP 1.5 / GOVERN 1.3), post-deployment monitoring (MEASURE 2.4 / MANAGE 4.1). |
+| NIST SP 800-61r3 (CSF 2.0 profile; r2 withdrawn 3 Apr 2025) | Lessons-learned loop (ID.IM), AI telemetry into the SOC (DE.CM). |
+| OWASP GenAI — LLM Top 10 2026, Agentic Top 10 | Threat model: required for agentic systems (deny), recommended for user-facing ones (warn); output validation for agents (deny). |
+| MITRE ATLAS 2026.09 | Per-action agent telemetry for scope-drift detection (deny); AI bill of materials (warn). |
+| Zero trust — NIST SP 800-207 + Anthropic *Zero trust for AI agents* (2026) | Short-lived credentials, tool allow-list, egress allow-listing (deny), sandboxed execution and IdP-federated identity (warn), per-action approval for irreversible agent actions (deny). |
+
+OWASP, MITRE ATLAS and the Anthropic guidance are not law; where the gate says **deny** for them it is this repository's organisational baseline for agents, stated as such in `mlops/policies/frameworks.rego`. Change the severity there if your baseline differs.
 
 ## Quick start
 
@@ -32,7 +49,7 @@ tools/ci.sh  # everything CI runs
 ### Run the gate on your own system
 
 1. Copy the pre-filled record for your country and sector, e.g. [`profiles/nz/fsi.system.yaml`](profiles/nz/fsi.system.yaml).
-2. Complete every field (meanings are in [`mlops/schema/ai-system.schema.json`](mlops/schema/ai-system.schema.json)). Set `context.entity_types` to switch on gated regimes (`apra_regulated`, `nz_registered_bank`, `mas_regulated`, `critical_infrastructure`, `us_bank`, `gpai_provider`), and `context.us_states` / `us_localities` for US state and city laws.
+2. Complete every field (meanings are in [`mlops/schema/ai-system.schema.json`](mlops/schema/ai-system.schema.json)). Set `context.entity_types` to switch on gated regimes (`apra_regulated`, `nz_registered_bank`, `mas_regulated`, `critical_infrastructure`, `us_bank`, `gpai_provider`); the baseline standards above apply automatically, and `context.us_states` / `us_localities` for US state and city laws.
 3. `python3 tools/gate.py my-system.yaml` — exit code 1 means a blocking finding.
 
 ### Use the gate in your model pipeline
@@ -57,6 +74,7 @@ The job fails on any `deny` finding, so a model cannot be promoted until its rec
 | [`gcp-vertex`](vendors/gcp-vertex/) | Organization Policy (`vertexai.allowedModels`, resource locations, CMEK), Model Armor floor settings, Data Access audit logs, VPC Service Controls | Terraform `google`, gcloud org-policy YAML, REST |
 | [`openai`](vendors/openai/) | Administration API: project model allow-lists, hosted-tool permissions, data retention, spend limits, service accounts, audit logs; Moderation API | Terraform `openai/openai`, Admin API scripts |
 | [`anthropic-claude`](vendors/anthropic-claude/) | Admin API workspaces, keys, usage/cost reports; Compliance API activity feed; `inference_geo` data residency | Terraform posture checks (no official provider), Admin API scripts |
+| [`mistral`](vendors/mistral/) | Admin API member/role inventory and audit-log export (Enterprise), Moderation API as a CI gate, server-side `guardrails` (moderation_llm_v2), ZDR and Sweden-hosted processing evidence | Terraform posture checks (no official provider), Admin API and moderation scripts |
 | [`meta-llama`](vendors/meta-llama/) | Llama Guard 4 (S1–S14), Prompt Guard 2, LlamaFirewall, Llama 4 Community License obligations; approved-model policy on Vertex, Foundry and Bedrock | Terraform (per host), policy YAML, Python |
 
 Every pack's `mapping.yaml` lists the controls it **implements** and the **gaps** it cannot close on the platform, and its README has an "Unverified / known gaps" section.

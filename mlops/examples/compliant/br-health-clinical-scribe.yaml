@@ -23,10 +23,15 @@ system:
   irreversible_actions: false
   critical_operation: true
   model: { vendor: aws-bedrock, model_id: approved-scribe-model, hosting_region: sa-east-1 }
-governance: { policy_approved: true, registered_in_inventory: true, ai_literacy_training: true }
+governance:
+  policy_approved: true
+  registered_in_inventory: true
+  ai_literacy_training: true
+  risk_tolerance_defined: true
+  internal_audit: { programme: true, last_audit: "2026-05-20", findings_tracked: true }
 risk:
   classification: high
-  impact_assessment: { completed: true }
+  impact_assessment: { completed: true, method: "ISO/IEC 42005:2025", review_date: "2027-05-20", interested_parties_identified: true }
   dpia: { completed: true }
 data:
   personal_data: true
@@ -35,13 +40,18 @@ data:
   lawful_basis: "LGPD Art 11 II (f) — tutela da saúde"
   cross_border_transfer: false
 model: { approved: true }
-supplier: { assessed: true, no_training_on_customer_data: true }
+supplier: { assessed: true, no_training_on_customer_data: true, ai_bom: true }
 security: { local_auth_disabled: true, least_privilege: true, private_network: true, data_residency_region: sa-east-1, cmk: true }
 runtime: { content_filters: true, prompt_attack_detection: true, pii_filtering: true }
 oversight: { human_in_the_loop: true, override_and_stop: true }
 transparency: { ai_disclosure: true, synthetic_content_marking: true }
-logging: { invocation_logging: true, retention_days: 1825 }
-testing: { evaluation_completed: true, red_team_completed: true, bias_assessment: true }
+logging: { invocation_logging: true, retention_days: 1825, siem_integrated: true }
+monitoring: { drift_and_bias: true }
+testing:
+  evaluation_completed: true
+  red_team_completed: true
+  bias_assessment: true
+  threat_model: { completed: true, references: [OWASP-LLM-2026, MITRE-ATLAS-2026.09] }
 lifecycle: { versioned: true, promotion_gate: true }
-incident: { runbook: true, notification_matrix: ["ANPD", "ANVISA-tecnovigilancia"] }
+incident: { runbook: true, notification_matrix: ["ANPD", "ANVISA-tecnovigilancia"], lessons_learned: true }
 resilience: { fallback_tested: true, exit_plan: true }

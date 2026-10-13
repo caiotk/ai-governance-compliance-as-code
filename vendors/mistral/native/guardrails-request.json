@@ -1,0 +1,24 @@
+{
+  "_comment": "AIG-10 — server-side guardrail on POST https://api.mistral.ai/v1/chat/completions (also accepted on /v1/conversations for agents). Verified 2026-10-13 on docs.mistral.ai/capabilities/guardrailing. With action=block a violating request or response returns HTTP 403 'Content blocked by guardrail'; block_on_error=true also blocks when the guardrail itself fails (error code 3201). Threshold keys are moderation category names and are model-version dependent; the deprecated boolean `safe_prompt` is NOT used here.",
+  "model": "mistral-large-latest",
+  "messages": [
+    { "role": "system", "content": "You are an internal assistant. Decline requests outside the approved use case." },
+    { "role": "user", "content": "Summarise the attached policy." }
+  ],
+  "guardrails": [
+    {
+      "moderation_llm_v2": {
+        "custom_category_thresholds": {
+          "sexual": 0.1,
+          "selfharm": 0.1,
+          "violence_and_threats": 0.2,
+          "hate_and_discrimination": 0.2,
+          "jailbreaking": 0.3
+        },
+        "ignore_other_categories": false,
+        "action": "block",
+        "block_on_error": true
+      }
+    }
+  ]
+}

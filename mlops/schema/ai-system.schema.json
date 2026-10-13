@@ -213,6 +213,7 @@
                 "openai",
                 "anthropic-claude",
                 "meta-llama",
+                "mistral",
                 "other"
               ]
             },
@@ -273,6 +274,29 @@
         "gpai_training_summary_published": {
           "type": "boolean",
           "description": "GPAI training-content summary published"
+        },
+        "risk_tolerance_defined": {
+          "type": "boolean",
+          "description": "Risk tolerance for this use case documented (NIST AI RMF MAP 1.5 / GOVERN 1.3)"
+        },
+        "internal_audit": {
+          "type": "object",
+          "properties": {
+            "programme": {
+              "type": "boolean",
+              "description": "System is in scope of the planned internal audit programme (ISO 19011 cl. 5; ISO/IEC 42001 9.2)"
+            },
+            "last_audit": {
+              "type": "string",
+              "description": "Date of the last internal audit covering this system (YYYY-MM-DD)",
+              "format": "date",
+              "pattern": "^(\\d{4}-\\d{2}-\\d{2}|FILL IN.*)$"
+            },
+            "findings_tracked": {
+              "type": "boolean",
+              "description": "Audit findings tracked to closure (ISO 19011 cl. 6.7)"
+            }
+          }
         }
       }
     },
@@ -293,6 +317,21 @@
             "completed": {
               "type": "boolean",
               "description": "AI system impact assessment completed (ISO/IEC 42005)"
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Impact-assessment method, e.g. ISO/IEC 42005:2025"
+            },
+            "review_date": {
+              "type": "string",
+              "description": "Scheduled review of the impact assessment (ISO/IEC 42005 cl. 5.12)",
+              "format": "date",
+              "pattern": "^(\\d{4}-\\d{2}-\\d{2}|FILL IN.*)$"
+            },
+            "interested_parties_identified": {
+              "type": "boolean",
+              "description": "Affected interested parties and their benefits/harms identified (ISO/IEC 42005 cl. 6.7)"
             }
           }
         },
@@ -381,6 +420,10 @@
         "regulator_access_assured": {
           "type": "boolean",
           "description": "Regulator / statutory manager access to systems and data assured (BS11)"
+        },
+        "ai_bom": {
+          "type": "boolean",
+          "description": "AI bill of materials maintained: models, tools, MCP servers, datasets (MITRE ATLAS AML.M0023)"
         }
       }
     },
@@ -423,6 +466,18 @@
         "non_human_identity_pam": {
           "type": "boolean",
           "description": "Privileged access management covers the non-human identity (APRA AI letter)"
+        },
+        "egress_allowlist": {
+          "type": "boolean",
+          "description": "Agent network egress restricted to an allow-list of domains"
+        },
+        "sandboxed_execution": {
+          "type": "boolean",
+          "description": "Agent tool/code execution runs in a sandbox with filesystem and network isolation"
+        },
+        "idp_federated_identity": {
+          "type": "boolean",
+          "description": "Agent and user identity federated from the corporate IdP (SSO + SCIM), no long-lived vendor keys"
         }
       }
     },
@@ -444,6 +499,10 @@
         "guardrail_enforced_centrally": {
           "type": "boolean",
           "description": "Guardrails enforced outside the application (org policy, gateway, floor setting)"
+        },
+        "output_validation": {
+          "type": "boolean",
+          "description": "Model output validated/sanitised before being executed or rendered (OWASP LLM10:2026)"
         }
       }
     },
@@ -461,6 +520,10 @@
         "contest_and_review": {
           "type": "boolean",
           "description": "Affected people can contest the decision and obtain human review (GDPR Art 22; LGPD Art 20; Colorado SB 26-189)"
+        },
+        "per_action_approval": {
+          "type": "boolean",
+          "description": "Irreversible agent actions require per-action human approval"
         }
       }
     },
@@ -503,6 +566,10 @@
         "retention_days": {
           "type": "integer",
           "minimum": 0
+        },
+        "siem_integrated": {
+          "type": "boolean",
+          "description": "AI telemetry forwarded to the SIEM/SOC (NIST SP 800-61r3 DE.CM)"
         }
       }
     },
@@ -528,6 +595,22 @@
         "independent_validation": {
           "type": "boolean",
           "description": "Independent model validation (SR 26-2)"
+        },
+        "threat_model": {
+          "type": "object",
+          "properties": {
+            "completed": {
+              "type": "boolean",
+              "description": "Threat model covering OWASP LLM Top 10 / Agentic Top 10 and MITRE ATLAS completed"
+            },
+            "references": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Threat catalogues used, e.g. OWASP-LLM-2026, OWASP-ASI-2026, MITRE-ATLAS-2026.09"
+            }
+          }
         }
       }
     },
@@ -557,6 +640,10 @@
             "type": "string"
           },
           "description": "Regulator notification tokens the gate checks: APRA:72h, CSIRT-Nacional; add your own (OAIC:NDB, ANPD, …)"
+        },
+        "lessons_learned": {
+          "type": "boolean",
+          "description": "Post-incident lessons-learned process feeds the runbook (NIST SP 800-61r3 ID.IM)"
         }
       }
     },
@@ -596,6 +683,10 @@
         "drift_and_bias": {
           "type": "boolean",
           "description": "Production monitoring for drift and bias"
+        },
+        "agent_telemetry": {
+          "type": "boolean",
+          "description": "Per-action agent telemetry (tool, parameters, outcome) emitted for scope-drift detection (MITRE ATLAS AML.M0024/M0038)"
         }
       }
     }

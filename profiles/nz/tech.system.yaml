@@ -38,10 +38,18 @@ governance:
   registered_in_inventory: false
   ai_literacy_training: false
   eu_database_registered: false
+  risk_tolerance_defined: false
+  internal_audit:
+    programme: false
+    last_audit: 'FILL IN: YYYY-MM-DD of last internal audit'
+    findings_tracked: false
 risk:
   classification: limited
   impact_assessment:
     completed: false
+    method: 'FILL IN: e.g. ISO/IEC 42005:2025'
+    review_date: 'FILL IN: YYYY-MM-DD scheduled review'
+    interested_parties_identified: false
   dpia:
     completed: false
   fria:
@@ -65,6 +73,7 @@ supplier:
   material_service_provider: false
   register_entry: false
   regulator_access_assured: false
+  ai_bom: false
 security:
   local_auth_disabled: false
   least_privilege: false
@@ -74,15 +83,20 @@ security:
   short_lived_credentials: false
   tool_allowlist: false
   non_human_identity_pam: false
+  egress_allowlist: false
+  sandboxed_execution: false
+  idp_federated_identity: false
 runtime:
   content_filters: false
   prompt_attack_detection: false
   pii_filtering: false
   guardrail_enforced_centrally: false
+  output_validation: false
 oversight:
   human_in_the_loop: false
   override_and_stop: false
   contest_and_review: false
+  per_action_approval: false
 transparency:
   ai_disclosure: false
   adm_notice: false
@@ -93,20 +107,26 @@ transparency:
 logging:
   invocation_logging: false
   retention_days: 0
+  siem_integrated: false
 monitoring:
   drift_and_bias: false
+  agent_telemetry: false
 testing:
   evaluation_completed: false
   red_team_completed: false
   bias_assessment: false
   independent_bias_audit: false
   independent_validation: false
+  threat_model:
+    completed: false
+    references: []
 lifecycle:
   versioned: false
   promotion_gate: false
 incident:
   runbook: false
   notification_matrix: []
+  lessons_learned: false
 resilience:
   fallback_tested: false
   exit_plan: false

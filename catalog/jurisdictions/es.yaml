@@ -3,7 +3,7 @@ kind: Jurisdiction
 id: ES
 name: Spain
 inherits: [EU]
-frameworks: [eu-ai-act, gdpr, iso27001, iso42001, zero-trust]
+frameworks: [eu-ai-act, gdpr]
 notes: Spain's national AI law is a Proyecto de Ley Orgánica before the Congreso (BOCG 12 Jun 2026). NIS2 is not transposed; the Commission referred Spain to the CJEU on 8 Jul 2026.
 instruments:
   horizontal:

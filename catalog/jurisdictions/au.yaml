@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: AU
 name: Australia
-frameworks: [au-privacy, iso27001, iso42001, zero-trust]
+frameworks: [au-privacy]
 sector_frameworks:
   fsi: [apra]
 notes: The National AI Plan (Dec 2025) relies on existing laws; there are no mandatory AI guardrails.

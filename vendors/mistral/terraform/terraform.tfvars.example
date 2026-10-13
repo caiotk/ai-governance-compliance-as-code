@@ -1,0 +1,14 @@
+# Copy to terraform.tfvars. Provide keys through the environment:
+#   export TF_VAR_mistral_admin_api_key=...   # Backoffice Admin API key (Enterprise)
+#   export TF_VAR_mistral_api_key=...         # optional Workspace key for the moderation smoke test
+# This module only reads the Admin and Moderation APIs and verifies posture; it changes nothing.
+
+admin_auth_scheme  = "x-api-key" # "bearer" if your tenant follows the audit-logs reference page
+max_org_admins     = 3
+users_page_size    = 50
+require_audit_logs = true
+moderation_model      = "mistral-moderation-latest"
+moderation_smoke_test = true
+
+# true in CI (plan fails on violations); false for a report-only run.
+fail_on_violation = true

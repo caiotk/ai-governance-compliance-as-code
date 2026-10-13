@@ -6,10 +6,17 @@
     "sector_name": "Health",
     "frameworks": [
       "br-lgpd",
+      "br-cfm",
       "iso27001",
       "iso42001",
       "zero-trust",
-      "br-cfm"
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -32,7 +39,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -168,7 +176,14 @@
       "br-lgpd",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -191,7 +206,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -314,7 +330,14 @@
       "br-lgpd",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -337,7 +360,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -454,7 +478,14 @@
       "br-lgpd",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -477,7 +508,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -591,7 +623,14 @@
       "br-lgpd",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -614,7 +653,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -731,7 +771,14 @@
       "br-lgpd",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -754,7 +801,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -886,7 +934,14 @@
       "cl-21663",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "critical_infrastructure"
@@ -911,7 +966,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -1017,7 +1073,14 @@
       "cl-21663",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1042,7 +1105,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -1168,7 +1232,14 @@
       "cl-21663",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1193,7 +1264,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -1299,7 +1371,14 @@
       "cl-21663",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1324,7 +1403,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -1427,7 +1507,14 @@
       "cl-21663",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1452,7 +1539,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -1559,7 +1647,14 @@
       "cl-21663",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1584,7 +1679,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -1687,7 +1783,14 @@
       "ar-25326",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -1710,7 +1813,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -1799,7 +1903,14 @@
       "ar-25326",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -1822,7 +1933,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -1916,7 +2028,14 @@
       "ar-25326",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -1939,7 +2058,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -2029,7 +2149,14 @@
       "ar-25326",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -2052,7 +2179,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -2137,7 +2265,14 @@
       "ar-25326",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -2160,7 +2295,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -2247,7 +2383,14 @@
       "ar-25326",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -2270,7 +2413,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -2357,7 +2501,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -2380,7 +2531,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -2605,7 +2757,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -2628,7 +2787,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -2858,7 +3018,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -2881,7 +3048,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -3090,7 +3258,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -3113,7 +3288,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -3318,7 +3494,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -3341,7 +3524,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -3533,7 +3717,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -3556,7 +3747,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -3778,7 +3970,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -3801,7 +4000,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -3997,7 +4197,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -4020,7 +4227,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -4221,7 +4429,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -4244,7 +4459,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -4423,7 +4639,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -4446,7 +4669,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -4622,7 +4846,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -4645,7 +4876,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -4808,7 +5040,14 @@
       "gdpr",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -4831,7 +5070,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -5009,7 +5249,14 @@
       "us-ai",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -5032,7 +5279,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -5230,7 +5478,14 @@
       "us-ai",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -5253,7 +5508,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -5456,7 +5712,14 @@
       "us-ai",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -5479,7 +5742,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -5649,7 +5913,14 @@
       "us-ai",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -5672,7 +5943,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -5837,7 +6109,14 @@
       "us-ai",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -5860,7 +6139,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -6027,7 +6307,14 @@
       "us-ai",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -6050,7 +6337,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -6216,7 +6504,14 @@
       "au-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -6239,7 +6534,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -6361,10 +6657,17 @@
     "sector_name": "Financial services",
     "frameworks": [
       "au-privacy",
+      "apra",
       "iso27001",
       "iso42001",
       "zero-trust",
-      "apra"
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "apra_regulated"
@@ -6389,7 +6692,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -6564,7 +6868,14 @@
       "au-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -6587,7 +6898,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -6698,7 +7010,14 @@
       "au-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -6721,7 +7040,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -6828,7 +7148,14 @@
       "au-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -6851,7 +7178,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -6961,7 +7289,14 @@
       "au-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -6984,7 +7319,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -7106,7 +7442,14 @@
       "nz-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -7129,7 +7472,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -7247,10 +7591,17 @@
     "sector_name": "Financial services",
     "frameworks": [
       "nz-privacy",
+      "rbnz-bs11",
       "iso27001",
       "iso42001",
       "zero-trust",
-      "rbnz-bs11"
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "nz_registered_bank"
@@ -7275,7 +7626,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -7402,7 +7754,14 @@
       "nz-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -7425,7 +7784,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -7535,7 +7895,14 @@
       "nz-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -7558,7 +7925,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -7662,7 +8030,14 @@
       "nz-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -7685,7 +8060,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -7790,7 +8166,14 @@
       "nz-privacy",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -7813,7 +8196,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -7917,7 +8301,14 @@
       "jp-appi",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -7940,7 +8331,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -8072,7 +8464,14 @@
       "jp-appi",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -8095,7 +8494,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -8217,7 +8617,14 @@
       "jp-appi",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -8240,7 +8647,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -8359,7 +8767,14 @@
       "jp-appi",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -8382,7 +8797,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -8497,7 +8913,14 @@
       "jp-appi",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -8520,7 +8943,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -8636,7 +9060,14 @@
       "jp-appi",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -8659,7 +9090,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -8774,7 +9206,14 @@
       "sg-pdpa",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -8797,7 +9236,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -8906,10 +9346,17 @@
     "sector_name": "Financial services",
     "frameworks": [
       "sg-pdpa",
+      "sg-mas-airm",
       "iso27001",
       "iso42001",
       "zero-trust",
-      "sg-mas-airm"
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [
       "mas_regulated"
@@ -8934,7 +9381,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -9068,7 +9516,14 @@
       "sg-pdpa",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -9091,7 +9546,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -9200,7 +9656,14 @@
       "sg-pdpa",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -9223,7 +9686,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -9329,7 +9793,14 @@
       "sg-pdpa",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -9352,7 +9823,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -9459,7 +9931,14 @@
       "sg-pdpa",
       "iso27001",
       "iso42001",
-      "zero-trust"
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust"
     ],
     "gated": [],
     "required_controls": [
@@ -9482,7 +9961,8 @@
       "AIG-17",
       "AIG-18",
       "AIG-19",
-      "AIG-20"
+      "AIG-20",
+      "AIG-21"
     ],
     "emphasised_controls": [
       "AIG-04",

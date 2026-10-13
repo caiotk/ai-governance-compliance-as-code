@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Unified AI governance control set (AIG-01 … AIG-20).
+# Unified AI governance control set (AIG-01 … AIG-21).
 #
 # Each control is implemented once and evidenced many times: `mappings` lists
 # the clauses it satisfies in each framework, `evidence` lists the fields in an
@@ -31,6 +31,8 @@ controls:
       gdpr: ["Art 5(2) accountability", "Art 24 responsibility of the controller"]
       br-cfm: ["Institutional AI governance for medical AI"]
       sg-mas-airm: ["Board and senior management oversight of AI"]
+      nist-ai-rmf: ["GOVERN 1 policies and processes", "GOVERN 2 accountability structures", "GOVERN 3 workforce diversity and inclusion"]
+      anthropic-zero-trust: ["CISO guide: least agency as the governing principle; admin-paced rollout"]
 
   - id: AIG-02
     title: AI system and agent inventory
@@ -46,6 +48,10 @@ controls:
       au-privacy: ["APP 1.7–1.9 identify automated decisions for the privacy policy"]
       nz-privacy: ["Public Service AI Framework: governance pillar"]
       sg-mas-airm: ["AI inventory and materiality assessment (sections 3–4)"]
+      nist-ai-rmf: ["GOVERN 1.6 inventory of AI systems", "MAP 1 context established"]
+      mitre-atlas: ["AML.M0023 AI Bill of Materials"]
+      owasp-genai: ["LLM04:2026 Supply Chain (know what you run)"]
+      anthropic-zero-trust: ["eBook phase 1 identify requirements; Foundation tier cryptographically rooted agent IDs"]
 
   - id: AIG-03
     title: Risk classification and impact assessment
@@ -62,6 +68,8 @@ controls:
       iso27001: ["Clause 6.1.2 Information security risk assessment"]
       br-lgpd: ["Art 38 data protection impact report"]
       sg-mas-airm: ["Materiality assessment"]
+      nist-ai-rmf: ["MAP 5.1 impacts to individuals, groups and society", "MAP 1.5 / GOVERN 1.3 risk tolerance"]
+      iso42005: ["5.4 Timing of the impact assessment", "5.7 Thresholds for sensitive and restricted uses", "5.11 Approval", "6.3 System information incl. intended and unintended uses", "6.7 Interested parties", "6.8 Benefits and harms", "Annex D alignment with DPIA and other assessments"]
 
   - id: AIG-04
     title: Data governance, quality and provenance
@@ -78,6 +86,11 @@ controls:
       br-lgpd: ["Arts 7 and 11 legal bases"]
       jp-appi: ["Purpose of use; 2026 amendment statistical-creation exemption"]
       sg-pdpa: ["Consent, business improvement and research exceptions"]
+      nist-ai-rmf: ["MAP 2.3 data and inputs", "MEASURE 2.1 test sets and data representativeness"]
+      mitre-atlas: ["AML.M0025 Maintain AI Dataset Provenance", "AML.M0007 Sanitize Training Data"]
+      owasp-genai: ["LLM05:2026 Data and Model Poisoning", "LLM09:2026 Vector and Embedding Weaknesses", "ASI06 Memory & Context Poisoning"]
+      iso42005: ["6.4 Data information and quality"]
+      anthropic-zero-trust: ["eBook phase 7 safeguard agent memory (session isolation, context-integrity validation)"]
 
   - id: AIG-05
     title: Personal data protection and minimisation
@@ -96,6 +109,9 @@ controls:
       ar-25326: ["Sensitive data rules"]
       jp-appi: ["Special care-required personal information"]
       sg-pdpa: ["Protection obligation"]
+      nist-ai-rmf: ["AI 600-1 2.4 Data Privacy"]
+      owasp-genai: ["LLM02:2026 Sensitive Information Disclosure", "LLM08:2026 Hidden Context Exposure"]
+      mitre-atlas: ["AML.M0012 Encrypt Sensitive Information"]
 
   - id: AIG-06
     title: Approved models and AI supply chain
@@ -111,6 +127,10 @@ controls:
       gdpr: ["Art 28 Processor"]
       zero-trust: ["CISA ZTMM: Applications & Workloads"]
       sg-mas-airm: ["Accountability for third-party AI (sections 5–6)"]
+      nist-ai-rmf: ["GOVERN 6 third-party risks", "AI 600-1 2.12 Value Chain and Component Integration"]
+      owasp-genai: ["LLM04:2026 Supply Chain", "ASI04 Agentic Supply Chain Vulnerabilities"]
+      mitre-atlas: ["AML.M0014 Verify AI Artifacts", "AML.M0013 Code Signing", "AML.M0023 AI Bill of Materials", "AML.T0109 AI Supply Chain Rug Pull", "AML.T0110 AI Agent Tool Poisoning"]
+      anthropic-zero-trust: ["eBook phase 2 manage supply chain risks (MCP stack, tool poisoning, rug pulls)"]
 
   - id: AIG-07
     title: Workload and agent identity with least privilege
@@ -126,6 +146,10 @@ controls:
       au-privacy: ["APP 11 security"]
       nz-privacy: ["IPP 5 storage and security"]
       cl-21663: ["OIV security duties (Art 8)"]
+      nist-ai-rmf: ["AI 600-1 2.9 Information Security"]
+      owasp-genai: ["LLM03:2026 Excessive Agency", "ASI03 Identity and Privilege Abuse"]
+      mitre-atlas: ["AML.M0019 Control Access to AI Models and Data in Production", "AML.M0026 Privileged AI Agent Permissions Configuration", "AML.M0027 Single-User AI Agent Permissions Configuration", "AML.M0028 AI Agent Tools Permissions Configuration", "AML.M0037 AI Agent Authority Expansion Controls"]
+      anthropic-zero-trust: ["Foundation tier: cryptographically rooted agent IDs, short-lived OAuth tokens, deny-by-default RBAC", "Workload Identity Federation (short-lived tokens, jti replay protection)", "Claude Code permissions.deny / allowManagedPermissionRulesOnly / allowedMcpServers", "CISO guide: identity from your IdP with SCIM; per-tool per-action approval"]
 
   - id: AIG-08
     title: Network isolation and data residency
@@ -140,6 +164,9 @@ controls:
       au-privacy: ["APP 8 cross-border disclosure"]
       nz-privacy: ["IPP 12 disclosure outside New Zealand"]
       eu-ai-act: ["Art 15 cybersecurity"]
+      owasp-genai: ["ASI07 Insecure Inter-Agent Communication"]
+      mitre-atlas: ["AML.M0032 Segmentation of AI Agent Components"]
+      anthropic-zero-trust: ["CISO guide: egress allow-listing (strongest control against prompt injection)", "Claude Code sandbox.network.allowedDomains / allowManagedDomainsOnly", "eBook Enterprise tier: mutual TLS, sandboxed execution"]
 
   - id: AIG-09
     title: Encryption and key management
@@ -153,6 +180,8 @@ controls:
       us-ai: ["hipaa §164.312 encryption (addressable)"]
       au-privacy: ["APP 11 security"]
       nz-privacy: ["IPP 5 storage and security"]
+      mitre-atlas: ["AML.M0012 Encrypt Sensitive Information", "AML.M0005 Control Access to AI Models and Data at Rest"]
+      anthropic-zero-trust: ["Advanced tier: hardware-backed identity, confidential computing", "Claude Code sandbox.credentials masking"]
 
   - id: AIG-10
     title: Runtime guardrails and content safety
@@ -165,6 +194,10 @@ controls:
       zero-trust: ["SP 800-207 policy enforcement point (PEP)", "Careful Adoption of Agentic AI Services"]
       us-ai: ["tx-traiga prohibited intents (manipulation, CSAM, sexual deepfakes)", "nist-ai-rmf MANAGE; NIST AI 600-1"]
       apra: ["AI letter: enforceable technical controls rather than policy alone"]
+      nist-ai-rmf: ["MANAGE 4 response and recovery; AI 600-1 2.3 Dangerous, Violent, or Hateful Content, 2.8 Information Integrity, 2.9 Information Security"]
+      owasp-genai: ["LLM01:2026 Prompt Injection", "LLM10:2026 Improper Output Handling", "LLM06:2026 Unbounded Consumption", "ASI01 Agent Goal Hijack", "ASI02 Tool Misuse and Exploitation", "ASI05 Unexpected Code Execution (RCE)"]
+      mitre-atlas: ["AML.M0020 Generative AI Guardrails", "AML.M0030 Restrict AI Agent Tool Invocation on Untrusted Data", "AML.M0033 Input and Output Validation for AI Agent Components", "AML.M0004 Limit AI Service Query Volume and Rate", "AML.M0036 Limit AI Workload Resource Consumption", "AML.T0051 LLM Prompt Injection", "AML.T0054 LLM Jailbreak"]
+      anthropic-zero-trust: ["eBook phase 4 defend against prompt injection; phase 5 secure tool access (deny-by-default tool allow-lists, parameter validation, rate limits, circuit breakers)", "Claude Code sandbox.enabled / failIfUnavailable / allowUnsandboxedCommands=false"]
 
   - id: AIG-11
     title: Human oversight of consequential decisions and actions
@@ -183,6 +216,10 @@ controls:
       br-cfm: ["Physician makes the final decision"]
       cl-21719: ["Art 8 bis automated decisions and profiling"]
       ar-25326: ["Art 20 solely automated decisions"]
+      nist-ai-rmf: ["GOVERN 3.2 / MANAGE 4.1 human oversight; AI 600-1 2.7 Human-AI Configuration"]
+      owasp-genai: ["ASI09 Human-Agent Trust Exploitation", "ASI10 Rogue Agents"]
+      mitre-atlas: ["AML.M0029 Human In-the-Loop for AI Agent Actions", "AML.M0038 AI Agent Scope Drift Detection"]
+      anthropic-zero-trust: ["CISO guide: per-tool per-action approval; org-wide off switch incl. active sessions", "Trustworthy agents: keeping humans in control"]
 
   - id: AIG-12
     title: Transparency, notice and explanation
@@ -198,6 +235,8 @@ controls:
       br-cfm: ["Patients told when AI is used"]
       cl-21719: ["Information rights on automated decisions"]
       sg-pdpa: ["PDPC AI guidelines: notification of AI use and purpose"]
+      nist-ai-rmf: ["GOVERN 5 engagement with AI actors and affected communities", "MEASURE 2.8 transparency and accountability, MEASURE 2.9 explainability; AI 600-1 2.8 Information Integrity"]
+      owasp-genai: ["LLM07:2026 Misinformation"]
 
   - id: AIG-13
     title: Logging, monitoring and record-keeping
@@ -212,6 +251,11 @@ controls:
       us-ai: ["hipaa §164.312(b) audit controls", "co-sb26-189 record retention (3 years)"]
       br-cfm: ["AI use recorded in the clinical chart"]
       sg-mas-airm: ["Lifecycle monitoring (sections 5–6)"]
+      nist-ai-rmf: ["MEASURE 2.4 functionality and behaviour monitored in production; MANAGE 4.1 post-deployment monitoring"]
+      owasp-genai: ["Agentic AI Threats T8 Repudiation & Untraceability"]
+      mitre-atlas: ["AML.M0024 AI Telemetry Logging", "AML.M0038 AI Agent Scope Drift Detection", "AML.M0039 AI Honeypots"]
+      nist-sp-800-61: ["CSF 2.0 DE.CM continuous monitoring and DE.AE adverse event analysis (Rev. 3 Table 3, High priority)"]
+      anthropic-zero-trust: ["eBook phase 8 measure what matters; immutable audit trails; OpenTelemetry to SIEM", "Compliance API activity feed"]
 
   - id: AIG-14
     title: Pre-deployment testing, evaluation and red-teaming
@@ -225,6 +269,11 @@ controls:
       apra: ["CPS 234 paras 26–31 testing control effectiveness", "AI letter: security testing of AI-generated code"]
       au-privacy: ["Guidance for AI Adoption practice 5: test and monitor"]
       sg-mas-airm: ["Validation and testing across the AI lifecycle"]
+      nist-ai-rmf: ["MEASURE 1–2 TEVV; MEASURE 2.5 validity and reliability; MEASURE 2.7 security and resilience"]
+      owasp-genai: ["AI Exchange section 5 AI security testing", "AIVSS scoring"]
+      mitre-atlas: ["AML.M0035 AI Red Team", "AML.M0016 Vulnerability Scanning", "AML.M0008 Validate AI Model"]
+      iso42005: ["6.8.3 AI system failures and reasonably foreseeable misuse"]
+      anthropic-zero-trust: ["Trustworthy agents: layered prompt-injection defences incl. red-teaming"]
 
   - id: AIG-15
     title: Change management and model lifecycle
@@ -237,6 +286,9 @@ controls:
       apra: ["CPS 230 paras 26–28 assessment before material change"]
       us-ai: ["sr26-2 ongoing monitoring and change control"]
       sg-mas-airm: ["Change management across the AI lifecycle"]
+      nist-ai-rmf: ["MANAGE 1 risks prioritised and managed; GOVERN 1.7 decommissioning"]
+      mitre-atlas: ["AML.M0017 AI Model Distribution Methods", "AML.M0011 Restrict Library Loading"]
+      iso42005: ["5.12 Monitoring and review of the impact assessment"]
 
   - id: AIG-16
     title: Incident management and regulator notification
@@ -252,6 +304,10 @@ controls:
       au-privacy: ["Notifiable Data Breaches scheme (Part IIIC)"]
       nz-privacy: ["Part 6 notifiable privacy breaches"]
       cl-21663: ["Art 9 incident reporting to the CSIRT Nacional"]
+      nist-sp-800-61: ["Rev. 3 §2.1 incident response life cycle on CSF 2.0 (Govern/Identify/Protect prepare; Detect/Respond/Recover respond; ID.IM lessons learned)", "RS.MA incident management, RS.AN analysis, RS.CO communication, RS.MI mitigation; RC.RP recovery plan execution, RC.CO recovery communication (all High priority)", "Rev. 2 phases retained as aliases: Preparation; Detection & Analysis; Containment, Eradication & Recovery; Post-Incident Activity"]
+      nist-ai-rmf: ["MANAGE 4.3 incident response and communication; GOVERN 6.2 third-party incident contingency"]
+      owasp-genai: ["ASI08 Cascading Failures"]
+      anthropic-zero-trust: ["eBook Part V defensive operations at the speed of autonomous threats (Agentic SOAR)"]
 
   - id: AIG-17
     title: Operational resilience, outsourcing and exit
@@ -263,6 +319,9 @@ controls:
       iso27001: ["A.5.29 Information security during disruption", "A.5.30 ICT readiness for business continuity", "A.8.13 Information backup"]
       iso42001: ["A.10.3 Suppliers"]
       eu-ai-act: ["Art 15(4) resilience and fail-safe plans"]
+      nist-ai-rmf: ["MANAGE 2.3–2.4 fallback, supersede/disengage/deactivate; GOVERN 1.7 decommissioning; GOVERN 6.2 third-party contingency"]
+      nist-sp-800-61: ["RC.RP recovery plan; PR.DS-11 backups (High)"]
+      owasp-genai: ["ASI08 Cascading Failures"]
 
   - id: AIG-18
     title: Cross-border transfer safeguards
@@ -290,6 +349,9 @@ controls:
       iso42001: ["A.4.6 Human resources", "7.2 Competence"]
       apra: ["AI letter: board AI literacy"]
       us-ai: ["omb-m-25-21 workforce AI training"]
+      nist-ai-rmf: ["GOVERN 2.2 training on AI risk management"]
+      mitre-atlas: ["AML.M0018 User Training", "AML.M0021 Generative AI Guidelines"]
+      iso19011: ["7 Competence and evaluation of auditors (for the audit function)"]
 
   - id: AIG-20
     title: Fairness and non-discrimination
@@ -303,3 +365,17 @@ controls:
       apra: ["AI letter: continuous validation for bias"]
       nz-privacy: ["Algorithm Charter: people and data commitments"]
       au-privacy: ["Guidance for AI Adoption practice 2: understand impacts"]
+      nist-ai-rmf: ["MEASURE 2.11 fairness and bias; AI 600-1 2.6 Harmful Bias and Homogenization"]
+      iso42005: ["6.7 Relevant interested parties; Annex C harms and benefits taxonomy"]
+
+  - id: AIG-21
+    title: Internal audit and independent assurance
+    objective: The AI management system and its controls are audited on a planned programme by competent, independent auditors, with findings tracked to closure and evidence retained for certification.
+    evidence: [governance.internal_audit.programme, governance.internal_audit.last_audit, governance.internal_audit.findings_tracked]
+    mappings:
+      iso19011: ["4 Principles of auditing (4.2–4.8)", "5 Managing an audit programme (5.2 objectives, 5.3 risks and opportunities, 5.5 implementing, 5.7 reviewing and improving)", "6 Conducting an audit (6.4.7 collecting and verifying information, 6.4.8 audit findings, 6.7 follow-up)", "7 Competence and evaluation of auditors"]
+      iso42001: ["9.2 Internal audit (9.2.1 General; 9.2.2 Internal audit programme)", "9.3 Management review", "10.2 Nonconformity and corrective action", "10.1 Continual improvement", "ISO/IEC 42006:2025 for third-party certification audits"]
+      iso27001: ["Clause 9.2 Internal audit", "Clause 9.3 Management review", "A.5.35 Independent review of information security"]
+      nist-ai-rmf: ["MEASURE 1.3 independent assessors"]
+      apra: ["CPS 234 paras 32–34 internal audit", "CPS 230 paras 29–31 controls tested and remediated"]
+      eu-ai-act: ["Art 17(1)(a)–(b) QMS compliance strategy and procedures; Art 72 post-market monitoring"]

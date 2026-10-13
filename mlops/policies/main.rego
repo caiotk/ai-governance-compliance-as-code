@@ -83,6 +83,12 @@ frameworks contains fw if {
 	entity(catalog.gates[fw].entity_type)
 }
 
+# Baseline standards (ISO 27001/42001/42005/19011, NIST AI RMF, SP 800-61,
+# OWASP, MITRE ATLAS, zero trust) apply to every system regardless of country.
+frameworks contains fw if {
+	some fw in catalog.baseline
+}
+
 gate_ok(fw) if not catalog.gates[fw]
 
 gate_ok(fw) if entity(catalog.gates[fw].entity_type)

@@ -3,7 +3,7 @@ kind: Jurisdiction
 id: PT
 name: Portugal
 inherits: [EU]
-frameworks: [eu-ai-act, gdpr, iso27001, iso42001, zero-trust]
+frameworks: [eu-ai-act, gdpr]
 instruments:
   horizontal:
     - id: pt-ai-authorities

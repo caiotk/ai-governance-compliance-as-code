@@ -2,7 +2,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: CL
 name: Chile
-frameworks: [cl-21719, cl-21663, iso27001, iso42001, zero-trust]
+frameworks: [cl-21719, cl-21663]
 notes: The AI bill is in the Senate and the government plans an innovation-first substitute text. Ley 21.719 is due in force 1 Dec 2026, but bill 18.623-07 would postpone it.
 instruments:
   horizontal:
