@@ -21,12 +21,12 @@ Sectors: health, financial services, public sector, agriculture, mining, technol
 ## Quick start
 
 ```bash
-pip install pyyaml jsonschema cfn-lint          # plus opa, terraform, bicep on PATH
-python3 tools/build.py                           # validate the catalogue, regenerate profiles and crosswalk
+pip install pyyaml jsonschema cfn-lint  # plus opa, terraform, bicep on PATH
+python3 tools/build.py  # validate the catalogue, regenerate profiles and crosswalk
 opa test mlops/policies mlops/tests mlops/data/catalog.json
-python3 tools/gate.py mlops/examples/compliant/*.yaml             # ALLOW
-python3 tools/gate.py --expect-fail mlops/examples/noncompliant/*.yaml   # DENY, with every finding
-tools/ci.sh                                      # everything CI runs
+python3 tools/gate.py mlops/examples/compliant/*.yaml  # ALLOW
+python3 tools/gate.py --expect-fail mlops/examples/noncompliant/*.yaml  # DENY, with every finding
+tools/ci.sh  # everything CI runs
 ```
 
 ### Run the gate on your own system
@@ -63,7 +63,8 @@ Every pack's `mapping.yaml` lists the controls it **implements** and the **gaps*
 
 ## How the pieces fit
 
-```mermaid
+```
+mermaid
 flowchart LR
   C[catalog/<br/>frameworks · controls<br/>jurisdictions · sectors] --> B[tools/build.py]
   B --> P[profiles/<br/>60 country × sector]
