@@ -100,4 +100,4 @@ Facts go in `catalog/`, never in generated files. Run `python3 tools/build.py` a
 
 ## Licence
 
-MIT. Built by [Caio Augusto Tkalec](https://www.linkedin.com/in/caiotk).
+MIT. Built by [Caio TK](https://www.linkedin.com/in/caiotk).
