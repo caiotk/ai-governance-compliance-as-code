@@ -3,6 +3,8 @@ kind: Jurisdiction
 id: AR
 name: Argentina
 frameworks: [ar-25326]
+sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
 notes: No AI law. 53 AI-related bills were filed in 2025; none enacted as of Apr 2026.
 instruments:
   horizontal:
@@ -81,3 +83,21 @@ instruments:
         url: https://servicios.infoleg.gob.ar/infolegInternet/anexos/0-4999/638/texact.htm
         verification: unverified
         controls: [AIG-12]
+    energy:
+      - id: ar-cyber-framework-energy
+        name: National cyber framework applied to energy — Decreto 577/2017 (Comité de Ciberseguridad), Res. 1523/2019 (critical information infrastructure), Decreto 941/2025 (Centro Nacional de Ciberseguridad), Disposición 1/2026 (contingency plans)
+        regulator: Centro Nacional de Ciberseguridad / Secretaría de Energía
+        citation: "Decreto 577/2017 (B.O. 2017-07-31); Res. 1523/2019; Decreto 941/2025; Disp. 1/2026"
+        status: in-force
+        url: https://www.argentina.gob.ar/ciberseguridad/normativa-ciberseguridad
+        verification: secondary
+        notes: Instruments listed on the national index (primary); their energy-sector content and the scope of Disp. 1/2026 are secondary. No energy-specific cyber resolution from ENRE/ENARGAS/ENReGE was located; private operators have no statutory sector incident deadline.
+        controls: [AIG-01, AIG-16, AIG-17]
+      - id: ar-electricity-framework
+        name: Leyes 15.336 and 24.065, Decretos 1.398/92 and 186/95 (electricity regulatory framework; concessions; CAMMESA dispatch)
+        regulator: ENReGE / Secretaría de Energía
+        status: in-force
+        url: https://www.argentina.gob.ar/enre/normativa
+        verification: primary
+        ai_relevance: Dispatch and market participation are governed by CAMMESA procedures; AI-generated offers are market-sensitive.
+        controls: [AIG-11, AIG-13]

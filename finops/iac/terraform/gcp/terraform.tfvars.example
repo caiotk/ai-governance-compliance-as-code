@@ -1,0 +1,8 @@
+project_id               = "ai-prod-eu"
+project_number           = "123456789012"
+billing_account          = "012345-6789AB-CDEF01"
+workload_id              = "eu-support-chatbot"
+monthly_budget_usd       = 15000
+vertex_service_id        = "" # services/XXXX-XXXX-XXXX from `gcloud billing services list`
+notification_channel_ids = ["projects/ai-prod-eu/notificationChannels/1234567890"]
+tokens_per_hour_alert    = 60000000

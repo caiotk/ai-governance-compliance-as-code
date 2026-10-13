@@ -1,0 +1,666 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Model catalogue for the AI FinOps selector (tools/select_model.py).
+#
+# Prices are USD per 1M tokens at the vendor's first-party STANDARD rate for
+# the global/default endpoint, copied as printed on the vendor page cited in
+# `sources` on 2026-10-13 (docs/sources/finops-models.md). Regional, data-zone,
+# fast/priority and batch rates are expressed as multipliers so the selector can
+# price a workload in any mode. `tier` is THIS REPOSITORY'S functional
+# classification (see `tiers`), not a vendor label. Quality is never asserted
+# here: accuracy comes from the organisation's own evaluations recorded in the
+# workload profile (AIG-14); without them the selector uses tier priors and says so.
+# `rai` facts come from the vendor packs in vendors/*/mapping.yaml; anything not
+# read on a vendor page is "unverified" and treated as absent by the selector.
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: aigov/v1
+kind: ModelCatalog
+asOf: "2026-10-13"
+currency: USD
+tiers:
+  daily-driver:
+    description: Cheapest tier that still supports tools and structured output; high-volume, low-stakes, latency-sensitive work (classification, extraction, routing, simple chat).
+    quality_prior: 0.60
+    latency_class: fast
+  workhorse:
+    description: Default production tier for most assistive and agentic tasks; balanced cost, context and capability.
+    quality_prior: 0.80
+    latency_class: medium
+  specialist-reasoning:
+    description: Flagship/reasoning models for hard, consequential or long-horizon tasks; escalation target in a cascade, not a default.
+    quality_prior: 0.95
+    latency_class: slow
+  specialist-code:
+    description: Code-specialised models (completion, FIM, refactoring).
+    quality_prior: 0.85
+    latency_class: medium
+  safety:
+    description: Moderation / guardrail classifiers; never a primary model.
+    quality_prior: 0.80
+    latency_class: fast
+
+# Platform overlays: when a model is served through a cloud platform, the
+# platform's residency options, guardrails and attestations apply on top of the
+# model's own. Verified from the cloud vendor packs (vendors/*/mapping.yaml) and
+# docs/sources/finops-bcp-dr.md. Bedrock geo profiles differ per model — verify
+# with GetInferenceProfile from each source Region before relying on `processing`.
+# Residency semantics in the selector: a first-party platform uses the model's own
+# `residency.processing`; a cloud platform uses the per-model platform entry
+# (`processing`, or geos derived from `inference_profiles` prefixes) — never the
+# overlay alone, because availability differs per model. A platform entry with no
+# processing information is admissible only when the workload has no residency
+# constraint. `zdr` is per platform too: a vendor's first-party ZDR says nothing
+# about the cloud platform's retention.
+platforms:
+  openai:        { moderation_api: true, zdr: on_approval }
+  anthropic:     { moderation_api: false, zdr: on_request }
+  azure-foundry: { moderation_api: true, zdr: unverified, attestations: ["ISO/IEC 42001:2023"], notes: "GlobalStandard any region; DataZoneStandard US/EU/APAC (1.1x); Standard = customer geography; retention/abuse-monitoring terms not read for this catalogue" }
+  aws-bedrock:   { moderation_api: true, zdr: unverified, attestations: ["ISO/IEC 42001:2023"], notes: "geo profiles us./eu./apac./au./jp./in.; in-region via bare model id (bedrock-mantle); Bedrock Guardrails; data-retention terms not read for this catalogue" }
+  gcp-vertex:    { moderation_api: true, zdr: unverified, attestations: ["ISO/IEC 42001:2023"], notes: "global endpoint = no residency; jurisdictional us/eu and locational endpoints keep ML processing in-region; Model Armor" }
+  gemini-api:    { moderation_api: true, zdr: unverified }
+  mistral:       { moderation_api: true, zdr: on_request }
+  deepseek:      { moderation_api: false, zdr: unverified }
+
+models:
+  # ── OpenAI ────────────────────────────────────────────────────────────────
+  - id: openai/gpt-6-astra
+    vendor: openai
+    vendor_pack: openai
+    name: GPT-6 Astra
+    tier: specialist-reasoning
+    lifecycle: { status: ga, retirement: null, notice: "GA models >= 6 months (deprecations page)" }
+    price_usd_per_1m: { input: 10.00, cached_input: 1.00, cache_write: 12.50, output: 50.00 }
+    long_context: { threshold_input_tokens: 272000, input_multiplier: 2.0, output_multiplier: 1.5 }
+    discounts: { batch: 0.5, flex: 0.5 }
+    premiums: { fast: 2.0, ultrafast: 6.0, regional_processing: 1.1 }
+    context_window: 1050000
+    max_output: 128000
+    capabilities: [text, vision, tools, structured_output, reasoning, computer_use]
+    residency: { processing: [global, us, eu], storage: [us, eu, au, ca, jp, in, sg, kr, gb, ae], notes: "Regional processing verified for US and EU only (UAE conflicting across vendor pages); Fast mode not available with EU residency; regional endpoints +10%" }
+    rai:
+      attestations: [SOC 2 Type 2, ISO/IEC 27001:2022, ISO/IEC 27017:2015, ISO/IEC 27018:2019, ISO/IEC 27701:2019, ISO/IEC 42001:2023, HIPAA BAA (API)]
+      zdr: on_approval
+      moderation_api: true
+      notes: "ZDR/MAM need prior approval; stateful endpoints are not ZDR-eligible (openai pack AIG-05)."
+    platforms:
+      - { platform: openai, model_id: gpt-6-astra }
+      - { platform: azure-foundry, model_id: gpt-6-astra, processing: [global, us, eu], sku_multipliers: { GlobalStandard: 1.0, DataZoneStandard: 1.1, Flex: 0.5 } }
+    verification: primary
+    sources: [https://developers.openai.com/api/docs/pricing, https://developers.openai.com/api/docs/models/gpt-6-astra, https://prices.azure.com/api/retail/prices]
+
+  - id: openai/gpt-6.1-sol
+    vendor: openai
+    vendor_pack: openai
+    name: GPT-6.1 Sol
+    tier: workhorse
+    lifecycle: { status: ga, retirement: null, notice: "GA models >= 6 months" }
+    price_usd_per_1m: { input: 2.00, cached_input: 0.10, cache_write: 2.50, output: 10.00 }
+    long_context: { threshold_input_tokens: 272000, input_multiplier: 2.0, output_multiplier: 1.5 }
+    discounts: { batch: 0.5, flex: 0.5 }
+    premiums: { fast: 2.0, ultrafast: 6.0, regional_processing: 1.1 }
+    context_window: 1050000
+    max_output: 128000
+    capabilities: [text, vision, tools, structured_output, reasoning, computer_use]
+    residency: { processing: [global, us, eu], storage: [us, eu, au, ca, jp, in, sg, kr, gb, ae], notes: "US and EU residency incl. Fast/Ultrafast" }
+    rai:
+      attestations: [SOC 2 Type 2, ISO/IEC 27001:2022, ISO/IEC 27017:2015, ISO/IEC 27018:2019, ISO/IEC 27701:2019, ISO/IEC 42001:2023, HIPAA BAA (API)]
+      zdr: on_approval
+      moderation_api: true
+    platforms:
+      - { platform: openai, model_id: gpt-6.1-sol }
+      - { platform: azure-foundry, model_id: gpt-6.1-sol, processing: [global, us, eu], sku_multipliers: { GlobalStandard: 1.0, DataZoneStandard: 1.1, Flex: 0.5 } }
+    verification: primary
+    sources: [https://developers.openai.com/api/docs/pricing, https://developers.openai.com/api/docs/models/gpt-6.1-sol]
+
+  - id: openai/gpt-6-luna
+    vendor: openai
+    vendor_pack: openai
+    name: GPT-6 Luna
+    tier: daily-driver
+    lifecycle: { status: ga, retirement: null, notice: "GA models >= 6 months" }
+    price_usd_per_1m: { input: 0.10, cached_input: 0.01, cache_write: 0.125, output: 0.50 }
+    long_context: { threshold_input_tokens: 272000, input_multiplier: 2.0, output_multiplier: 1.5 }
+    discounts: { batch: 0.5, flex: 0.5 }
+    premiums: { fast: 2.0, regional_processing: 1.1 }
+    context_window: 1050000
+    max_output: 128000
+    capabilities: [text, vision, tools, structured_output, reasoning]
+    residency: { processing: [global, us, eu], storage: [us, eu, au, ca, jp, in, sg, kr, gb, ae] }
+    rai:
+      attestations: [SOC 2 Type 2, ISO/IEC 27001:2022, ISO/IEC 27017:2015, ISO/IEC 27018:2019, ISO/IEC 27701:2019, ISO/IEC 42001:2023, HIPAA BAA (API)]
+      zdr: on_approval
+      moderation_api: true
+    platforms:
+      - { platform: openai, model_id: gpt-6-luna }
+      - { platform: azure-foundry, model_id: gpt-6-luna, processing: [global, us, eu], sku_multipliers: { GlobalStandard: 1.0, DataZoneStandard: 1.1, Flex: 0.5 } }
+    verification: primary
+    sources: [https://developers.openai.com/api/docs/pricing, https://developers.openai.com/api/docs/models/gpt-6-luna]
+
+  # ── Anthropic ─────────────────────────────────────────────────────────────
+  - id: anthropic/claude-fable-5-1
+    vendor: anthropic
+    vendor_pack: anthropic-claude
+    name: Claude Fable 5.1
+    tier: specialist-reasoning
+    lifecycle: { status: ga, retirement: null, notice: ">= 60 days before retirement" }
+    price_usd_per_1m: { input: 10.00, cached_input: 0.25, cache_write: 12.50, cache_write_1h: 20.00, output: 50.00 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: { us_only_inference: 1.1 }
+    context_window: 1000000
+    max_output: 128000
+    capabilities: [text, vision, tools, structured_output, reasoning]
+    residency: { processing: [global, us], storage: [us], notes: "inference_geo global|us; US-only 1.1x; EU/AU/APAC in-region only via Bedrock, Vertex or Foundry" }
+    rai:
+      attestations: [SOC 2 Type I & Type II, ISO 27001:2022, ISO/IEC 42001:2023, HIPAA-ready configuration (BAA available)]
+      zdr: on_request
+      moderation_api: false
+      notes: "Content not retained by default (Covered Models 30 days); ZDR via sales (anthropic-claude pack)."
+    platforms:
+      - { platform: anthropic, model_id: claude-fable-5-1 }
+      - { platform: aws-bedrock, model_id: anthropic.claude-fable-5-1, processing: [global, us, eu, apac, au, jp, in], verification: secondary, notes: "geo profile set taken from the Claude Haiku 4.5 model card; verify this model's profiles with GetInferenceProfile per source Region" }
+      - { platform: gcp-vertex, model_id: claude-fable-5-1, processing: [global, us, eu, regional], verification: secondary }
+      - { platform: azure-foundry, model_id: claude-fable-5-1, processing: [global, us], sku_multipliers: { GlobalStandard: 1.0, DataZoneStandard: 1.1 }, verification: secondary, notes: "US Data Zone 1.1x per Anthropic residency page; EU data zone availability unverified" }
+    verification: primary
+    sources: [https://platform.claude.com/docs/en/about-claude/pricing, https://platform.claude.com/docs/en/models/fable-5-1/overview]
+
+  - id: anthropic/claude-opus-5-5
+    vendor: anthropic
+    vendor_pack: anthropic-claude
+    name: Claude Opus 5.5
+    tier: specialist-reasoning
+    lifecycle: { status: ga, retirement: null, notice: ">= 60 days" }
+    price_usd_per_1m: { input: 4.00, cached_input: 0.20, cache_write: 5.00, cache_write_1h: 8.00, output: 20.00 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: { fast: 2.0, us_only_inference: 1.1 }
+    context_window: 1000000
+    max_output: 128000
+    capabilities: [text, vision, tools, structured_output, reasoning]
+    residency: { processing: [global, us], storage: [us] }
+    rai:
+      attestations: [SOC 2 Type I & Type II, ISO 27001:2022, ISO/IEC 42001:2023, HIPAA-ready configuration (BAA available)]
+      zdr: on_request
+      moderation_api: false
+    platforms:
+      - { platform: anthropic, model_id: claude-opus-5-5 }
+      - { platform: aws-bedrock, model_id: anthropic.claude-opus-5-5, processing: [global, us, eu, apac, au, jp, in], verification: secondary, notes: "geo profile set taken from the Claude Haiku 4.5 model card; verify this model's profiles with GetInferenceProfile per source Region" }
+      - { platform: gcp-vertex, model_id: claude-opus-5-5, processing: [global, us, eu, regional], verification: secondary }
+      - { platform: azure-foundry, model_id: claude-opus-5-5, processing: [global, us], sku_multipliers: { GlobalStandard: 1.0, DataZoneStandard: 1.1 }, verification: secondary, notes: "US Data Zone 1.1x per Anthropic residency page; EU data zone availability unverified" }
+    verification: primary
+    sources: [https://platform.claude.com/docs/en/about-claude/pricing]
+
+  - id: anthropic/claude-sonnet-5-5
+    vendor: anthropic
+    vendor_pack: anthropic-claude
+    name: Claude Sonnet 5.5
+    tier: workhorse
+    lifecycle: { status: ga, retirement: null, notice: ">= 60 days" }
+    price_usd_per_1m: { input: 2.00, cached_input: 0.10, cache_write: 2.50, cache_write_1h: 4.00, output: 10.00 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: { us_only_inference: 1.1 }
+    context_window: 1000000
+    max_output: 128000
+    capabilities: [text, vision, tools, structured_output, reasoning]
+    residency: { processing: [global, us], storage: [us] }
+    rai:
+      attestations: [SOC 2 Type I & Type II, ISO 27001:2022, ISO/IEC 42001:2023, HIPAA-ready configuration (BAA available)]
+      zdr: on_request
+      moderation_api: false
+    platforms:
+      - { platform: anthropic, model_id: claude-sonnet-5-5 }
+      - { platform: aws-bedrock, model_id: anthropic.claude-sonnet-5-5, processing: [global, us, eu, apac, au, jp, in], verification: secondary, notes: "geo profile set taken from the Claude Haiku 4.5 model card; verify this model's profiles with GetInferenceProfile per source Region" }
+      - { platform: gcp-vertex, model_id: claude-sonnet-5-5, processing: [global, us, eu, regional], verification: secondary }
+      - { platform: azure-foundry, model_id: claude-sonnet-5-5, processing: [global, us], sku_multipliers: { GlobalStandard: 1.0, DataZoneStandard: 1.1 }, verification: secondary, notes: "US Data Zone 1.1x per Anthropic residency page; EU data zone availability unverified" }
+    verification: primary
+    sources: [https://platform.claude.com/docs/en/about-claude/pricing]
+
+  - id: anthropic/claude-haiku-5-5
+    vendor: anthropic
+    vendor_pack: anthropic-claude
+    name: Claude Haiku 5.5
+    tier: daily-driver
+    lifecycle: { status: ga, retirement: null, notice: ">= 60 days" }
+    price_usd_per_1m: { input: 0.10, cached_input: 0.01, cache_write: 0.125, cache_write_1h: 0.20, output: 0.50 }
+    long_context: { threshold_input_tokens: 100000, input_multiplier: 5.0, output_multiplier: 5.0 }
+    discounts: { batch: 0.5 }
+    premiums: { us_only_inference: 1.1 }
+    context_window: 1000000
+    max_output: 128000
+    capabilities: [text, vision, tools, structured_output, reasoning]
+    residency: { processing: [global, us], storage: [us] }
+    rai:
+      attestations: [SOC 2 Type I & Type II, ISO 27001:2022, ISO/IEC 42001:2023, HIPAA-ready configuration (BAA available)]
+      zdr: on_request
+      moderation_api: false
+      notes: "Newer tokenizer: ~30% more tokens than Haiku 4.5 for the same text (vendor note) — budget accordingly."
+    platforms:
+      - { platform: anthropic, model_id: claude-haiku-5-5 }
+      - { platform: aws-bedrock, model_id: anthropic.claude-haiku-5-5, processing: [global, us, eu, apac, au, jp, in], verification: secondary, notes: "geo profile set taken from the Claude Haiku 4.5 model card; verify this model's profiles with GetInferenceProfile per source Region" }
+      - { platform: gcp-vertex, model_id: claude-haiku-5-5, processing: [global, us, eu, regional], verification: secondary }
+      - { platform: azure-foundry, model_id: claude-haiku-5-5, processing: [global, us], sku_multipliers: { GlobalStandard: 1.0, DataZoneStandard: 1.1 }, verification: secondary, notes: "US Data Zone 1.1x per Anthropic residency page; EU data zone availability unverified" }
+    verification: primary
+    sources: [https://platform.claude.com/docs/en/about-claude/pricing, https://platform.claude.com/docs/en/models/haiku-5-5/overview]
+
+  # ── Google ────────────────────────────────────────────────────────────────
+  - id: google/gemini-3.1-pro-preview
+    vendor: google
+    vendor_pack: gcp-vertex
+    name: Gemini 3.1 Pro Preview
+    tier: specialist-reasoning
+    lifecycle: { status: preview, retirement: null, notice: "Vertex: models available >= 12 months after release" }
+    price_usd_per_1m: { input: 2.00, cached_input: 0.20, cache_storage_per_hour: 4.50, output: 12.00 }
+    long_context: { threshold_input_tokens: 200000, input_multiplier: 2.0, output_multiplier: 1.5 }
+    discounts: { batch: 0.5, flex: 0.5 }
+    premiums: { priority: 1.8 }
+    context_window: 1048576
+    max_output: 65536
+    capabilities: [text, vision, audio_in, tools, structured_output, reasoning]
+    residency: { processing: [global], storage: [], notes: "Global endpoint only on Vertex for this model; no data-residency guarantee" }
+    rai:
+      attestations: [ISO/IEC 42001:2023]
+      zdr: unverified
+      moderation_api: true
+      notes: "Model Armor / safety settings per gcp-vertex pack; data-use terms not re-read for this catalogue."
+    platforms:
+      - { platform: gcp-vertex, model_id: gemini-3.1-pro-preview, processing: [global] }
+      - { platform: gemini-api, model_id: gemini-3.1-pro-preview }
+    verification: primary
+    sources: [https://ai.google.dev/gemini-api/docs/pricing, https://cloud.google.com/vertex-ai/generative-ai/pricing]
+
+  - id: google/gemini-3.8-flash
+    vendor: google
+    vendor_pack: gcp-vertex
+    name: Gemini 3.8 Flash
+    tier: workhorse
+    lifecycle: { status: ga, retirement: null, notice: "introductory price through 2026-12-31, then 1.50 / 7.50" }
+    price_usd_per_1m: { input: 0.75, cached_input: 0.075, cache_storage_per_hour: 0.50, output: 3.75 }
+    price_from: { "2027-01-01": { input: 1.50, cached_input: 0.15, cache_storage_per_hour: 1.00, output: 7.50 } }
+    long_context: null
+    discounts: { batch: 0.5, flex: 0.5 }
+    premiums: { priority: 1.8, non_global_endpoint: 1.1 }
+    context_window: 1048576
+    max_output: 65536
+    capabilities: [text, vision, audio_in, tools, structured_output, reasoning, computer_use]
+    residency: { processing: [global, us, eu, regional], storage: [us, eu, regional], notes: "Non-global endpoints 1.1x; jurisdictional (us/eu) and locational endpoints keep ML processing in-region" }
+    rai:
+      attestations: [ISO/IEC 42001:2023]
+      zdr: unverified
+      moderation_api: true
+    platforms:
+      - { platform: gcp-vertex, model_id: gemini-3.8-flash, processing: [global, us, eu, regional] }
+      - { platform: gemini-api, model_id: gemini-3.8-flash }
+    verification: primary
+    sources: [https://ai.google.dev/gemini-api/docs/pricing, https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash]
+
+  - id: google/gemini-3.5-flash-lite
+    vendor: google
+    vendor_pack: gcp-vertex
+    name: Gemini 3.5 Flash-Lite
+    tier: daily-driver
+    lifecycle: { status: ga, retirement: "2027-07-21 or later (Vertex)", notice: ">= 12 months" }
+    price_usd_per_1m: { input: 0.30, cached_input: 0.03, cache_storage_per_hour: 1.00, output: 2.50 }
+    long_context: null
+    discounts: { batch: 0.5, flex: 0.5 }
+    premiums: { priority: 1.8, non_global_endpoint: 1.1 }
+    context_window: 1048576
+    max_output: 65536
+    capabilities: [text, vision, audio_in, tools, structured_output, reasoning]
+    residency: { processing: [global, us, eu, regional], storage: [us, eu, regional] }
+    rai:
+      attestations: [ISO/IEC 42001:2023]
+      zdr: unverified
+      moderation_api: true
+    platforms:
+      - { platform: gcp-vertex, model_id: gemini-3.5-flash-lite, processing: [global, us, eu, regional] }
+      - { platform: gemini-api, model_id: gemini-3.5-flash-lite }
+    verification: primary
+    sources: [https://ai.google.dev/gemini-api/docs/pricing]
+
+  # ── Mistral ───────────────────────────────────────────────────────────────
+  - id: mistral/mistral-large-4
+    vendor: mistral
+    vendor_pack: mistral
+    name: Mistral Large 4 (Public Preview, sale price)
+    tier: specialist-reasoning
+    lifecycle: { status: preview, retirement: null, notice: "Public Preview 1 month notice; sale price has no printed end date (original 1.36 / 4.18)" }
+    price_usd_per_1m: { input: 0.68, cached_input: 0.07, output: 2.09 }
+    long_context: null
+    discounts: { batch: 0.5, batch_on_regional: false }
+    premiums: { regional_endpoint: 1.1 }
+    context_window: 1000000
+    max_output: null
+    capabilities: [text, vision, tools, structured_output]
+    residency: { processing: [global, eu, us], storage: [eu], notes: "api.eu.mistral.ai / api.us.mistral.ai 1.1x; servers in Sweden" }
+    rai:
+      attestations: [SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 27701]
+      zdr: on_request
+      moderation_api: true
+      notes: "ISO/IEC 42001 unverified; Labs/Preview models are training-eligible and ZDR does not apply to them (Commercial Terms §4.3) — keep off regulated workloads."
+    platforms:
+      - { platform: mistral, model_id: mistral-large-4 }
+    verification: primary
+    sources: [https://docs.mistral.ai/inference/pricing]
+
+  - id: mistral/mistral-large-2512
+    vendor: mistral
+    vendor_pack: mistral
+    name: Mistral Large 3
+    tier: workhorse
+    lifecycle: { status: ga, retirement: null, notice: "GA 6 months" }
+    price_usd_per_1m: { input: 0.50, cached_input: 0.05, output: 1.50 }
+    long_context: null
+    discounts: { batch: 0.5, batch_on_regional: false }
+    premiums: { regional_endpoint: 1.1 }
+    context_window: 256000
+    max_output: null
+    capabilities: [text, vision, tools, structured_output]
+    residency: { processing: [global, eu, us], storage: [eu] }
+    rai:
+      attestations: [SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 27701]
+      zdr: on_request
+      moderation_api: true
+    platforms:
+      - { platform: mistral, model_id: mistral-large-2512 }
+    verification: primary
+    sources: [https://docs.mistral.ai/inference/pricing]
+
+  - id: mistral/mistral-medium-3-5
+    vendor: mistral
+    vendor_pack: mistral
+    name: Mistral Medium 3.5
+    tier: workhorse
+    lifecycle: { status: ga, retirement: null, notice: "GA 6 months" }
+    price_usd_per_1m: { input: 1.50, cached_input: 0.15, output: 7.50 }
+    long_context: null
+    discounts: { batch: 0.5, batch_on_regional: false }
+    premiums: { regional_endpoint: 1.1 }
+    context_window: 256000
+    max_output: null
+    capabilities: [text, vision, tools, structured_output]
+    residency: { processing: [global, eu, us], storage: [eu] }
+    rai:
+      attestations: [SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 27701]
+      zdr: on_request
+      moderation_api: true
+    platforms:
+      - { platform: mistral, model_id: mistral-medium-3-5 }
+    verification: primary
+    sources: [https://docs.mistral.ai/inference/pricing]
+
+  - id: mistral/mistral-small-2603
+    vendor: mistral
+    vendor_pack: mistral
+    name: Mistral Small 4
+    tier: daily-driver
+    lifecycle: { status: ga, retirement: null, notice: "GA 6 months" }
+    price_usd_per_1m: { input: 0.15, cached_input: 0.015, output: 0.60 }
+    long_context: null
+    discounts: { batch: 0.5, batch_on_regional: false }
+    premiums: { regional_endpoint: 1.1 }
+    context_window: 256000
+    max_output: null
+    capabilities: [text, tools, structured_output, reasoning]
+    residency: { processing: [global, eu, us], storage: [eu] }
+    rai:
+      attestations: [SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 27701]
+      zdr: on_request
+      moderation_api: true
+    platforms:
+      - { platform: mistral, model_id: mistral-small-2603 }
+    verification: primary
+    sources: [https://docs.mistral.ai/inference/pricing]
+
+  - id: mistral/codestral-2508
+    vendor: mistral
+    vendor_pack: mistral
+    name: Codestral 25.08
+    tier: specialist-code
+    lifecycle: { status: ga, retirement: null, notice: "GA 6 months" }
+    price_usd_per_1m: { input: 0.30, cached_input: 0.03, output: 0.90 }
+    long_context: null
+    discounts: { batch: 0.5, batch_on_regional: false }
+    premiums: { regional_endpoint: 1.1 }
+    context_window: 128000
+    max_output: null
+    capabilities: [text, tools, structured_output, fim]
+    residency: { processing: [global, eu, us], storage: [eu] }
+    rai:
+      attestations: [SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 27701]
+      zdr: on_request
+      moderation_api: true
+    platforms:
+      - { platform: mistral, model_id: codestral-2508 }
+    verification: primary
+    sources: [https://docs.mistral.ai/inference/pricing]
+
+  - id: mistral/ministral-8b-2512
+    vendor: mistral
+    vendor_pack: mistral
+    name: Ministral 3 8B
+    tier: daily-driver
+    lifecycle: { status: ga, retirement: null, notice: "GA 6 months" }
+    price_usd_per_1m: { input: 0.15, cached_input: 0.015, output: 0.15 }
+    long_context: null
+    discounts: { batch: 0.5, batch_on_regional: false }
+    premiums: { regional_endpoint: 1.1 }
+    context_window: 256000
+    max_output: null
+    capabilities: [text, vision, tools, structured_output]
+    residency: { processing: [global, eu, us], storage: [eu], notes: "Apache 2.0 open weights — self-deployable for sovereignty" }
+    rai:
+      attestations: [SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 27701]
+      zdr: on_request
+      moderation_api: true
+    platforms:
+      - { platform: mistral, model_id: ministral-8b-2512 }
+    verification: primary
+    sources: [https://docs.mistral.ai/inference/pricing]
+
+  - id: mistral/mistral-moderation-2603
+    vendor: mistral
+    vendor_pack: mistral
+    name: Mistral Moderation 2
+    tier: safety
+    lifecycle: { status: ga, retirement: null, notice: "GA 6 months" }
+    price_usd_per_1m: { input: 0.0, cached_input: 0.0, output: 0.0 }
+    long_context: null
+    discounts: {}
+    premiums: {}
+    context_window: 128000
+    max_output: null
+    capabilities: [moderation]
+    residency: { processing: [global, eu, us], storage: [eu] }
+    rai: { attestations: [SOC 2 Type II, ISO/IEC 27001 and ISO/IEC 27701], zdr: on_request, moderation_api: true }
+    platforms:
+      - { platform: mistral, model_id: mistral-moderation-2603 }
+    verification: primary
+    sources: [https://docs.mistral.ai/inference/pricing]
+
+  # ── Amazon Bedrock (Nova, Llama) — US East (N. Virginia) feed prices ───────
+  - id: amazon/nova-2-lite
+    vendor: amazon
+    vendor_pack: aws-bedrock
+    name: Amazon Nova 2 Lite
+    tier: workhorse
+    lifecycle: { status: ga, retirement: "no sooner than 2026-12-02 (EOL) then Legacy >= 6 months", notice: "Legacy period 6 months or 45 days" }
+    price_usd_per_1m: { input: 0.30, cached_input: 0.075, output: 2.50 }
+    long_context: null
+    discounts: { batch: 0.5, flex: 0.5 }
+    premiums: { priority: 1.75, geo_or_in_region: 1.1 }
+    context_window: 1000000
+    max_output: 64000
+    capabilities: [text, vision, video_in, tools, reasoning]
+    residency: { processing: [global, us, eu, jp], storage: [us, eu, jp], notes: "global.* profile vs us./eu./jp. geo profiles; in-region via bare model id" }
+    rai:
+      attestations: [ISO/IEC 42001:2023, "AWS Audit Manager: AWS Generative AI Best Practices Framework v2"]
+      zdr: unverified
+      moderation_api: true
+      notes: "Structured outputs listed Not Supported on the model card despite tool calling."
+    platforms:
+      - { platform: aws-bedrock, model_id: amazon.nova-2-lite-v1:0, inference_profiles: [global.amazon.nova-2-lite-v1:0, us.amazon.nova-2-lite-v1:0, eu.amazon.nova-2-lite-v1:0, jp.amazon.nova-2-lite-v1:0] }
+    verification: primary
+    sources: [https://aws.amazon.com/bedrock/pricing/, https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html]
+
+  - id: amazon/nova-pro
+    vendor: amazon
+    vendor_pack: aws-bedrock
+    name: Amazon Nova Pro
+    tier: workhorse
+    lifecycle: { status: ga, retirement: "EOL no sooner than 2025-12-05 (Active)", notice: "Legacy 6 months" }
+    price_usd_per_1m: { input: 0.80, cached_input: 0.20, output: 3.20 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: {}
+    context_window: 300000
+    max_output: 10000
+    capabilities: [text, vision, video_in, tools]
+    residency: { processing: [us, eu, apac], storage: [us, eu, apac] }
+    rai: { attestations: [ISO/IEC 42001:2023, "AWS Audit Manager: AWS Generative AI Best Practices Framework v2"], zdr: unverified, moderation_api: true }
+    platforms:
+      - { platform: aws-bedrock, model_id: amazon.nova-pro-v1:0, inference_profiles: [us.amazon.nova-pro-v1:0, eu.amazon.nova-pro-v1:0, apac.amazon.nova-pro-v1:0] }
+    verification: primary
+    sources: [https://aws.amazon.com/bedrock/pricing/]
+
+  - id: amazon/nova-lite
+    vendor: amazon
+    vendor_pack: aws-bedrock
+    name: Amazon Nova Lite
+    tier: daily-driver
+    lifecycle: { status: ga, retirement: "EOL no sooner than 2025-12-05 (Active)", notice: "Legacy 6 months" }
+    price_usd_per_1m: { input: 0.06, cached_input: 0.015, output: 0.24 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: {}
+    context_window: 300000
+    max_output: 10000
+    capabilities: [text, vision, video_in, tools]
+    residency: { processing: [us, ca, eu, apac], storage: [us, ca, eu, apac] }
+    rai: { attestations: [ISO/IEC 42001:2023, "AWS Audit Manager: AWS Generative AI Best Practices Framework v2"], zdr: unverified, moderation_api: true }
+    platforms:
+      - { platform: aws-bedrock, model_id: amazon.nova-lite-v1:0, inference_profiles: [us.amazon.nova-lite-v1:0, ca.amazon.nova-lite-v1:0, eu.amazon.nova-lite-v1:0, apac.amazon.nova-lite-v1:0] }
+    verification: primary
+    sources: [https://aws.amazon.com/bedrock/pricing/]
+
+  - id: amazon/nova-micro
+    vendor: amazon
+    vendor_pack: aws-bedrock
+    name: Amazon Nova Micro
+    tier: daily-driver
+    lifecycle: { status: ga, retirement: "EOL no sooner than 2025-12-05 (Active)", notice: "Legacy 6 months" }
+    price_usd_per_1m: { input: 0.035, cached_input: 0.00875, output: 0.14 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: {}
+    context_window: 128000
+    max_output: 10000
+    capabilities: [text]
+    residency: { processing: [us, eu], storage: [us, eu] }
+    rai: { attestations: [ISO/IEC 42001:2023, "AWS Audit Manager: AWS Generative AI Best Practices Framework v2"], zdr: unverified, moderation_api: true }
+    platforms:
+      - { platform: aws-bedrock, model_id: amazon.nova-micro-v1:0, inference_profiles: [us.amazon.nova-micro-v1:0, eu.amazon.nova-micro-v1:0] }
+    verification: primary
+    sources: [https://aws.amazon.com/bedrock/pricing/]
+
+  - id: amazon/nova-premier
+    vendor: amazon
+    vendor_pack: aws-bedrock
+    name: Amazon Nova Premier
+    tier: specialist-reasoning
+    lifecycle: { status: ga, retirement: null, notice: "Legacy 6 months" }
+    price_usd_per_1m: { input: 2.50, cached_input: null, output: 12.50 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: {}
+    context_window: 1000000
+    max_output: 10000
+    capabilities: [text, vision, video_in, tools]
+    residency: { processing: [], storage: [], notes: "No inference-profile list on the fetched pages (feed row is US East); residency unverified — admissible only without a residency constraint" }
+    rai: { attestations: [ISO/IEC 42001:2023, "AWS Audit Manager: AWS Generative AI Best Practices Framework v2"], zdr: unverified, moderation_api: true }
+    platforms:
+      - { platform: aws-bedrock, model_id: amazon.nova-premier-v1:0 }
+    verification: primary
+    sources: [https://aws.amazon.com/bedrock/pricing/, https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html]
+
+  - id: meta/llama4-maverick-17b
+    vendor: meta
+    vendor_pack: meta-llama
+    name: Llama 4 Maverick 17B Instruct (Bedrock)
+    tier: workhorse
+    lifecycle: { status: legacy, retirement: "2027-03-30", notice: "Bedrock Legacy; EOL 2027-03-30" }
+    price_usd_per_1m: { input: 0.24, cached_input: null, output: 0.97 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: {}
+    context_window: 1000000
+    max_output: 8000
+    capabilities: [text, vision, tools]
+    residency: { processing: [us], storage: [us], notes: "us. geo profile; global not supported; open weights self-deployable (Llama 4 Community License, EU multimodal restriction per meta-llama pack)" }
+    rai: { attestations: [], zdr: unverified, moderation_api: true, notes: "Llama Guard 4 / Prompt Guard 2 per meta-llama pack; licence obligations apply." }
+    platforms:
+      - { platform: aws-bedrock, model_id: meta.llama4-maverick-17b-instruct-v1:0, inference_profiles: [us.meta.llama4-maverick-17b-instruct-v1:0] }
+    verification: primary
+    sources: [https://aws.amazon.com/bedrock/pricing/]
+
+  - id: meta/llama4-scout-17b
+    vendor: meta
+    vendor_pack: meta-llama
+    name: Llama 4 Scout 17B Instruct (Bedrock)
+    tier: daily-driver
+    lifecycle: { status: legacy, retirement: "2027-03-30", notice: "Bedrock Legacy; EOL 2027-03-30" }
+    price_usd_per_1m: { input: 0.17, cached_input: null, output: 0.66 }
+    long_context: null
+    discounts: { batch: 0.5 }
+    premiums: {}
+    context_window: 10000000
+    max_output: 8000
+    capabilities: [text, vision]
+    residency: { processing: [us], storage: [us] }
+    rai: { attestations: [], zdr: unverified, moderation_api: true }
+    platforms:
+      - { platform: aws-bedrock, model_id: meta.llama4-scout-17b-instruct-v1:0, inference_profiles: [us.meta.llama4-scout-17b-instruct-v1:0] }
+    verification: primary
+    sources: [https://aws.amazon.com/bedrock/pricing/]
+
+  # ── DeepSeek (hosted by DeepSeek, Inc.; no residency options published) ────
+  - id: deepseek/deepseek-flash
+    vendor: deepseek
+    vendor_pack: null
+    name: DeepSeek V4.1 Flash
+    tier: workhorse
+    lifecycle: { status: ga, retirement: null, notice: "no published policy; ~3 months given for legacy names" }
+    price_usd_per_1m: { input: 0.30, cached_input: 0.006, output: 1.20 }
+    off_peak: { multiplier: 0.5, window_utc: "outside 01:00-04:00 and 06:00-10:00 Mon-Fri (excl. Chinese public holidays)" }
+    long_context: null
+    discounts: {}
+    premiums: {}
+    context_window: 1000000
+    max_output: 384000
+    capabilities: [text, vision, tools, structured_output, reasoning, fim]
+    residency: { processing: [], storage: [], notes: "No regional or data-residency option published and hosting location not stated on the vendor pages (unverified); admissible only without a residency constraint, or self-hosted (open weights)." }
+    rai: { attestations: [], zdr: unverified, moderation_api: false, notes: "No vendor pack; attestations and data-use terms unverified." }
+    platforms:
+      - { platform: deepseek, model_id: deepseek-flash }
+    verification: primary
+    sources: [https://api-docs.deepseek.com/quick_start/pricing]
+
+  - id: deepseek/deepseek-v4-pro
+    vendor: deepseek
+    vendor_pack: null
+    name: DeepSeek V4 Pro
+    tier: specialist-reasoning
+    lifecycle: { status: ga, retirement: null, notice: "no published policy" }
+    price_usd_per_1m: { input: 1.32, cached_input: 0.044, output: 3.96 }
+    off_peak: { multiplier: 0.5, window_utc: "outside 01:00-04:00 and 06:00-10:00 Mon-Fri (excl. Chinese public holidays)" }
+    long_context: null
+    discounts: {}
+    premiums: {}
+    context_window: 1000000
+    max_output: 384000
+    capabilities: [text, tools, structured_output, reasoning, fim]
+    residency: { processing: [], storage: [], notes: "residency unverified (see deepseek-flash)" }
+    rai: { attestations: [], zdr: unverified, moderation_api: false }
+    platforms:
+      - { platform: deepseek, model_id: deepseek-v4-pro }
+    verification: primary
+    sources: [https://api-docs.deepseek.com/quick_start/pricing]

@@ -1,0 +1,45 @@
+# Control-room dispatch advisor for an Australian transmission operator (see
+# mlops/examples/compliant/au-energy-dispatch-advisor.yaml): long telemetry
+# context, consequential advice reviewed by operators, AU residency, Bedrock or
+# Foundry only. Expect a single workhorse/specialist with a cross-vendor fallback.
+apiVersion: aigov/v1
+kind: Workload
+metadata:
+  id: dispatch-advisor
+  name: Control-room dispatch advisor (AU)
+  owner: head.of.system.operations@example.com
+  system_record: mlops/examples/compliant/au-energy-dispatch-advisor.yaml
+  cost_centre: SO-100
+  tags: [sector:energy]
+task:
+  type: reasoning
+  modalities: [text]
+  tools_required: true
+  structured_output_required: true
+  reasoning_required: true
+volume:
+  requests_per_day: 2000
+  avg_input_tokens: 60000
+  avg_output_tokens: 1500
+  max_input_tokens: 200000
+  cache_hit_ratio: 0.5
+quality:
+  min_eval_score: 0.9
+  eval_suite: dispatch-evals-2026q3
+  evals:
+    anthropic/claude-sonnet-5-5: 0.92
+    anthropic/claude-opus-5-5: 0.95
+    openai/gpt-6.1-sol: 0.91
+    openai/gpt-6-astra: 0.94
+latency: { class: medium, streaming: true }
+constraints:
+  residency: [au]
+  data_classification: regulated
+  require_attestations: ["42001"]
+  platforms_allowed: [aws-bedrock, gcp-vertex, azure-foundry]
+  min_vendors_for_resilience: 2
+budget:
+  monthly_usd: 12000
+weights: { cost: 0.25, quality: 0.45, rai: 0.2, latency: 0.05, lifecycle: 0.05 }
+routing:
+  preference: single

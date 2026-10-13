@@ -76,4 +76,19 @@ testing:
   threat_model: { completed: true, references: [OWASP-LLM-2026, MITRE-ATLAS-2026.09] }
 lifecycle: { versioned: true, promotion_gate: true }
 incident: { runbook: true, notification_matrix: ["APRA:72h", "OAIC:NDB", "OPC:notifiable-breach", "RBNZ"], lessons_learned: true }
-resilience: { tolerance_levels_set: true, fallback_tested: true, exit_plan: true, backup_capability: true }
+resilience:
+  tolerance_levels_set: true
+  fallback_tested: true
+  exit_plan: true
+  backup_capability: true
+  secondary_route: true
+  last_dr_drill: "2026-08-20"
+  rto_minutes: 15
+  rpo_minutes: 0
+finops:
+  budget_defined: true
+  monthly_budget_usd: 25000
+  token_limits_enforced: true
+  cost_allocation_tags: [workload:credit-affordability-assistant, cost-centre:RL-220]
+  model_selection_record: finops/decisions/credit-affordability-assistant.decision.json
+  model_selection_date: "2026-09-15"

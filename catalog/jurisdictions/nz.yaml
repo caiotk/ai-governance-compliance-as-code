@@ -4,6 +4,7 @@ id: NZ
 name: New Zealand
 frameworks: [nz-privacy]
 sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
   fsi: [rbnz-bs11]
 notes: No AI-specific statute; the AI Strategy (Jul 2025) is adoption-first. BS11 applies only to NZ-incorporated registered banks with liabilities ≥ NZ$10bn.
 instruments:
@@ -100,3 +101,34 @@ instruments:
         url: https://www.legislation.govt.nz/act/public/1986/0121/latest/whole.html
         verification: unverified
         controls: [AIG-12]
+    energy:
+      - id: nz-electricity-code
+        name: Electricity Industry Act 2010 and Electricity Industry Participation Code 2010 (Part 8 system operator security, Part 10 metering, Part 13 dispatch and offers)
+        regulator: Electricity Authority
+        citation: "2010 No 116; Code amendment on battery energy storage effective 2026-10-30 / 2028-03-31"
+        status: in-force
+        url: https://www.ea.govt.nz/code-and-compliance/the-code/
+        verification: primary
+        ai_relevance: Automated offers, bids and dispatch advice must comply with Part 13 and trading-conduct rules; no AI-specific clause.
+        controls: [AIG-11, AIG-13, AIG-15]
+      - id: nz-gas-governance
+        name: Gas Act 1992 and gas governance rules incl. critical contingency management
+        regulator: Gas Industry Co
+        status: in-force
+        url: https://www.gasindustry.co.nz/about-us/legislative-framework/
+        verification: primary
+        controls: [AIG-16, AIG-17]
+      - id: nz-critical-infrastructure-bill
+        name: Critical infrastructure resilience legislation (DPMC policy work; minimum resilience standards and incident reporting for energy)
+        regulator: DPMC
+        status: proposed
+        url: https://www.dpmc.govt.nz/
+        verification: unverified
+        controls: [AIG-16, AIG-17]
+      - id: nz-ncsc-ot
+        name: NCSC (GCSB) cyber security guidance for operational technology
+        regulator: NCSC
+        status: voluntary
+        url: https://www.ncsc.govt.nz/
+        verification: unverified
+        controls: [AIG-08, AIG-13]

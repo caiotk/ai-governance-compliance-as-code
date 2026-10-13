@@ -261,6 +261,75 @@ frameworks:
     url: https://www.cariola.cl/app/uploads/2026/09/Alerta-legal_-2septiembre.pdf
     verification: secondary
 
+  - id: iec62443
+    name: IEC 62443 — Security for industrial automation and control systems (2-1:2024, 2-4:2015+AMD1:2017, 3-3:2013, 4-1:2018, 4-2:2019)
+    type: standard
+    scope: Energy sector — AI connected to or hosted with OT / IACS (sector framework; applied in the energy profiles)
+    issuer: IEC TC 65/WG 10
+    status: voluntary
+    notes: >-
+      62443-2-1 Ed 2.0 (2024-08-07) asset-owner security programme; 2-4 service-provider requirements; 3-3 system security
+      requirements and security levels (zones and conduits); 4-1 secure product development lifecycle; 4-2 component
+      requirements. Referenced by NERC CIP practice, AESCSF, SG CCoP OT clauses and ISO/IEC 27019.
+    url: https://webstore.iec.ch/en/publication/62883
+    verification: primary
+
+  - id: iso27019
+    name: ISO/IEC 27019:2024 — Information security controls for the energy utility industry
+    type: standard
+    scope: Energy sector — process-control systems (SCADA/EMS/DMS, smart metering) and the AI integrated with them (sector framework)
+    issuer: ISO/IEC JTC 1/SC 27
+    status: voluntary
+    notes: Edition 2, published 2024-10-18; sector-specific ISO/IEC 27002 controls for energy utilities.
+    url: https://www.iso.org/standard/85056.html
+    verification: primary
+
+  - id: energy-ci
+    name: Energy critical-infrastructure and incident-reporting regimes (national)
+    type: sector-regime
+    scope: Energy sector — the national instruments listed in each jurisdiction's energy profile (sector framework)
+    issuer: NERC/FERC/TSA (US); Home Affairs/CISC (AU); ANCI (CL); EU NIS2/NCCS/CER (PT, ES); Cabinet Office/METI (JP); CSA/EMA (SG); ANEEL/ANP (BR); CNC (AR); EA/GIC (NZ)
+    status: in-force
+    notes: >-
+      Incident clocks the gate checks: NERC CIP-008-6 1 h (US); SOCI 12 h / 72 h (AU); Ley 21.663 3 h / 24 h / 72 h (CL);
+      NIS2 24 h / 72 h and NCCS 4 h (PT, ES); Cybersecurity Act s 14 with a 2 h prescribed period (SG, period
+      secondary); Active Cyber Defense law prompt report + 30 days (JP, designated operators); ANEEL REN 964 (BR).
+      Designation-based: SOCI critical assets, OIV, CII, NCCS high/critical-impact entities, ESP Act designated
+      operators, BES Cyber Systems.
+    url: https://github.com/caiotk/ai-governance-compliance-as-code/blob/main/docs/sources/energy-sector.md
+    verification: primary
+
+  - id: finops
+    name: FinOps Framework (FinOps Foundation) — FinOps for AI
+    type: framework
+    scope: Organisational baseline — token cost management for every AI workload
+    issuer: FinOps Foundation
+    status: voluntary
+    baseline: true
+    notes: >-
+      Domains Understand Usage & Cost, Quantify Business Value, Optimize Usage & Cost, Manage the FinOps Practice;
+      capabilities used here: Data Ingestion, Allocation, Reporting & Analytics, Anomaly Management, Planning &
+      Estimating, Forecasting, Budgeting, Unit Economics, Rate Optimization, Architecting & Workload Placement,
+      Usage Optimization, Governance, Policy & Risk. FOCUS 1.4 carries no token column (ServiceCategory "AI and
+      Machine Learning"; unit format allows Tokens). Implemented by finops/ and tools/select_model.py.
+    url: https://www.finops.org/wg/finops-for-ai-overview/
+    verification: primary
+
+  - id: bcp-dr
+    name: Business continuity and disaster recovery for AI services (NIST SP 800-34 Rev. 1, NIST CSF 2.0 RC/PR.IR, ISO 22301:2019)
+    type: standard
+    scope: Organisational baseline — continuity of AI workloads
+    issuer: NIST; ISO
+    status: voluntary
+    baseline: true
+    notes: >-
+      SP 800-34 seven-step contingency process and MTD/RTO/RPO definitions (§3.2.1); CSF 2.0 RC.RP-01…06, RC.CO-03/04,
+      PR.IR-03/04, ID.IM-02/04. ISO 22301:2019 Edition 2 (Amd 1:2024) clause numbers not re-read. Sector overlays:
+      APRA CPS 230 paras 38–44 (annual exercise), DORA Arts 11–12 and 24–26, EU AI Act Art 15(4). Implemented by bcp/
+      and tools/dr.py.
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf
+    verification: primary
+
   - id: cl-21663
     name: Chile Ley 21.663 Ley Marco de Ciberseguridad
     type: statute
@@ -268,9 +337,13 @@ frameworks:
     issuer: Congreso Nacional; ANCI
     status: in-force
     applies_when: { entity_type: critical_infrastructure }
-    notes: OIV duties and incident reporting to the CSIRT Nacional from 1 Mar 2025.
-    url: https://www.carey.cl/entrada-en-vigencia-de-la-ley-de-ciberseguridad
-    verification: secondary
+    notes: >-
+      Published D.O. 2024-04-08. Art 4 essential services include electricity generation/transmission/distribution,
+      fuel transport/storage/distribution and the Coordinador Eléctrico; Art 8 OIV duties (ISMS, certified continuity
+      plans reviewed at least every 2 years, exercises); Art 9 reporting 3 h early warning, 72 h update (24 h if the OIV
+      service is affected), final report 15 days.
+    url: https://www.leychile.cl/Consulta/obtxml?opt=7&idNorma=1202434
+    verification: primary
 
   - id: ar-25326
     name: Argentina Ley 25.326 personal data protection

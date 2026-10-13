@@ -4,6 +4,8 @@ id: ES
 name: Spain
 inherits: [EU]
 frameworks: [eu-ai-act, gdpr]
+sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
 notes: Spain's national AI law is a Proyecto de Ley Orgánica before the Congreso (BOCG 12 Jun 2026). NIS2 is not transposed; the Commission referred Spain to the CJEU on 8 Jul 2026.
 instruments:
   horizontal:
@@ -86,3 +88,28 @@ instruments:
         url: https://digital.gob.es/content/dam/portal-mtdfp/comunicacion/comunicacion_ministro/2026/05/2026-05-26/260526%20NP%20CMin%20APL%20IA.pdf
         verification: unverified
         controls: [AIG-04, AIG-06, AIG-10]
+    energy:
+      - id: es-ley-8-2011
+        name: Ley 8/2011 de protección de las infraestructuras críticas (PIC) — critical operators in energy, Plan de Seguridad del Operador, Planes de Protección Específicos
+        regulator: CNPIC (Ministerio del Interior)
+        citation: BOE núm. 102, 29/04/2011
+        status: in-force
+        url: https://www.boe.es/buscar/act.php?id=BOE-A-2011-7630
+        verification: primary
+        controls: [AIG-01, AIG-16, AIG-17]
+      - id: es-rd-43-2021
+        name: Real Decreto 43/2021 (desarrollo del RDL 12/2018 NIS) — Declaración de Aplicabilidad, responsable de seguridad, Art 9 notification of critical/very high/high incidents via the CSIRT de referencia
+        regulator: CNPIC / INCIBE-CERT / CCN-CERT
+        citation: BOE núm. 24, 28/01/2021
+        status: in-force
+        effective: "2021-01-29; NIS2 transposition pending (CJEU referral 2026-07-08)"
+        url: https://www.boe.es/buscar/act.php?id=BOE-A-2021-1192
+        verification: primary
+        controls: [AIG-01, AIG-13, AIG-16]
+      - id: es-cnmc-remit
+        name: CNMC supervision of electricity and gas markets (Ley 24/2013, Ley 34/1998) and REMIT algorithmic-trading surveillance
+        regulator: CNMC
+        status: in-force
+        url: https://www.cnmc.es/ambitos-de-actuacion/energia
+        verification: secondary
+        controls: [AIG-11, AIG-13]

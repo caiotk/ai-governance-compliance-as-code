@@ -4,6 +4,7 @@ id: BR
 name: Brazil
 frameworks: [br-lgpd]
 sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
   health: [br-cfm]
 notes: No AI statute in force. PL 2338/2023 passed the Senate (Dec 2024) and sits with a Chamber special committee; a vote is expected after the Oct 2026 elections.
 instruments:
@@ -119,3 +120,37 @@ instruments:
         url: https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm
         verification: primary
         controls: [AIG-13]
+    energy:
+      - id: br-aneel-ren-964
+        name: Resolução Normativa ANEEL nº 964/2021 — política de segurança cibernética do setor elétrico (notification of higher-impact cyber incidents to the sector coordination team)
+        regulator: ANEEL
+        citation: REN 964, de 10 de dezembro de 2021
+        status: in-force
+        url: https://www.gov.br/aneel/pt-br/assuntos/seguranca/seguranca-cibernetica
+        verification: primary
+        controls: [AIG-01, AIG-13, AIG-16]
+      - id: br-ons-arciber
+        name: ONS Procedimentos de Rede — controles de segurança cibernética do Ambiente Regulado Cibernético (ARCiber) for control centres and operational data links
+        regulator: ONS / ANEEL
+        citation: "PdR 2020.12 (REN ANEEL 903/2020), in force 2021-01-01; submódulo number unverified"
+        status: in-force
+        url: https://www.ons.org.br/paginas/sobre-o-ons/procedimentos-de-rede/vigentes
+        verification: primary
+        ai_relevance: AI in control-centre/EMS scope sits inside ARCiber.
+        controls: [AIG-07, AIG-08, AIG-13]
+      - id: br-anp-sgso
+        name: ANP operational safety regime — RANP 43/2007 (SGSO), 41/2015, 46/2016, 851/2021 and RANP 882/2022 incident communication (investigation report within 90 days)
+        regulator: ANP
+        citation: "RANP 43/2007; RANP 882/2022"
+        status: in-force
+        url: https://www.gov.br/anp/pt-br/assuntos/exploracao-e-producao-de-oleo-e-gas/seguranca-operacional/resolucoes-procedimentos
+        verification: primary
+        ai_relevance: AI used for safety-critical monitoring on rigs and pipelines must be governed under SGSO management-of-change and risk analysis.
+        controls: [AIG-03, AIG-11, AIG-15, AIG-16]
+      - id: br-cnpe-cyber
+        name: CNPE Resoluções nº 1/2021 and nº 24/2021 and Decreto 9.573/2018 (Política Nacional de Segurança de Infraestruturas Críticas)
+        regulator: CNPE / GSI
+        status: in-force
+        url: https://www.gov.br/aneel/pt-br/assuntos/seguranca/seguranca-cibernetica
+        verification: primary
+        controls: [AIG-01, AIG-16]

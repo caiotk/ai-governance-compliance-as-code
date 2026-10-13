@@ -1,0 +1,12 @@
+finops:
+  budget_defined: true
+  monthly_budget_usd: 15000
+  expected_monthly_usd: 2646.78
+  token_limits_enforced: false
+  cost_allocation_tags:
+  - workload:eu-support-chatbot
+  model_selection_record: finops/decisions/eu-support-chatbot.decision.json
+  model_selection_date: '2026-10-13'
+  routing_mode: multi-model-cascade
+resilience:
+  secondary_route: true

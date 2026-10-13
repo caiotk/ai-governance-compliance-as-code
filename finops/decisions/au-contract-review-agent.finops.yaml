@@ -1,0 +1,12 @@
+finops:
+  budget_defined: true
+  monthly_budget_usd: 25000
+  expected_monthly_usd: 8043.84
+  token_limits_enforced: false
+  cost_allocation_tags:
+  - workload:au-contract-review-agent
+  model_selection_record: finops/decisions/au-contract-review-agent.decision.json
+  model_selection_date: '2026-10-13'
+  routing_mode: single-model
+resilience:
+  secondary_route: true

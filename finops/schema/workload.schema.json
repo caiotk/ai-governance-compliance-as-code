@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/caiotk/ai-governance-compliance-as-code/finops/schema/workload.schema.json",
+  "title": "AI workload profile for model selection and token-cost brokerage",
+  "type": "object",
+  "required": ["apiVersion", "kind", "metadata", "task", "volume", "constraints"],
+  "additionalProperties": false,
+  "properties": {
+    "apiVersion": { "const": "aigov/v1" },
+    "kind": { "const": "Workload" },
+    "metadata": {
+      "type": "object",
+      "required": ["id", "owner"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,62}$" },
+        "name": { "type": "string" },
+        "owner": { "type": "string", "description": "Accountable owner (e-mail)" },
+        "system_record": { "type": "string", "description": "Path to the AI system record (AISystem) this workload belongs to" },
+        "cost_centre": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "task": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["chat", "classification", "extraction", "summarisation", "rag", "code", "agentic", "reasoning", "translation", "moderation"] },
+        "modalities": { "type": "array", "items": { "enum": ["text", "vision", "audio_in", "video_in"] }, "default": ["text"] },
+        "tools_required": { "type": "boolean", "default": false },
+        "structured_output_required": { "type": "boolean", "default": false },
+        "reasoning_required": { "type": "boolean", "default": false },
+        "complexity_mix": {
+          "type": "object",
+          "description": "Share of requests by difficulty; drives single- vs multi-model routing. Must sum to 1.",
+          "properties": {
+            "simple": { "type": "number", "minimum": 0, "maximum": 1 },
+            "standard": { "type": "number", "minimum": 0, "maximum": 1 },
+            "hard": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "volume": {
+      "type": "object",
+      "required": ["requests_per_day", "avg_input_tokens", "avg_output_tokens"],
+      "properties": {
+        "requests_per_day": { "type": "number", "minimum": 0 },
+        "avg_input_tokens": { "type": "number", "minimum": 1 },
+        "avg_output_tokens": { "type": "number", "minimum": 1 },
+        "max_input_tokens": { "type": "number", "minimum": 1, "description": "Largest prompt the workload must fit (context-window filter)" },
+        "cache_hit_ratio": { "type": "number", "minimum": 0, "maximum": 1, "default": 0, "description": "Share of input tokens served from prompt cache" },
+        "batchable_fraction": { "type": "number", "minimum": 0, "maximum": 1, "default": 0, "description": "Share of requests that can wait for Batch/Flex processing" },
+        "peak_rpm": { "type": "number", "minimum": 0 }
+      }
+    },
+    "quality": {
+      "type": "object",
+      "properties": {
+        "min_eval_score": { "type": "number", "minimum": 0, "maximum": 1, "description": "Floor on the organisation's own evaluation score (AIG-14)" },
+        "eval_suite": { "type": "string", "description": "Name/version of the evaluation suite the scores come from" },
+        "tier_floor": { "enum": ["daily-driver", "workhorse", "specialist-reasoning"] },
+        "evals": {
+          "type": "object",
+          "description": "Measured eval score per catalogue model id (0-1). Required for a 'measured' recommendation; otherwise tier priors are used and flagged.",
+          "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "latency": {
+      "type": "object",
+      "properties": {
+        "class": { "enum": ["fast", "medium", "slow", "any"], "default": "any" },
+        "streaming": { "type": "boolean" }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "residency": { "type": "array", "items": { "type": "string" }, "description": "Allowed processing geos, e.g. [eu] or [au, global]. Empty = no constraint." },
+        "data_classification": { "enum": ["public", "internal", "confidential", "personal", "special_category", "regulated"] },
+        "zdr_required": { "type": "boolean", "default": false },
+        "require_attestations": { "type": "array", "items": { "type": "string" }, "description": "Substrings that must appear in the vendor attestations, e.g. [\"42001\", \"SOC 2\"]" },
+        "vendors_allowed": { "type": "array", "items": { "type": "string" } },
+        "vendors_denied": { "type": "array", "items": { "type": "string" } },
+        "platforms_allowed": { "type": "array", "items": { "type": "string" }, "description": "e.g. [azure-foundry, aws-bedrock]" },
+        "approved_models": { "type": "array", "items": { "type": "string" }, "description": "Approved-model list from AIG-06; empty = catalogue" },
+        "allow_preview": { "type": "boolean", "default": false },
+        "allow_legacy": { "type": "boolean", "default": false },
+        "moderation_required": { "type": "boolean", "default": false },
+        "min_vendors_for_resilience": { "type": "integer", "minimum": 1, "default": 2, "description": "BCP: number of distinct vendors/platforms the routing must span" }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "monthly_usd": { "type": "number", "minimum": 0 },
+        "max_cost_per_request_usd": { "type": "number", "minimum": 0 },
+        "alert_thresholds": { "type": "array", "items": { "type": "number" }, "default": [0.5, 0.8, 1.0] }
+      }
+    },
+    "weights": {
+      "type": "object",
+      "description": "Scoring weights (normalised by the selector)",
+      "properties": {
+        "cost": { "type": "number", "minimum": 0 },
+        "quality": { "type": "number", "minimum": 0 },
+        "rai": { "type": "number", "minimum": 0 },
+        "latency": { "type": "number", "minimum": 0 },
+        "lifecycle": { "type": "number", "minimum": 0 }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "properties": {
+        "preference": { "enum": ["auto", "single", "multi"], "default": "auto" },
+        "min_savings_for_multi": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.15, "description": "Cascade only when it saves at least this share of the single-model cost" },
+        "escalation_signals": { "type": "array", "items": { "enum": ["context_window", "tool_error", "low_confidence", "policy_refusal", "explicit_tag"] } }
+      }
+    }
+  }
+}

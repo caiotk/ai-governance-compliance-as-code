@@ -1,0 +1,56 @@
+apiVersion: aigov/v1
+kind: Routing
+workload: eu-support-chatbot
+generated: '2026-10-13'
+mode: multi-model-cascade
+active: primary
+routes:
+  primary:
+    id: openai/gpt-6-luna@openai
+    model: openai/gpt-6-luna
+    platform: openai
+    model_id: gpt-6-luna
+    tier: daily-driver
+  fallback-1:
+    id: mistral/mistral-large-2512@mistral
+    model: mistral/mistral-large-2512
+    platform: mistral
+    model_id: mistral-large-2512
+    tier: workhorse
+    reason: different vendor (mistral), tier workhorse
+cascade:
+  tiers:
+  - role: primary
+    share: 0.7
+    id: openai/gpt-6-luna@openai
+    model: openai/gpt-6-luna
+    platform: openai
+    model_id: gpt-6-luna
+    tier: daily-driver
+  - role: escalation
+    share: 0.25
+    id: mistral/mistral-large-2512@mistral
+    model: mistral/mistral-large-2512
+    platform: mistral
+    model_id: mistral-large-2512
+    tier: workhorse
+  - role: specialist
+    share: 0.05
+    id: openai/gpt-6-astra@openai
+    model: openai/gpt-6-astra
+    platform: openai
+    model_id: gpt-6-astra
+    tier: specialist-reasoning
+  per_request_usd: 0.00217662
+  monthly_usd: 2646.78
+  savings_vs_single: 0.9318
+  escalation_signals:
+  - context_window
+  - tool_error
+  - low_confidence
+  - explicit_tag
+budget_monthly_usd: 15000
+expected_monthly_usd: 2646.78
+rto_minutes: null
+last_failover: null
+last_drill: null

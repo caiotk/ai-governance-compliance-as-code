@@ -1,0 +1,33 @@
+# Nightly extraction over scanned invoices: fully batchable, structured
+# output, no personal-data constraint beyond "internal". Expect the cheapest
+# daily driver with batch pricing.
+apiVersion: aigov/v1
+kind: Workload
+metadata:
+  id: batch-document-extraction
+  name: Invoice field extraction (batch)
+  owner: finance.automation@example.com
+task:
+  type: extraction
+  modalities: [text, vision]
+  structured_output_required: true
+volume:
+  requests_per_day: 200000
+  avg_input_tokens: 1800
+  avg_output_tokens: 200
+  batchable_fraction: 1.0
+quality:
+  min_eval_score: 0.9
+  evals:
+    openai/gpt-6-luna: 0.93
+    anthropic/claude-haiku-5-5: 0.94
+    google/gemini-3.5-flash-lite: 0.92
+    amazon/nova-lite: 0.88
+    mistral/ministral-8b-2512: 0.86
+constraints:
+  data_classification: internal
+  residency: [global]
+budget:
+  monthly_usd: 6000
+routing:
+  preference: single

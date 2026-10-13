@@ -1,0 +1,65 @@
+# Prometheus alerting rules for AI FinOps and continuity — AIG-22, AIG-17, AIG-13.
+# Metric names verified 2026-10-13 on docs.litellm.ai/docs/proxy/prometheus
+# (docs/sources/finops-tooling.md §1.10). Counters are scraped with the _total
+# suffix as in LiteLLM's own PromQL examples.
+groups:
+  - name: aigov-finops
+    rules:
+      - alert: AiWorkloadBudgetBurn80
+        expr: |
+          (1 - litellm_remaining_team_budget_metric / litellm_team_max_budget_metric) > 0.8
+        for: 10m
+        labels: { severity: warning, control: AIG-22 }
+        annotations:
+          summary: "Team {{ $labels.team_alias }} has consumed >80% of its AI budget"
+      - alert: AiWorkloadBudgetExhausted
+        expr: litellm_remaining_team_budget_metric <= 0
+        for: 1m
+        labels: { severity: critical, control: AIG-22 }
+        annotations:
+          summary: "Team {{ $labels.team_alias }} AI budget exhausted — requests are being rejected"
+      - alert: AiProviderBudgetExhausted
+        expr: litellm_provider_remaining_budget_metric <= 0
+        for: 1m
+        labels: { severity: critical, control: AIG-22 }
+        annotations:
+          summary: "Provider {{ $labels.api_provider }} budget exhausted"
+      - alert: AiSpendRateAnomaly
+        expr: |
+          sum by (team_alias) (rate(litellm_spend_metric_total[15m]))
+            > 3 * sum by (team_alias) (rate(litellm_spend_metric_total[6h] offset 15m))
+        for: 15m
+        labels: { severity: warning, control: AIG-22 }
+        annotations:
+          summary: "Spend rate for {{ $labels.team_alias }} is 3x its 6h baseline (runaway agent or loop?)"
+      - alert: AiZeroCostRequests
+        expr: increase(litellm_zero_cost_requests_total[1h]) > 0
+        for: 0m
+        labels: { severity: warning, control: AIG-22 }
+        annotations:
+          summary: "Requests priced at $0 on a priced model ({{ $labels.reason }}) — cost tracking gap"
+  - name: aigov-continuity
+    rules:
+      - alert: AiDeploymentOutage
+        expr: litellm_deployment_state == 2
+        for: 2m
+        labels: { severity: critical, control: AIG-17 }
+        annotations:
+          summary: "Deployment {{ $labels.litellm_model_name }} is in complete outage — fallbacks active"
+      - alert: AiDeploymentPartialOutage
+        expr: litellm_deployment_state == 1
+        for: 10m
+        labels: { severity: warning, control: AIG-17 }
+      - alert: AiFallbacksFailing
+        expr: increase(litellm_deployment_failed_fallbacks_total[10m]) > 0
+        for: 0m
+        labels: { severity: critical, control: AIG-17 }
+        annotations:
+          summary: "Fallback attempts are failing — the secondary route is not serving; invoke the BCP runbook"
+      - alert: AiLatencyP95High
+        expr: |
+          histogram_quantile(0.95, sum by (le, model) (rate(litellm_llm_api_latency_metric_bucket[5m]))) > 20
+        for: 10m
+        labels: { severity: warning, control: AIG-13 }
+        annotations:
+          summary: "p95 LLM API latency for {{ $labels.model }} above 20s"

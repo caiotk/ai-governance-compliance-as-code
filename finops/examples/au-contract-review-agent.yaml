@@ -1,0 +1,38 @@
+# Agentic contract-review assistant for an Australian bank: hard reasoning,
+# low volume, consequential output reviewed by a lawyer. Expect a single
+# specialist model with a cross-vendor fallback.
+apiVersion: aigov/v1
+kind: Workload
+metadata:
+  id: au-contract-review-agent
+  name: Contract review agent (AU)
+  owner: legal.ops@example.com
+  tags: [product:legal-ops]
+task:
+  type: agentic
+  modalities: [text, vision]
+  tools_required: true
+  structured_output_required: true
+  reasoning_required: true
+volume:
+  requests_per_day: 300
+  avg_input_tokens: 120000
+  avg_output_tokens: 6000
+  max_input_tokens: 400000
+  cache_hit_ratio: 0.3
+  batchable_fraction: 0.5
+quality:
+  tier_floor: specialist-reasoning
+latency: { class: any }
+constraints:
+  residency: [au, global]
+  data_classification: confidential
+  require_attestations: ["42001"]
+  platforms_allowed: [aws-bedrock, azure-foundry, gcp-vertex, anthropic, openai]
+  allow_preview: false
+  min_vendors_for_resilience: 2
+budget:
+  monthly_usd: 25000
+weights: { cost: 0.25, quality: 0.45, rai: 0.2, latency: 0.0, lifecycle: 0.1 }
+routing:
+  preference: auto

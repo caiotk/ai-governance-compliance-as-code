@@ -23,6 +23,7 @@ base := {
 	"testing": {"evaluation_completed": true, "red_team_completed": true, "bias_assessment": true, "threat_model": {"completed": true, "references": ["OWASP-LLM-2026", "MITRE-ATLAS-2026.09"]}},
 	"lifecycle": {"versioned": true, "promotion_gate": true},
 	"incident": {"runbook": true, "notification_matrix": [], "lessons_learned": true},
+	"finops": {"budget_defined": true, "monthly_budget_usd": 1000, "token_limits_enforced": true, "cost_allocation_tags": ["workload:t"], "model_selection_record": "finops/decisions/t.decision.json", "model_selection_date": "2026-10-01"},
 }
 
 # Everything an agent needs on top of `base` to pass the zero-trust, OWASP,
@@ -57,7 +58,7 @@ test_baseline_is_allowed if {
 }
 
 test_baseline_frameworks_for_nz if {
-	decide(base).frameworks == ["anthropic-zero-trust", "iso19011", "iso27001", "iso42001", "iso42005", "mitre-atlas", "nist-ai-rmf", "nist-sp-800-61", "nz-privacy", "owasp-genai", "zero-trust"]
+	decide(base).frameworks == ["anthropic-zero-trust", "bcp-dr", "finops", "iso19011", "iso27001", "iso42001", "iso42005", "mitre-atlas", "nist-ai-rmf", "nist-sp-800-61", "nz-privacy", "owasp-genai", "zero-trust"]
 }
 
 test_baseline_has_no_warnings if {
@@ -298,4 +299,73 @@ test_nist_ai_rmf_risk_tolerance_warns if {
 	d := decide(with_({"governance": {"policy_approved": true, "registered_in_inventory": true, "ai_literacy_training": true, "risk_tolerance_defined": false, "internal_audit": {"programme": true, "last_audit": "2026-06-01", "findings_tracked": true}}}))
 	d.allow
 	has_warn(d, "AIG-01", "nist-ai-rmf")
+}
+
+energy_au := {
+	"context": {"countries": ["AU"], "sector": "energy", "role": "deployer", "public_body": false, "entity_types": ["energy_critical_asset"], "evaluation_date": "2026-10-13"},
+	"system": {"purpose": "t", "decision_impact": "assistive", "annex_iii_area": null, "user_facing": false, "agentic": false, "irreversible_actions": false, "critical_operation": true, "ot_connected": true, "market_facing": false},
+	"governance": {"critical_infrastructure_designation": "SOCI critical electricity asset"},
+	"security": {"ot_zone_conduit_model": true},
+	"resilience": {"fallback_tested": true, "exit_plan": true, "secondary_route": true, "last_dr_drill": "2026-06-01", "rto_minutes": 30, "rpo_minutes": 5},
+	"incident": {"runbook": true, "notification_matrix": ["CISC:12h", "OAIC:NDB"], "lessons_learned": true},
+}
+
+test_energy_profile_applies_sector_frameworks if {
+	d := decide(with_(energy_au))
+	"energy-ci" in d.frameworks
+	"iec62443" in d.frameworks
+	"iso27019" in d.frameworks
+	d.allow
+}
+
+test_ot_connected_ai_needs_zone_model if {
+	d := decide(with_(object.union(energy_au, {"security": {"ot_zone_conduit_model": false}})))
+	some f in d.deny
+	f.control == "AIG-08"
+	"iec62443" in f.frameworks
+}
+
+test_au_energy_needs_soci_clock if {
+	d := decide(with_(object.union(energy_au, {"incident": {"runbook": true, "notification_matrix": ["OAIC:NDB"], "lessons_learned": true}})))
+	some f in d.deny
+	f.control == "AIG-16"
+	"energy-ci" in f.frameworks
+}
+
+test_market_facing_ai_needs_override_and_logging if {
+	d := decide(with_(object.union(energy_au, {"system": {"market_facing": true}, "oversight": {"human_in_the_loop": true, "override_and_stop": false}})))
+	some f in d.deny
+	f.control == "AIG-11"
+	"energy-ci" in f.frameworks
+}
+
+test_energy_rules_do_not_fire_outside_energy if {
+	d := decide(with_({"context": {"countries": ["AU"], "sector": "tech", "role": "deployer", "public_body": false, "entity_types": [], "evaluation_date": "2026-10-13"}}))
+	not "energy-ci" in d.frameworks
+	d.allow
+}
+
+test_budget_is_required if {
+	d := decide(with_({"finops": {"budget_defined": false}}))
+	has_deny(d, "AIG-22")
+}
+
+test_token_limits_warn if {
+	d := decide(with_({"finops": {"token_limits_enforced": false}}))
+	d.allow
+	has_warn(d, "AIG-22", "finops")
+}
+
+test_critical_operation_needs_drill_and_secondary_route if {
+	d := decide(with_({"system": {"critical_operation": true}, "resilience": {"fallback_tested": true, "exit_plan": true, "secondary_route": false, "last_dr_drill": "", "rto_minutes": 0}}))
+	d.allow
+	has_warn(d, "AIG-17", "bcp-dr")
+}
+
+test_apra_annual_exercise_is_mandatory if {
+	fsi := {"context": {"countries": ["AU"], "sector": "fsi", "role": "deployer", "public_body": false, "entity_types": ["apra_regulated"], "evaluation_date": "2026-10-13"}, "system": {"critical_operation": true}, "resilience": {"fallback_tested": true, "exit_plan": true, "tolerance_levels_set": true, "backup_capability": true, "secondary_route": true, "last_dr_drill": "2025-01-10", "rto_minutes": 30, "rpo_minutes": 5}, "supplier": {"assessed": true, "no_training_on_customer_data": true, "ai_bom": true, "material_service_provider": false}, "incident": {"runbook": true, "notification_matrix": ["APRA:72h"], "lessons_learned": true}}
+	d := decide(with_(fsi))
+	some f in d.deny
+	f.control == "AIG-17"
+	"apra" in f.frameworks
 }

@@ -1,0 +1,53 @@
+# Customer-support assistant for an EU utility: personal data, EU-only
+# processing, mostly simple questions with a hard tail. Expect a cascade.
+apiVersion: aigov/v1
+kind: Workload
+metadata:
+  id: eu-support-chatbot
+  name: Customer support assistant (EU)
+  owner: head.of.service@example.com
+  system_record: systems/eu-support-chatbot.yaml
+  cost_centre: CC-4410
+  tags: [product:support]
+task:
+  type: chat
+  modalities: [text]
+  tools_required: true
+  structured_output_required: true
+  complexity_mix: { simple: 0.7, standard: 0.25, hard: 0.05 }
+volume:
+  requests_per_day: 40000
+  avg_input_tokens: 2500
+  avg_output_tokens: 350
+  max_input_tokens: 60000
+  cache_hit_ratio: 0.6
+  batchable_fraction: 0.0
+quality:
+  min_eval_score: 0.80
+  eval_suite: support-evals-v3
+  evals:
+    openai/gpt-6-luna: 0.84
+    openai/gpt-6.1-sol: 0.91
+    openai/gpt-6-astra: 0.95
+    mistral/mistral-small-2603: 0.79
+    mistral/mistral-large-2512: 0.88
+    mistral/mistral-medium-3-5: 0.90
+    google/gemini-3.5-flash-lite: 0.81
+    google/gemini-3.8-flash: 0.89
+latency: { class: fast, streaming: true }
+constraints:
+  residency: [eu]
+  data_classification: personal
+  zdr_required: true
+  require_attestations: ["27001"]
+  allow_preview: false
+  allow_legacy: false
+  moderation_required: true
+  min_vendors_for_resilience: 2
+budget:
+  monthly_usd: 15000
+  max_cost_per_request_usd: 0.02
+routing:
+  preference: auto
+  min_savings_for_multi: 0.15
+  escalation_signals: [context_window, tool_error, low_confidence, explicit_tag]

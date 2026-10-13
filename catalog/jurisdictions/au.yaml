@@ -4,6 +4,7 @@ id: AU
 name: Australia
 frameworks: [au-privacy]
 sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
   fsi: [apra]
 notes: The National AI Plan (Dec 2025) relies on existing laws; there are no mandatory AI guardrails.
 instruments:
@@ -122,3 +123,47 @@ instruments:
         url: https://www.simpsons.com.au/news/update-australian-government-rules-out-text-and-data-mining-exception-for-ai-training
         verification: secondary
         controls: [AIG-04]
+    energy:
+      - id: au-soci-energy
+        name: SOCI Act 2018 — critical electricity, gas and liquid fuel assets (ss 10, 12, 12A); incident notification 12 h / 72 h / written record 84 h (ss 30BC, 30BD)
+        regulator: Department of Home Affairs / CISC
+        citation: "Act No. 29, 2018; compilation C2026C00213 (4 Jun 2026)"
+        status: in-force
+        url: https://www.legislation.gov.au/C2018A00029/latest/text
+        verification: primary
+        controls: [AIG-02, AIG-07, AIG-13, AIG-16, AIG-17]
+      - id: au-cirmp-enhanced
+        name: SOCI (Critical infrastructure risk management program) Rules — enhanced tier for electricity, gas, liquid fuel and energy market operator assets (s 8A material risk from "deployment or hosting of advanced, novel or emerging technology")
+        regulator: Department of Home Affairs
+        citation: "F2023L00112 as amended by F2026L00701 (Enhanced CIRMP Rules 2026); compilation F2026C00562"
+        status: in-force-phased
+        effective: "commenced 2026-06-10; 12-month grace for s 8A(2)/9A(2) (to ~2027-06-10), 24 months for remaining enhanced provisions (to ~2028-06-10)"
+        url: https://www.legislation.gov.au/F2023L00112/latest/text
+        verification: primary
+        ai_relevance: An AI system deployed on or hosted with a critical energy asset is "advanced, novel or emerging technology" under s 8A(2)(c)-(d); the CIRMP must minimise the material risk and adopt ISO/IEC 27001:2023, Essential Eight ML2, NIST CSF 2.0, C2M2 v2.1 MIL2 or AESCSF 2023 SP-2.
+        controls: [AIG-01, AIG-03, AIG-06, AIG-07, AIG-14, AIG-15]
+      - id: au-aescsf
+        name: Australian Energy Sector Cyber Security Framework (AESCSF) — 2020-21 and 2023 Framework Core incorporated by the CIRMP Rules
+        regulator: AEMO (with CISC, ASD, AER)
+        status: voluntary
+        url: https://aemo.com.au/en/initiatives/major-programs/cyber-security/aescsf-framework-and-resources
+        verification: unverified
+        notes: Legally referenced versions confirmed via the CIRMP Rules; the current AEMO release could not be read.
+        controls: [AIG-01, AIG-13, AIG-16]
+      - id: au-ransomware-reporting
+        name: Cyber Security Act 2024 Part 3 — ransomware payment reporting within 72 hours (turnover > A$3m and all SOCI responsible entities)
+        regulator: Department of Home Affairs
+        citation: "Act No. 98, 2024; Ransomware Payment Reporting Rules 2025 (F2025L00278)"
+        status: in-force
+        effective: "2025-05-30"
+        url: https://www.legislation.gov.au/C2024A00098/latest/text
+        verification: primary
+        controls: [AIG-16]
+      - id: au-ner-bidding
+        name: National Electricity Rules (bidding in good faith; AEMO power system security) and Consumer Data Right for energy data
+        regulator: AEMC / AER / OAIC
+        status: in-force
+        url: https://www.aemc.gov.au/regulation/energy-rules/national-electricity-rules/current
+        verification: unverified
+        ai_relevance: Algorithmic bidding and dispatch advice are market-sensitive; CDR privacy safeguards apply to metering and usage data.
+        controls: [AIG-05, AIG-11, AIG-13]

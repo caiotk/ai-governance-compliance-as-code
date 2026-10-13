@@ -1,0 +1,65 @@
+<!--
+  Azure API Management AI-gateway policy — token cost brokerage at the edge.
+  Controls: AIG-22 (token limits and quotas), AIG-13 (token metrics), AIG-10 (content safety hook).
+  Verified 2026-10-13 against learn.microsoft.com (docs/sources/finops-tooling.md §2):
+    llm-token-limit  counter-key, tokens-per-minute, token-quota, token-quota-period
+                     (Hourly|Daily|Weekly|Monthly|Yearly), estimate-prompt-tokens (required),
+                     remaining-*-header-name, tokens-consumed-header-name  → 429 on rate, 403 on quota
+    llm-emit-token-metric  namespace + <dimension name value/> (max 5 custom dimensions)
+    llm-semantic-cache-lookup/store, llm-content-safety
+  The legacy azure-openai-token-limit / azure-openai-emit-token-metric names now redirect to these.
+  Apply at product or API scope; counter-key per subscription = per team/workload budget.
+-->
+<policies>
+  <inbound>
+    <base />
+    <!-- AIG-22: per-subscription token budget — 2M tokens/min burst and a monthly quota -->
+    <llm-token-limit
+        counter-key="@(context.Subscription.Id)"
+        tokens-per-minute="2000000"
+        token-quota="3000000000"
+        token-quota-period="Monthly"
+        estimate-prompt-tokens="false"
+        remaining-tokens-header-name="x-aigov-remaining-tokens"
+        remaining-quota-tokens-header-name="x-aigov-remaining-quota-tokens"
+        tokens-consumed-header-name="x-aigov-tokens-consumed" />
+    <!-- AIG-13: token metrics to Application Insights, split by API, subscription and workload header -->
+    <llm-emit-token-metric namespace="aigov">
+      <dimension name="API ID" />
+      <dimension name="Subscription ID" />
+      <dimension name="workload" value="@(context.Request.Headers.GetValueOrDefault(&quot;x-aigov-workload&quot;, &quot;unknown&quot;))" />
+    </llm-emit-token-metric>
+    <!-- AIG-22: semantic cache (needs an embeddings backend) — cheapest token is the one you don't buy -->
+    <llm-semantic-cache-lookup
+        score-threshold="0.05"
+        embeddings-backend-id="embeddings-backend"
+        embeddings-backend-auth="system-assigned"
+        ignore-system-messages="true">
+      <vary-by>@(context.Subscription.Id)</vary-by>
+    </llm-semantic-cache-lookup>
+    <!-- AIG-10: prompt shield + category thresholds via Azure AI Content Safety -->
+    <llm-content-safety backend-id="content-safety-backend" shield-prompt="true" enforce-on-completions="false">
+      <categories output-type="FourSeverityLevels">
+        <category name="Hate" threshold="4" />
+        <category name="SelfHarm" threshold="4" />
+        <category name="Sexual" threshold="4" />
+        <category name="Violence" threshold="4" />
+      </categories>
+    </llm-content-safety>
+    <!-- Route to the load-balanced backend pool defined in backends.bicep (priority groups = DR) -->
+    <set-backend-service backend-id="llm-pool" />
+  </inbound>
+  <backend>
+    <!-- Retry against another backend in the pool on 429/5xx before failing the client -->
+    <retry condition="@(context.Response.StatusCode == 429 || context.Response.StatusCode >= 500)" count="2" interval="1" first-fast-retry="true">
+      <forward-request buffer-request-body="true" />
+    </retry>
+  </backend>
+  <outbound>
+    <base />
+    <llm-semantic-cache-store duration="120" />
+  </outbound>
+  <on-error>
+    <base />
+  </on-error>
+</policies>

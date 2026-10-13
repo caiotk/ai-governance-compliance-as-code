@@ -1,0 +1,12 @@
+finops:
+  budget_defined: true
+  monthly_budget_usd: 6000
+  expected_monthly_usd: 851.2
+  token_limits_enforced: false
+  cost_allocation_tags:
+  - workload:batch-document-extraction
+  model_selection_record: finops/decisions/batch-document-extraction.decision.json
+  model_selection_date: '2026-10-13'
+  routing_mode: single-model
+resilience:
+  secondary_route: true

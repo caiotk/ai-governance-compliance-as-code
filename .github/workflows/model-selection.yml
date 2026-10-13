@@ -1,0 +1,113 @@
+# Model selection automation: prices every workload profile against the model
+# catalogue, decides single- vs multi-model routing, and publishes the routing
+# decision, broker config and evidence as artifacts and a PR comment.
+# Weekly it checks that the catalogue prices are fresh.
+name: AI model selection
+
+on:
+  pull_request:
+    paths:
+      - "finops/**"
+      - "tools/select_model.py"
+  workflow_dispatch:
+    inputs:
+      workload:
+        description: "Path to a workload profile (default: every profile under finops/examples and finops/workloads)"
+        type: string
+        default: ""
+      fail_on_budget:
+        description: Fail when the expected cost exceeds the workload budget
+        type: boolean
+        default: true
+  schedule:
+    - cron: "17 6 * * 1" # Monday 06:17 UTC — catalogue freshness check
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  select:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "pyyaml==6.0.3" "jsonschema==4.23.0"
+
+      - name: Unit tests
+        run: python3 -m unittest discover -s finops/tests
+
+      - name: Run the selector
+        id: run
+        shell: bash
+        env:
+          WORKLOAD: ${{ inputs.workload }}
+        run: |
+          set +e
+          shopt -s nullglob
+          files=( $WORKLOAD )
+          if [ ${#files[@]} -eq 0 ]; then files=( finops/examples/*.yaml finops/workloads/*.yaml ); fi
+          mkdir -p out
+          rc=0
+          : > out/summary.md
+          for f in "${files[@]}"; do
+            args=()
+            if [ "${{ github.event_name == 'pull_request' || inputs.fail_on_budget == true }}" = "true" ]; then args+=(--fail-on-budget); fi
+            python3 tools/select_model.py "$f" --out-dir out "${args[@]}" > /dev/null || rc=1
+            cat out/$(python3 -c "import yaml,sys;print(yaml.safe_load(open(sys.argv[1]))['metadata']['id'])" "$f").summary.md >> out/summary.md
+            echo >> out/summary.md
+          done
+          cat out/summary.md >> "$GITHUB_STEP_SUMMARY"
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: model-selection
+          path: out/
+
+      - name: Comment on the pull request
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr comment "$PR" --edit-last --body-file out/summary.md || gh pr comment "$PR" --body-file out/summary.md
+
+      - name: Enforce
+        if: steps.run.outputs.rc != '0'
+        run: |
+          echo "::error title=Model selection::A workload has no admissible model or exceeds its budget. See the job summary."
+          exit 1
+
+  catalogue-freshness:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "pyyaml==6.0.3"
+      - name: Check catalogue age
+        id: age
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import datetime as dt, yaml
+          as_of = dt.date.fromisoformat(yaml.safe_load(open("finops/catalog/models.yaml"))["asOf"])
+          age = (dt.date.today() - as_of).days
+          print(f"age={age}")
+          print(f"stale={'true' if age > 30 else 'false'}")
+          PY
+      - name: Open or update the refresh issue
+        if: steps.age.outputs.stale == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Refresh finops/catalog/models.yaml — prices are ${{ steps.age.outputs.age }} days old"
+          body="Vendor prices and model line-ups change monthly. Re-verify every row against the vendor pages listed in docs/sources/finops-models.md, update \`asOf\`, and re-run \`tools/select_model.py\` for each workload."
+          n=$(gh issue list --search "Refresh finops/catalog/models.yaml in:title" --state open --json number --jq '.[0].number')
+          gh label create finops --color 0E8A16 --description "AI FinOps" 2>/dev/null || true
+          if [ -n "$n" ]; then gh issue edit "$n" --title "$title" --body "$body"; else gh issue create --title "$title" --body "$body" --label finops; fi

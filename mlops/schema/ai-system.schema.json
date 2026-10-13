@@ -82,7 +82,8 @@
             "public",
             "agriculture",
             "mining",
-            "tech"
+            "tech",
+            "energy"
           ]
         },
         "role": {
@@ -105,7 +106,8 @@
               "us_bank",
               "eu_financial_entity",
               "critical_infrastructure",
-              "gpai_provider"
+              "gpai_provider",
+              "energy_critical_asset"
             ]
           }
         },
@@ -236,6 +238,14 @@
         "tx_prohibited_intent": {
           "type": "boolean",
           "description": "Developed or deployed with an intent Texas TRAIGA prohibits"
+        },
+        "ot_connected": {
+          "type": "boolean",
+          "description": "Connected to, hosted with or acting on operational technology / industrial control systems (SCADA, EMS/DMS, plant or pipeline control)"
+        },
+        "market_facing": {
+          "type": "boolean",
+          "description": "Generates or executes wholesale bids, offers, nominations or trades (market-sensitive)"
         }
       }
     },
@@ -297,6 +307,10 @@
               "description": "Audit findings tracked to closure (ISO 19011 cl. 6.7)"
             }
           }
+        },
+        "critical_infrastructure_designation": {
+          "type": "string",
+          "description": "Regulatory designation of the asset the system supports, e.g. SOCI critical electricity asset, OIV (Ley 21.663), CII (Cybersecurity Act), NCCS high-impact entity, 特定社会基盤事業者, BES Cyber System"
         }
       }
     },
@@ -478,6 +492,10 @@
         "idp_federated_identity": {
           "type": "boolean",
           "description": "Agent and user identity federated from the corporate IdP (SSO + SCIM), no long-lived vendor keys"
+        },
+        "ot_zone_conduit_model": {
+          "type": "boolean",
+          "description": "Placed in a defined IEC 62443-3-3 zone with conduits and a target security level; no direct path from the AI service to control-system zones"
         }
       }
     },
@@ -665,6 +683,22 @@
         "backup_capability": {
           "type": "boolean",
           "description": "Backup capability for the outsourced function (BS11)"
+        },
+        "secondary_route": {
+          "type": "boolean",
+          "description": "A fallback route on another platform or vendor is configured and selectable without rebuild (tools/dr.py)"
+        },
+        "last_dr_drill": {
+          "type": "string",
+          "description": "Date of the last timed failover drill (YYYY-MM-DD)"
+        },
+        "rto_minutes": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rpo_minutes": {
+          "type": "number",
+          "minimum": 0
         }
       }
     },
@@ -687,6 +721,49 @@
         "agent_telemetry": {
           "type": "boolean",
           "description": "Per-action agent telemetry (tool, parameters, outcome) emitted for scope-drift detection (MITRE ATLAS AML.M0024/M0038)"
+        }
+      }
+    },
+    "finops": {
+      "type": "object",
+      "properties": {
+        "budget_defined": {
+          "type": "boolean",
+          "description": "A monthly budget exists for this workload (cloud budget and/or broker cap)"
+        },
+        "monthly_budget_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "expected_monthly_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "token_limits_enforced": {
+          "type": "boolean",
+          "description": "Token/rate limits enforced at the broker or gateway (LiteLLM budgets, APIM llm-token-limit, provider rate limits)"
+        },
+        "cost_allocation_tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Tags/dimensions used to allocate cost (workload, team, cost centre)"
+        },
+        "model_selection_record": {
+          "type": "string",
+          "description": "Path to the selection decision (tools/select_model.py output)"
+        },
+        "model_selection_date": {
+          "type": "string",
+          "description": "Date of the last model selection run (YYYY-MM-DD)"
+        },
+        "routing_mode": {
+          "type": "string"
+        },
+        "secondary_route": {
+          "type": "boolean",
+          "description": "Routing state carries a fallback on another platform/vendor"
         }
       }
     }

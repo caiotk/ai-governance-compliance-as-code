@@ -1,0 +1,724 @@
+{
+  "workload": "eu-support-chatbot",
+  "generated": "2026-10-13",
+  "catalogue_as_of": "2026-10-13",
+  "quality_basis": "mixed",
+  "candidates": [
+    {
+      "id": "openai/gpt-6-luna@openai",
+      "model": "openai/gpt-6-luna",
+      "name": "GPT-6 Luna",
+      "vendor": "openai",
+      "tier": "daily-driver",
+      "platform": "openai",
+      "model_id": "gpt-6-luna",
+      "processing": [
+        "eu",
+        "global",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA BAA (API)",
+        "ISO/IEC 27001:2022",
+        "ISO/IEC 27017:2015",
+        "ISO/IEC 27018:2019",
+        "ISO/IEC 27701:2019",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type 2"
+      ],
+      "context_window": 1050000,
+      "prices": {
+        "input": 0.1,
+        "cached_input": 0.01,
+        "cache_write": 0.125,
+        "output": 0.5
+      },
+      "cost": {
+        "standard_usd": 0.000319,
+        "blended_usd": 0.000319,
+        "input_usd": 0.0001265,
+        "output_usd": 0.0001925,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 387.9,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.84,
+        "rai": 0.88,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 0.9478
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "GA models >= 6 months"
+      },
+      "verification": "primary",
+      "score": 0.9077
+    },
+    {
+      "id": "mistral/mistral-small-2603@mistral",
+      "model": "mistral/mistral-small-2603",
+      "name": "Mistral Small 4",
+      "vendor": "mistral",
+      "tier": "daily-driver",
+      "platform": "mistral",
+      "model_id": "mistral-small-2603",
+      "processing": [
+        "eu",
+        "global",
+        "us"
+      ],
+      "attestations": [
+        "ISO/IEC 27001 and ISO/IEC 27701",
+        "SOC 2 Type II"
+      ],
+      "context_window": 256000,
+      "prices": {
+        "input": 0.15,
+        "cached_input": 0.015,
+        "output": 0.6
+      },
+      "cost": {
+        "standard_usd": 0.00042075,
+        "blended_usd": 0.00042075,
+        "input_usd": 0.00018975,
+        "output_usd": 0.000231,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 511.63,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.79,
+        "rai": 0.58,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 0.8908
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "GA 6 months"
+      },
+      "verification": "primary",
+      "score": 0.8253
+    },
+    {
+      "id": "mistral/ministral-8b-2512@mistral",
+      "model": "mistral/ministral-8b-2512",
+      "name": "Ministral 3 8B",
+      "vendor": "mistral",
+      "tier": "daily-driver",
+      "platform": "mistral",
+      "model_id": "ministral-8b-2512",
+      "processing": [
+        "eu",
+        "global",
+        "us"
+      ],
+      "attestations": [
+        "ISO/IEC 27001 and ISO/IEC 27701",
+        "SOC 2 Type II"
+      ],
+      "context_window": 256000,
+      "prices": {
+        "input": 0.15,
+        "cached_input": 0.015,
+        "output": 0.15
+      },
+      "cost": {
+        "standard_usd": 0.0002475,
+        "blended_usd": 0.0002475,
+        "input_usd": 0.00018975,
+        "output_usd": 5.775e-05,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 300.96,
+      "quality_basis": "prior",
+      "scores": {
+        "quality": 0.6,
+        "rai": 0.58,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 1.0
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "GA 6 months"
+      },
+      "verification": "primary",
+      "score": 0.797
+    },
+    {
+      "id": "mistral/mistral-large-2512@mistral",
+      "model": "mistral/mistral-large-2512",
+      "name": "Mistral Large 3",
+      "vendor": "mistral",
+      "tier": "workhorse",
+      "platform": "mistral",
+      "model_id": "mistral-large-2512",
+      "processing": [
+        "eu",
+        "global",
+        "us"
+      ],
+      "attestations": [
+        "ISO/IEC 27001 and ISO/IEC 27701",
+        "SOC 2 Type II"
+      ],
+      "context_window": 256000,
+      "prices": {
+        "input": 0.5,
+        "cached_input": 0.05,
+        "output": 1.5
+      },
+      "cost": {
+        "standard_usd": 0.00121,
+        "blended_usd": 0.00121,
+        "input_usd": 0.0006325,
+        "output_usd": 0.0005775,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 1471.36,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.88,
+        "rai": 0.58,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.6734
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "GA 6 months"
+      },
+      "verification": "primary",
+      "score": 0.7207
+    },
+    {
+      "id": "openai/gpt-6.1-sol@openai",
+      "model": "openai/gpt-6.1-sol",
+      "name": "GPT-6.1 Sol",
+      "vendor": "openai",
+      "tier": "workhorse",
+      "platform": "openai",
+      "model_id": "gpt-6.1-sol",
+      "processing": [
+        "eu",
+        "global",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA BAA (API)",
+        "ISO/IEC 27001:2022",
+        "ISO/IEC 27017:2015",
+        "ISO/IEC 27018:2019",
+        "ISO/IEC 27701:2019",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type 2"
+      ],
+      "context_window": 1050000,
+      "prices": {
+        "input": 2.0,
+        "cached_input": 0.1,
+        "cache_write": 2.5,
+        "output": 10.0
+      },
+      "cost": {
+        "standard_usd": 0.006215,
+        "blended_usd": 0.006215,
+        "input_usd": 0.002365,
+        "output_usd": 0.00385,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 7557.44,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.91,
+        "rai": 0.88,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.3366
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "GA models >= 6 months"
+      },
+      "verification": "primary",
+      "score": 0.6583
+    },
+    {
+      "id": "mistral/mistral-medium-3-5@mistral",
+      "model": "mistral/mistral-medium-3-5",
+      "name": "Mistral Medium 3.5",
+      "vendor": "mistral",
+      "tier": "workhorse",
+      "platform": "mistral",
+      "model_id": "mistral-medium-3-5",
+      "processing": [
+        "eu",
+        "global",
+        "us"
+      ],
+      "attestations": [
+        "ISO/IEC 27001 and ISO/IEC 27701",
+        "SOC 2 Type II"
+      ],
+      "context_window": 256000,
+      "prices": {
+        "input": 1.5,
+        "cached_input": 0.15,
+        "output": 7.5
+      },
+      "cost": {
+        "standard_usd": 0.004785,
+        "blended_usd": 0.004785,
+        "input_usd": 0.0018975,
+        "output_usd": 0.0028875,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 5818.56,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.9,
+        "rai": 0.58,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.3904
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "GA 6 months"
+      },
+      "verification": "primary",
+      "score": 0.6286
+    },
+    {
+      "id": "openai/gpt-6-astra@openai",
+      "model": "openai/gpt-6-astra",
+      "name": "GPT-6 Astra",
+      "vendor": "openai",
+      "tier": "specialist-reasoning",
+      "platform": "openai",
+      "model_id": "gpt-6-astra",
+      "processing": [
+        "eu",
+        "global",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA BAA (API)",
+        "ISO/IEC 27001:2022",
+        "ISO/IEC 27017:2015",
+        "ISO/IEC 27018:2019",
+        "ISO/IEC 27701:2019",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type 2"
+      ],
+      "context_window": 1050000,
+      "prices": {
+        "input": 10.0,
+        "cached_input": 1.0,
+        "cache_write": 12.5,
+        "output": 50.0
+      },
+      "cost": {
+        "standard_usd": 0.0319,
+        "blended_usd": 0.0319,
+        "input_usd": 0.01265,
+        "output_usd": 0.01925,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 38790.4,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.95,
+        "rai": 0.88,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.0
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "GA models >= 6 months (deprecations page)"
+      },
+      "verification": "primary",
+      "score": 0.5545
+    }
+  ],
+  "excluded": [
+    {
+      "id": "openai/gpt-6-astra@azure-foundry",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-sol@azure-foundry",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "openai/gpt-6-luna@azure-foundry",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@anthropic",
+      "reasons": [
+        "cannot process in ['eu'] via anthropic",
+        "no vendor moderation API (bring your own guardrail)"
+      ]
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@aws-bedrock",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@gcp-vertex",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@azure-foundry",
+      "reasons": [
+        "cannot process in ['eu'] via azure-foundry",
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@anthropic",
+      "reasons": [
+        "cannot process in ['eu'] via anthropic",
+        "no vendor moderation API (bring your own guardrail)"
+      ]
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@aws-bedrock",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@gcp-vertex",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@azure-foundry",
+      "reasons": [
+        "cannot process in ['eu'] via azure-foundry",
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@anthropic",
+      "reasons": [
+        "cannot process in ['eu'] via anthropic",
+        "no vendor moderation API (bring your own guardrail)"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@aws-bedrock",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@gcp-vertex",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@azure-foundry",
+      "reasons": [
+        "cannot process in ['eu'] via azure-foundry",
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-haiku-5-5@anthropic",
+      "reasons": [
+        "cannot process in ['eu'] via anthropic",
+        "no vendor moderation API (bring your own guardrail)"
+      ]
+    },
+    {
+      "id": "anthropic/claude-haiku-5-5@aws-bedrock",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-haiku-5-5@gcp-vertex",
+      "reasons": [
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "anthropic/claude-haiku-5-5@azure-foundry",
+      "reasons": [
+        "cannot process in ['eu'] via azure-foundry",
+        "zero data retention not documented"
+      ]
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview@gcp-vertex",
+      "reasons": [
+        "preview model (allow_preview=false)",
+        "cannot process in ['eu'] via gcp-vertex",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview@gemini-api",
+      "reasons": [
+        "preview model (allow_preview=false)",
+        "cannot process in ['eu'] via gemini-api",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "google/gemini-3.8-flash@gcp-vertex",
+      "reasons": [
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "google/gemini-3.8-flash@gemini-api",
+      "reasons": [
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "google/gemini-3.5-flash-lite@gcp-vertex",
+      "reasons": [
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "google/gemini-3.5-flash-lite@gemini-api",
+      "reasons": [
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "mistral/mistral-large-4@mistral",
+      "reasons": [
+        "preview model (allow_preview=false)"
+      ]
+    },
+    {
+      "id": "mistral/codestral-2508@mistral",
+      "reasons": [
+        "code-specialised model; task is not code"
+      ]
+    },
+    {
+      "id": "mistral/mistral-moderation-2603@mistral",
+      "reasons": [
+        "safety classifier, not a generation model",
+        "no text input",
+        "no tool calling",
+        "no structured output"
+      ]
+    },
+    {
+      "id": "amazon/nova-2-lite@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "amazon/nova-pro@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "amazon/nova-lite@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "amazon/nova-micro@aws-bedrock",
+      "reasons": [
+        "no tool calling",
+        "no structured output",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "amazon/nova-premier@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "cannot process in ['eu'] via aws-bedrock",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "meta/llama4-maverick-17b@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "legacy model (allow_legacy=false)",
+        "cannot process in ['eu'] via aws-bedrock",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "meta/llama4-scout-17b@aws-bedrock",
+      "reasons": [
+        "no tool calling",
+        "no structured output",
+        "legacy model (allow_legacy=false)",
+        "cannot process in ['eu'] via aws-bedrock",
+        "zero data retention not documented",
+        "missing attestation '27001'"
+      ]
+    },
+    {
+      "id": "deepseek/deepseek-flash@deepseek",
+      "reasons": [
+        "cannot process in ['eu'] via deepseek",
+        "zero data retention not documented",
+        "missing attestation '27001'",
+        "no vendor moderation API (bring your own guardrail)"
+      ]
+    },
+    {
+      "id": "deepseek/deepseek-v4-pro@deepseek",
+      "reasons": [
+        "cannot process in ['eu'] via deepseek",
+        "zero data retention not documented",
+        "missing attestation '27001'",
+        "no vendor moderation API (bring your own guardrail)"
+      ]
+    }
+  ],
+  "routing": {
+    "mode": "multi-model-cascade",
+    "primary": {
+      "role": "primary",
+      "share": 0.7,
+      "id": "openai/gpt-6-luna@openai",
+      "model": "openai/gpt-6-luna",
+      "platform": "openai",
+      "model_id": "gpt-6-luna",
+      "tier": "daily-driver"
+    },
+    "cascade": {
+      "tiers": [
+        {
+          "role": "primary",
+          "share": 0.7,
+          "id": "openai/gpt-6-luna@openai",
+          "model": "openai/gpt-6-luna",
+          "platform": "openai",
+          "model_id": "gpt-6-luna",
+          "tier": "daily-driver"
+        },
+        {
+          "role": "escalation",
+          "share": 0.25,
+          "id": "mistral/mistral-large-2512@mistral",
+          "model": "mistral/mistral-large-2512",
+          "platform": "mistral",
+          "model_id": "mistral-large-2512",
+          "tier": "workhorse"
+        },
+        {
+          "role": "specialist",
+          "share": 0.05,
+          "id": "openai/gpt-6-astra@openai",
+          "model": "openai/gpt-6-astra",
+          "platform": "openai",
+          "model_id": "gpt-6-astra",
+          "tier": "specialist-reasoning"
+        }
+      ],
+      "per_request_usd": 0.00217662,
+      "monthly_usd": 2646.78,
+      "savings_vs_single": 0.9318,
+      "escalation_signals": [
+        "context_window",
+        "tool_error",
+        "low_confidence",
+        "explicit_tag"
+      ]
+    },
+    "single_model": {
+      "id": "openai/gpt-6-astra@openai",
+      "model": "openai/gpt-6-astra",
+      "platform": "openai",
+      "model_id": "gpt-6-astra",
+      "tier": "specialist-reasoning",
+      "monthly_usd": 38790.4
+    },
+    "fallbacks": [
+      {
+        "id": "mistral/mistral-large-2512@mistral",
+        "model": "mistral/mistral-large-2512",
+        "platform": "mistral",
+        "model_id": "mistral-large-2512",
+        "tier": "workhorse",
+        "reason": "different vendor (mistral), tier workhorse"
+      }
+    ],
+    "monthly_usd": 2646.78,
+    "vendors_in_route": [
+      "mistral",
+      "openai"
+    ]
+  },
+  "warnings": []
+}

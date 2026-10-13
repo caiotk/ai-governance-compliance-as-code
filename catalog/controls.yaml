@@ -52,6 +52,7 @@ controls:
       mitre-atlas: ["AML.M0023 AI Bill of Materials"]
       owasp-genai: ["LLM04:2026 Supply Chain (know what you run)"]
       anthropic-zero-trust: ["eBook phase 1 identify requirements; Foundation tier cryptographically rooted agent IDs"]
+      energy-ci: ["Designation of the asset/entity: SOCI critical asset, OIV, CII, NCCS high/critical-impact entity, ESP Act designated operator, BES Cyber System"]
 
   - id: AIG-03
     title: Risk classification and impact assessment
@@ -131,6 +132,10 @@ controls:
       owasp-genai: ["LLM04:2026 Supply Chain", "ASI04 Agentic Supply Chain Vulnerabilities"]
       mitre-atlas: ["AML.M0014 Verify AI Artifacts", "AML.M0013 Code Signing", "AML.M0023 AI Bill of Materials", "AML.T0109 AI Supply Chain Rug Pull", "AML.T0110 AI Agent Tool Poisoning"]
       anthropic-zero-trust: ["eBook phase 2 manage supply chain risks (MCP stack, tool poisoning, rug pulls)"]
+      iec62443: ["2-4 requirements for IACS service providers", "4-1 secure product development lifecycle", "4-2 component requirements"]
+      iso27019: ["Supplier-relationship controls applied to energy process-control suppliers (clause numbers not re-read)"]
+      energy-ci: ["NERC CIP-013 and FERC Order 912 supply chain; CIRMP s 8/8A frameworks; NIS2 Art 21(2)(d); NCCS Art 33/35; Cybersecurity Act Part 3A; ESP Act pre-screening"]
+      finops: ["Architecting & Workload Placement; Rate Optimization — model/platform choice recorded in the selection decision"]
 
   - id: AIG-07
     title: Workload and agent identity with least privilege
@@ -150,6 +155,8 @@ controls:
       owasp-genai: ["LLM03:2026 Excessive Agency", "ASI03 Identity and Privilege Abuse"]
       mitre-atlas: ["AML.M0019 Control Access to AI Models and Data in Production", "AML.M0026 Privileged AI Agent Permissions Configuration", "AML.M0027 Single-User AI Agent Permissions Configuration", "AML.M0028 AI Agent Tools Permissions Configuration", "AML.M0037 AI Agent Authority Expansion Controls"]
       anthropic-zero-trust: ["Foundation tier: cryptographically rooted agent IDs, short-lived OAuth tokens, deny-by-default RBAC", "Workload Identity Federation (short-lived tokens, jti replay protection)", "Claude Code permissions.deny / allowManagedPermissionRulesOnly / allowedMcpServers", "CISO guide: identity from your IdP with SCIM; per-tool per-action approval"]
+      iec62443: ["3-3 SR 1 identification and authentication control, SR 2 use control"]
+      iso27019: ["Access control for process-control systems (clause numbers not re-read)"]
 
   - id: AIG-08
     title: Network isolation and data residency
@@ -167,6 +174,8 @@ controls:
       owasp-genai: ["ASI07 Insecure Inter-Agent Communication"]
       mitre-atlas: ["AML.M0032 Segmentation of AI Agent Components"]
       anthropic-zero-trust: ["CISO guide: egress allow-listing (strongest control against prompt injection)", "Claude Code sandbox.network.allowedDomains / allowManagedDomainsOnly", "eBook Enterprise tier: mutual TLS, sandboxed execution"]
+      iec62443: ["3-3 zones and conduits, SR 5 restricted data flow; 2-1 network segmentation"]
+      iso27019: ["Network security and segregation of process-control networks (clause numbers not re-read)"]
 
   - id: AIG-09
     title: Encryption and key management
@@ -220,6 +229,7 @@ controls:
       owasp-genai: ["ASI09 Human-Agent Trust Exploitation", "ASI10 Rogue Agents"]
       mitre-atlas: ["AML.M0029 Human In-the-Loop for AI Agent Actions", "AML.M0038 AI Agent Scope Drift Detection"]
       anthropic-zero-trust: ["CISO guide: per-tool per-action approval; org-wide off switch incl. active sessions", "Trustworthy agents: keeping humans in control"]
+      energy-ci: ["Market-sensitive AI: REMIT, NER bidding rules, EA Code Part 13, FERC 18 CFR 1c; control-room human control (PHMSA control-room management, ANP SGSO)"]
 
   - id: AIG-12
     title: Transparency, notice and explanation
@@ -256,6 +266,11 @@ controls:
       mitre-atlas: ["AML.M0024 AI Telemetry Logging", "AML.M0038 AI Agent Scope Drift Detection", "AML.M0039 AI Honeypots"]
       nist-sp-800-61: ["CSF 2.0 DE.CM continuous monitoring and DE.AE adverse event analysis (Rev. 3 Table 3, High priority)"]
       anthropic-zero-trust: ["eBook phase 8 measure what matters; immutable audit trails; OpenTelemetry to SIEM", "Compliance API activity feed"]
+      iec62443: ["3-3 SR 6 timely response to events (audit log accessibility, continuous monitoring)"]
+      iso27019: ["Logging and monitoring of process-control systems (clause numbers not re-read)"]
+      energy-ci: ["NERC CIP-007/015 logging and INSM; NCCS Art 38 CSOC; CCoP 2026 §6.2.4 monitoring; REN 964"]
+      finops: ["Reporting & Analytics; Anomaly Management — token and spend telemetry per workload"]
+      bcp-dr: ["CSF 2.0 PR.IR-04 capacity monitoring; DE.CM"]
 
   - id: AIG-14
     title: Pre-deployment testing, evaluation and red-teaming
@@ -289,6 +304,8 @@ controls:
       nist-ai-rmf: ["MANAGE 1 risks prioritised and managed; GOVERN 1.7 decommissioning"]
       mitre-atlas: ["AML.M0017 AI Model Distribution Methods", "AML.M0011 Restrict Library Loading"]
       iso42005: ["5.12 Monitoring and review of the impact assessment"]
+      iec62443: ["2-1 management of change and patch management for IACS", "3-3 SR 7 resource availability"]
+      iso27019: ["Change management incl. process-control systems (clause numbers not re-read)"]
 
   - id: AIG-16
     title: Incident management and regulator notification
@@ -308,6 +325,10 @@ controls:
       nist-ai-rmf: ["MANAGE 4.3 incident response and communication; GOVERN 6.2 third-party incident contingency"]
       owasp-genai: ["ASI08 Cascading Failures"]
       anthropic-zero-trust: ["eBook Part V defensive operations at the speed of autonomous threats (Agentic SOAR)"]
+      iec62443: ["2-1 incident response for IACS"]
+      iso27019: ["Information security incident management (clause numbers not re-read)"]
+      energy-ci: ["CIP-008-6 1 h; SOCI ss 30BC/30BD 12 h / 72 h; Ley 21.663 Art 9 3 h / 24 h / 72 h / 15 d; NIS2 Art 23 24 h / 72 h / 1 month; NCCS Art 38 4 h; Cybersecurity Act s 14 (2 h prescribed, secondary); ACD law prompt + 30 d; ANP RANP 882/2022 90-day report"]
+      bcp-dr: ["SP 800-34 step 5 contingency plan; CSF 2.0 RC.RP-01 recovery executed from the incident process; RC.CO-03/04 communications"]
 
   - id: AIG-17
     title: Operational resilience, outsourcing and exit
@@ -322,6 +343,11 @@ controls:
       nist-ai-rmf: ["MANAGE 2.3–2.4 fallback, supersede/disengage/deactivate; GOVERN 1.7 decommissioning; GOVERN 6.2 third-party contingency"]
       nist-sp-800-61: ["RC.RP recovery plan; PR.DS-11 backups (High)"]
       owasp-genai: ["ASI08 Cascading Failures"]
+      iec62443: ["3-3 SR 7 resource availability (backup, recovery, network and security functionality)"]
+      iso27019: ["Backup and redundancy of process-control systems (clause numbers not re-read)"]
+      energy-ci: ["CER Directive resilience measures; SOCI Part 2C incident response plans and exercises; Ley 21.663 Art 8 certified continuity plans; TSA SD annual IRP test; gas critical contingency management (NZ)"]
+      bcp-dr: ["SP 800-34 steps 2 (BIA), 4 (strategies), 6 (testing, training and exercises); MTD/RTO/RPO; CSF 2.0 RC.RP-02…06, PR.IR-03; ID.IM-02 improvements from exercises", "APRA CPS 230 paras 38, 41, 43, 44", "DORA Art 11(4)/(6), Art 12(6)", "EU AI Act Art 15(4) technical redundancy, backup or fail-safe plans"]
+      finops: ["Architecting & Workload Placement — second vendor/platform in every routing state"]
 
   - id: AIG-18
     title: Cross-border transfer safeguards
@@ -379,3 +405,19 @@ controls:
       nist-ai-rmf: ["MEASURE 1.3 independent assessors"]
       apra: ["CPS 234 paras 32–34 internal audit", "CPS 230 paras 29–31 controls tested and remediated"]
       eu-ai-act: ["Art 17(1)(a)–(b) QMS compliance strategy and procedures; Art 72 post-market monitoring"]
+
+  - id: AIG-22
+    title: AI FinOps — token budgets, consumption limits and cost allocation
+    objective: Every AI workload runs under a defined budget with enforced token/rate limits, cost allocated to an owner, anomaly alerting, and a recorded model-selection decision so spend, capacity and vendor concentration are governed rather than discovered.
+    evidence: [finops.budget_defined, finops.monthly_budget_usd, finops.token_limits_enforced, finops.cost_allocation_tags, finops.model_selection_record, finops.model_selection_date]
+    mappings:
+      finops: ["Budgeting; Allocation; Anomaly Management; Unit Economics; Rate Optimization; Governance, Policy & Risk (FinOps for AI)"]
+      owasp-genai: ["LLM06:2026 Unbounded Consumption", "ASI08 Cascading Failures (cost and capacity runaway)"]
+      mitre-atlas: ["AML.M0004 Limit AI Service Query Volume and Rate", "AML.M0036 Limit AI Workload Resource Consumption", "AML.M0024 AI Telemetry Logging"]
+      iso27001: ["A.8.6 Capacity management", "A.5.19–5.22 supplier relationships (vendor concentration)"]
+      iso42001: ["9.1 Monitoring, measurement, analysis and evaluation", "A.10 third-party and customer relationships (secondary listing)"]
+      nist-ai-rmf: ["MANAGE 2.1 resources required to manage AI risks are taken into account", "GOVERN 6 third-party risks"]
+      anthropic-zero-trust: ["Rate limits and circuit breakers on tool access (eBook phase 5)"]
+      apra: ["CPS 230 para 38(c) minimum service levels under alternative arrangements; CPS 230 material service providers"]
+      eu-ai-act: ["Art 15(1) performance consistent throughout the lifecycle (capacity)"]
+

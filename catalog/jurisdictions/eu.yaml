@@ -4,6 +4,8 @@ kind: Jurisdiction
 id: EU
 name: European Union (shared layer)
 frameworks: [eu-ai-act, gdpr]
+sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
 instruments:
   horizontal:
     - id: eu-ai-act
@@ -100,3 +102,48 @@ instruments:
         url: https://eur-lex.europa.eu/eli/dir/2019/790/oj
         verification: primary
         controls: [AIG-04, AIG-06]
+    energy:
+      - id: nis2-energy
+        name: NIS2 Directive Annex I "Energy" — electricity, district heating, oil, gas and hydrogen entities; Art 21 measures, Art 20 management accountability, Art 23 reporting 24 h / 72 h / 1 month
+        regulator: National competent authorities / CSIRTs
+        citation: Directive (EU) 2022/2555, OJ L 333/80
+        status: in-force
+        effective: "applies from 2024-10-18 (national transposition)"
+        url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+        verification: primary
+        controls: [AIG-01, AIG-06, AIG-07, AIG-13, AIG-16]
+      - id: eu-nccs
+        name: Network Code on Cybersecurity for the electricity sector (NCCS) — Commission Delegated Regulation (EU) 2024/1366; high-impact/critical-impact entities, CSOC capabilities and 4-hour reporting of reportable cyber-attacks (Art 38)
+        regulator: ENTSO-E / EU DSO entity / national authorities
+        citation: Delegated Regulation (EU) 2024/1366, OJ L 2024/1366
+        status: in-force-phased
+        effective: "in force 2024-06-13; methodologies and entity identification phased"
+        url: https://eur-lex.europa.eu/eli/reg_del/2024/1366/oj
+        verification: primary
+        controls: [AIG-06, AIG-13, AIG-16]
+      - id: eu-cer-energy
+        name: CER Directive (EU) 2022/2557 — critical entities in energy identified by 17 Jul 2026; resilience measures and incident notification (Art 15)
+        regulator: National authorities
+        citation: Directive (EU) 2022/2557, OJ L 333/164
+        status: in-force
+        effective: "critical entities identified by 2026-07-17"
+        url: https://eur-lex.europa.eu/eli/dir/2022/2557/oj
+        verification: primary
+        controls: [AIG-16, AIG-17]
+      - id: eu-ai-act-annex-iii-2
+        name: EU AI Act Annex III(2) — AI systems intended as safety components in the management and operation of critical digital infrastructure or in the supply of water, gas, heating or electricity (high-risk)
+        regulator: Market surveillance authorities
+        citation: Regulation (EU) 2024/1689, Annex III point 2
+        status: phased
+        effective: "Annex III obligations apply from 2027-12-02 (as amended by Reg (EU) 2026/1744)"
+        url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+        verification: primary
+        controls: [AIG-03, AIG-04, AIG-11, AIG-13, AIG-14]
+      - id: eu-remit
+        name: REMIT (Regulation (EU) 1227/2011 as amended by Regulation (EU) 2024/1106) — wholesale energy market integrity, algorithmic trading
+        regulator: ACER / national regulators
+        status: in-force
+        url: https://eur-lex.europa.eu/eli/reg/2024/1106/oj
+        verification: secondary
+        ai_relevance: AI that generates or executes wholesale energy orders is algorithmic trading; surveillance and audit trail apply.
+        controls: [AIG-11, AIG-13]

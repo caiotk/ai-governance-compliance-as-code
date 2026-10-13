@@ -25,7 +25,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "controls": {
       "AIG-01": {
@@ -53,6 +55,7 @@
           "anthropic-zero-trust",
           "apra",
           "au-privacy",
+          "energy-ci",
           "eu-ai-act",
           "iso27001",
           "iso42001",
@@ -127,9 +130,13 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "energy-ci",
           "eu-ai-act",
+          "finops",
           "gdpr",
+          "iec62443",
           "iso27001",
+          "iso27019",
           "iso42001",
           "mitre-atlas",
           "nist-ai-rmf",
@@ -149,7 +156,9 @@
           "cl-21663",
           "eu-ai-act",
           "gdpr",
+          "iec62443",
           "iso27001",
+          "iso27019",
           "iso42001",
           "mitre-atlas",
           "nist-ai-rmf",
@@ -166,7 +175,9 @@
           "au-privacy",
           "eu-ai-act",
           "gdpr",
+          "iec62443",
           "iso27001",
+          "iso27019",
           "mitre-atlas",
           "nz-privacy",
           "owasp-genai",
@@ -213,6 +224,7 @@
           "br-cfm",
           "br-lgpd",
           "cl-21719",
+          "energy-ci",
           "eu-ai-act",
           "gdpr",
           "iso42001",
@@ -245,9 +257,14 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "bcp-dr",
           "br-cfm",
+          "energy-ci",
           "eu-ai-act",
+          "finops",
+          "iec62443",
           "iso27001",
+          "iso27019",
           "iso42001",
           "mitre-atlas",
           "nist-ai-rmf",
@@ -280,7 +297,9 @@
         "frameworks": [
           "apra",
           "eu-ai-act",
+          "iec62443",
           "iso27001",
+          "iso27019",
           "iso42001",
           "iso42005",
           "mitre-atlas",
@@ -295,10 +314,14 @@
           "anthropic-zero-trust",
           "apra",
           "au-privacy",
+          "bcp-dr",
           "cl-21663",
+          "energy-ci",
           "eu-ai-act",
           "gdpr",
+          "iec62443",
           "iso27001",
+          "iso27019",
           "iso42001",
           "nist-ai-rmf",
           "nist-sp-800-61",
@@ -311,8 +334,13 @@
         "title": "Operational resilience, outsourcing and exit",
         "frameworks": [
           "apra",
+          "bcp-dr",
+          "energy-ci",
           "eu-ai-act",
+          "finops",
+          "iec62443",
           "iso27001",
+          "iso27019",
           "iso42001",
           "nist-ai-rmf",
           "nist-sp-800-61",
@@ -372,6 +400,20 @@
           "iso42001",
           "nist-ai-rmf"
         ]
+      },
+      "AIG-22": {
+        "title": "AI FinOps — token budgets, consumption limits and cost allocation",
+        "frameworks": [
+          "anthropic-zero-trust",
+          "apra",
+          "eu-ai-act",
+          "finops",
+          "iso27001",
+          "iso42001",
+          "mitre-atlas",
+          "nist-ai-rmf",
+          "owasp-genai"
+        ]
       }
     },
     "jurisdictions": {
@@ -379,13 +421,24 @@
         "frameworks": [
           "ar-25326"
         ],
-        "sector_frameworks": {}
+        "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ]
+        }
       },
       "AU": {
         "frameworks": [
           "au-privacy"
         ],
         "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ],
           "fsi": [
             "apra"
           ]
@@ -396,6 +449,11 @@
           "br-lgpd"
         ],
         "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ],
           "health": [
             "br-cfm"
           ]
@@ -406,33 +464,62 @@
           "cl-21719",
           "cl-21663"
         ],
-        "sector_frameworks": {}
+        "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ]
+        }
       },
       "ES": {
         "frameworks": [
           "eu-ai-act",
           "gdpr"
         ],
-        "sector_frameworks": {}
+        "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ]
+        }
       },
       "EU": {
         "frameworks": [
           "eu-ai-act",
           "gdpr"
         ],
-        "sector_frameworks": {}
+        "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ]
+        }
       },
       "JP": {
         "frameworks": [
           "jp-appi"
         ],
-        "sector_frameworks": {}
+        "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ]
+        }
       },
       "NZ": {
         "frameworks": [
           "nz-privacy"
         ],
         "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ],
           "fsi": [
             "rbnz-bs11"
           ]
@@ -443,13 +530,24 @@
           "eu-ai-act",
           "gdpr"
         ],
-        "sector_frameworks": {}
+        "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ]
+        }
       },
       "SG": {
         "frameworks": [
           "sg-pdpa"
         ],
         "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ],
           "fsi": [
             "sg-mas-airm"
           ]
@@ -459,7 +557,13 @@
         "frameworks": [
           "us-ai"
         ],
-        "sector_frameworks": {}
+        "sector_frameworks": {
+          "energy": [
+            "energy-ci",
+            "iec62443",
+            "iso27019"
+          ]
+        }
       }
     }
   }

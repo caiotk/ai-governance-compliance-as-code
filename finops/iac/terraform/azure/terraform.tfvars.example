@@ -1,0 +1,10 @@
+workload_id            = "eu-support-chatbot"
+resource_group_name    = "rg-ai-prod-weu"
+location               = "westeurope"
+resource_group_id      = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-ai-prod-weu"
+cognitive_account_ids  = ["/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-ai-prod-weu/providers/Microsoft.CognitiveServices/accounts/aoai-prod-weu"]
+monthly_budget_usd     = 15000
+budget_start_date      = "2026-11-01T00:00:00Z"
+contact_emails         = ["finops@example.com", "ai-platform@example.com"]
+tokens_per_hour_alert  = 60000000
+model_deployment_names = ["gpt-6-luna", "gpt-6-1-sol"]

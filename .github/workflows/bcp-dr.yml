@@ -1,0 +1,159 @@
+# Push-button business continuity / disaster recovery for LLM workloads.
+#
+#   Actions → "AI BCP/DR" → Run workflow → choose failover | failback | drill | status
+#
+# failover/failback run in the `production` environment: configure required
+# reviewers on that environment and the button becomes a two-person control.
+# The routing change (finops/decisions/<workload>.routing.yaml + the broker
+# config) is committed to main; your gateway deploys from it. Drills run
+# quarterly on every workload and leave a timed record under bcp/drills/.
+# The commit steps push with GITHUB_TOKEN: if main is branch-protected, allow
+# the token to bypass or point the push at a branch and open a pull request.
+name: AI BCP/DR
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: What to do
+        type: choice
+        options: [status, drill, failover, failback]
+        default: status
+      workload:
+        description: "Workload id (e.g. eu-support-chatbot); empty = all (status/drill only)"
+        type: string
+        default: ""
+      target:
+        description: "Route to activate for failover/drill (fallback-1, fallback-2, …)"
+        type: string
+        default: fallback-1
+      reason:
+        description: "Why (recorded in the routing state and the commit)"
+        type: string
+        default: ""
+      health_url:
+        description: "Optional broker health URL to time the switch (e.g. https://llm-gw.example.com/health/readiness)"
+        type: string
+        default: ""
+      rto_minutes:
+        description: RTO the drill is measured against
+        type: number
+        default: 30
+  schedule:
+    - cron: "0 3 1 */3 *" # quarterly drill, 1st of Jan/Apr/Jul/Oct 03:00 UTC
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: bcp-dr
+  cancel-in-progress: false
+
+jobs:
+  status:
+    if: github.event_name == 'workflow_dispatch' && inputs.action == 'status'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "pyyaml==6.0.3" "jsonschema==4.23.0"
+      - env:
+          WORKLOAD: ${{ inputs.workload }}
+        run: |
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          python3 tools/dr.py status ${WORKLOAD:+--workload "$WORKLOAD"} | tee -a "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+  drill:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.action == 'drill')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "pyyaml==6.0.3" "jsonschema==4.23.0"
+      - name: Run drills
+        id: drill
+        shell: bash
+        env:
+          WORKLOAD: ${{ inputs.workload }}
+          TARGET: ${{ inputs.target }}
+          HEALTH_URL: ${{ inputs.health_url }}
+          RTO: ${{ inputs.rto_minutes }}
+        run: |
+          set +e
+          shopt -s nullglob
+          rc=0
+          if [ -n "$WORKLOAD" ]; then wids="$WORKLOAD"; else wids=$(for f in finops/decisions/*.routing.yaml; do b=${f##*/}; echo "${b%.routing.yaml}"; done); fi
+          [ -n "$wids" ] || { echo "no routing states to drill"; echo "rc=0" >> "$GITHUB_OUTPUT"; exit 0; }
+          for w in $wids; do
+            python3 tools/dr.py drill --workload "$w" ${TARGET:+--to "$TARGET"} --rto-minutes "${RTO:-30}" ${HEALTH_URL:+--health-url "$HEALTH_URL"} || rc=1
+            python3 tools/dr.py report --workload "$w" >> "$GITHUB_STEP_SUMMARY"
+          done
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+      - name: Commit drill records
+        run: |
+          git config user.name "aigov-bcp"
+          git config user.email "aigov-bcp@users.noreply.github.com"
+          git add bcp/drills finops/decisions/*.routing.yaml
+          git diff --cached --quiet || git commit -m "BCP/DR drill $(date -u +%F): ${{ inputs.workload || 'all workloads' }}"
+          git push
+      - name: Open an issue on a failed drill
+        if: steps.drill.outputs.rc != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create bcp --color B60205 --description "Business continuity" 2>/dev/null || true
+          gh issue create --title "DR drill failed $(date -u +%F)" \
+            --body "See the workflow run ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}. A failed drill is a tolerance-level breach to report (CPS 230 para 41; DORA Art 11(6))." --label bcp
+      - if: steps.drill.outputs.rc != '0'
+        run: exit 1
+
+  failover:
+    if: github.event_name == 'workflow_dispatch' && (inputs.action == 'failover' || inputs.action == 'failback')
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "pyyaml==6.0.3" "jsonschema==4.23.0"
+      - name: Switch route
+        env:
+          ACTION: ${{ inputs.action }}
+          WORKLOAD: ${{ inputs.workload }}
+          TARGET: ${{ inputs.target }}
+          REASON: ${{ inputs.reason }}
+          HEALTH_URL: ${{ inputs.health_url }}
+        run: |
+          test -n "$WORKLOAD" || { echo "::error::workload is required"; exit 1; }
+          python3 tools/dr.py "$ACTION" --workload "$WORKLOAD" --to "$TARGET" --reason "$REASON" ${HEALTH_URL:+--health-url "$HEALTH_URL"}
+          python3 tools/dr.py report --workload "$WORKLOAD" >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit the routing change
+        env:
+          ACTION: ${{ inputs.action }}
+          WORKLOAD: ${{ inputs.workload }}
+          TARGET: ${{ inputs.target }}
+          REASON: ${{ inputs.reason }}
+        run: |
+          git config user.name "aigov-bcp"
+          git config user.email "aigov-bcp@users.noreply.github.com"
+          git add finops/decisions
+          git diff --cached --quiet || git commit -m "BCP $ACTION: $WORKLOAD -> $TARGET ($REASON)"
+          git push
+      - name: Record the incident
+        if: inputs.action == 'failover'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORKLOAD: ${{ inputs.workload }}
+          TARGET: ${{ inputs.target }}
+          REASON: ${{ inputs.reason }}
+        run: |
+          gh label create bcp --color B60205 --description "Business continuity" 2>/dev/null || true
+          gh issue create --title "Failover active: $WORKLOAD on $TARGET" \
+            --body "Reason: $REASON. Run failback from the AI BCP/DR workflow once the primary is healthy; record lessons learned (NIST SP 800-61r3 ID.IM)." --label bcp

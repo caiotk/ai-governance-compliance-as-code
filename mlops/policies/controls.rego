@@ -1,4 +1,4 @@
-# Control-level checks (AIG-01 … AIG-21). A violation here becomes a finding
+# Control-level checks (AIG-01 … AIG-22). A violation here becomes a finding
 # only when at least one applicable framework maps to the control, and the
 # finding names those frameworks (see `required` in main.rego).
 package aigov
@@ -194,4 +194,9 @@ control_violations contains {"control": "AIG-20", "message": "testing.bias_asses
 # AIG-21 Internal audit and independent assurance
 control_violations contains {"control": "AIG-21", "message": "governance.internal_audit.programme: the system must be in scope of a planned internal audit programme (ISO 19011 cl. 5; ISO/IEC 42001 9.2; ISO/IEC 27001 9.2)"} if {
 	no(["governance", "internal_audit", "programme"])
+}
+
+# AIG-22 AI FinOps — budgets and consumption limits
+control_violations contains {"control": "AIG-22", "message": "finops.budget_defined: every AI workload needs a monthly budget with alerts (cloud budget and/or broker cap) — see finops/"} if {
+	no(["finops", "budget_defined"])
 }

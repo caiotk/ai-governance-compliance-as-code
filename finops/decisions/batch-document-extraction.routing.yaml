@@ -1,0 +1,33 @@
+apiVersion: aigov/v1
+kind: Routing
+workload: batch-document-extraction
+generated: '2026-10-13'
+mode: single-model
+active: primary
+routes:
+  primary:
+    id: openai/gpt-6-luna@openai
+    model: openai/gpt-6-luna
+    platform: openai
+    model_id: gpt-6-luna
+    tier: daily-driver
+  fallback-1:
+    id: openai/gpt-6-luna@azure-foundry
+    model: openai/gpt-6-luna
+    platform: azure-foundry
+    model_id: gpt-6-luna
+    tier: daily-driver
+    reason: same model, different platform
+  fallback-2:
+    id: anthropic/claude-haiku-5-5@aws-bedrock
+    model: anthropic/claude-haiku-5-5
+    platform: aws-bedrock
+    model_id: anthropic.claude-haiku-5-5
+    tier: daily-driver
+    reason: different vendor (anthropic), tier daily-driver
+cascade: null
+budget_monthly_usd: 6000
+expected_monthly_usd: 851.2
+rto_minutes: null
+last_failover: null
+last_drill: null

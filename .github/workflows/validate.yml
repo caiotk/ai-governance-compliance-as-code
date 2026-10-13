@@ -51,7 +51,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ env.TF_PLUGIN_CACHE_DIR }}
-          key: tf-providers-${{ hashFiles('vendors/**/.terraform.lock.hcl') }}
+          key: tf-providers-${{ hashFiles('vendors/**/.terraform.lock.hcl', 'finops/**/.terraform.lock.hcl', 'bcp/**/.terraform.lock.hcl') }}
 
       - run: mkdir -p "$TF_PLUGIN_CACHE_DIR"
 

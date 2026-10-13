@@ -95,3 +95,25 @@ sectors:
       - { text: "Synthetic content and chatbots (AI Act Art 50 from 2026-08-02)", jurisdictions: [PT, ES] }
       - { text: "Consumer-facing AI claims and deception (FTC Act §5; consumer protection law)", jurisdictions: all }
     emphasised_controls: [AIG-04, AIG-06, AIG-10, AIG-12, AIG-14, AIG-15, AIG-16]
+
+  - id: energy
+    name: Energy (oil, gas and electricity)
+    scenarios:
+      - Load, renewable-output and inflow forecasting feeding scheduling and dispatch
+      - Dispatch, balancing and curtailment recommendations to control-room operators
+      - Predictive maintenance on generation, transmission, pipeline and refinery assets
+      - Outage management, restoration prioritisation and vegetation/asset inspection with computer vision
+      - Wholesale trading, bidding and nomination algorithms
+      - Safety monitoring on rigs, plants and pipelines (leak and methane detection, alarm triage)
+      - Customer service, billing and demand-response on smart-meter data
+    high_risk_triggers:
+      - { text: "AI as a safety component in the supply of water, gas, heating or electricity (AI Act Annex III(2))", jurisdictions: [PT, ES] }
+      - { text: "AI software on BES Cyber Systems or in the CIP-networked environment (NERC CIP-005/007/010/015); pipeline OT under TSA SD Pipeline-2021-02", jurisdictions: [US] }
+      - { text: "AI deployed on or hosted with a critical electricity, gas or liquid-fuel asset — 'advanced, novel or emerging technology' material risk (CIRMP Rules s 8A, commenced 10 Jun 2026 with a 12-month grace period to ~10 Jun 2027)", jurisdictions: [AU] }
+      - { text: "AI embedded in designated critical equipment (supply-demand control, SCADA, generation output control ≥ 500,000 kW, gas pipeline and refinery control) — Economic Security Promotion Act pre-screening", jurisdictions: [JP] }
+      - { text: "AI touching critical information infrastructure, incl. cloud-hosted services (CCoP 2026 §3.9.3, §10 OT)", jurisdictions: [SG] }
+      - { text: "AI in the control-centre or operational data scope of an operator of vital importance (Ley 21.663 Art 8) or inside ONS ARCiber", jurisdictions: [CL, BR] }
+      - { text: "AI that generates or executes wholesale bids, offers or nominations (REMIT, NER bidding rules, EA Code Part 13, FERC 18 CFR 1c, CAMMESA, CCEE, JEPX, NEMS)", jurisdictions: all }
+      - { text: "AI advising control-room operators or automating actions on energised plant, pipelines or rigs — human control and alarm management must be preserved", jurisdictions: all }
+    emphasised_controls: [AIG-06, AIG-07, AIG-08, AIG-11, AIG-13, AIG-15, AIG-16, AIG-17]
+

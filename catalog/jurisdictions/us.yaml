@@ -3,6 +3,8 @@ kind: Jurisdiction
 id: US
 name: United States
 frameworks: [us-ai]
+sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
 notes: >-
   No federal AI statute. State laws apply by where the people affected are; EO 14365 (11 Dec 2025)
   challenges state AI laws but does not itself preempt them. Profiles list the main state laws; scope them to the states you operate in.
@@ -147,3 +149,68 @@ instruments:
         url: https://www.hklaw.com/en/insights/media-entities/2026/09/the-federal-trade-commissions-current-approach-to-ai-regulation
         verification: secondary
         controls: [AIG-12, AIG-14]
+    energy:
+      - id: us-nerc-cip
+        name: NERC CIP Reliability Standards (CIP-002 to CIP-014 currently enforceable; CIP-003-9 from 1 Apr 2026, CIP-012-2 from 1 Jul 2026)
+        regulator: NERC / FERC
+        citation: "CIP-002-5.1a, CIP-003-9, CIP-004-7, CIP-005-7, CIP-006-6, CIP-007-6, CIP-008-6, CIP-009-6, CIP-010-4, CIP-011-3, CIP-012-2, CIP-013-2, CIP-014-3"
+        status: in-force
+        effective: "virtualization suite (CIP-002-7/8, 003-10, 004-8, 005-8, 006-7.1, 007-7.1, 008-7.1, 009-7.1, 010-5, 011-4.1, 013-3) 2028-07-01; CIP-003-11 2029-07-01"
+        url: https://www.nerc.com/standards/us-reliability-standards
+        verification: primary
+        ai_relevance: AI/ML software on BES Cyber Systems is subject to CIP-010 change management and vulnerability assessment, CIP-007 system security, CIP-011 information protection and CIP-013 supply-chain plans; CIP-005/012 constrain how analytics reach control centres.
+        controls: [AIG-02, AIG-06, AIG-07, AIG-08, AIG-13, AIG-15, AIG-16]
+      - id: us-nerc-cip-008
+        name: NERC CIP-008-6 incident reporting (1 hour to E-ISAC and CISA; attempts by end of next calendar day)
+        regulator: NERC
+        citation: CIP-008-6 R4
+        status: in-force
+        effective: "2021-01-01"
+        url: https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-008-6.pdf
+        verification: primary
+        controls: [AIG-16]
+      - id: us-nerc-cip-015
+        name: NERC CIP-015-1 Internal Network Security Monitoring (FERC Order 907)
+        regulator: NERC / FERC
+        citation: 90 FR 28889, RM24-7-000
+        status: phased
+        effective: "2028-10-01 (CIP-015-2 2029-10-01)"
+        url: https://www.federalregister.gov/documents/2025/07/02/2025-12309/critical-infrastructure-protection-reliability-standard-cip-015-1-cyber-security-internal-network
+        verification: primary
+        ai_relevance: East-west anomaly detection inside the CIP-networked environment — AI monitoring tools deployed for INSM are themselves in CIP scope.
+        controls: [AIG-13]
+      - id: us-ferc-912
+        name: FERC Order No. 912 — supply chain risk management revisions (vendor products, services and Protected Cyber Assets)
+        regulator: FERC
+        citation: 90 FR 45661, RM24-4-000 / RM20-19-000
+        status: in-force
+        effective: "2025-11-24 (NERC drafting standards)"
+        url: https://www.federalregister.gov/documents/2025/09/23/2025-18394/supply-chain-risk-management-reliability-standards-revisions-equipment-and-services-produced-or
+        verification: primary
+        controls: [AIG-06]
+      - id: us-tsa-pipeline-sd
+        name: TSA Security Directive Pipeline-2021-02 series (cybersecurity implementation plan, annually tested incident response plan, assessment plan)
+        regulator: TSA
+        citation: "SD Pipeline-2021-02 series; 91 FR 149 (2026-01-02)"
+        status: in-force
+        effective: "renewed annually; current version letter unverified"
+        url: https://www.govinfo.gov/content/pkg/FR-2026-01-02/html/2025-24198.htm
+        verification: primary
+        controls: [AIG-07, AIG-08, AIG-13, AIG-16, AIG-17]
+      - id: us-doe-c2m2
+        name: DOE Cybersecurity Capability Maturity Model (C2M2) v2.1
+        regulator: DOE CESER
+        citation: June 2022
+        status: voluntary
+        url: https://www.energy.gov/ceser/cybersecurity-capability-maturity-model-c2m2
+        verification: primary
+        controls: [AIG-01, AIG-13, AIG-16]
+      - id: us-ferc-market-manipulation
+        name: FERC anti-manipulation rule (18 CFR 1c) and CFTC oversight of energy trading
+        regulator: FERC / CFTC
+        citation: 18 CFR 1c
+        status: in-force
+        url: https://www.ferc.gov/enforcement-legal/enforcement
+        verification: secondary
+        ai_relevance: AI that generates or executes bids/offers is market-sensitive and needs an audit trail and human accountability.
+        controls: [AIG-11, AIG-13]

@@ -4,6 +4,8 @@ id: PT
 name: Portugal
 inherits: [EU]
 frameworks: [eu-ai-act, gdpr]
+sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
 instruments:
   horizontal:
     - id: pt-ai-authorities
@@ -105,3 +107,12 @@ instruments:
         url: https://www.plmj.com/xms/files/03_Novidades_legislativas/2026/DSA-Publicada_a_Lei_de_Execucao_em_Portugal.pdf
         verification: secondary
         controls: [AIG-10, AIG-12]
+    energy:
+      - id: pt-erse-ense
+        name: ERSE regulation and ENSE security-of-supply mandate (strategic oil reserves, supply-security monitoring); REN and E-Redes as NCCS high/critical-impact entities
+        regulator: ERSE / ENSE / DGEG
+        status: in-force
+        url: https://www.ense-epe.pt/
+        verification: primary
+        notes: Sector cyber content beyond the EU layer unverified; NIS2 obligations arrive through the national transposition listed under cyber.
+        controls: [AIG-16, AIG-17]

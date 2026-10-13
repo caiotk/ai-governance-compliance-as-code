@@ -3,6 +3,8 @@ kind: Jurisdiction
 id: JP
 name: Japan
 frameworks: [jp-appi]
+sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
 notes: The AI Promotion Act is promotional with no penalties; obligations come from APPI, sector rules and voluntary guidelines.
 instruments:
   horizontal:
@@ -101,3 +103,39 @@ instruments:
         url: https://www.wipo.int/documents/d/office-japan/docs-en-tatsuhiro-ueno_general-understanding-on-ai-and-copyright-in-japan_set.pdf
         verification: primary
         controls: [AIG-04]
+    energy:
+      - id: jp-esp-act-energy
+        name: Economic Security Promotion Act — pre-screening of critical equipment (特定重要設備) for electricity, gas and oil operators; METI ordinance lists supply-demand control systems, T&D SCADA, generation output-control systems >= 500,000 kW, gas pipeline control and refinery distillation control
+        regulator: Cabinet Office / METI
+        citation: "令和4年法律第43号 (2022-05-18); 令和5年経済産業省令第41号 (amended 2026-07-14, eff 2026-09-18)"
+        status: in-force
+        url: https://laws.e-gov.go.jp/law/504AC0000000043
+        verification: primary
+        ai_relevance: AI embedded in a designated control system is within the pre-notification regime, including outsourced maintenance and foreign-vendor review.
+        controls: [AIG-06, AIG-15]
+      - id: jp-acd-energy
+        name: Active Cyber Defense law — designated infrastructure operators notify specified important computers and report specified infringement events (prompt initial report, written report within 30 days)
+        regulator: Cabinet / sector ministers
+        citation: "令和7年法律第42号; 施行令 令和8年政令第47号"
+        status: in-force
+        effective: "2026-10-01"
+        url: https://laws.e-gov.go.jp/law/507AC0000000042
+        verification: primary
+        controls: [AIG-02, AIG-16]
+      - id: jp-meti-electric-cyber
+        name: METI cybersecurity requirements for electric facilities under the Electricity Business Act technical standards (business-use facilities since 2016; 自家用電気工作物 from 1 Oct 2022) and 電力制御システムセキュリティガイドライン
+        regulator: METI (産業保安グループ 電力安全課)
+        citation: "電気事業法 昭和39年法律第170号; 施行規則 Art 50(3)(ix)"
+        status: in-force
+        url: https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/cybersecurity.html
+        verification: primary
+        notes: JESC guideline version unverified.
+        controls: [AIG-07, AIG-08, AIG-13, AIG-15]
+      - id: jp-csmg
+        name: METI/IPA Cybersecurity Management Guidelines Ver 3.0 (board-level governance, supply chain, incident readiness)
+        regulator: METI / IPA
+        citation: "Ver 3.0, 2023-03-24"
+        status: voluntary
+        url: https://www.meti.go.jp/policy/netsecurity/mng_guide.html
+        verification: primary
+        controls: [AIG-01, AIG-06, AIG-16]

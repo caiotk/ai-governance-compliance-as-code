@@ -4,6 +4,7 @@ id: SG
 name: Singapore
 frameworks: [sg-pdpa]
 sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
   fsi: [sg-mas-airm]
 notes: No AI statute; model governance frameworks and sector guidelines. MAS AI Risk Management Guidelines were finalised in Oct 2026.
 instruments:
@@ -99,3 +100,38 @@ instruments:
         url: https://www.mlaw.gov.sg/online-safety-commission-and-online-safety-relief-and-accountability-act-2025-to-start-on-29-june-2026/
         verification: primary
         controls: [AIG-10, AIG-12]
+    energy:
+      - id: sg-cybersecurity-act-energy
+        name: Cybersecurity Act 2018 as amended by Act 19 of 2024 — energy essential services (electricity generation/transmission/distribution; natural gas supply for generation); s 14 incident reporting incl. supplier systems; s 15 audit every 2 years and annual risk assessment; Part 3A third-party-owned CII
+        regulator: CSA / EMA (sector lead)
+        citation: "Act 9 of 2018; Act 19 of 2024 in operation 2025-10-31"
+        status: in-force
+        url: https://sso.agc.gov.sg/Act/CA2018
+        verification: primary
+        controls: [AIG-06, AIG-13, AIG-16, AIG-21]
+      - id: sg-ccop-2026
+        name: Cybersecurity Code of Practice for CII 2026 — risk framework (3.4), cloud restriction (3.9.3), outsourcing oversight (3.10), OT requirements (10), interconnected systems (12); board accountability clauses from 29 Jul 2027
+        regulator: CSA
+        citation: CCoP 2026 Release 1
+        status: in-force-phased
+        effective: "2026-07-29; new clauses by 2027-07-29"
+        url: https://www.csa.gov.sg/legislation/codes-of-practice
+        verification: primary
+        ai_relevance: A cloud-hosted AI service that touches CII requires the 3.9.3 risk assessment first; no explicit AI clause.
+        controls: [AIG-01, AIG-03, AIG-06, AIG-08, AIG-13, AIG-14, AIG-21]
+      - id: sg-cii-regulations
+        name: Cybersecurity (Critical Information Infrastructure) Regulations 2018 — prescribed incident-reporting period (2 hours, then details within 14 days)
+        regulator: CSA
+        citation: S 590/2018
+        status: in-force
+        url: https://sso.agc.gov.sg/SL/CA2018-S590-2018
+        verification: secondary
+        controls: [AIG-16]
+      - id: sg-ema-acts
+        name: Electricity Act 2001 and Gas Act 2001 (EMA licensing, Transmission Code, Market Rules)
+        regulator: EMA
+        status: in-force
+        url: https://sso.agc.gov.sg/Act/EA2001
+        verification: primary
+        notes: EMA cyber codes and any AI guidance unverified.
+        controls: [AIG-11, AIG-13]

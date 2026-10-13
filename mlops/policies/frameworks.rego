@@ -523,3 +523,156 @@ framework_findings contains ff("anthropic-zero-trust", "AIG-11", "deny", "Anthro
 	yes(["system", "irreversible_actions"])
 	no(["oversight", "per_action_approval"])
 }
+
+# ── Energy sector: IEC 62443, ISO/IEC 27019 and the national CI regimes ──────
+# These frameworks are attached to the energy profiles via sector_frameworks.
+# "Designated" means the record declares entity_type energy_critical_asset or
+# the system is connected to operational technology.
+
+energy_sector if sector == "energy"
+
+energy_designated if {
+	energy_sector
+	entity("energy_critical_asset")
+}
+
+energy_designated if {
+	energy_sector
+	yes(["system", "ot_connected"])
+}
+
+notified(token) if token in object.get(input, ["incident", "notification_matrix"], [])
+
+framework_findings contains ff("iec62443", "AIG-08", "deny", "IEC 62443-3-3: an AI service connected to operational technology must sit in a defined zone with conduits and a target security level — no direct path to control-system zones (security.ot_zone_conduit_model)") if {
+	energy_sector
+	yes(["system", "ot_connected"])
+	no(["security", "ot_zone_conduit_model"])
+}
+
+framework_findings contains ff("iso27019", "AIG-02", "warn", "ISO/IEC 27019 / national CI regimes: record the regulatory designation of the asset this system supports (governance.critical_infrastructure_designation), e.g. SOCI critical electricity asset, OIV, CII, NCCS high-impact entity") if {
+	energy_sector
+	not present(["governance", "critical_infrastructure_designation"])
+}
+
+framework_findings contains ff("energy-ci", "AIG-11", "deny", "Market-sensitive AI (bids, offers, nominations, trades) needs a human override/stop and full invocation logging for market-surveillance audit trails (REMIT, NER, EA Code Part 13, FERC 18 CFR 1c)") if {
+	energy_sector
+	yes(["system", "market_facing"])
+	not market_controls_ok
+}
+
+market_controls_ok if {
+	yes(["oversight", "override_and_stop"])
+	yes(["logging", "invocation_logging"])
+}
+
+framework_findings contains ff("energy-ci", "AIG-16", "deny", "NERC CIP-008-6 R4: Reportable Cyber Security Incidents go to E-ISAC and CISA within 1 hour (attempts by end of next calendar day) — add E-ISAC:1h to the notification matrix") if {
+	in_country("US")
+	energy_designated
+	not notified("E-ISAC:1h")
+}
+
+framework_findings contains ff("energy-ci", "AIG-16", "deny", "SOCI Act ss 30BC/30BD: critical cyber incidents to CISC within 12 hours, other impactful incidents within 72 hours, written record within 84 hours — add CISC:12h to the notification matrix") if {
+	in_country("AU")
+	energy_designated
+	not notified("CISC:12h")
+}
+
+framework_findings contains ff("energy-ci", "AIG-02", dated("2027-06-10"), "CIRMP Rules s 8A(2)(c): the critical infrastructure risk management program must address the material risk of deploying advanced, novel or emerging technology on the asset — record the asset designation (governance.critical_infrastructure_designation) and the CIRMP framework adopted (grace period ends 2027-06-10)") if {
+	in_country("AU")
+	energy_designated
+	not present(["governance", "critical_infrastructure_designation"])
+}
+
+framework_findings contains ff("energy-ci", "AIG-16", "deny", "Ley 21.663 Art 9: early warning to the CSIRT Nacional within 3 hours, update within 72 hours (24 hours if the OIV service is affected), final report within 15 days — add CSIRT-Nacional to the notification matrix") if {
+	in_country("CL")
+	energy_designated
+	not entity("critical_infrastructure")
+	not notified("CSIRT-Nacional")
+}
+
+# NIS2 clocks are a warning until the national transposition is verified: Spain
+# had not transposed as of the 2026-07-08 CJEU referral and Portugal's instrument
+# was not re-read (docs/sources/energy-sector.md).
+framework_findings contains ff("energy-ci", "AIG-16", "warn", "NIS2 Art 23 (energy entities, Annex I): early warning within 24 hours, incident notification within 72 hours, final report within 1 month once transposed (Spain not transposed as of 2026-07-08; Portugal's instrument unverified) — add NIS2:24h to the notification matrix") if {
+	eu_energy
+	energy_designated
+	not notified("NIS2:24h")
+}
+
+framework_findings contains ff("energy-ci", "AIG-16", "warn", "NCCS (Reg (EU) 2024/1366) Art 38: high-impact and critical-impact electricity entities report reportable cyber-attacks within 4 hours — add NCCS:4h once the entity is identified") if {
+	eu_energy
+	energy_designated
+	not notified("NCCS:4h")
+}
+
+eu_energy if in_country("PT")
+
+eu_energy if in_country("ES")
+
+framework_findings contains ff("energy-ci", "AIG-16", "warn", "Cybersecurity Act s 14 / CII Regulations: prescribed cybersecurity incidents on CII and interconnected supplier systems are reported to the Commissioner within the prescribed period (2 hours per secondary sources) — add CSA:2h to the notification matrix") if {
+	in_country("SG")
+	energy_designated
+	not notified("CSA:2h")
+}
+
+framework_findings contains ff("energy-ci", "AIG-16", "warn", "Active Cyber Defense law (in force 2026-10-01): designated infrastructure operators report specified infringement events promptly with a written report within 30 days — add ACD:30d if this operator is designated") if {
+	in_country("JP")
+	energy_designated
+	not notified("ACD:30d")
+}
+
+framework_findings contains ff("energy-ci", "AIG-16", "warn", "ANEEL REN 964/2021: higher-impact cyber incidents are notified to the sector coordination team with cause, impact and mitigation — add ANEEL to the notification matrix") if {
+	in_country("BR")
+	energy_designated
+	not notified("ANEEL")
+}
+
+# ── FinOps for AI and BCP/DR baselines ───────────────────────────────────────
+
+framework_findings contains ff("finops", "AIG-22", "warn", "FinOps Governance, Policy & Risk: enforce token/rate limits at the broker or gateway, not only a budget alert (finops.token_limits_enforced)") if {
+	no(["finops", "token_limits_enforced"])
+}
+
+framework_findings contains ff("finops", "AIG-22", "warn", "FinOps Architecting & Workload Placement: record the model-selection decision for this workload (finops.model_selection_record from tools/select_model.py)") if {
+	not present(["finops", "model_selection_record"])
+}
+
+framework_findings contains ff("finops", "AIG-22", "warn", "FinOps Allocation: tag the workload so spend can be allocated to an owner (finops.cost_allocation_tags)") if {
+	count(object.get(input, ["finops", "cost_allocation_tags"], [])) == 0
+}
+
+framework_findings contains ff("bcp-dr", "AIG-17", "warn", "SP 800-34 / CSF 2.0 PR.IR-03: critical operations need a selectable secondary route on another platform or vendor (resilience.secondary_route) — tools/dr.py") if {
+	yes(["system", "critical_operation"])
+	no(["resilience", "secondary_route"])
+}
+
+framework_findings contains ff("bcp-dr", "AIG-17", "warn", "SP 800-34 step 6 / CSF 2.0 ID.IM-02: run a timed failover drill at least every 12 months and record it (resilience.last_dr_drill)") if {
+	yes(["system", "critical_operation"])
+	not drill_fresh
+}
+
+framework_findings contains ff("bcp-dr", "AIG-17", "warn", "SP 800-34 §3.2.1: set RTO and RPO for this system (resilience.rto_minutes, resilience.rpo_minutes)") if {
+	yes(["system", "critical_operation"])
+	not rto_rpo_set
+}
+
+rto_rpo_set if {
+	object.get(input, ["resilience", "rto_minutes"], 0) > 0
+	object.get(input, ["resilience", "rpo_minutes"], null) != null
+}
+
+drill_fresh if {
+	present(["resilience", "last_dr_drill"])
+	d := get(["resilience", "last_dr_drill"])
+	regex.match(`^\d{4}-\d{2}-\d{2}$`, d)
+	not audit_overdue(d)
+}
+
+# APRA CPS 230 para 43: an annual business continuity exercise is mandatory for
+# critical operations of APRA-regulated entities.
+framework_findings contains ff("apra", "AIG-17", "deny", "APRA CPS 230 para 43: the BCP testing programme must include an annual business continuity exercise covering this critical operation — record a drill within the last 12 months (resilience.last_dr_drill)") if {
+	in_country("AU")
+	entity("apra_regulated")
+	yes(["system", "critical_operation"])
+	not drill_fresh
+}

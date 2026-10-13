@@ -1,0 +1,115 @@
+# Japan — Energy (oil, gas and electricity)
+
+<sub>Generated from `catalog/` by `tools/build.py` · status as of 2026-10-13 · not legal advice.</sub>
+
+> The AI Promotion Act is promotional with no penalties; obligations come from APPI, sector rules and voluntary guidelines.
+
+## Frameworks applied
+
+| Framework | Status | Verification |
+|---|---|---|
+| [Japan Act on the Protection of Personal Information (APPI), as amended by Act No. 56 of 2026](https://www.aoshearman.com/en/insights/ao-shearman-on-data/amendments-to-the-act-on-the-protection-of-personal-information-promulgated) | Phased | ◐ secondary |
+| [Energy critical-infrastructure and incident-reporting regimes (national)](https://github.com/caiotk/ai-governance-compliance-as-code/blob/main/docs/sources/energy-sector.md) | In force | ✓ primary |
+| [IEC 62443 — Security for industrial automation and control systems (2-1:2024, 2-4:2015+AMD1:2017, 3-3:2013, 4-1:2018, 4-2:2019)](https://webstore.iec.ch/en/publication/62883) | Voluntary | ✓ primary |
+| [ISO/IEC 27019:2024 — Information security controls for the energy utility industry](https://www.iso.org/standard/85056.html) | Voluntary | ✓ primary |
+| [ISO/IEC 27001:2022 + Amd 1:2024](https://www.iso.org/standard/27001) | Organisational baseline (voluntary) | ✓ primary |
+| [ISO/IEC 42001:2023 AI management system](https://www.iso.org/standard/81230.html) | Organisational baseline (voluntary) | ◐ secondary |
+| [Zero trust (NIST SP 800-207, CISA ZTMM v2.0)](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf) | Organisational baseline (voluntary) | ✓ primary |
+| [NIST AI Risk Management Framework 1.0 + Generative AI Profile](https://www.nist.gov/itl/ai-risk-management-framework) | Organisational baseline (voluntary) | ✓ primary |
+| [NIST SP 800-61 Rev. 3 — Incident Response Recommendations and Considerations for Cybersecurity Risk Management (CSF 2.0 Community Profile)](https://csrc.nist.gov/pubs/sp/800/61/r3/final) | Organisational baseline (voluntary) | ✓ primary |
+| [ISO 19011:2026 Guidelines for auditing management systems](https://www.iso.org/standard/19011) | Organisational baseline (voluntary) | ✓ primary |
+| [ISO/IEC 42005:2025 AI system impact assessment](https://www.iso.org/standard/44545.html) | Organisational baseline (voluntary) | ✓ primary |
+| [OWASP GenAI Security Project — LLM Top 10 (2026) and Top 10 for Agentic Applications](https://genai.owasp.org/llm-top-10/) | Organisational baseline (voluntary) | ✓ primary |
+| [MITRE ATLAS (release 2026.09)](https://atlas.mitre.org/) | Organisational baseline (voluntary) | ✓ primary |
+| [Anthropic — Zero Trust for AI Agents (eBook and CISO guidance)](https://claude.com/blog/zero-trust-for-ai-agents) | Organisational baseline (voluntary) | ✓ primary |
+| [FinOps Framework (FinOps Foundation) — FinOps for AI](https://www.finops.org/wg/finops-for-ai-overview/) | Organisational baseline (voluntary) | ✓ primary |
+| [Business continuity and disaster recovery for AI services (NIST SP 800-34 Rev. 1, NIST CSF 2.0 RC/PR.IR, ISO 22301:2019)](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-34r1.pdf) | Organisational baseline (voluntary) | ✓ primary |
+
+## Laws, regulations and guidance
+
+
+### AI law and frameworks
+
+| Instrument | Citation | Status / effective | Drives controls | Source |
+|---|---|---|---|---|
+| Act on Promotion of Research and Development, and Deployment of AI-related Technology | Act No. 53 of 2025 | In force · 2025-09-01 | AIG-01, AIG-16 | [✓ primary](https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260714.pdf) |
+| Second AI Basic Plan (agentic, physical and sovereign AI; stronger AISI) | Cabinet decision 2026 (English provisional translation 14 Jul 2026) | Voluntary | AIG-01 | [✓ primary](https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260714.pdf) |
+| AI Business Operator Guidelines v1.2 (METI/MIC) | 31 Mar 2026 | Voluntary | AIG-01, AIG-03, AIG-10, AIG-14 | [◐ secondary](https://www.ibanet.org/japan-health-data-reforms-ai) |
+
+### Data protection
+
+| Instrument | Citation | Status / effective | Drives controls | Source |
+|---|---|---|---|---|
+| Act on the Protection of Personal Information (APPI), as amended by Act No. 56 of 2026 | — | Phased · Penalties from 2027-01-17; main reforms by Cabinet Order no later than 2028-07-17 | AIG-04, AIG-05, AIG-18 | [◐ secondary](https://www.aoshearman.com/en/insights/ao-shearman-on-data/amendments-to-the-act-on-the-protection-of-personal-information-promulgated) |
+
+### Cybersecurity
+
+| Instrument | Citation | Status / effective | Drives controls | Source |
+|---|---|---|---|---|
+| Active Cyber Defense law (Cyber Response Capability Enhancement Act) | — | Phased · Main enforcement 2026-10-01; CI incident reporting by ~Nov 2026; asset notifications 2027-03-31 | AIG-02, AIG-16 | [◐ secondary](https://www.trendmicro.com/ja_jp/jp-security/26/h/securitytrend-20260814-01.html) |
+
+### Sector rules: Energy (oil, gas and electricity)
+
+| Instrument | Citation | Status / effective | Drives controls | Source |
+|---|---|---|---|---|
+| Economic Security Promotion Act — pre-screening of critical equipment (特定重要設備) for electricity, gas and oil operators; METI ordinance lists supply-demand control systems, T&D SCADA, generation output-control systems >= 500,000 kW, gas pipeline control and refinery distillation control | 令和4年法律第43号 (2022-05-18); 令和5年経済産業省令第41号 (amended 2026-07-14, eff 2026-09-18) | In force | AIG-06, AIG-15 | [✓ primary](https://laws.e-gov.go.jp/law/504AC0000000043) |
+| Active Cyber Defense law — designated infrastructure operators notify specified important computers and report specified infringement events (prompt initial report, written report within 30 days) | 令和7年法律第42号; 施行令 令和8年政令第47号 | In force · 2026-10-01 | AIG-02, AIG-16 | [✓ primary](https://laws.e-gov.go.jp/law/507AC0000000042) |
+| METI cybersecurity requirements for electric facilities under the Electricity Business Act technical standards (business-use facilities since 2016; 自家用電気工作物 from 1 Oct 2022) and 電力制御システムセキュリティガイドライン | 電気事業法 昭和39年法律第170号; 施行規則 Art 50(3)(ix) | In force | AIG-07, AIG-08, AIG-13, AIG-15 | [✓ primary](https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/cybersecurity.html) |
+| METI/IPA Cybersecurity Management Guidelines Ver 3.0 (board-level governance, supply chain, incident readiness) | Ver 3.0, 2023-03-24 | Voluntary | AIG-01, AIG-06, AIG-16 | [✓ primary](https://www.meti.go.jp/policy/netsecurity/mng_guide.html) |
+
+## Typical AI scenarios and high-risk triggers
+
+- Load, renewable-output and inflow forecasting feeding scheduling and dispatch
+- Dispatch, balancing and curtailment recommendations to control-room operators
+- Predictive maintenance on generation, transmission, pipeline and refinery assets
+- Outage management, restoration prioritisation and vegetation/asset inspection with computer vision
+- Wholesale trading, bidding and nomination algorithms
+- Safety monitoring on rigs, plants and pipelines (leak and methane detection, alarm triage)
+- Customer service, billing and demand-response on smart-meter data
+
+**Pushes a system into a higher risk tier in Japan:**
+
+- AI embedded in designated critical equipment (supply-demand control, SCADA, generation output control ≥ 500,000 kW, gas pipeline and refinery control) — Economic Security Promotion Act pre-screening
+- AI that generates or executes wholesale bids, offers or nominations (REMIT, NER bidding rules, EA Code Part 13, FERC 18 CFR 1c, CAMMESA, CCEE, JEPX, NEMS)
+- AI advising control-room operators or automating actions on energised plant, pipelines or rigs — human control and alarm management must be preserved
+
+## Required controls
+
+★ = emphasised for this sector (stricter evidence expected).
+
+| Control | Driven by | anthropic-claude | aws-bedrock | azure-foundry | copilot-studio | gcp-vertex | meta-llama | mistral | openai |
+|---|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| **AIG-01** AI governance, policy and accountable ownership | ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; Anthropic; Act on Promotion of Research and Development, and Deployment of AI-related Technology; Second AI Basic Plan; AI Business Operator Guidelines v1.2; METI/IPA Cybersecurity Management Guidelines Ver 3.0 | · | · | ○ | ○ | · | · | · | · |
+| **AIG-02** AI system and agent inventory | Energy critical-infrastructure and incident-reporting regimes; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; Active Cyber Defense law; Active Cyber Defense law — designated infrastructure operators notify specified important computers and report specified infringement events | ● | ○ | ○ | ● | ○ | · | ● | ● |
+| **AIG-03** Risk classification and impact assessment | ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; AI Business Operator Guidelines v1.2 | · | · | ○ | ○ | · | · | · | · |
+| **AIG-04** Data governance, quality and provenance | Japan Act on the Protection of Personal Information; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | · | · | ○ | ○ | · | · | · | ● |
+| **AIG-05** Personal data protection and minimisation | Japan Act on the Protection of Personal Information; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS | ○ | ● | ○ | ● | ● | · | ○ | ● |
+| **AIG-06** Approved models and AI supply chain ★ | Energy critical-infrastructure and incident-reporting regimes; IEC 62443; ISO/IEC 27019:2024; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; FinOps Framework; Economic Security Promotion Act — pre-screening of critical equipment; METI/IPA Cybersecurity Management Guidelines Ver 3.0 | ○ | ● | ● | ● | ● | ● | ○ | ● |
+| **AIG-07** Workload and agent identity with least privilege ★ | IEC 62443; ISO/IEC 27019:2024; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; METI cybersecurity requirements for electric facilities under the Electricity Business Act technical standards | ● | ● | ● | ● | ● | ○ | ● | ● |
+| **AIG-08** Network isolation and data residency ★ | IEC 62443; ISO/IEC 27019:2024; ISO/IEC 27001:2022 + Amd 1:2024; Zero trust; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; METI cybersecurity requirements for electric facilities under the Electricity Business Act technical standards | ○ | ● | ● | ● | ● | ○ | ○ | ○ |
+| **AIG-09** Encryption and key management | ISO/IEC 27001:2022 + Amd 1:2024; Zero trust; MITRE ATLAS; Anthropic | ○ | ● | ● | ○ | ● | · | ○ | ○ |
+| **AIG-10** Runtime guardrails and content safety | ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; AI Business Operator Guidelines v1.2 | ○ | ● | ● | ○ | ● | ● | ● | ● |
+| **AIG-11** Human oversight of consequential decisions and actions ★ | Energy critical-infrastructure and incident-reporting regimes; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic | · | ○ | ○ | ○ | ○ | · | ○ | ○ |
+| **AIG-12** Transparency, notice and explanation | ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project | · | · | ○ | ○ | · | ○ | · | · |
+| **AIG-13** Logging, monitoring and record-keeping ★ | Energy critical-infrastructure and incident-reporting regimes; IEC 62443; ISO/IEC 27019:2024; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; Zero trust; NIST AI Risk Management Framework 1.0 + Generative AI Profile; NIST SP 800-61 Rev. 3; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; FinOps Framework; Business continuity and disaster recovery for AI services; METI cybersecurity requirements for electric facilities under the Electricity Business Act technical standards | ● | ● | ● | ● | ● | ○ | ● | ● |
+| **AIG-14** Pre-deployment testing, evaluation and red-teaming | ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; AI Business Operator Guidelines v1.2 | · | · | ○ | ○ | · | ○ | ● | · |
+| **AIG-15** Change management and model lifecycle ★ | IEC 62443; ISO/IEC 27019:2024; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment; MITRE ATLAS; Economic Security Promotion Act — pre-screening of critical equipment; METI cybersecurity requirements for electric facilities under the Electricity Business Act technical standards | · | ● | ● | ● | · | · | · | · |
+| **AIG-16** Incident management and regulator notification ★ | Energy critical-infrastructure and incident-reporting regimes; IEC 62443; ISO/IEC 27019:2024; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; NIST SP 800-61 Rev. 3; OWASP GenAI Security Project; Anthropic; Business continuity and disaster recovery for AI services; Act on Promotion of Research and Development, and Deployment of AI-related Technology; Active Cyber Defense law; Active Cyber Defense law — designated infrastructure operators notify specified important computers and report specified infringement events; METI/IPA Cybersecurity Management Guidelines Ver 3.0 | · | · | ● | ○ | · | · | · | · |
+| **AIG-17** Operational resilience, outsourcing and exit ★ | Energy critical-infrastructure and incident-reporting regimes; IEC 62443; ISO/IEC 27019:2024; ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; NIST SP 800-61 Rev. 3; OWASP GenAI Security Project; FinOps Framework; Business continuity and disaster recovery for AI services | ● | · | ○ | ○ | · | · | ○ | ● |
+| **AIG-18** Cross-border transfer safeguards | Japan Act on the Protection of Personal Information; ISO/IEC 27001:2022 + Amd 1:2024 | ● | · | ○ | ● | ● | ○ | ● | ● |
+| **AIG-19** AI literacy and training | ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO 19011:2026 Guidelines for auditing management systems; MITRE ATLAS | · | · | ○ | ○ | · | · | · | · |
+| **AIG-20** Fairness and non-discrimination | ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO/IEC 42005:2025 AI system impact assessment | · | · | ○ | ○ | · | · | · | · |
+| **AIG-21** Internal audit and independent assurance | ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; ISO 19011:2026 Guidelines for auditing management systems | · | · | · | · | · | · | · | · |
+| **AIG-22** AI FinOps — token budgets, consumption limits and cost allocation | ISO/IEC 27001:2022 + Amd 1:2024; ISO/IEC 42001:2023 AI management system; NIST AI Risk Management Framework 1.0 + Generative AI Profile; OWASP GenAI Security Project; MITRE ATLAS; Anthropic; FinOps Framework | · | · | · | · | · | · | · | · |
+
+● vendor pack enforces or evidences the control · ○ documented platform gap (handle in process or another layer) · · not applicable
+
+## Run the MLOps gate for this profile
+
+A pre-filled system record is in [`energy.system.yaml`](energy.system.yaml). Complete it for your system, then:
+
+```bash
+python3 tools/gate.py profiles/jp/energy.system.yaml
+```
+
+Status labels: ✓ primary = checked against the issuer · ◐ secondary = located via a reputable secondary source, re-check the primary text · ⚠ unverified = confirm before relying on it.

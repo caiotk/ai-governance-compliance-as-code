@@ -16,7 +16,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -40,7 +42,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -183,7 +186,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -207,7 +212,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -337,7 +343,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -361,7 +369,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -485,7 +494,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -509,7 +520,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -630,7 +642,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -654,7 +668,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -778,7 +793,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -802,7 +819,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -925,6 +943,209 @@
     "path": "profiles/br/tech.md"
   },
   {
+    "country": "BR",
+    "country_name": "Brazil",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
+    "frameworks": [
+      "br-lgpd",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "BR",
+        "group": "horizontal",
+        "id": "br-pl-2338",
+        "name": "Marco Legal da Inteligência Artificial (bill)",
+        "citation": "PL 2338/2023",
+        "status": "pending",
+        "effective": null,
+        "url": "https://www.mobiletime.com.br/noticias/24/08/2026/marco-ia-voto-fim-do-ano/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-03",
+          "AIG-11",
+          "AIG-12"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "horizontal",
+        "id": "br-pbia",
+        "name": "Plano Brasileiro de Inteligência Artificial 2024–2028",
+        "citation": "MCTI, Jul 2024",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://dplnews.com/um-ano-de-plano-brasileiro-de-inteligencia-artificial-o-que-esta-sendo-feito/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-19"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "data_protection",
+        "id": "br-lgpd",
+        "name": "Lei Geral de Proteção de Dados (LGPD)",
+        "citation": "Lei 13.709/2018",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-05",
+          "AIG-11",
+          "AIG-12",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "data_protection",
+        "id": "br-anpd-res-19",
+        "name": "ANPD standard contractual clauses for international transfers",
+        "citation": "Resolução CD/ANPD 19/2024",
+        "status": "in-force",
+        "effective": "SCC adoption deadline 2025-08-23",
+        "url": "https://lefosse.com/noticias/alerta/transferencia-internacional-de-dados-prazo-para-adocao-das-clausulas-padrao-da-anpd-se-encerra-em-23-de-agosto/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "cyber",
+        "id": "br-pnciber",
+        "name": "Política Nacional de Cibersegurança",
+        "citation": "Decreto 11.856/2023",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/d11856.htm",
+        "verification": "primary",
+        "controls": [
+          "AIG-07",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "sector:energy",
+        "id": "br-aneel-ren-964",
+        "name": "Resolução Normativa ANEEL nº 964/2021 — política de segurança cibernética do setor elétrico (notification of higher-impact cyber incidents to the sector coordination team)",
+        "citation": "REN 964, de 10 de dezembro de 2021",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.gov.br/aneel/pt-br/assuntos/seguranca/seguranca-cibernetica",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "sector:energy",
+        "id": "br-ons-arciber",
+        "name": "ONS Procedimentos de Rede — controles de segurança cibernética do Ambiente Regulado Cibernético (ARCiber) for control centres and operational data links",
+        "citation": "PdR 2020.12 (REN ANEEL 903/2020), in force 2021-01-01; submódulo number unverified",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.ons.org.br/paginas/sobre-o-ons/procedimentos-de-rede/vigentes",
+        "verification": "primary",
+        "controls": [
+          "AIG-07",
+          "AIG-08",
+          "AIG-13"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "sector:energy",
+        "id": "br-anp-sgso",
+        "name": "ANP operational safety regime — RANP 43/2007 (SGSO), 41/2015, 46/2016, 851/2021 and RANP 882/2022 incident communication (investigation report within 90 days)",
+        "citation": "RANP 43/2007; RANP 882/2022",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.gov.br/anp/pt-br/assuntos/exploracao-e-producao-de-oleo-e-gas/seguranca-operacional/resolucoes-procedimentos",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-11",
+          "AIG-15",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "BR",
+        "group": "sector:energy",
+        "id": "br-cnpe-cyber",
+        "name": "CNPE Resoluções nº 1/2021 and nº 24/2021 and Decreto 9.573/2018 (Política Nacional de Segurança de Infraestruturas Críticas)",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.gov.br/aneel/pt-br/assuntos/seguranca/seguranca-cibernetica",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-16"
+        ]
+      }
+    ],
+    "path": "profiles/br/energy.md"
+  },
+  {
     "country": "CL",
     "country_name": "Chile",
     "sector": "health",
@@ -941,7 +1162,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "critical_infrastructure"
@@ -967,7 +1190,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -1080,7 +1304,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1106,7 +1332,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -1239,7 +1466,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1265,7 +1494,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -1378,7 +1608,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1404,7 +1636,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -1514,7 +1747,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1540,7 +1775,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -1654,7 +1890,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "critical_infrastructure"
@@ -1680,7 +1918,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -1775,6 +2014,186 @@
     "path": "profiles/cl/tech.md"
   },
   {
+    "country": "CL",
+    "country_name": "Chile",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
+    "frameworks": [
+      "cl-21719",
+      "cl-21663",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [
+      "critical_infrastructure"
+    ],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "CL",
+        "group": "horizontal",
+        "id": "cl-ai-bill",
+        "name": "Proyecto de ley que regula los sistemas de inteligencia artificial",
+        "citation": "Boletines 16821-19 y 15869-19",
+        "status": "pending",
+        "effective": null,
+        "url": "https://www.senado.cl/comunicaciones/noticias/senadores-conocen-propuesta-del-ejecutivo-para-ley-marco-de-ia",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-10",
+          "AIG-12"
+        ]
+      },
+      {
+        "jurisdiction": "CL",
+        "group": "horizontal",
+        "id": "cl-politica-ia",
+        "name": "Política Nacional de Inteligencia Artificial (2024 update, to 2031)",
+        "citation": "Decreto 12/2024 (MinCiencia), DO 2025-01-28",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.diariooficial.interior.gob.cl/publicaciones/2025/01/28/44060/01/2600578.pdf",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-19"
+        ]
+      },
+      {
+        "jurisdiction": "CL",
+        "group": "data_protection",
+        "id": "cl-ley-21719",
+        "name": "Ley de Protección de Datos Personales",
+        "citation": "Ley 21.719 (replaces Ley 19.628)",
+        "status": "phased",
+        "effective": "2026-12-01 — pending bill 18.623-07 would postpone (to 2027-12-01 or by 6 months)",
+        "url": "https://www.cariola.cl/app/uploads/2026/09/Alerta-legal_-2septiembre.pdf",
+        "verification": "secondary",
+        "controls": [
+          "AIG-03",
+          "AIG-05",
+          "AIG-11",
+          "AIG-12",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "CL",
+        "group": "cyber",
+        "id": "cl-ley-21663",
+        "name": "Ley Marco de Ciberseguridad",
+        "citation": "Ley 21.663",
+        "status": "in-force",
+        "effective": "2025-01-01 (OIV duties and incident reporting from 2025-03-01)",
+        "url": "https://www.carey.cl/entrada-en-vigencia-de-la-ley-de-ciberseguridad",
+        "verification": "secondary",
+        "controls": [
+          "AIG-07",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "CL",
+        "group": "sector:energy",
+        "id": "cl-21663-energy",
+        "name": "Ley 21.663 — energy generation, transmission, distribution, fuel transport/storage/distribution and the Coordinador Eléctrico as essential services; OIV duties (Art 8) and reporting 3 h / 72 h (24 h for OIV) / 15 days (Art 9)",
+        "citation": "Ley 21.663, D.O. 2024-04-08, Arts 4-9, 28, 40",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.leychile.cl/Consulta/obtxml?opt=7&idNorma=1202434",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-13",
+          "AIG-16",
+          "AIG-17",
+          "AIG-21"
+        ]
+      },
+      {
+        "jurisdiction": "CL",
+        "group": "sector:energy",
+        "id": "cl-ntsycs",
+        "name": "Norma Técnica de Seguridad y Calidad de Servicio (CNE) — grid security and quality obligations on the Coordinador and coordinated entities",
+        "citation": "Res. Ex. 299/2018 as amended to Res. Ex. 45/2026 (versión enero 2026)",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.cne.cl/normativas/electrica/normas-tecnicas/",
+        "verification": "primary",
+        "controls": [
+          "AIG-11",
+          "AIG-15",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "CL",
+        "group": "sector:energy",
+        "id": "cl-coordinador-ciber",
+        "name": "Coordinador Eléctrico Nacional — Estándar de Ciberseguridad para el Sistema Eléctrico Nacional",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.coordinador.cl/",
+        "verification": "unverified",
+        "controls": [
+          "AIG-07",
+          "AIG-08",
+          "AIG-13"
+        ]
+      }
+    ],
+    "path": "profiles/cl/energy.md"
+  },
+  {
     "country": "AR",
     "country_name": "Argentina",
     "sector": "health",
@@ -1790,7 +2209,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -1814,7 +2235,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -1910,7 +2332,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -1934,7 +2358,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -2035,7 +2460,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -2059,7 +2486,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -2156,7 +2584,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -2180,7 +2610,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -2272,7 +2703,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -2296,7 +2729,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -2390,7 +2824,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -2414,7 +2850,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -2492,13 +2929,15 @@
     "path": "profiles/ar/tech.md"
   },
   {
-    "country": "PT",
-    "country_name": "Portugal",
-    "sector": "health",
-    "sector_name": "Health",
+    "country": "AR",
+    "country_name": "Argentina",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
     "frameworks": [
-      "eu-ai-act",
-      "gdpr",
+      "ar-25326",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
       "iso27001",
       "iso42001",
       "zero-trust",
@@ -2508,7 +2947,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -2532,7 +2973,147 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "AR",
+        "group": "horizontal",
+        "id": "ar-aaip-guide",
+        "name": "AAIP Guía para usar la IA de manera responsable + Res. 161/2023 programme",
+        "citation": "AAIP Res. 161/2023; guide Sep 2024",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.argentina.gob.ar/node/443099",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-05",
+          "AIG-12"
+        ]
+      },
+      {
+        "jurisdiction": "AR",
+        "group": "data_protection",
+        "id": "ar-ley-25326",
+        "name": "Ley de Protección de los Datos Personales",
+        "citation": "Ley 25.326; Ley 27.699 (Convention 108+)",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://abogados.com.ar/promulgacion-de-la-ley-27699-de-adhesion-al-convenio-108-en-materia-de-proteccion-de-datos-personales/31732",
+        "verification": "secondary",
+        "controls": [
+          "AIG-05",
+          "AIG-11",
+          "AIG-12",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "AR",
+        "group": "cyber",
+        "id": "ar-cyber-strategy",
+        "name": "Segunda Estrategia Nacional de Ciberseguridad (no cyber statute)",
+        "citation": "JGM Res. 1/2023",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.marval.com/publicacion/segunda-estrategia-nacional-de-ciberseguridad-de-la-republica-argentina-15397",
+        "verification": "secondary",
+        "controls": [
+          "AIG-07",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "AR",
+        "group": "sector:energy",
+        "id": "ar-cyber-framework-energy",
+        "name": "National cyber framework applied to energy — Decreto 577/2017 (Comité de Ciberseguridad), Res. 1523/2019 (critical information infrastructure), Decreto 941/2025 (Centro Nacional de Ciberseguridad), Disposición 1/2026 (contingency plans)",
+        "citation": "Decreto 577/2017 (B.O. 2017-07-31); Res. 1523/2019; Decreto 941/2025; Disp. 1/2026",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.argentina.gob.ar/ciberseguridad/normativa-ciberseguridad",
+        "verification": "secondary",
+        "controls": [
+          "AIG-01",
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "AR",
+        "group": "sector:energy",
+        "id": "ar-electricity-framework",
+        "name": "Leyes 15.336 and 24.065, Decretos 1.398/92 and 186/95 (electricity regulatory framework; concessions; CAMMESA dispatch)",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.argentina.gob.ar/enre/normativa",
+        "verification": "primary",
+        "controls": [
+          "AIG-11",
+          "AIG-13"
+        ]
+      }
+    ],
+    "path": "profiles/ar/energy.md"
+  },
+  {
+    "country": "PT",
+    "country_name": "Portugal",
+    "sector": "health",
+    "sector_name": "Health",
+    "frameworks": [
+      "eu-ai-act",
+      "gdpr",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -2764,7 +3345,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -2788,7 +3371,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -3025,7 +3609,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -3049,7 +3635,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -3265,7 +3852,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -3289,7 +3878,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -3501,7 +4091,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -3525,7 +4117,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -3724,7 +4317,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -3748,7 +4343,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -3961,13 +4557,16 @@
     "path": "profiles/pt/tech.md"
   },
   {
-    "country": "ES",
-    "country_name": "Spain",
-    "sector": "health",
-    "sector_name": "Health",
+    "country": "PT",
+    "country_name": "Portugal",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
     "frameworks": [
       "eu-ai-act",
       "gdpr",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
       "iso27001",
       "iso42001",
       "zero-trust",
@@ -3977,7 +4576,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -4001,7 +4602,317 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "EU",
+        "group": "horizontal",
+        "id": "eu-ai-act",
+        "name": "Artificial Intelligence Act",
+        "citation": "Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744",
+        "status": "phased",
+        "effective": "Prohibitions 2025-02-02; GPAI 2025-08-02; Art 50 2026-08-02; Annex III high-risk 2027-12-02; Annex I 2028-08-02",
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-02",
+          "AIG-03",
+          "AIG-04",
+          "AIG-10",
+          "AIG-11",
+          "AIG-12",
+          "AIG-13",
+          "AIG-14",
+          "AIG-16",
+          "AIG-19",
+          "AIG-20"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "data_protection",
+        "id": "gdpr",
+        "name": "General Data Protection Regulation",
+        "citation": "Regulation (EU) 2016/679",
+        "status": "in-force",
+        "effective": "2018-05-25",
+        "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-04",
+          "AIG-05",
+          "AIG-11",
+          "AIG-12",
+          "AIG-16",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "cyber",
+        "id": "nis2",
+        "name": "NIS2 Directive",
+        "citation": "Directive (EU) 2022/2555",
+        "status": "in-force",
+        "effective": "National transposition varies (Portugal DL 125/2025 in force; Spain not transposed)",
+        "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+        "verification": "unverified",
+        "controls": [
+          "AIG-07",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "nis2-energy",
+        "name": "NIS2 Directive Annex I \"Energy\" — electricity, district heating, oil, gas and hydrogen entities; Art 21 measures, Art 20 management accountability, Art 23 reporting 24 h / 72 h / 1 month",
+        "citation": "Directive (EU) 2022/2555, OJ L 333/80",
+        "status": "in-force",
+        "effective": "applies from 2024-10-18 (national transposition)",
+        "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-06",
+          "AIG-07",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-nccs",
+        "name": "Network Code on Cybersecurity for the electricity sector (NCCS) — Commission Delegated Regulation (EU) 2024/1366; high-impact/critical-impact entities, CSOC capabilities and 4-hour reporting of reportable cyber-attacks (Art 38)",
+        "citation": "Delegated Regulation (EU) 2024/1366, OJ L 2024/1366",
+        "status": "in-force-phased",
+        "effective": "in force 2024-06-13; methodologies and entity identification phased",
+        "url": "https://eur-lex.europa.eu/eli/reg_del/2024/1366/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-06",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-cer-energy",
+        "name": "CER Directive (EU) 2022/2557 — critical entities in energy identified by 17 Jul 2026; resilience measures and incident notification (Art 15)",
+        "citation": "Directive (EU) 2022/2557, OJ L 333/164",
+        "status": "in-force",
+        "effective": "critical entities identified by 2026-07-17",
+        "url": "https://eur-lex.europa.eu/eli/dir/2022/2557/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-ai-act-annex-iii-2",
+        "name": "EU AI Act Annex III(2) — AI systems intended as safety components in the management and operation of critical digital infrastructure or in the supply of water, gas, heating or electricity (high-risk)",
+        "citation": "Regulation (EU) 2024/1689, Annex III point 2",
+        "status": "phased",
+        "effective": "Annex III obligations apply from 2027-12-02 (as amended by Reg (EU) 2026/1744)",
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-04",
+          "AIG-11",
+          "AIG-13",
+          "AIG-14"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-remit",
+        "name": "REMIT (Regulation (EU) 1227/2011 as amended by Regulation (EU) 2024/1106) — wholesale energy market integrity, algorithmic trading",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1106/oj",
+        "verification": "secondary",
+        "controls": [
+          "AIG-11",
+          "AIG-13"
+        ]
+      },
+      {
+        "jurisdiction": "PT",
+        "group": "horizontal",
+        "id": "pt-ai-authorities",
+        "name": "AI Act national authorities — ANACOM (market surveillance, single point of contact) and 14 Art 77 fundamental-rights authorities",
+        "citation": "Designation Sep 2025 (legal instrument unverified)",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://cms.law/en/int/expert-guides/ai-regulation-scanner/portugal",
+        "verification": "secondary",
+        "controls": [
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "PT",
+        "group": "horizontal",
+        "id": "pt-ania",
+        "name": "Agenda Nacional de Inteligência Artificial 2026–2030",
+        "citation": "RCM 2/2026",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://cms.law/pt/prt/news-information/agenda-nacional-de-inteligencia-artificial-2026-2030",
+        "verification": "secondary",
+        "controls": [
+          "AIG-19"
+        ]
+      },
+      {
+        "jurisdiction": "PT",
+        "group": "horizontal",
+        "id": "pt-carta-digital",
+        "name": "Carta Portuguesa de Direitos Humanos na Era Digital (Art 9 AI)",
+        "citation": "Lei 27/2021",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.lexmundi.com/guides/ai-legislative-guide/jurisdictions/europe/portugal/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-11",
+          "AIG-12",
+          "AIG-20"
+        ]
+      },
+      {
+        "jurisdiction": "PT",
+        "group": "horizontal",
+        "id": "pt-lei-13-2023",
+        "name": "Labour Code amendment on algorithmic and AI employment decisions (all employers)",
+        "citation": "Lei 13/2023",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.lexmundi.com/guides/ai-legislative-guide/jurisdictions/europe/portugal/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-12",
+          "AIG-20"
+        ]
+      },
+      {
+        "jurisdiction": "PT",
+        "group": "data_protection",
+        "id": "pt-lei-58-2019",
+        "name": "GDPR national execution law",
+        "citation": "Lei 58/2019",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://diariodarepublica.pt/dr/detalhe/lei/58-2019-123815982",
+        "verification": "unverified",
+        "controls": [
+          "AIG-05",
+          "AIG-12",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "PT",
+        "group": "cyber",
+        "id": "pt-dl-125-2025",
+        "name": "Regime Jurídico da Cibersegurança (NIS2 transposition)",
+        "citation": "Decreto-Lei 125/2025",
+        "status": "in-force",
+        "effective": "2026-04-03",
+        "url": "https://www.ecija.com/adcecija/novo-regime-juridico-da-ciberseguranca-entrou-em-vigor-em-portugal/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-07",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "PT",
+        "group": "sector:energy",
+        "id": "pt-erse-ense",
+        "name": "ERSE regulation and ENSE security-of-supply mandate (strategic oil reserves, supply-security monitoring); REN and E-Redes as NCCS high/critical-impact entities",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.ense-epe.pt/",
+        "verification": "primary",
+        "controls": [
+          "AIG-16",
+          "AIG-17"
+        ]
+      }
+    ],
+    "path": "profiles/pt/energy.md"
+  },
+  {
+    "country": "ES",
+    "country_name": "Spain",
+    "sector": "health",
+    "sector_name": "Health",
+    "frameworks": [
+      "eu-ai-act",
+      "gdpr",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -4204,7 +5115,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -4228,7 +5141,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -4436,7 +5350,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -4460,7 +5376,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -4646,7 +5563,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -4670,7 +5589,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -4853,7 +5773,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -4877,7 +5799,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -5047,7 +5970,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -5071,7 +5996,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -5241,12 +6167,16 @@
     "path": "profiles/es/tech.md"
   },
   {
-    "country": "US",
-    "country_name": "United States",
-    "sector": "health",
-    "sector_name": "Health",
+    "country": "ES",
+    "country_name": "Spain",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
     "frameworks": [
-      "us-ai",
+      "eu-ai-act",
+      "gdpr",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
       "iso27001",
       "iso42001",
       "zero-trust",
@@ -5256,7 +6186,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -5280,7 +6212,319 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "EU",
+        "group": "horizontal",
+        "id": "eu-ai-act",
+        "name": "Artificial Intelligence Act",
+        "citation": "Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744",
+        "status": "phased",
+        "effective": "Prohibitions 2025-02-02; GPAI 2025-08-02; Art 50 2026-08-02; Annex III high-risk 2027-12-02; Annex I 2028-08-02",
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-02",
+          "AIG-03",
+          "AIG-04",
+          "AIG-10",
+          "AIG-11",
+          "AIG-12",
+          "AIG-13",
+          "AIG-14",
+          "AIG-16",
+          "AIG-19",
+          "AIG-20"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "data_protection",
+        "id": "gdpr",
+        "name": "General Data Protection Regulation",
+        "citation": "Regulation (EU) 2016/679",
+        "status": "in-force",
+        "effective": "2018-05-25",
+        "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-04",
+          "AIG-05",
+          "AIG-11",
+          "AIG-12",
+          "AIG-16",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "cyber",
+        "id": "nis2",
+        "name": "NIS2 Directive",
+        "citation": "Directive (EU) 2022/2555",
+        "status": "in-force",
+        "effective": "National transposition varies (Portugal DL 125/2025 in force; Spain not transposed)",
+        "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+        "verification": "unverified",
+        "controls": [
+          "AIG-07",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "nis2-energy",
+        "name": "NIS2 Directive Annex I \"Energy\" — electricity, district heating, oil, gas and hydrogen entities; Art 21 measures, Art 20 management accountability, Art 23 reporting 24 h / 72 h / 1 month",
+        "citation": "Directive (EU) 2022/2555, OJ L 333/80",
+        "status": "in-force",
+        "effective": "applies from 2024-10-18 (national transposition)",
+        "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-06",
+          "AIG-07",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-nccs",
+        "name": "Network Code on Cybersecurity for the electricity sector (NCCS) — Commission Delegated Regulation (EU) 2024/1366; high-impact/critical-impact entities, CSOC capabilities and 4-hour reporting of reportable cyber-attacks (Art 38)",
+        "citation": "Delegated Regulation (EU) 2024/1366, OJ L 2024/1366",
+        "status": "in-force-phased",
+        "effective": "in force 2024-06-13; methodologies and entity identification phased",
+        "url": "https://eur-lex.europa.eu/eli/reg_del/2024/1366/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-06",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-cer-energy",
+        "name": "CER Directive (EU) 2022/2557 — critical entities in energy identified by 17 Jul 2026; resilience measures and incident notification (Art 15)",
+        "citation": "Directive (EU) 2022/2557, OJ L 333/164",
+        "status": "in-force",
+        "effective": "critical entities identified by 2026-07-17",
+        "url": "https://eur-lex.europa.eu/eli/dir/2022/2557/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-ai-act-annex-iii-2",
+        "name": "EU AI Act Annex III(2) — AI systems intended as safety components in the management and operation of critical digital infrastructure or in the supply of water, gas, heating or electricity (high-risk)",
+        "citation": "Regulation (EU) 2024/1689, Annex III point 2",
+        "status": "phased",
+        "effective": "Annex III obligations apply from 2027-12-02 (as amended by Reg (EU) 2026/1744)",
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-04",
+          "AIG-11",
+          "AIG-13",
+          "AIG-14"
+        ]
+      },
+      {
+        "jurisdiction": "EU",
+        "group": "sector:energy",
+        "id": "eu-remit",
+        "name": "REMIT (Regulation (EU) 1227/2011 as amended by Regulation (EU) 2024/1106) — wholesale energy market integrity, algorithmic trading",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://eur-lex.europa.eu/eli/reg/2024/1106/oj",
+        "verification": "secondary",
+        "controls": [
+          "AIG-11",
+          "AIG-13"
+        ]
+      },
+      {
+        "jurisdiction": "ES",
+        "group": "horizontal",
+        "id": "es-plo-ia",
+        "name": "Proyecto de Ley Orgánica para el buen uso y la gobernanza de la inteligencia artificial",
+        "citation": "BOCG 15-A-97-1 (2026-06-12)",
+        "status": "pending",
+        "effective": null,
+        "url": "https://www.congreso.es/public_oficiales/L15/CONG/BOCG/A/BOCG-15-A-97-1.PDF",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-02",
+          "AIG-03"
+        ]
+      },
+      {
+        "jurisdiction": "ES",
+        "group": "horizontal",
+        "id": "es-aesia",
+        "name": "AESIA — Agencia Española de Supervisión de la Inteligencia Artificial",
+        "citation": "Market surveillance authority and single point of contact",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.osborneclarke.com/es/insights/espana-avanza-en-la-regulacion-de-la-ia-claves-de-la-nueva-ley-organica-de-gobernanza",
+        "verification": "secondary",
+        "controls": [
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "ES",
+        "group": "data_protection",
+        "id": "es-lopdgdd",
+        "name": "Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales",
+        "citation": "LO 3/2018",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.boe.es/eli/es/lo/2018/12/05/3/con",
+        "verification": "unverified",
+        "controls": [
+          "AIG-05",
+          "AIG-12",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "ES",
+        "group": "cyber",
+        "id": "es-ens",
+        "name": "Esquema Nacional de Seguridad and NIS1-era law (NIS2 not transposed)",
+        "citation": "RD 311/2022 (ENS); RDL 12/2018; RD 43/2021",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.legiscope.com/blog/nis2-espana-transposicion.html",
+        "verification": "secondary",
+        "controls": [
+          "AIG-07",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "ES",
+        "group": "sector:energy",
+        "id": "es-ley-8-2011",
+        "name": "Ley 8/2011 de protección de las infraestructuras críticas (PIC) — critical operators in energy, Plan de Seguridad del Operador, Planes de Protección Específicos",
+        "citation": "BOE núm. 102, 29/04/2011",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2011-7630",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "ES",
+        "group": "sector:energy",
+        "id": "es-rd-43-2021",
+        "name": "Real Decreto 43/2021 (desarrollo del RDL 12/2018 NIS) — Declaración de Aplicabilidad, responsable de seguridad, Art 9 notification of critical/very high/high incidents via the CSIRT de referencia",
+        "citation": "BOE núm. 24, 28/01/2021",
+        "status": "in-force",
+        "effective": "2021-01-29; NIS2 transposition pending (CJEU referral 2026-07-08)",
+        "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-1192",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "ES",
+        "group": "sector:energy",
+        "id": "es-cnmc-remit",
+        "name": "CNMC supervision of electricity and gas markets (Ley 24/2013, Ley 34/1998) and REMIT algorithmic-trading surveillance",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.cnmc.es/ambitos-de-actuacion/energia",
+        "verification": "secondary",
+        "controls": [
+          "AIG-11",
+          "AIG-13"
+        ]
+      }
+    ],
+    "path": "profiles/es/energy.md"
+  },
+  {
+    "country": "US",
+    "country_name": "United States",
+    "sector": "health",
+    "sector_name": "Health",
+    "frameworks": [
+      "us-ai",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -5485,7 +6729,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -5509,7 +6755,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -5719,7 +6966,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -5743,7 +6992,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -5920,7 +7170,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -5944,7 +7196,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -6116,7 +7369,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -6140,7 +7395,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -6314,7 +7570,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -6338,7 +7596,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -6496,12 +7755,15 @@
     "path": "profiles/us/tech.md"
   },
   {
-    "country": "AU",
-    "country_name": "Australia",
-    "sector": "health",
-    "sector_name": "Health",
+    "country": "US",
+    "country_name": "United States",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
     "frameworks": [
-      "au-privacy",
+      "us-ai",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
       "iso27001",
       "iso42001",
       "zero-trust",
@@ -6511,7 +7773,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -6535,7 +7799,305 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "US",
+        "group": "horizontal",
+        "id": "us-tx-traiga",
+        "name": "Texas Responsible Artificial Intelligence Governance Act",
+        "citation": "HB 149 (89th Leg.)",
+        "status": "in-force",
+        "effective": "2026-01-01",
+        "url": "https://www.ashurstperkinscoie.com/en/insights/update/texas-enacts-responsible-artificial-intelligence-governance-act/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-10",
+          "AIG-12",
+          "AIG-20"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "horizontal",
+        "id": "us-co-sb26-189",
+        "name": "Colorado Automated Decision-Making Technology law (replaced the Colorado AI Act SB 24-205)",
+        "citation": "SB 26-189",
+        "status": "phased",
+        "effective": "2027-01-01",
+        "url": "https://www.finnegan.com/en/insights/articles/colorado-replaces-landmark-ai-act-an-overview-of-the-new-sb-26-189-framework.html",
+        "verification": "secondary",
+        "controls": [
+          "AIG-04",
+          "AIG-11",
+          "AIG-12",
+          "AIG-13"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "horizontal",
+        "id": "us-ca-sb53",
+        "name": "California Transparency in Frontier Artificial Intelligence Act",
+        "citation": "SB 53",
+        "status": "in-force",
+        "effective": "2026-01-01",
+        "url": "https://www.mofo.com/pdf/resources/insights/251001-california-enacts-ai-safety-transparency-regulation-tfaia-sb-53",
+        "verification": "secondary",
+        "controls": [
+          "AIG-14",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "horizontal",
+        "id": "us-employment-ai",
+        "name": "AI in employment — Illinois HB 3773 (from 2026-01-01), NYC Local Law 144 bias audits (NYC only), Connecticut SB 5 (from 2027-10-01)",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.nelsonmullins.com/insights/blogs/ai-task-force/ai/states-take-aim-at-ai-in-employment-decisions-illinois-s-disclosure-and-anti-discrimination-requirements-enforcement-gaps-under-nyc-s-local-law-144-and-connecticut-s-new-ai-law",
+        "verification": "secondary",
+        "controls": [
+          "AIG-12",
+          "AIG-20"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "horizontal",
+        "id": "us-ut-aipa",
+        "name": "Utah Artificial Intelligence Policy Act (GenAI disclosure when asked or in high-risk interactions; mental-health chatbots)",
+        "citation": "SB 149 (2024), SB 226 and HB 452 (2025); sunset 2027-07-01",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://fpf.org/blog/chatbots-in-check-utahs-latest-ai-legislation/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-12"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "horizontal",
+        "id": "us-nist-ai-rmf",
+        "name": "NIST AI RMF 1.0 and Generative AI Profile (voluntary)",
+        "citation": "NIST AI 100-1; NIST AI 600-1",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-03",
+          "AIG-10",
+          "AIG-13",
+          "AIG-14"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "data_protection",
+        "id": "us-ca-admt",
+        "name": "California CCPA regulations on ADMT, risk assessments and cybersecurity audits",
+        "citation": "Cal. Code Regs. tit. 11 (CPPA)",
+        "status": "phased",
+        "effective": "Risk assessments 2026-01-01; ADMT duties 2027-01-01; attestations 2028-04-01",
+        "url": "https://www.hunton.com/privacy-and-cybersecurity-law-blog/newly-approved-ccpa-regulations-have-staggered-deadlines-for-compliance",
+        "verification": "secondary",
+        "controls": [
+          "AIG-03",
+          "AIG-11",
+          "AIG-12"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "cyber",
+        "id": "us-nydfs-500",
+        "name": "NYDFS Cybersecurity Regulation (amended)",
+        "citation": "23 NYCRR 500",
+        "status": "in-force",
+        "effective": "Final phase 2025-11-01",
+        "url": "https://hlc.com/en/publications/nydfs-final-set-of-cybersecurity-requirements-under-amended-part-500-take-effect-november-1-2025",
+        "verification": "secondary",
+        "controls": [
+          "AIG-02",
+          "AIG-07",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "sector:energy",
+        "id": "us-nerc-cip",
+        "name": "NERC CIP Reliability Standards (CIP-002 to CIP-014 currently enforceable; CIP-003-9 from 1 Apr 2026, CIP-012-2 from 1 Jul 2026)",
+        "citation": "CIP-002-5.1a, CIP-003-9, CIP-004-7, CIP-005-7, CIP-006-6, CIP-007-6, CIP-008-6, CIP-009-6, CIP-010-4, CIP-011-3, CIP-012-2, CIP-013-2, CIP-014-3",
+        "status": "in-force",
+        "effective": "virtualization suite (CIP-002-7/8, 003-10, 004-8, 005-8, 006-7.1, 007-7.1, 008-7.1, 009-7.1, 010-5, 011-4.1, 013-3) 2028-07-01; CIP-003-11 2029-07-01",
+        "url": "https://www.nerc.com/standards/us-reliability-standards",
+        "verification": "primary",
+        "controls": [
+          "AIG-02",
+          "AIG-06",
+          "AIG-07",
+          "AIG-08",
+          "AIG-13",
+          "AIG-15",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "sector:energy",
+        "id": "us-nerc-cip-008",
+        "name": "NERC CIP-008-6 incident reporting (1 hour to E-ISAC and CISA; attempts by end of next calendar day)",
+        "citation": "CIP-008-6 R4",
+        "status": "in-force",
+        "effective": "2021-01-01",
+        "url": "https://www.nerc.com/pa/Stand/Reliability%20Standards/CIP-008-6.pdf",
+        "verification": "primary",
+        "controls": [
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "sector:energy",
+        "id": "us-nerc-cip-015",
+        "name": "NERC CIP-015-1 Internal Network Security Monitoring (FERC Order 907)",
+        "citation": "90 FR 28889, RM24-7-000",
+        "status": "phased",
+        "effective": "2028-10-01 (CIP-015-2 2029-10-01)",
+        "url": "https://www.federalregister.gov/documents/2025/07/02/2025-12309/critical-infrastructure-protection-reliability-standard-cip-015-1-cyber-security-internal-network",
+        "verification": "primary",
+        "controls": [
+          "AIG-13"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "sector:energy",
+        "id": "us-ferc-912",
+        "name": "FERC Order No. 912 — supply chain risk management revisions (vendor products, services and Protected Cyber Assets)",
+        "citation": "90 FR 45661, RM24-4-000 / RM20-19-000",
+        "status": "in-force",
+        "effective": "2025-11-24 (NERC drafting standards)",
+        "url": "https://www.federalregister.gov/documents/2025/09/23/2025-18394/supply-chain-risk-management-reliability-standards-revisions-equipment-and-services-produced-or",
+        "verification": "primary",
+        "controls": [
+          "AIG-06"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "sector:energy",
+        "id": "us-tsa-pipeline-sd",
+        "name": "TSA Security Directive Pipeline-2021-02 series (cybersecurity implementation plan, annually tested incident response plan, assessment plan)",
+        "citation": "SD Pipeline-2021-02 series; 91 FR 149 (2026-01-02)",
+        "status": "in-force",
+        "effective": "renewed annually; current version letter unverified",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2026-01-02/html/2025-24198.htm",
+        "verification": "primary",
+        "controls": [
+          "AIG-07",
+          "AIG-08",
+          "AIG-13",
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "sector:energy",
+        "id": "us-doe-c2m2",
+        "name": "DOE Cybersecurity Capability Maturity Model (C2M2) v2.1",
+        "citation": "June 2022",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.energy.gov/ceser/cybersecurity-capability-maturity-model-c2m2",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "US",
+        "group": "sector:energy",
+        "id": "us-ferc-market-manipulation",
+        "name": "FERC anti-manipulation rule (18 CFR 1c) and CFTC oversight of energy trading",
+        "citation": "18 CFR 1c",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.ferc.gov/enforcement-legal/enforcement",
+        "verification": "secondary",
+        "controls": [
+          "AIG-11",
+          "AIG-13"
+        ]
+      }
+    ],
+    "path": "profiles/us/energy.md"
+  },
+  {
+    "country": "AU",
+    "country_name": "Australia",
+    "sector": "health",
+    "sector_name": "Health",
+    "frameworks": [
+      "au-privacy",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -6667,7 +8229,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "apra_regulated"
@@ -6693,7 +8257,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -6875,7 +8440,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -6899,7 +8466,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -7017,7 +8585,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -7041,7 +8611,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -7155,7 +8726,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -7179,7 +8752,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -7296,7 +8870,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -7320,7 +8896,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -7434,12 +9011,15 @@
     "path": "profiles/au/tech.md"
   },
   {
-    "country": "NZ",
-    "country_name": "New Zealand",
-    "sector": "health",
-    "sector_name": "Health",
+    "country": "AU",
+    "country_name": "Australia",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
     "frameworks": [
-      "nz-privacy",
+      "au-privacy",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
       "iso27001",
       "iso42001",
       "zero-trust",
@@ -7449,7 +9029,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -7473,7 +9055,219 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "AU",
+        "group": "horizontal",
+        "id": "au-ai-adoption",
+        "name": "Guidance for AI Adoption (six essential practices)",
+        "citation": "National AI Centre, 17 Oct 2025 (updates the Voluntary AI Safety Standard)",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.industry.gov.au/publications/guidance-for-ai-adoption",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-03",
+          "AIG-11",
+          "AIG-12",
+          "AIG-14"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "data_protection",
+        "id": "au-privacy-act",
+        "name": "Privacy Act 1988 — Australian Privacy Principles",
+        "citation": "Privacy Act 1988 (Cth); Privacy and Other Legislation Amendment Act 2024",
+        "status": "phased",
+        "effective": "Statutory tort 2025-06-10; APP 1.7–1.9 ADM transparency 2026-12-10",
+        "url": "https://www.oaic.gov.au/news/media-centre/new-resources-on-transparency-for-use-of-ai-and-automated-decision-making",
+        "verification": "primary",
+        "controls": [
+          "AIG-02",
+          "AIG-04",
+          "AIG-05",
+          "AIG-08",
+          "AIG-12",
+          "AIG-16",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "cyber",
+        "id": "au-soci",
+        "name": "Security of Critical Infrastructure Act 2018 (SOCI)",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.legislation.gov.au/C2018A00029/latest",
+        "verification": "unverified",
+        "controls": [
+          "AIG-02",
+          "AIG-07",
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "cyber",
+        "id": "au-cyber-security-act",
+        "name": "Cyber Security Act 2024 (ransomware payment reporting)",
+        "citation": null,
+        "status": "in-force",
+        "effective": "2025-05-30",
+        "url": "https://www.minterellison.com/articles/new-ransomware-payment-reporting-obligations-in-australia",
+        "verification": "secondary",
+        "controls": [
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "sector:energy",
+        "id": "au-soci-energy",
+        "name": "SOCI Act 2018 — critical electricity, gas and liquid fuel assets (ss 10, 12, 12A); incident notification 12 h / 72 h / written record 84 h (ss 30BC, 30BD)",
+        "citation": "Act No. 29, 2018; compilation C2026C00213 (4 Jun 2026)",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.legislation.gov.au/C2018A00029/latest/text",
+        "verification": "primary",
+        "controls": [
+          "AIG-02",
+          "AIG-07",
+          "AIG-13",
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "sector:energy",
+        "id": "au-cirmp-enhanced",
+        "name": "SOCI (Critical infrastructure risk management program) Rules — enhanced tier for electricity, gas, liquid fuel and energy market operator assets (s 8A material risk from \"deployment or hosting of advanced, novel or emerging technology\")",
+        "citation": "F2023L00112 as amended by F2026L00701 (Enhanced CIRMP Rules 2026); compilation F2026C00562",
+        "status": "in-force-phased",
+        "effective": "commenced 2026-06-10; 12-month grace for s 8A(2)/9A(2) (to ~2027-06-10), 24 months for remaining enhanced provisions (to ~2028-06-10)",
+        "url": "https://www.legislation.gov.au/F2023L00112/latest/text",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-03",
+          "AIG-06",
+          "AIG-07",
+          "AIG-14",
+          "AIG-15"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "sector:energy",
+        "id": "au-aescsf",
+        "name": "Australian Energy Sector Cyber Security Framework (AESCSF) — 2020-21 and 2023 Framework Core incorporated by the CIRMP Rules",
+        "citation": null,
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://aemo.com.au/en/initiatives/major-programs/cyber-security/aescsf-framework-and-resources",
+        "verification": "unverified",
+        "controls": [
+          "AIG-01",
+          "AIG-13",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "sector:energy",
+        "id": "au-ransomware-reporting",
+        "name": "Cyber Security Act 2024 Part 3 — ransomware payment reporting within 72 hours (turnover > A$3m and all SOCI responsible entities)",
+        "citation": "Act No. 98, 2024; Ransomware Payment Reporting Rules 2025 (F2025L00278)",
+        "status": "in-force",
+        "effective": "2025-05-30",
+        "url": "https://www.legislation.gov.au/C2024A00098/latest/text",
+        "verification": "primary",
+        "controls": [
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "AU",
+        "group": "sector:energy",
+        "id": "au-ner-bidding",
+        "name": "National Electricity Rules (bidding in good faith; AEMO power system security) and Consumer Data Right for energy data",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.aemc.gov.au/regulation/energy-rules/national-electricity-rules/current",
+        "verification": "unverified",
+        "controls": [
+          "AIG-05",
+          "AIG-11",
+          "AIG-13"
+        ]
+      }
+    ],
+    "path": "profiles/au/energy.md"
+  },
+  {
+    "country": "NZ",
+    "country_name": "New Zealand",
+    "sector": "health",
+    "sector_name": "Health",
+    "frameworks": [
+      "nz-privacy",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -7601,7 +9395,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "nz_registered_bank"
@@ -7627,7 +9423,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -7761,7 +9558,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -7785,7 +9584,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -7902,7 +9702,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -7926,7 +9728,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -8037,7 +9840,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -8061,7 +9866,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -8173,7 +9979,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -8197,7 +10005,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -8293,12 +10102,15 @@
     "path": "profiles/nz/tech.md"
   },
   {
-    "country": "JP",
-    "country_name": "Japan",
-    "sector": "health",
-    "sector_name": "Health",
+    "country": "NZ",
+    "country_name": "New Zealand",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
     "frameworks": [
-      "jp-appi",
+      "nz-privacy",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
       "iso27001",
       "iso42001",
       "zero-trust",
@@ -8308,7 +10120,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -8332,7 +10146,194 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "NZ",
+        "group": "horizontal",
+        "id": "nz-ai-strategy",
+        "name": "New Zealand's Strategy for AI — Investing with confidence; Responsible AI Guidance for Businesses",
+        "citation": "MBIE, 8 Jul 2025",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.mbie.govt.nz/about/news/artificial-intelligence-strategy-and-business-guidance-now-available",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-03",
+          "AIG-19"
+        ]
+      },
+      {
+        "jurisdiction": "NZ",
+        "group": "data_protection",
+        "id": "nz-privacy-act",
+        "name": "Privacy Act 2020 — Information Privacy Principles incl. IPP 3A",
+        "citation": "Privacy Act 2020 (2020 No 31); Privacy Amendment Act 2025",
+        "status": "phased",
+        "effective": "IPP 3A from 2026-05-01",
+        "url": "https://www.privacy.org.nz/resources-and-learning/a-z-topics/ipp3a/",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-04",
+          "AIG-05",
+          "AIG-08",
+          "AIG-12",
+          "AIG-16",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "NZ",
+        "group": "data_protection",
+        "id": "nz-biometric-code",
+        "name": "Biometric Processing Privacy Code 2025",
+        "citation": null,
+        "status": "in-force",
+        "effective": "New processing 2025-11-03; existing processing 2026-08-03",
+        "url": "https://www.privacy.org.nz/assets/Codes-of-Practice-2020/Biometrics-Processing-Privacy-Code-2025-website-version.pdf",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-05",
+          "AIG-12"
+        ]
+      },
+      {
+        "jurisdiction": "NZ",
+        "group": "cyber",
+        "id": "nz-cyber-none",
+        "name": "No NIS-style cyber statute; NZ Information Security Manual (NZISM) applies to government agencies",
+        "citation": null,
+        "status": "none",
+        "effective": null,
+        "url": "https://nzism.gcsb.govt.nz/",
+        "verification": "unverified",
+        "controls": [
+          "AIG-07"
+        ]
+      },
+      {
+        "jurisdiction": "NZ",
+        "group": "sector:energy",
+        "id": "nz-electricity-code",
+        "name": "Electricity Industry Act 2010 and Electricity Industry Participation Code 2010 (Part 8 system operator security, Part 10 metering, Part 13 dispatch and offers)",
+        "citation": "2010 No 116; Code amendment on battery energy storage effective 2026-10-30 / 2028-03-31",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.ea.govt.nz/code-and-compliance/the-code/",
+        "verification": "primary",
+        "controls": [
+          "AIG-11",
+          "AIG-13",
+          "AIG-15"
+        ]
+      },
+      {
+        "jurisdiction": "NZ",
+        "group": "sector:energy",
+        "id": "nz-gas-governance",
+        "name": "Gas Act 1992 and gas governance rules incl. critical contingency management",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.gasindustry.co.nz/about-us/legislative-framework/",
+        "verification": "primary",
+        "controls": [
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "NZ",
+        "group": "sector:energy",
+        "id": "nz-critical-infrastructure-bill",
+        "name": "Critical infrastructure resilience legislation (DPMC policy work; minimum resilience standards and incident reporting for energy)",
+        "citation": null,
+        "status": "proposed",
+        "effective": null,
+        "url": "https://www.dpmc.govt.nz/",
+        "verification": "unverified",
+        "controls": [
+          "AIG-16",
+          "AIG-17"
+        ]
+      },
+      {
+        "jurisdiction": "NZ",
+        "group": "sector:energy",
+        "id": "nz-ncsc-ot",
+        "name": "NCSC (GCSB) cyber security guidance for operational technology",
+        "citation": null,
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.ncsc.govt.nz/",
+        "verification": "unverified",
+        "controls": [
+          "AIG-08",
+          "AIG-13"
+        ]
+      }
+    ],
+    "path": "profiles/nz/energy.md"
+  },
+  {
+    "country": "JP",
+    "country_name": "Japan",
+    "sector": "health",
+    "sector_name": "Health",
+    "frameworks": [
+      "jp-appi",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -8471,7 +10472,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -8495,7 +10498,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -8624,7 +10628,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -8648,7 +10654,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -8774,7 +10781,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -8798,7 +10807,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -8920,7 +10930,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -8944,7 +10956,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -9067,7 +11080,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -9091,7 +11106,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -9198,12 +11214,15 @@
     "path": "profiles/jp/tech.md"
   },
   {
-    "country": "SG",
-    "country_name": "Singapore",
-    "sector": "health",
-    "sector_name": "Health",
+    "country": "JP",
+    "country_name": "Japan",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
     "frameworks": [
-      "sg-pdpa",
+      "jp-appi",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
       "iso27001",
       "iso42001",
       "zero-trust",
@@ -9213,7 +11232,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -9237,7 +11258,207 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "JP",
+        "group": "horizontal",
+        "id": "jp-ai-promotion-act",
+        "name": "Act on Promotion of Research and Development, and Deployment of AI-related Technology",
+        "citation": "Act No. 53 of 2025",
+        "status": "in-force",
+        "effective": "2025-09-01",
+        "url": "https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260714.pdf",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "horizontal",
+        "id": "jp-ai-basic-plan",
+        "name": "Second AI Basic Plan (agentic, physical and sovereign AI; stronger AISI)",
+        "citation": "Cabinet decision 2026 (English provisional translation 14 Jul 2026)",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260714.pdf",
+        "verification": "primary",
+        "controls": [
+          "AIG-01"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "horizontal",
+        "id": "jp-ai-business-guidelines",
+        "name": "AI Business Operator Guidelines v1.2 (METI/MIC)",
+        "citation": "31 Mar 2026",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.ibanet.org/japan-health-data-reforms-ai",
+        "verification": "secondary",
+        "controls": [
+          "AIG-01",
+          "AIG-03",
+          "AIG-10",
+          "AIG-14"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "data_protection",
+        "id": "jp-appi",
+        "name": "Act on the Protection of Personal Information (APPI), as amended by Act No. 56 of 2026",
+        "citation": null,
+        "status": "phased",
+        "effective": "Penalties from 2027-01-17; main reforms by Cabinet Order no later than 2028-07-17",
+        "url": "https://www.aoshearman.com/en/insights/ao-shearman-on-data/amendments-to-the-act-on-the-protection-of-personal-information-promulgated",
+        "verification": "secondary",
+        "controls": [
+          "AIG-04",
+          "AIG-05",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "cyber",
+        "id": "jp-active-cyber-defense",
+        "name": "Active Cyber Defense law (Cyber Response Capability Enhancement Act)",
+        "citation": null,
+        "status": "phased",
+        "effective": "Main enforcement 2026-10-01; CI incident reporting by ~Nov 2026; asset notifications 2027-03-31",
+        "url": "https://www.trendmicro.com/ja_jp/jp-security/26/h/securitytrend-20260814-01.html",
+        "verification": "secondary",
+        "controls": [
+          "AIG-02",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "sector:energy",
+        "id": "jp-esp-act-energy",
+        "name": "Economic Security Promotion Act — pre-screening of critical equipment (特定重要設備) for electricity, gas and oil operators; METI ordinance lists supply-demand control systems, T&D SCADA, generation output-control systems >= 500,000 kW, gas pipeline control and refinery distillation control",
+        "citation": "令和4年法律第43号 (2022-05-18); 令和5年経済産業省令第41号 (amended 2026-07-14, eff 2026-09-18)",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://laws.e-gov.go.jp/law/504AC0000000043",
+        "verification": "primary",
+        "controls": [
+          "AIG-06",
+          "AIG-15"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "sector:energy",
+        "id": "jp-acd-energy",
+        "name": "Active Cyber Defense law — designated infrastructure operators notify specified important computers and report specified infringement events (prompt initial report, written report within 30 days)",
+        "citation": "令和7年法律第42号; 施行令 令和8年政令第47号",
+        "status": "in-force",
+        "effective": "2026-10-01",
+        "url": "https://laws.e-gov.go.jp/law/507AC0000000042",
+        "verification": "primary",
+        "controls": [
+          "AIG-02",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "sector:energy",
+        "id": "jp-meti-electric-cyber",
+        "name": "METI cybersecurity requirements for electric facilities under the Electricity Business Act technical standards (business-use facilities since 2016; 自家用電気工作物 from 1 Oct 2022) and 電力制御システムセキュリティガイドライン",
+        "citation": "電気事業法 昭和39年法律第170号; 施行規則 Art 50(3)(ix)",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/electric/detail/cybersecurity.html",
+        "verification": "primary",
+        "controls": [
+          "AIG-07",
+          "AIG-08",
+          "AIG-13",
+          "AIG-15"
+        ]
+      },
+      {
+        "jurisdiction": "JP",
+        "group": "sector:energy",
+        "id": "jp-csmg",
+        "name": "METI/IPA Cybersecurity Management Guidelines Ver 3.0 (board-level governance, supply chain, incident readiness)",
+        "citation": "Ver 3.0, 2023-03-24",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.meti.go.jp/policy/netsecurity/mng_guide.html",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-06",
+          "AIG-16"
+        ]
+      }
+    ],
+    "path": "profiles/jp/energy.md"
+  },
+  {
+    "country": "SG",
+    "country_name": "Singapore",
+    "sector": "health",
+    "sector_name": "Health",
+    "frameworks": [
+      "sg-pdpa",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -9356,7 +11577,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [
       "mas_regulated"
@@ -9382,7 +11605,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-02",
@@ -9523,7 +11747,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -9547,7 +11773,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-01",
@@ -9663,7 +11890,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -9687,7 +11916,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -9800,7 +12030,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -9824,7 +12056,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-03",
@@ -9938,7 +12171,9 @@
       "iso42005",
       "owasp-genai",
       "mitre-atlas",
-      "anthropic-zero-trust"
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
     ],
     "gated": [],
     "required_controls": [
@@ -9962,7 +12197,8 @@
       "AIG-18",
       "AIG-19",
       "AIG-20",
-      "AIG-21"
+      "AIG-21",
+      "AIG-22"
     ],
     "emphasised_controls": [
       "AIG-04",
@@ -10074,5 +12310,202 @@
       }
     ],
     "path": "profiles/sg/tech.md"
+  },
+  {
+    "country": "SG",
+    "country_name": "Singapore",
+    "sector": "energy",
+    "sector_name": "Energy (oil, gas and electricity)",
+    "frameworks": [
+      "sg-pdpa",
+      "energy-ci",
+      "iec62443",
+      "iso27019",
+      "iso27001",
+      "iso42001",
+      "zero-trust",
+      "nist-ai-rmf",
+      "nist-sp-800-61",
+      "iso19011",
+      "iso42005",
+      "owasp-genai",
+      "mitre-atlas",
+      "anthropic-zero-trust",
+      "finops",
+      "bcp-dr"
+    ],
+    "gated": [],
+    "required_controls": [
+      "AIG-01",
+      "AIG-02",
+      "AIG-03",
+      "AIG-04",
+      "AIG-05",
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-09",
+      "AIG-10",
+      "AIG-11",
+      "AIG-12",
+      "AIG-13",
+      "AIG-14",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17",
+      "AIG-18",
+      "AIG-19",
+      "AIG-20",
+      "AIG-21",
+      "AIG-22"
+    ],
+    "emphasised_controls": [
+      "AIG-06",
+      "AIG-07",
+      "AIG-08",
+      "AIG-11",
+      "AIG-13",
+      "AIG-15",
+      "AIG-16",
+      "AIG-17"
+    ],
+    "instruments": [
+      {
+        "jurisdiction": "SG",
+        "group": "horizontal",
+        "id": "sg-mgf-genai",
+        "name": "Model AI Governance Framework for Generative AI",
+        "citation": "IMDA / AI Verify Foundation, May 2024",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://morganlewis.com/pubs/2024/07/singapore-expands-its-ai-governance-approach-to-include-generative-ai",
+        "verification": "secondary",
+        "controls": [
+          "AIG-01",
+          "AIG-06",
+          "AIG-10",
+          "AIG-12",
+          "AIG-14",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "SG",
+        "group": "horizontal",
+        "id": "sg-mgf-agentic",
+        "name": "Model AI Governance Framework for Agentic AI",
+        "citation": "IMDA, 22 Jan 2026",
+        "status": "voluntary",
+        "effective": null,
+        "url": "https://www.mddi.gov.sg/newsroom/singapore-launches-new-model-ai-governance-framework-for-agentic-ai--/",
+        "verification": "primary",
+        "controls": [
+          "AIG-03",
+          "AIG-07",
+          "AIG-10",
+          "AIG-11",
+          "AIG-13"
+        ]
+      },
+      {
+        "jurisdiction": "SG",
+        "group": "data_protection",
+        "id": "sg-pdpa",
+        "name": "Personal Data Protection Act 2012 + Advisory Guidelines on Personal Data in AI Recommendation and Decision Systems",
+        "citation": "PDPA 2012; PDPC guidelines 1 Mar 2024",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://www.rajahtannasia.com/viewpoints/pdpc-issues-advisory-guidelines-on-use-of-personal-data-in-ai-recommendation-and-decision-systems/",
+        "verification": "secondary",
+        "controls": [
+          "AIG-04",
+          "AIG-05",
+          "AIG-12",
+          "AIG-18"
+        ]
+      },
+      {
+        "jurisdiction": "SG",
+        "group": "cyber",
+        "id": "sg-cybersecurity-act",
+        "name": "Cybersecurity Act 2018 as amended by the Cybersecurity (Amendment) Act 2024",
+        "citation": null,
+        "status": "in-force",
+        "effective": "Key provisions 2025-10-31",
+        "url": "https://www.hlc.com/en/publications/provisions-in-singapores-cybersecurity-amendment-act-came-into-force-on-31-october-2025",
+        "verification": "secondary",
+        "controls": [
+          "AIG-07",
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "SG",
+        "group": "sector:energy",
+        "id": "sg-cybersecurity-act-energy",
+        "name": "Cybersecurity Act 2018 as amended by Act 19 of 2024 — energy essential services (electricity generation/transmission/distribution; natural gas supply for generation); s 14 incident reporting incl. supplier systems; s 15 audit every 2 years and annual risk assessment; Part 3A third-party-owned CII",
+        "citation": "Act 9 of 2018; Act 19 of 2024 in operation 2025-10-31",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://sso.agc.gov.sg/Act/CA2018",
+        "verification": "primary",
+        "controls": [
+          "AIG-06",
+          "AIG-13",
+          "AIG-16",
+          "AIG-21"
+        ]
+      },
+      {
+        "jurisdiction": "SG",
+        "group": "sector:energy",
+        "id": "sg-ccop-2026",
+        "name": "Cybersecurity Code of Practice for CII 2026 — risk framework (3.4), cloud restriction (3.9.3), outsourcing oversight (3.10), OT requirements (10), interconnected systems (12); board accountability clauses from 29 Jul 2027",
+        "citation": "CCoP 2026 Release 1",
+        "status": "in-force-phased",
+        "effective": "2026-07-29; new clauses by 2027-07-29",
+        "url": "https://www.csa.gov.sg/legislation/codes-of-practice",
+        "verification": "primary",
+        "controls": [
+          "AIG-01",
+          "AIG-03",
+          "AIG-06",
+          "AIG-08",
+          "AIG-13",
+          "AIG-14",
+          "AIG-21"
+        ]
+      },
+      {
+        "jurisdiction": "SG",
+        "group": "sector:energy",
+        "id": "sg-cii-regulations",
+        "name": "Cybersecurity (Critical Information Infrastructure) Regulations 2018 — prescribed incident-reporting period (2 hours, then details within 14 days)",
+        "citation": "S 590/2018",
+        "status": "in-force",
+        "effective": null,
+        "url": "https://sso.agc.gov.sg/SL/CA2018-S590-2018",
+        "verification": "secondary",
+        "controls": [
+          "AIG-16"
+        ]
+      },
+      {
+        "jurisdiction": "SG",
+        "group": "sector:energy",
+        "id": "sg-ema-acts",
+        "name": "Electricity Act 2001 and Gas Act 2001 (EMA licensing, Transmission Code, Market Rules)",
+        "citation": null,
+        "status": "in-force",
+        "effective": null,
+        "url": "https://sso.agc.gov.sg/Act/EA2001",
+        "verification": "primary",
+        "controls": [
+          "AIG-11",
+          "AIG-13"
+        ]
+      }
+    ],
+    "path": "profiles/sg/energy.md"
   }
 ]

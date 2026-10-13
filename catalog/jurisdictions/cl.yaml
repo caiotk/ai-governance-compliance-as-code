@@ -3,6 +3,8 @@ kind: Jurisdiction
 id: CL
 name: Chile
 frameworks: [cl-21719, cl-21663]
+sector_frameworks:
+  energy: [energy-ci, iec62443, iso27019]
 notes: The AI bill is in the Senate and the government plans an innovation-first substitute text. Ley 21.719 is due in force 1 Dec 2026, but bill 18.623-07 would postpone it.
 instruments:
   horizontal:
@@ -99,3 +101,28 @@ instruments:
         url: https://www.bcn.cl/leychile/navegar?idNorma=61438
         verification: unverified
         controls: [AIG-12]
+    energy:
+      - id: cl-21663-energy
+        name: Ley 21.663 — energy generation, transmission, distribution, fuel transport/storage/distribution and the Coordinador Eléctrico as essential services; OIV duties (Art 8) and reporting 3 h / 72 h (24 h for OIV) / 15 days (Art 9)
+        regulator: ANCI / CSIRT Nacional
+        citation: "Ley 21.663, D.O. 2024-04-08, Arts 4-9, 28, 40"
+        status: in-force
+        url: https://www.leychile.cl/Consulta/obtxml?opt=7&idNorma=1202434
+        verification: primary
+        controls: [AIG-01, AIG-13, AIG-16, AIG-17, AIG-21]
+      - id: cl-ntsycs
+        name: Norma Técnica de Seguridad y Calidad de Servicio (CNE) — grid security and quality obligations on the Coordinador and coordinated entities
+        regulator: CNE / SEC
+        citation: "Res. Ex. 299/2018 as amended to Res. Ex. 45/2026 (versión enero 2026)"
+        status: in-force
+        url: https://www.cne.cl/normativas/electrica/normas-tecnicas/
+        verification: primary
+        notes: Cybersecurity annex content unverified.
+        controls: [AIG-11, AIG-15, AIG-17]
+      - id: cl-coordinador-ciber
+        name: Coordinador Eléctrico Nacional — Estándar de Ciberseguridad para el Sistema Eléctrico Nacional
+        regulator: Coordinador Eléctrico Nacional
+        status: in-force
+        url: https://www.coordinador.cl/
+        verification: unverified
+        controls: [AIG-07, AIG-08, AIG-13]

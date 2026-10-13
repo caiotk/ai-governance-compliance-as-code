@@ -54,4 +54,11 @@ testing:
   threat_model: { completed: true, references: [OWASP-LLM-2026, MITRE-ATLAS-2026.09] }
 lifecycle: { versioned: true, promotion_gate: true }
 incident: { runbook: true, notification_matrix: ["ANPD", "ANVISA-tecnovigilancia"], lessons_learned: true }
-resilience: { fallback_tested: true, exit_plan: true }
+resilience: { fallback_tested: true, exit_plan: true, secondary_route: true, last_dr_drill: "2026-07-14", rto_minutes: 30, rpo_minutes: 5 }
+finops:
+  budget_defined: true
+  monthly_budget_usd: 9000
+  token_limits_enforced: true
+  cost_allocation_tags: [workload:clinical-scribe, cost-centre:CLIN-01]
+  model_selection_record: finops/decisions/clinical-scribe.decision.json
+  model_selection_date: "2026-09-30"

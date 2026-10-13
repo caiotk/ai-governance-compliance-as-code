@@ -1,0 +1,869 @@
+{
+  "workload": "dispatch-advisor",
+  "generated": "2026-10-13",
+  "catalogue_as_of": "2026-10-13",
+  "quality_basis": "mixed",
+  "candidates": [
+    {
+      "id": "anthropic/claude-haiku-5-5@aws-bedrock",
+      "model": "anthropic/claude-haiku-5-5",
+      "name": "Claude Haiku 5.5",
+      "vendor": "anthropic",
+      "tier": "daily-driver",
+      "platform": "aws-bedrock",
+      "model_id": "anthropic.claude-haiku-5-5",
+      "processing": [
+        "apac",
+        "au",
+        "eu",
+        "global",
+        "in",
+        "jp",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 0.1,
+        "cached_input": 0.01,
+        "cache_write": 0.125,
+        "cache_write_1h": 0.2,
+        "output": 0.5
+      },
+      "cost": {
+        "standard_usd": 0.00405,
+        "blended_usd": 0.00405,
+        "input_usd": 0.0033,
+        "output_usd": 0.00075,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 246.24,
+      "quality_basis": "prior",
+      "scores": {
+        "quality": 0.6,
+        "rai": 0.6,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 1.0
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days"
+      },
+      "verification": "primary",
+      "score": 0.74
+    },
+    {
+      "id": "anthropic/claude-haiku-5-5@gcp-vertex",
+      "model": "anthropic/claude-haiku-5-5",
+      "name": "Claude Haiku 5.5",
+      "vendor": "anthropic",
+      "tier": "daily-driver",
+      "platform": "gcp-vertex",
+      "model_id": "claude-haiku-5-5",
+      "processing": [
+        "eu",
+        "global",
+        "regional",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 0.1,
+        "cached_input": 0.01,
+        "cache_write": 0.125,
+        "cache_write_1h": 0.2,
+        "output": 0.5
+      },
+      "cost": {
+        "standard_usd": 0.00405,
+        "blended_usd": 0.00405,
+        "input_usd": 0.0033,
+        "output_usd": 0.00075,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 246.24,
+      "quality_basis": "prior",
+      "scores": {
+        "quality": 0.6,
+        "rai": 0.6,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 1.0
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days"
+      },
+      "verification": "primary",
+      "score": 0.74
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@aws-bedrock",
+      "model": "anthropic/claude-sonnet-5-5",
+      "name": "Claude Sonnet 5.5",
+      "vendor": "anthropic",
+      "tier": "workhorse",
+      "platform": "aws-bedrock",
+      "model_id": "anthropic.claude-sonnet-5-5",
+      "processing": [
+        "apac",
+        "au",
+        "eu",
+        "global",
+        "in",
+        "jp",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 2.0,
+        "cached_input": 0.1,
+        "cache_write": 2.5,
+        "cache_write_1h": 4.0,
+        "output": 10.0
+      },
+      "cost": {
+        "standard_usd": 0.078,
+        "blended_usd": 0.078,
+        "input_usd": 0.063,
+        "output_usd": 0.015,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 4742.4,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.92,
+        "rai": 0.6,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 0.3496
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days"
+      },
+      "verification": "primary",
+      "score": 0.7214
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@gcp-vertex",
+      "model": "anthropic/claude-sonnet-5-5",
+      "name": "Claude Sonnet 5.5",
+      "vendor": "anthropic",
+      "tier": "workhorse",
+      "platform": "gcp-vertex",
+      "model_id": "claude-sonnet-5-5",
+      "processing": [
+        "eu",
+        "global",
+        "regional",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 2.0,
+        "cached_input": 0.1,
+        "cache_write": 2.5,
+        "cache_write_1h": 4.0,
+        "output": 10.0
+      },
+      "cost": {
+        "standard_usd": 0.078,
+        "blended_usd": 0.078,
+        "input_usd": 0.063,
+        "output_usd": 0.015,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 4742.4,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.92,
+        "rai": 0.6,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 0.3496
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days"
+      },
+      "verification": "primary",
+      "score": 0.7214
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@aws-bedrock",
+      "model": "anthropic/claude-opus-5-5",
+      "name": "Claude Opus 5.5",
+      "vendor": "anthropic",
+      "tier": "specialist-reasoning",
+      "platform": "aws-bedrock",
+      "model_id": "anthropic.claude-opus-5-5",
+      "processing": [
+        "apac",
+        "au",
+        "eu",
+        "global",
+        "in",
+        "jp",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 4.0,
+        "cached_input": 0.2,
+        "cache_write": 5.0,
+        "cache_write_1h": 8.0,
+        "output": 20.0
+      },
+      "cost": {
+        "standard_usd": 0.156,
+        "blended_usd": 0.156,
+        "input_usd": 0.126,
+        "output_usd": 0.03,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 9484.8,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.95,
+        "rai": 0.6,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.1972
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days"
+      },
+      "verification": "primary",
+      "score": 0.6668
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@gcp-vertex",
+      "model": "anthropic/claude-opus-5-5",
+      "name": "Claude Opus 5.5",
+      "vendor": "anthropic",
+      "tier": "specialist-reasoning",
+      "platform": "gcp-vertex",
+      "model_id": "claude-opus-5-5",
+      "processing": [
+        "eu",
+        "global",
+        "regional",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 4.0,
+        "cached_input": 0.2,
+        "cache_write": 5.0,
+        "cache_write_1h": 8.0,
+        "output": 20.0
+      },
+      "cost": {
+        "standard_usd": 0.156,
+        "blended_usd": 0.156,
+        "input_usd": 0.126,
+        "output_usd": 0.03,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 9484.8,
+      "quality_basis": "measured",
+      "scores": {
+        "quality": 0.95,
+        "rai": 0.6,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.1972
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days"
+      },
+      "verification": "primary",
+      "score": 0.6668
+    },
+    {
+      "id": "google/gemini-3.8-flash@gcp-vertex",
+      "model": "google/gemini-3.8-flash",
+      "name": "Gemini 3.8 Flash",
+      "vendor": "google",
+      "tier": "workhorse",
+      "platform": "gcp-vertex",
+      "model_id": "gemini-3.8-flash",
+      "processing": [
+        "eu",
+        "global",
+        "regional",
+        "us"
+      ],
+      "attestations": [
+        "ISO/IEC 42001:2023"
+      ],
+      "context_window": 1048576,
+      "prices": {
+        "input": 0.75,
+        "cached_input": 0.075,
+        "cache_storage_per_hour": 0.5,
+        "output": 3.75
+      },
+      "cost": {
+        "standard_usd": 0.0334125,
+        "blended_usd": 0.0334125,
+        "input_usd": 0.027225,
+        "output_usd": 0.0061875,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": "price changes on 2027-01-01: input 1.5, cached_input 0.15, cache_storage_per_hour 1.0, output 7.5"
+      },
+      "monthly_usd": 2031.48,
+      "quality_basis": "prior",
+      "scores": {
+        "quality": 0.8,
+        "rai": 0.3,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 0.536
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": "introductory price through 2026-12-31, then 1.50 / 7.50"
+      },
+      "verification": "primary",
+      "score": 0.654
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@aws-bedrock",
+      "model": "anthropic/claude-fable-5-1",
+      "name": "Claude Fable 5.1",
+      "vendor": "anthropic",
+      "tier": "specialist-reasoning",
+      "platform": "aws-bedrock",
+      "model_id": "anthropic.claude-fable-5-1",
+      "processing": [
+        "apac",
+        "au",
+        "eu",
+        "global",
+        "in",
+        "jp",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 10.0,
+        "cached_input": 0.25,
+        "cache_write": 12.5,
+        "cache_write_1h": 20.0,
+        "output": 50.0
+      },
+      "cost": {
+        "standard_usd": 0.3825,
+        "blended_usd": 0.3825,
+        "input_usd": 0.3075,
+        "output_usd": 0.075,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 23256.0,
+      "quality_basis": "prior",
+      "scores": {
+        "quality": 0.95,
+        "rai": 0.6,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.0
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days before retirement"
+      },
+      "verification": "primary",
+      "score": 0.6175
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@gcp-vertex",
+      "model": "anthropic/claude-fable-5-1",
+      "name": "Claude Fable 5.1",
+      "vendor": "anthropic",
+      "tier": "specialist-reasoning",
+      "platform": "gcp-vertex",
+      "model_id": "claude-fable-5-1",
+      "processing": [
+        "eu",
+        "global",
+        "regional",
+        "us"
+      ],
+      "attestations": [
+        "HIPAA-ready configuration (BAA available)",
+        "ISO 27001:2022",
+        "ISO/IEC 42001:2023",
+        "SOC 2 Type I & Type II"
+      ],
+      "context_window": 1000000,
+      "prices": {
+        "input": 10.0,
+        "cached_input": 0.25,
+        "cache_write": 12.5,
+        "cache_write_1h": 20.0,
+        "output": 50.0
+      },
+      "cost": {
+        "standard_usd": 0.3825,
+        "blended_usd": 0.3825,
+        "input_usd": 0.3075,
+        "output_usd": 0.075,
+        "long_context_applied": false,
+        "regional_premium": 1.0,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 23256.0,
+      "quality_basis": "prior",
+      "scores": {
+        "quality": 0.95,
+        "rai": 0.6,
+        "latency": 0.4,
+        "lifecycle": 1.0,
+        "cost": 0.0
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": null,
+        "notice": ">= 60 days before retirement"
+      },
+      "verification": "primary",
+      "score": 0.6175
+    },
+    {
+      "id": "google/gemini-3.5-flash-lite@gcp-vertex",
+      "model": "google/gemini-3.5-flash-lite",
+      "name": "Gemini 3.5 Flash-Lite",
+      "vendor": "google",
+      "tier": "daily-driver",
+      "platform": "gcp-vertex",
+      "model_id": "gemini-3.5-flash-lite",
+      "processing": [
+        "eu",
+        "global",
+        "regional",
+        "us"
+      ],
+      "attestations": [
+        "ISO/IEC 42001:2023"
+      ],
+      "context_window": 1048576,
+      "prices": {
+        "input": 0.3,
+        "cached_input": 0.03,
+        "cache_storage_per_hour": 1.0,
+        "output": 2.5
+      },
+      "cost": {
+        "standard_usd": 0.015015,
+        "blended_usd": 0.015015,
+        "input_usd": 0.01089,
+        "output_usd": 0.004125,
+        "long_context_applied": false,
+        "regional_premium": 1.1,
+        "batch_fraction": 0.0,
+        "price_note": null
+      },
+      "monthly_usd": 912.91,
+      "quality_basis": "prior",
+      "scores": {
+        "quality": 0.6,
+        "rai": 0.3,
+        "latency": 1.0,
+        "lifecycle": 1.0,
+        "cost": 0.7119
+      },
+      "lifecycle": {
+        "status": "ga",
+        "retirement": "2027-07-21 or later (Vertex)",
+        "notice": ">= 12 months"
+      },
+      "verification": "primary",
+      "score": 0.608
+    }
+  ],
+  "excluded": [
+    {
+      "id": "openai/gpt-6-astra@openai",
+      "reasons": [
+        "platform openai not allowed",
+        "cannot process in ['au'] via openai"
+      ]
+    },
+    {
+      "id": "openai/gpt-6-astra@azure-foundry",
+      "reasons": [
+        "cannot process in ['au'] via azure-foundry"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-sol@openai",
+      "reasons": [
+        "platform openai not allowed",
+        "cannot process in ['au'] via openai"
+      ]
+    },
+    {
+      "id": "openai/gpt-6.1-sol@azure-foundry",
+      "reasons": [
+        "cannot process in ['au'] via azure-foundry"
+      ]
+    },
+    {
+      "id": "openai/gpt-6-luna@openai",
+      "reasons": [
+        "platform openai not allowed",
+        "cannot process in ['au'] via openai"
+      ]
+    },
+    {
+      "id": "openai/gpt-6-luna@azure-foundry",
+      "reasons": [
+        "cannot process in ['au'] via azure-foundry"
+      ]
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@anthropic",
+      "reasons": [
+        "platform anthropic not allowed",
+        "cannot process in ['au'] via anthropic"
+      ]
+    },
+    {
+      "id": "anthropic/claude-fable-5-1@azure-foundry",
+      "reasons": [
+        "cannot process in ['au'] via azure-foundry"
+      ]
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@anthropic",
+      "reasons": [
+        "platform anthropic not allowed",
+        "cannot process in ['au'] via anthropic"
+      ]
+    },
+    {
+      "id": "anthropic/claude-opus-5-5@azure-foundry",
+      "reasons": [
+        "cannot process in ['au'] via azure-foundry"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@anthropic",
+      "reasons": [
+        "platform anthropic not allowed",
+        "cannot process in ['au'] via anthropic"
+      ]
+    },
+    {
+      "id": "anthropic/claude-sonnet-5-5@azure-foundry",
+      "reasons": [
+        "cannot process in ['au'] via azure-foundry"
+      ]
+    },
+    {
+      "id": "anthropic/claude-haiku-5-5@anthropic",
+      "reasons": [
+        "platform anthropic not allowed",
+        "cannot process in ['au'] via anthropic"
+      ]
+    },
+    {
+      "id": "anthropic/claude-haiku-5-5@azure-foundry",
+      "reasons": [
+        "cannot process in ['au'] via azure-foundry"
+      ]
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview@gcp-vertex",
+      "reasons": [
+        "preview model (allow_preview=false)",
+        "cannot process in ['au'] via gcp-vertex"
+      ]
+    },
+    {
+      "id": "google/gemini-3.1-pro-preview@gemini-api",
+      "reasons": [
+        "preview model (allow_preview=false)",
+        "platform gemini-api not allowed",
+        "cannot process in ['au'] via gemini-api"
+      ]
+    },
+    {
+      "id": "google/gemini-3.8-flash@gemini-api",
+      "reasons": [
+        "platform gemini-api not allowed"
+      ]
+    },
+    {
+      "id": "google/gemini-3.5-flash-lite@gemini-api",
+      "reasons": [
+        "platform gemini-api not allowed"
+      ]
+    },
+    {
+      "id": "mistral/mistral-large-4@mistral",
+      "reasons": [
+        "no reasoning mode",
+        "preview model (allow_preview=false)",
+        "platform mistral not allowed",
+        "cannot process in ['au'] via mistral",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "mistral/mistral-large-2512@mistral",
+      "reasons": [
+        "no reasoning mode",
+        "platform mistral not allowed",
+        "cannot process in ['au'] via mistral",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "mistral/mistral-medium-3-5@mistral",
+      "reasons": [
+        "no reasoning mode",
+        "platform mistral not allowed",
+        "cannot process in ['au'] via mistral",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "mistral/mistral-small-2603@mistral",
+      "reasons": [
+        "platform mistral not allowed",
+        "cannot process in ['au'] via mistral",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "mistral/codestral-2508@mistral",
+      "reasons": [
+        "code-specialised model; task is not code",
+        "no reasoning mode",
+        "context window 128000 < 201500 needed",
+        "platform mistral not allowed",
+        "cannot process in ['au'] via mistral",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "mistral/ministral-8b-2512@mistral",
+      "reasons": [
+        "no reasoning mode",
+        "platform mistral not allowed",
+        "cannot process in ['au'] via mistral",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "mistral/mistral-moderation-2603@mistral",
+      "reasons": [
+        "safety classifier, not a generation model",
+        "no text input",
+        "no tool calling",
+        "no structured output",
+        "no reasoning mode",
+        "context window 128000 < 201500 needed",
+        "platform mistral not allowed",
+        "cannot process in ['au'] via mistral",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "amazon/nova-2-lite@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "cannot process in ['au'] via aws-bedrock"
+      ]
+    },
+    {
+      "id": "amazon/nova-pro@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "no reasoning mode",
+        "cannot process in ['au'] via aws-bedrock"
+      ]
+    },
+    {
+      "id": "amazon/nova-lite@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "no reasoning mode",
+        "cannot process in ['au'] via aws-bedrock"
+      ]
+    },
+    {
+      "id": "amazon/nova-micro@aws-bedrock",
+      "reasons": [
+        "no tool calling",
+        "no structured output",
+        "no reasoning mode",
+        "context window 128000 < 201500 needed",
+        "cannot process in ['au'] via aws-bedrock"
+      ]
+    },
+    {
+      "id": "amazon/nova-premier@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "no reasoning mode",
+        "cannot process in ['au'] via aws-bedrock"
+      ]
+    },
+    {
+      "id": "meta/llama4-maverick-17b@aws-bedrock",
+      "reasons": [
+        "no structured output",
+        "no reasoning mode",
+        "legacy model (allow_legacy=false)",
+        "cannot process in ['au'] via aws-bedrock"
+      ]
+    },
+    {
+      "id": "meta/llama4-scout-17b@aws-bedrock",
+      "reasons": [
+        "no tool calling",
+        "no structured output",
+        "no reasoning mode",
+        "legacy model (allow_legacy=false)",
+        "cannot process in ['au'] via aws-bedrock"
+      ]
+    },
+    {
+      "id": "deepseek/deepseek-flash@deepseek",
+      "reasons": [
+        "platform deepseek not allowed",
+        "cannot process in ['au'] via deepseek",
+        "no verified attestations for regulated data",
+        "missing attestation '42001'"
+      ]
+    },
+    {
+      "id": "deepseek/deepseek-v4-pro@deepseek",
+      "reasons": [
+        "platform deepseek not allowed",
+        "cannot process in ['au'] via deepseek",
+        "no verified attestations for regulated data",
+        "missing attestation '42001'"
+      ]
+    }
+  ],
+  "routing": {
+    "mode": "single-model",
+    "primary": {
+      "role": "primary",
+      "share": 1.0,
+      "id": "anthropic/claude-sonnet-5-5@aws-bedrock",
+      "model": "anthropic/claude-sonnet-5-5",
+      "platform": "aws-bedrock",
+      "model_id": "anthropic.claude-sonnet-5-5",
+      "tier": "workhorse"
+    },
+    "cascade": null,
+    "single_model": {
+      "id": "anthropic/claude-sonnet-5-5@aws-bedrock",
+      "model": "anthropic/claude-sonnet-5-5",
+      "platform": "aws-bedrock",
+      "model_id": "anthropic.claude-sonnet-5-5",
+      "tier": "workhorse",
+      "monthly_usd": 4742.4
+    },
+    "fallbacks": [
+      {
+        "id": "anthropic/claude-sonnet-5-5@gcp-vertex",
+        "model": "anthropic/claude-sonnet-5-5",
+        "platform": "gcp-vertex",
+        "model_id": "claude-sonnet-5-5",
+        "tier": "workhorse",
+        "reason": "same model, different platform"
+      }
+    ],
+    "monthly_usd": 4742.4,
+    "vendors_in_route": [
+      "anthropic"
+    ]
+  },
+  "warnings": [
+    "google/gemini-3.8-flash: price changes on 2027-01-01: input 1.5, cached_input 0.15, cache_storage_per_hour 1.0, output 7.5",
+    "only 1 vendor(s) satisfy the constraints; min_vendors_for_resilience=2 not met \u2014 BCP depends on a single vendor"
+  ]
+}

@@ -25,7 +25,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 CATALOG = ROOT / "catalog"
 COUNTRIES = ["BR", "CL", "AR", "PT", "ES", "US", "AU", "NZ", "JP", "SG"]
-SECTORS = ["health", "fsi", "public", "agriculture", "mining", "tech"]
+SECTORS = ["health", "fsi", "public", "agriculture", "mining", "tech", "energy"]
 INSTRUMENT_GROUPS = ["horizontal", "data_protection", "cyber"]
 VERIFICATION = {"primary", "secondary", "unverified"}
 STATUSES = {"in-force", "in-force-phased", "phased", "pending", "voluntary", "none", "proposed"}
@@ -357,7 +357,9 @@ def profile(jid: str, sector: str) -> tuple[str, dict, str]:
             "generates_synthetic_content": False,
             "agentic": False,
             "irreversible_actions": False,
-            "critical_operation": sector in ("fsi", "health", "mining"),
+            "critical_operation": sector in ("fsi", "health", "mining", "energy"),
+            "ot_connected": sector == "energy",
+            "market_facing": False,
             "fully_automated_decision": False,
             "generative": True,
             "biometric_processing": False,
@@ -367,6 +369,7 @@ def profile(jid: str, sector: str) -> tuple[str, dict, str]:
         },
         "governance": {"policy_approved": False, "registered_in_inventory": False, "ai_literacy_training": False,
                        "eu_database_registered": False, "risk_tolerance_defined": False,
+                       "critical_infrastructure_designation": "FILL IN: regulatory designation of the asset (SOCI critical asset, OIV, CII, NCCS entity, BES Cyber System) or leave if none",
                        "internal_audit": {"programme": False, "last_audit": "FILL IN: YYYY-MM-DD of last internal audit", "findings_tracked": False}},
         "risk": {"classification": "limited",
                  "impact_assessment": {"completed": False, "method": "FILL IN: e.g. ISO/IEC 42005:2025",
@@ -381,7 +384,7 @@ def profile(jid: str, sector: str) -> tuple[str, dict, str]:
                      "material_service_provider": False, "register_entry": False, "regulator_access_assured": False, "ai_bom": False},
         "security": {"local_auth_disabled": False, "least_privilege": False, "private_network": False,
                      "data_residency_region": "FILL IN: processing region", "cmk": False, "short_lived_credentials": False, "tool_allowlist": False,
-                     "non_human_identity_pam": False, "egress_allowlist": False, "sandboxed_execution": False,
+                     "non_human_identity_pam": False, "egress_allowlist": False, "sandboxed_execution": False, "ot_zone_conduit_model": False,
                      "idp_federated_identity": False},
         "runtime": {"content_filters": False, "prompt_attack_detection": False, "pii_filtering": False,
                     "guardrail_enforced_centrally": False, "output_validation": False},
@@ -397,7 +400,11 @@ def profile(jid: str, sector: str) -> tuple[str, dict, str]:
                     "threat_model": {"completed": False, "references": []}},
         "lifecycle": {"versioned": False, "promotion_gate": False},
         "incident": {"runbook": False, "notification_matrix": [], "lessons_learned": False},
-        "resilience": {"fallback_tested": False, "exit_plan": False, "tolerance_levels_set": False, "backup_capability": False},
+        "resilience": {"fallback_tested": False, "exit_plan": False, "tolerance_levels_set": False, "backup_capability": False,
+                       "secondary_route": False, "last_dr_drill": "FILL IN: YYYY-MM-DD of last failover drill", "rto_minutes": 0, "rpo_minutes": 0},
+        "finops": {"budget_defined": False, "monthly_budget_usd": 0, "token_limits_enforced": False, "cost_allocation_tags": [],
+                   "model_selection_record": "FILL IN: path to finops/decisions/<workload>.decision.json",
+                   "model_selection_date": "FILL IN: YYYY-MM-DD"},
     }
     if jid == "US":
         template["context"]["us_states"] = []

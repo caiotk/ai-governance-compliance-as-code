@@ -27,6 +27,8 @@ system:
   agentic: false
   irreversible_actions: false
   critical_operation: false
+  ot_connected: false
+  market_facing: false
   fully_automated_decision: false
   generative: true
   biometric_processing: false
@@ -43,6 +45,8 @@ governance:
   ai_literacy_training: false
   eu_database_registered: false
   risk_tolerance_defined: false
+  critical_infrastructure_designation: 'FILL IN: regulatory designation of the asset
+    (SOCI critical asset, OIV, CII, NCCS entity, BES Cyber System) or leave if none'
   internal_audit:
     programme: false
     last_audit: 'FILL IN: YYYY-MM-DD of last internal audit'
@@ -89,6 +93,7 @@ security:
   non_human_identity_pam: false
   egress_allowlist: false
   sandboxed_execution: false
+  ot_zone_conduit_model: false
   idp_federated_identity: false
 runtime:
   content_filters: false
@@ -136,3 +141,14 @@ resilience:
   exit_plan: false
   tolerance_levels_set: false
   backup_capability: false
+  secondary_route: false
+  last_dr_drill: 'FILL IN: YYYY-MM-DD of last failover drill'
+  rto_minutes: 0
+  rpo_minutes: 0
+finops:
+  budget_defined: false
+  monthly_budget_usd: 0
+  token_limits_enforced: false
+  cost_allocation_tags: []
+  model_selection_record: 'FILL IN: path to finops/decisions/<workload>.decision.json'
+  model_selection_date: 'FILL IN: YYYY-MM-DD'
