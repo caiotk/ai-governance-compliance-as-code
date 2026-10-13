@@ -4,6 +4,8 @@ Vendor-native AI governance policies, an MLOps compliance gate, and country × s
 
 **Explore the crosswalk:** https://caiotk.github.io/ai-governance-compliance-as-code/
 
+![NXGD-AIGovMP: the periodic table of AI governance. 30 laws and standards grouped by family, the 22 shared AIG controls they map to, and the 8 vendor policy packs that implement them](docs/NXGD-AIGovMP.png)
+
 > Not legal advice. This repository turns published obligations into reviewable, testable controls. The catalogue labels every fact `primary`, `secondary` or `unverified` ([docs/SOURCES.md](docs/SOURCES.md)); check the primary text before you rely on it.
 
 ## What is in here
