@@ -1,0 +1,187 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  AI governance baseline for Amazon Bedrock: guardrail, numbered version,
+  optional account-level enforcement and optional organization sharing
+  (controls AIG-05, AIG-09, AIG-10). Deploy once per Region.
+# Intrinsic functions use the long form (Fn::If, Ref) rather than short tags
+# (!If, !Ref) so the template also loads with plain YAML parsers in CI.
+
+Parameters:
+  NamePrefix:
+    Type: String
+    Default: aigov
+    AllowedPattern: "^[a-z0-9-]{1,20}$"
+  ContentFilterStrength:
+    Type: String
+    Default: HIGH
+    AllowedValues: [NONE, LOW, MEDIUM, HIGH]
+  PromptAttackStrength:
+    Type: String
+    Default: HIGH
+    AllowedValues: [NONE, LOW, MEDIUM, HIGH]
+  GroundingThreshold:
+    Type: Number
+    Default: 0.75
+    MinValue: 0
+    MaxValue: 0.99
+  RelevanceThreshold:
+    Type: Number
+    Default: 0.75
+    MinValue: 0
+    MaxValue: 0.99
+  KmsKeyArn:
+    Type: String
+    Default: ""
+    Description: Customer managed KMS key ARN for the guardrail. Empty uses an AWS owned key.
+  EnableAccountEnforcement:
+    Type: String
+    Default: "true"
+    AllowedValues: ["true", "false"]
+    Description: >-
+      Create AWS::Bedrock::EnforcedGuardrailConfiguration so every Bedrock
+      inference call in this account and Region is evaluated by the guardrail.
+  EnforcementExcludedModels:
+    Type: CommaDelimitedList
+    Default: ""
+    Description: Model IDs excluded from account-level enforcement (for example amazon.titan-embed-text-v2:0). Empty enforces on all models.
+  OrganizationId:
+    Type: String
+    Default: ""
+    Description: >-
+      AWS Organizations ID (o-xxxxxxxxxx). When set, attaches a resource-based
+      policy letting principals in the organization call ApplyGuardrail, which
+      organization-level (BEDROCK_POLICY) enforcement requires. Deploy in the
+      management account only.
+
+Conditions:
+  HasKmsKey: {"Fn::Not": [{"Fn::Equals": [{"Ref": KmsKeyArn}, ""]}]}
+  AccountEnforcement: {"Fn::Equals": [{"Ref": EnableAccountEnforcement}, "true"]}
+  HasExcludedModels: {"Fn::Not": [{"Fn::Equals": [{"Fn::Join": ["", {"Ref": EnforcementExcludedModels}]}, ""]}]}
+  ShareWithOrganization: {"Fn::Not": [{"Fn::Equals": [{"Ref": OrganizationId}, ""]}]}
+
+Resources:
+  # AIG-05 AIG-09 AIG-10
+  Guardrail:
+    Type: AWS::Bedrock::Guardrail
+    Properties:
+      Name: {"Fn::Sub": "${NamePrefix}-baseline"}
+      Description: AI governance baseline guardrail (AIG-05, AIG-10).
+      BlockedInputMessaging: This request was blocked by your organisation's AI usage policy.
+      BlockedOutputsMessaging: The response was blocked by your organisation's AI usage policy.
+      KmsKeyArn: {"Fn::If": [HasKmsKey, {"Ref": KmsKeyArn}, {"Ref": "AWS::NoValue"}]}
+      ContentPolicyConfig:
+        ContentFiltersTierConfig:
+          TierName: CLASSIC
+        FiltersConfig:
+          - Type: HATE
+            InputStrength: {"Ref": ContentFilterStrength}
+            OutputStrength: {"Ref": ContentFilterStrength}
+          - Type: INSULTS
+            InputStrength: {"Ref": ContentFilterStrength}
+            OutputStrength: {"Ref": ContentFilterStrength}
+          - Type: SEXUAL
+            InputStrength: {"Ref": ContentFilterStrength}
+            OutputStrength: {"Ref": ContentFilterStrength}
+          - Type: VIOLENCE
+            InputStrength: {"Ref": ContentFilterStrength}
+            OutputStrength: {"Ref": ContentFilterStrength}
+          - Type: MISCONDUCT
+            InputStrength: {"Ref": ContentFilterStrength}
+            OutputStrength: {"Ref": ContentFilterStrength}
+          # Prompt attacks are evaluated on input only. With InvokeModel the
+          # caller must tag user input, or prompt attacks are not filtered.
+          - Type: PROMPT_ATTACK
+            InputStrength: {"Ref": PromptAttackStrength}
+            OutputStrength: NONE
+      SensitiveInformationPolicyConfig:
+        PiiEntitiesConfig:
+          - { Type: EMAIL, Action: ANONYMIZE }
+          - { Type: PHONE, Action: ANONYMIZE }
+          - { Type: NAME, Action: ANONYMIZE }
+          - { Type: ADDRESS, Action: ANONYMIZE }
+          - { Type: CREDIT_DEBIT_CARD_NUMBER, Action: BLOCK }
+          - { Type: CREDIT_DEBIT_CARD_CVV, Action: BLOCK }
+          - { Type: PASSWORD, Action: BLOCK }
+          - { Type: AWS_ACCESS_KEY, Action: BLOCK }
+          - { Type: AWS_SECRET_KEY, Action: BLOCK }
+      TopicPolicyConfig:
+        TopicsTierConfig:
+          TierName: CLASSIC
+        TopicsConfig:
+          - Name: Legal advice
+            Type: DENY
+            Definition: Requests for, or responses giving, specific legal advice or legal opinions about an individual's own circumstances.
+            Examples:
+              - Should I sign this contract?
+              - Can I sue my landlord over this?
+      WordPolicyConfig:
+        ManagedWordListsConfig:
+          - Type: PROFANITY
+      ContextualGroundingPolicyConfig:
+        FiltersConfig:
+          - Type: GROUNDING
+            Threshold: {"Ref": GroundingThreshold}
+          - Type: RELEVANCE
+            Threshold: {"Ref": RelevanceThreshold}
+
+  # AIG-10 AIG-15
+  # Numbered, immutable version. Enforcement and IAM conditions must reference
+  # a numbered version, never DRAFT. Change the Description to cut a new version.
+  GuardrailVersion:
+    Type: AWS::Bedrock::GuardrailVersion
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      GuardrailIdentifier: {"Fn::GetAtt": [Guardrail, GuardrailArn]}
+      Description: Baseline version 1
+
+  # AIG-10
+  # Account-level enforcement (PutEnforcedGuardrailConfiguration), per Region.
+  # Guardrails that use Automated Reasoning are not supported for enforcement.
+  EnforcedGuardrail:
+    Type: AWS::Bedrock::EnforcedGuardrailConfiguration
+    Condition: AccountEnforcement
+    Properties:
+      GuardrailIdentifier: {"Fn::GetAtt": [Guardrail, GuardrailArn]}
+      GuardrailVersion: {"Fn::GetAtt": [GuardrailVersion, Version]}
+      SelectiveContentGuarding:
+        System: COMPREHENSIVE
+        Messages: COMPREHENSIVE
+      ModelEnforcement:
+        Fn::If:
+          - HasExcludedModels
+          - IncludedModels: [ALL]
+            ExcludedModels: {"Ref": EnforcementExcludedModels}
+          - {"Ref": "AWS::NoValue"}
+
+  # AIG-10
+  # Prerequisite for organization-level enforcement through BEDROCK_POLICY:
+  # member accounts must be able to call ApplyGuardrail on this guardrail.
+  GuardrailOrganizationPolicy:
+    Type: AWS::Bedrock::ResourcePolicy
+    Condition: ShareWithOrganization
+    Properties:
+      ResourceArn: {"Fn::GetAtt": [Guardrail, GuardrailArn]}
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: "*"
+            Action:
+              - bedrock:GetGuardrail
+              - bedrock:ApplyGuardrail
+            Resource: {"Fn::GetAtt": [Guardrail, GuardrailArn]}
+            Condition:
+              StringEquals:
+                aws:PrincipalOrgID: {"Ref": OrganizationId}
+
+Outputs:
+  GuardrailId:
+    Value: {"Fn::GetAtt": [Guardrail, GuardrailId]}
+  GuardrailArn:
+    Value: {"Fn::GetAtt": [Guardrail, GuardrailArn]}
+  GuardrailVersion:
+    Value: {"Fn::GetAtt": [GuardrailVersion, Version]}
+  GuardrailIdentifier:
+    Description: ARN:version for bedrock:GuardrailIdentifier conditions and BEDROCK_POLICY.
+    Value: {"Fn::Sub": "${Guardrail.GuardrailArn}:${GuardrailVersion.Version}"}

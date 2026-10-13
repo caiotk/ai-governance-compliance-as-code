@@ -1,0 +1,102 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: NZ
+name: New Zealand
+frameworks: [nz-privacy, iso27001, iso42001, zero-trust]
+sector_frameworks:
+  fsi: [rbnz-bs11]
+notes: No AI-specific statute; the AI Strategy (Jul 2025) is adoption-first. BS11 applies only to NZ-incorporated registered banks with liabilities ≥ NZ$10bn.
+instruments:
+  horizontal:
+    - id: nz-ai-strategy
+      name: New Zealand's Strategy for AI — Investing with confidence; Responsible AI Guidance for Businesses
+      citation: MBIE, 8 Jul 2025
+      status: voluntary
+      url: https://www.mbie.govt.nz/about/news/artificial-intelligence-strategy-and-business-guidance-now-available
+      verification: primary
+      controls: [AIG-01, AIG-03, AIG-19]
+  data_protection:
+    - id: nz-privacy-act
+      name: Privacy Act 2020 — Information Privacy Principles incl. IPP 3A
+      citation: Privacy Act 2020 (2020 No 31); Privacy Amendment Act 2025
+      status: phased
+      effective: "IPP 3A from 2026-05-01"
+      regulator: Office of the Privacy Commissioner
+      ai_relevance: IPP 3A notice when collecting from another source; IPP 8 accuracy; IPP 12 offshore disclosure; OPC AI guidance (Sep 2023).
+      url: https://www.privacy.org.nz/resources-and-learning/a-z-topics/ipp3a/
+      verification: primary
+      controls: [AIG-03, AIG-04, AIG-05, AIG-08, AIG-12, AIG-16, AIG-18]
+    - id: nz-biometric-code
+      name: Biometric Processing Privacy Code 2025
+      status: in-force
+      effective: "New processing 2025-11-03; existing processing 2026-08-03"
+      ai_relevance: Proportionality assessment, enhanced notice, limits on biometric categorisation (emotion, personality, mood).
+      url: https://www.privacy.org.nz/assets/Codes-of-Practice-2020/Biometrics-Processing-Privacy-Code-2025-website-version.pdf
+      verification: primary
+      controls: [AIG-03, AIG-05, AIG-12]
+  cyber:
+    - id: nz-cyber-none
+      name: No NIS-style cyber statute; NZ Information Security Manual (NZISM) applies to government agencies
+      status: none
+      url: https://nzism.gcsb.govt.nz/
+      verification: unverified
+      controls: [AIG-07]
+  sectors:
+    health:
+      - id: nz-hipc
+        name: Health Information Privacy Code 2020
+        status: in-force
+        url: https://www.privacy.org.nz/privacy-act-2020/codes-of-practice/hipc2020/
+        verification: unverified
+        controls: [AIG-05, AIG-12]
+      - id: nz-medical-products
+        name: Medicines Act 1981 in force; Medical Products Bill (SaMD) in policy development
+        status: pending
+        url: https://www.health.govt.nz/regulation-legislation/medicines-legislation/regulating-medicines-medical-devices-and-natural-health-products/documents-on-the-medical-products-bill
+        verification: primary
+        controls: [AIG-14]
+    fsi:
+      - id: nz-rbnz-bs11
+        name: RBNZ BS11 Outsourcing Policy (expected to be replaced by the DTA Outsourcing Standard; DTA standards due to commence 2028-12-01, BS11 revocation date not confirmed)
+        citation: BS11, Sep 2022
+        status: in-force
+        url: https://www.rbnz.govt.nz/regulation-and-supervision/banks/prudential-requirements/outsourcing-policy
+        verification: primary
+        controls: [AIG-06, AIG-08, AIG-17, AIG-18]
+      - id: nz-cofi
+        name: Conduct of Financial Institutions regime (FMA)
+        citation: Financial Markets (Conduct of Institutions) Amendment Act 2022
+        status: in-force
+        effective: "2025-03-31"
+        url: https://www.mbie.govt.nz/business-and-employment/business/financial-markets-regulation/conduct-of-financial-institutions-regime
+        verification: primary
+        controls: [AIG-11, AIG-12, AIG-20]
+    public:
+      - id: nz-public-service-ai
+        name: Public Service AI Framework (GCDO) and Algorithm Charter for Aotearoa New Zealand
+        citation: 29 Jan 2025; Algorithm Charter 2020
+        status: voluntary
+        url: https://www.digital.govt.nz/standards-and-guidance/technology-and-architecture/artificial-intelligence/public-service-artificial-intelligence-framework
+        verification: primary
+        controls: [AIG-01, AIG-02, AIG-03, AIG-11, AIG-12, AIG-20]
+    agriculture:
+      - id: nz-farm-data-code
+        name: Farm Data Code of Practice (voluntary)
+        status: voluntary
+        url: https://www.farmersweekly.co.nz/?p=11779
+        verification: secondary
+        controls: [AIG-04, AIG-06]
+    mining:
+      - id: nz-hsw-mining
+        name: Health and Safety at Work (Mining Operations and Quarrying Operations) Regulations 2016 (no AI rule)
+        status: in-force
+        url: https://www.legislation.govt.nz/secondary-legislation/pco-drafted/2016/17/en/latest/
+        verification: primary
+        controls: [AIG-11, AIG-17]
+    tech:
+      - id: nz-fair-trading
+        name: Fair Trading Act 1986 and Privacy Act (no TDM exception confirmed)
+        status: in-force
+        url: https://www.legislation.govt.nz/act/public/1986/0121/latest/whole.html
+        verification: unverified
+        controls: [AIG-12]

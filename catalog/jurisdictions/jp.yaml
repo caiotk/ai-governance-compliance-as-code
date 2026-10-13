@@ -1,0 +1,103 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: JP
+name: Japan
+frameworks: [jp-appi, iso27001, iso42001, zero-trust]
+notes: The AI Promotion Act is promotional with no penalties; obligations come from APPI, sector rules and voluntary guidelines.
+instruments:
+  horizontal:
+    - id: jp-ai-promotion-act
+      name: Act on Promotion of Research and Development, and Deployment of AI-related Technology
+      citation: Act No. 53 of 2025
+      status: in-force
+      effective: "2025-09-01"
+      url: https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260714.pdf
+      verification: primary
+      controls: [AIG-01, AIG-16]
+    - id: jp-ai-basic-plan
+      name: Second AI Basic Plan (agentic, physical and sovereign AI; stronger AISI)
+      citation: Cabinet decision 2026 (English provisional translation 14 Jul 2026)
+      status: voluntary
+      url: https://www8.cao.go.jp/cstp/ai/ai_plan/aiplan_eng_20260714.pdf
+      verification: primary
+      controls: [AIG-01]
+    - id: jp-ai-business-guidelines
+      name: AI Business Operator Guidelines v1.2 (METI/MIC)
+      citation: 31 Mar 2026
+      status: voluntary
+      url: https://www.ibanet.org/japan-health-data-reforms-ai
+      verification: secondary
+      controls: [AIG-01, AIG-03, AIG-10, AIG-14]
+  data_protection:
+    - id: jp-appi
+      name: Act on the Protection of Personal Information (APPI), as amended by Act No. 56 of 2026
+      status: phased
+      effective: "Penalties from 2027-01-17; main reforms by Cabinet Order no later than 2028-07-17"
+      regulator: Personal Information Protection Commission
+      ai_relevance: Consent exemption for low-risk statistical creation incl. AI training; administrative surcharges; rules for under-16s; specified biometric data.
+      url: https://www.aoshearman.com/en/insights/ao-shearman-on-data/amendments-to-the-act-on-the-protection-of-personal-information-promulgated
+      verification: secondary
+      controls: [AIG-04, AIG-05, AIG-18]
+  cyber:
+    - id: jp-active-cyber-defense
+      name: Active Cyber Defense law (Cyber Response Capability Enhancement Act)
+      status: phased
+      effective: "Main enforcement 2026-10-01; CI incident reporting by ~Nov 2026; asset notifications 2027-03-31"
+      url: https://www.trendmicro.com/ja_jp/jp-security/26/h/securitytrend-20260814-01.html
+      verification: secondary
+      controls: [AIG-02, AIG-16]
+  sectors:
+    health:
+      - id: jp-pmd-samd
+        name: PMD Act SaMD regulation (IDATEN post-market change plans) and MHLW guidelines on medical digital data for AI R&D
+        status: in-force
+        url: https://www.ibanet.org/japan-health-data-reforms-ai
+        verification: secondary
+        controls: [AIG-04, AIG-14, AIG-15]
+      - id: jp-next-gen-medical
+        name: Next-Generation Medical Infrastructure Act (anonymised and pseudonymised medical data)
+        status: in-force
+        url: https://www.private-ai.com/en/blog/japan-health-data-anonymization
+        verification: secondary
+        controls: [AIG-05]
+    fsi:
+      - id: jp-fsa-ai-paper
+        name: FSA AI Discussion Paper (v1.0 Mar 2025; v1.1 Mar 2026)
+        citation: 4 Mar 2025; v1.1 3 Mar 2026
+        status: voluntary
+        url: https://www.fsa.go.jp/en/news/2025/20250304/aidp.html
+        verification: secondary
+        notes: The URL is the v1.0 page; v1.1 was confirmed through a secondary source only.
+        controls: [AIG-01, AIG-03, AIG-06, AIG-14]
+    public:
+      - id: jp-digital-agency-genai
+        name: Digital Agency Guideline for Government Procurement and Utilisation of Generative AI v2.0
+        citation: Approved 12 Jun 2026
+        status: in-force
+        ai_relevance: Chief AI Officers; high-risk projects reported to the Advanced AI Utilization Advisory Board.
+        url: https://www.digital.go.jp/en/news/3579c42d-b11c-4756-b66e-3d3e35175623
+        verification: primary
+        controls: [AIG-01, AIG-02, AIG-03, AIG-06]
+    agriculture:
+      - id: jp-maff-ai-contracts
+        name: MAFF Contract Guidelines on AI and Data in Agriculture
+        citation: 12 Mar 2020 (errata Mar 2024)
+        status: voluntary
+        url: https://www.maff.go.jp/j/kanbo/tizai/brand/keiyaku.html
+        verification: primary
+        controls: [AIG-04, AIG-06]
+    mining:
+      - id: jp-mine-safety-act
+        name: Mine Safety Act (no autonomous-specific national rule)
+        status: in-force
+        url: https://www.safety-hokkaido.meti.go.jp/kozan_hoan/about/img/r8guidline.pdf
+        verification: unverified
+        controls: [AIG-11, AIG-17]
+    tech:
+      - id: jp-copyright-30-4
+        name: Copyright Act Art 30-4 (non-enjoyment use permits AI training) and ACA General Understanding on AI and Copyright
+        citation: Mar 2024
+        status: in-force
+        url: https://www.wipo.int/documents/d/office-japan/docs-en-tatsuhiro-ueno_general-understanding-on-ai-and-copyright-in-japan_set.pdf
+        verification: primary
+        controls: [AIG-04]

@@ -1,0 +1,8 @@
+# AIG-08 AIG-18: resources may only be created in the allowed locations.
+# Pick the value group for your residency requirement (in: value groups, is: single locations).
+name: PARENT/policies/gcp.resourceLocations
+spec:
+  rules:
+  - values:
+      allowedValues:
+      - in:us-locations

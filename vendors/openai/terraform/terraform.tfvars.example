@@ -1,0 +1,42 @@
+# Copy to terraform.tfvars and adjust. Export OPENAI_ADMIN_KEY in the shell;
+# never store it here.
+
+projects = {
+  dev = {
+    name                        = "ai-gov-dev"
+    approved_model_ids          = ["gpt-5.4-mini"]
+    monthly_spend_limit_cents   = 20000 # USD 200
+    spend_alert_threshold_cents = 15000 # USD 150
+  }
+
+  prod = {
+    name               = "ai-gov-prod"
+    approved_model_ids = ["gpt-5.4-mini"]
+    # geography        = null  # data residency: only after OpenAI confirms eligibility and the value
+    # data_retention_type = "zero_data_retention"  # only once OpenAI has approved ZDR for the org
+    hosted_tools = {
+      file_search = true # explicitly approved for this workload; everything else stays off
+    }
+    monthly_spend_limit_cents   = 100000 # USD 1,000
+    spend_alert_threshold_cents = 80000  # USD 800
+    workload_permissions        = ["api.responses.write"]
+  }
+}
+
+# Discover rate_limit_id values first:
+#   GET /v1/organization/projects/{project_id}/rate_limits   (or data "openai_project_rate_limits")
+rate_limits = {
+  # "prod/gpt-5.4-mini" = {
+  #   project                   = "prod"
+  #   rate_limit_id             = "rl-gpt-5.4-mini"
+  #   max_requests_per_1_minute = 500
+  #   max_tokens_per_1_minute   = 200000
+  # }
+}
+
+spend_alert_recipients = ["ai-platform-alerts@example.com"]
+
+create_workload_service_accounts = true
+
+# organization_spend_limit_cents   = 500000
+# organization_data_retention_type = "modified_abuse_monitoring"

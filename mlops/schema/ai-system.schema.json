@@ -1,0 +1,603 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/caiotk/ai-governance-compliance-as-code/mlops/schema/ai-system.schema.json",
+  "title": "AI system record",
+  "description": "One record per AI system, model or agent. The MLOps gate evaluates it with the Rego policies in mlops/policies against every framework that applies to its countries, sector and entity types.",
+  "type": "object",
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata",
+    "context",
+    "system"
+  ],
+  "properties": {
+    "apiVersion": {
+      "const": "aigov/v1"
+    },
+    "kind": {
+      "const": "AISystem"
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "owner"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{1,62}$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string",
+          "description": "Named accountable person (email)"
+        },
+        "business_unit": {
+          "type": "string"
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "required": [
+        "countries",
+        "sector",
+        "role"
+      ],
+      "properties": {
+        "countries": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "BR",
+              "CL",
+              "AR",
+              "PT",
+              "ES",
+              "US",
+              "AU",
+              "NZ",
+              "JP",
+              "SG"
+            ]
+          },
+          "minItems": 1
+        },
+        "us_states": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "sector": {
+          "enum": [
+            "health",
+            "fsi",
+            "public",
+            "agriculture",
+            "mining",
+            "tech"
+          ]
+        },
+        "role": {
+          "enum": [
+            "provider",
+            "deployer",
+            "provider_and_deployer"
+          ]
+        },
+        "public_body": {
+          "type": "boolean"
+        },
+        "entity_types": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "apra_regulated",
+              "nz_registered_bank",
+              "mas_regulated",
+              "us_bank",
+              "eu_financial_entity",
+              "critical_infrastructure",
+              "gpai_provider"
+            ]
+          }
+        },
+        "evaluation_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date the obligations are evaluated at (defaults to today)"
+        },
+        "us_localities": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "NYC"
+            ]
+          },
+          "description": "Localities with their own AI rules (NYC Local Law 144)"
+        },
+        "provides_public_service": {
+          "type": "boolean",
+          "description": "Private body providing a public service (EU AI Act Art 27 FRIA duty)"
+        }
+      },
+      "if": {
+        "properties": {
+          "countries": {
+            "contains": {
+              "const": "US"
+            }
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "us_states"
+        ]
+      }
+    },
+    "system": {
+      "type": "object",
+      "required": [
+        "purpose",
+        "decision_impact",
+        "user_facing"
+      ],
+      "properties": {
+        "purpose": {
+          "type": "string"
+        },
+        "decision_impact": {
+          "enum": [
+            "none",
+            "assistive",
+            "consequential"
+          ]
+        },
+        "fully_automated_decision": {
+          "type": "boolean"
+        },
+        "annex_iii_area": {
+          "enum": [
+            null,
+            "biometrics",
+            "critical_infrastructure",
+            "education",
+            "employment",
+            "essential_services",
+            "credit_scoring",
+            "life_health_insurance_pricing",
+            "law_enforcement",
+            "migration",
+            "justice"
+          ],
+          "description": "EU AI Act Annex III use case, or null when none applies"
+        },
+        "user_facing": {
+          "type": "boolean"
+        },
+        "generates_synthetic_content": {
+          "type": "boolean"
+        },
+        "agentic": {
+          "type": "boolean"
+        },
+        "irreversible_actions": {
+          "type": "boolean"
+        },
+        "critical_operation": {
+          "type": "boolean"
+        },
+        "biometric_processing": {
+          "type": "boolean"
+        },
+        "prohibited_practice": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "object",
+          "properties": {
+            "vendor": {
+              "enum": [
+                "azure-foundry",
+                "copilot-studio",
+                "aws-bedrock",
+                "gcp-vertex",
+                "openai",
+                "anthropic-claude",
+                "meta-llama",
+                "other"
+              ]
+            },
+            "model_id": {
+              "type": "string"
+            },
+            "hosting_region": {
+              "type": "string"
+            }
+          }
+        },
+        "generative": {
+          "type": "boolean",
+          "description": "Generative AI system (SR 26-2 model-risk guidance excludes these)"
+        },
+        "placed_on_market_before_2026_08_02": {
+          "type": "boolean",
+          "description": "Already on the EU market before 2 Aug 2026 (Art 50(2) marking grace to 2 Dec 2026)"
+        },
+        "tx_prohibited_intent": {
+          "type": "boolean",
+          "description": "Developed or deployed with an intent Texas TRAIGA prohibits"
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "properties": {
+        "policy_approved": {
+          "type": "boolean",
+          "description": "Operates under an approved AI policy"
+        },
+        "registered_in_inventory": {
+          "type": "boolean",
+          "description": "Registered in the AI inventory"
+        },
+        "accountable_executive": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Accountable executive"
+        },
+        "ai_literacy_training": {
+          "type": "boolean",
+          "description": "Operators completed AI literacy training"
+        },
+        "eu_database_registered": {
+          "type": "boolean",
+          "description": "Registered in the EU high-risk AI database (Art 49)"
+        },
+        "gpai_technical_documentation": {
+          "type": "boolean",
+          "description": "GPAI technical documentation kept (Art 53)"
+        },
+        "gpai_copyright_policy": {
+          "type": "boolean",
+          "description": "GPAI copyright policy honouring TDM opt-outs"
+        },
+        "gpai_training_summary_published": {
+          "type": "boolean",
+          "description": "GPAI training-content summary published"
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "properties": {
+        "classification": {
+          "enum": [
+            "minimal",
+            "limited",
+            "high",
+            "prohibited"
+          ]
+        },
+        "impact_assessment": {
+          "type": "object",
+          "properties": {
+            "completed": {
+              "type": "boolean",
+              "description": "AI system impact assessment completed (ISO/IEC 42005)"
+            }
+          }
+        },
+        "dpia": {
+          "type": "object",
+          "properties": {
+            "completed": {
+              "type": "boolean",
+              "description": "Data protection impact assessment completed"
+            }
+          }
+        },
+        "fria": {
+          "type": "object",
+          "properties": {
+            "completed": {
+              "type": "boolean",
+              "description": "Fundamental rights impact assessment completed (AI Act Art 27)"
+            }
+          }
+        },
+        "biometric_proportionality_assessment": {
+          "type": "boolean",
+          "description": "NZ Biometric Processing Privacy Code rule 1 assessment completed"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "personal_data": {
+          "type": "boolean",
+          "description": "Processes personal data"
+        },
+        "special_category": {
+          "type": "boolean",
+          "description": "Processes special-category / sensitive data"
+        },
+        "provenance_documented": {
+          "type": "boolean",
+          "description": "Data source and lineage documented"
+        },
+        "lawful_basis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Lawful basis for processing personal data"
+        },
+        "cross_border_transfer": {
+          "type": "boolean",
+          "description": "Personal data leaves the home jurisdiction"
+        },
+        "transfer_mechanism": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Transfer mechanism (SCCs, adequacy, contract, IPP 12 ground…)"
+        },
+        "indirect_collection": {
+          "type": "boolean",
+          "description": "Personal data collected from a source other than the individual (NZ IPP 3A)"
+        }
+      }
+    },
+    "supplier": {
+      "type": "object",
+      "properties": {
+        "assessed": {
+          "type": "boolean",
+          "description": "Vendor assessment completed"
+        },
+        "no_training_on_customer_data": {
+          "type": "boolean",
+          "description": "Contract prohibits training on your data"
+        },
+        "outsourced": {
+          "type": "boolean",
+          "description": "Function is outsourced to the provider (BS11)"
+        },
+        "material_service_provider": {
+          "type": "boolean",
+          "description": "Provider is a material service provider (CPS 230)"
+        },
+        "register_entry": {
+          "type": "boolean",
+          "description": "Recorded in the material service provider register"
+        },
+        "regulator_access_assured": {
+          "type": "boolean",
+          "description": "Regulator / statutory manager access to systems and data assured (BS11)"
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "local_auth_disabled": {
+          "type": "boolean",
+          "description": "Shared API keys disabled"
+        },
+        "managed_identity": {
+          "type": "boolean",
+          "description": "Uses a managed or federated identity"
+        },
+        "least_privilege": {
+          "type": "boolean",
+          "description": "Scoped least-privilege permissions"
+        },
+        "private_network": {
+          "type": "boolean",
+          "description": "Reached only over private endpoints / perimeter"
+        },
+        "data_residency_region": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Processing region"
+        },
+        "cmk": {
+          "type": "boolean",
+          "description": "Customer-managed keys"
+        },
+        "short_lived_credentials": {
+          "type": "boolean",
+          "description": "Agent credentials are per-session and short-lived"
+        },
+        "tool_allowlist": {
+          "type": "boolean",
+          "description": "Agent tools are allow-listed"
+        },
+        "non_human_identity_pam": {
+          "type": "boolean",
+          "description": "Privileged access management covers the non-human identity (APRA AI letter)"
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "properties": {
+        "content_filters": {
+          "type": "boolean",
+          "description": "Harmful-content filtering on prompts and outputs"
+        },
+        "prompt_attack_detection": {
+          "type": "boolean",
+          "description": "Prompt-injection / jailbreak detection"
+        },
+        "pii_filtering": {
+          "type": "boolean",
+          "description": "PII detection and masking"
+        },
+        "guardrail_enforced_centrally": {
+          "type": "boolean",
+          "description": "Guardrails enforced outside the application (org policy, gateway, floor setting)"
+        }
+      }
+    },
+    "oversight": {
+      "type": "object",
+      "properties": {
+        "human_in_the_loop": {
+          "type": "boolean",
+          "description": "Named human approval for consequential or irreversible actions"
+        },
+        "override_and_stop": {
+          "type": "boolean",
+          "description": "Override and kill switch available"
+        },
+        "contest_and_review": {
+          "type": "boolean",
+          "description": "Affected people can contest the decision and obtain human review (GDPR Art 22; LGPD Art 20; Colorado SB 26-189)"
+        }
+      }
+    },
+    "transparency": {
+      "type": "object",
+      "properties": {
+        "ai_disclosure": {
+          "type": "boolean",
+          "description": "People are told they interact with AI"
+        },
+        "adm_notice": {
+          "type": "boolean",
+          "description": "Pre-use notice that an automated decision is made"
+        },
+        "adverse_decision_explanation": {
+          "type": "boolean",
+          "description": "Adverse decisions are explained"
+        },
+        "synthetic_content_marking": {
+          "type": "boolean",
+          "description": "Synthetic output marked machine-readably (Art 50(2))"
+        },
+        "privacy_policy_adm_disclosure": {
+          "type": "boolean",
+          "description": "Privacy policy describes automated decisions (AU APP 1.7–1.9)"
+        },
+        "indirect_collection_notice": {
+          "type": "boolean",
+          "description": "Individuals notified of indirect collection (NZ IPP 3A)"
+        }
+      }
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "invocation_logging": {
+          "type": "boolean",
+          "description": "Prompts, outputs, tool calls and decisions logged"
+        },
+        "retention_days": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "testing": {
+      "type": "object",
+      "properties": {
+        "evaluation_completed": {
+          "type": "boolean",
+          "description": "Accuracy, robustness and safety evaluated"
+        },
+        "red_team_completed": {
+          "type": "boolean",
+          "description": "Adversarial testing completed"
+        },
+        "bias_assessment": {
+          "type": "boolean",
+          "description": "Bias testing completed"
+        },
+        "independent_bias_audit": {
+          "type": "boolean",
+          "description": "Independent bias audit within the past year (NYC LL144)"
+        },
+        "independent_validation": {
+          "type": "boolean",
+          "description": "Independent model validation (SR 26-2)"
+        }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "properties": {
+        "versioned": {
+          "type": "boolean",
+          "description": "Models, prompts and configuration versioned"
+        },
+        "promotion_gate": {
+          "type": "boolean",
+          "description": "Promotion through a gated pipeline"
+        }
+      }
+    },
+    "incident": {
+      "type": "object",
+      "properties": {
+        "runbook": {
+          "type": "boolean",
+          "description": "AI incident runbook exists"
+        },
+        "notification_matrix": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Regulator notification tokens the gate checks: APRA:72h, CSIRT-Nacional; add your own (OAIC:NDB, ANPD, …)"
+        }
+      }
+    },
+    "resilience": {
+      "type": "object",
+      "properties": {
+        "fallback_tested": {
+          "type": "boolean",
+          "description": "Fallback tested"
+        },
+        "exit_plan": {
+          "type": "boolean",
+          "description": "Exit / substitution plan"
+        },
+        "tolerance_levels_set": {
+          "type": "boolean",
+          "description": "Tolerance levels set for the critical operation (CPS 230)"
+        },
+        "backup_capability": {
+          "type": "boolean",
+          "description": "Backup capability for the outsourced function (BS11)"
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "properties": {
+        "approved": {
+          "type": "boolean",
+          "description": "Model and version on the approved list"
+        }
+      }
+    },
+    "monitoring": {
+      "type": "object",
+      "properties": {
+        "drift_and_bias": {
+          "type": "boolean",
+          "description": "Production monitoring for drift and bias"
+        }
+      }
+    }
+  }
+}

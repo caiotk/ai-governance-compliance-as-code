@@ -1,0 +1,86 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Llama 4 Community License Agreement — machine-readable obligations checklist.
+# Controls: AIG-06 (approved models & supply chain), AIG-12 (transparency).
+# Verified 2026-10-13. Quotes are verbatim from Meta's license and AUP pages.
+# This is a compliance checklist, not legal advice; confirm with counsel.
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: aigov/v1
+kind: LicenseChecklist
+vendor: meta-llama
+verified: "2026-10-13"
+
+license:
+  name: "Llama 4 Community License Agreement"
+  effective: "2025-04-05"   # "Llama 4 Version Effective Date: April 5, 2025"
+  url: https://www.llama.com/llama4/license/
+  mirror_url: https://dev.meta.ai/llama/llama4/license
+
+acceptable_use_policy:
+  name: "Llama 4 Acceptable Use Policy"
+  url: https://www.llama.com/llama4/use-policy/
+  mirror_url: https://developer.meta.com/ai/llama4/use-policy
+  incorporated_by_reference: true
+  report_violations_to: LlamaUseReport@meta.com
+  report_model_issues_to: https://github.com/meta-llama/llama-models/issues
+
+obligations:
+  - id: LLAMA-ATTRIBUTION
+    controls: [AIG-12]
+    requirement: 'prominently display "Built with Llama" on a related website, user interface, blogpost, about page, or product documentation.'
+    applies_when: "Distributing or making available Llama materials or a product/service that uses them"
+    evidence: "URL or screenshot of the page showing \"Built with Llama\""
+    check: manual
+
+  - id: LLAMA-DERIVED-NAMING
+    controls: [AIG-06, AIG-12]
+    requirement: 'include "Llama" at the beginning of any such AI model name.'
+    applies_when: "A model trained/fine-tuned from Llama materials or outputs is distributed or made available"
+    evidence: "Model registry entry whose name starts with \"Llama\""
+    check: automatable
+    rule: { field: model.name, starts_with: "Llama", when: { model.base_family: llama, model.distributed: true } }
+
+  - id: LLAMA-NOTICE
+    controls: [AIG-06, AIG-12]
+    requirement: "Distributed copies must carry a Notice text file containing the notice_text below (paraphrase; notice_text is verbatim)."
+    notice_text: "Llama 4 is licensed under the Llama 4 Community License, Copyright © Meta Platforms, Inc. All Rights Reserved."
+    applies_when: "Redistributing Llama materials or derivative works"
+    evidence: "NOTICE file in the distributed artifact"
+    check: automatable
+    rule: { file: NOTICE, contains: "Llama 4 is licensed under the Llama 4 Community License" }
+
+  - id: LLAMA-700M-MAU
+    controls: [AIG-06, AIG-01]
+    requirement: 'If, on the Llama 4 version release date, the monthly active users ... is greater than 700 million monthly active users in the preceding calendar month, you must request a license from Meta, which Meta may grant to you in its sole discretion.'
+    applies_when: "Licensee (and affiliates) MAU > 700M on the Llama 4 release date"
+    evidence: "Legal attestation of MAU below threshold, or Meta license grant"
+    check: manual
+
+  - id: LLAMA-AUP
+    controls: [AIG-06, AIG-10]
+    requirement: "Use must comply with the Llama 4 Acceptable Use Policy (incorporated by reference)."
+    prohibited_use_groups:
+      - "Violate the law or others' rights (incl. violence/terrorism, child exploitation, human trafficking, unlicensed professional practice, inferring sensitive personal information without legal right, IP infringement, malware, circumventing safety measures)"
+      - "Risk of death or bodily harm (incl. military/warfare, nuclear, ITAR, bio/chem weapons, guns, illegal drugs, critical infrastructure/heavy machinery, self-harm)"
+      - "Intentional deception (incl. fraud/disinformation, defamation, spam, impersonation, \"Representing that the use of Llama 4 or outputs are human-generated\", fake engagement)"
+      - "Failing to disclose known dangers to end users"
+      - "Using third-party tools designed for unlawful content"
+    evidence: "Use-case risk assessment referencing the AUP; runtime guardrails (llama-guard-policy.yaml)"
+    check: manual
+
+  - id: LLAMA-AI-DISCLOSURE
+    controls: [AIG-12]
+    requirement: 'The AUP prohibits "Representing that the use of Llama 4 or outputs are human-generated".'
+    evidence: "AI-generated content notice in the UI / output labelling"
+    check: manual
+
+  - id: LLAMA-EU-MULTIMODAL
+    controls: [AIG-06, AIG-18]
+    requirement: 'With respect to any multimodal models included in Llama 4, the rights granted under Section 1(a) of the Llama 4 Community License Agreement are not being granted to you if you are an individual domiciled in, or a company with a principal place of business in, the European Union. This restriction does not apply to end users of a product or service that incorporates any such multimodal models.'
+    applies_when: "Licensee entity has its principal place of business in the EU and uses Llama 4 multimodal models"
+    evidence: "Entity domicile check recorded before approving a Llama 4 multimodal model"
+    check: automatable
+    rule: { deny_when: { model.family: llama-4, model.multimodal: true, licensee.principal_place_of_business_region: EU } }
+
+references:
+  developer_use_guide: https://www.llama.com/developer-use-guide/   # replaces the retired Responsible Use Guide (old URLs return 404)
+  regulated_self_hosting: https://www.llama.com/docs/deployment/regulated-industry-self-hosting/

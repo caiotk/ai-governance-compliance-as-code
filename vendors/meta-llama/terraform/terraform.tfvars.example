@@ -1,0 +1,28 @@
+# Enable only the hosts where Llama actually runs. Credentials come from the
+# standard provider environment (gcloud ADC, az login / ARM_*, AWS profile).
+
+# (a) Vertex AI Model Garden
+enable_vertex_allowed_models = false
+vertex_policy_parent         = "projects/PROJECT_ID"
+approved_vertex_llama_models = [
+  "publishers/meta/models/llama3:deploy", # example value from the Google docs
+]
+# Everything not listed is blocked in this scope, including Gemini:
+additional_vertex_allowed_models = []
+
+# (b) Microsoft Foundry
+enable_azure_approved_models = false
+azure_management_group_id    = "/providers/Microsoft.Management/managementGroups/MG_NAME"
+azure_policy_effect          = "Deny"
+azure_allowed_publishers     = [] # UNVERIFIED: Meta publisher string — read it from an existing deployment
+azure_allowed_asset_ids      = [] # UNVERIFIED: copy Llama asset IDs from the Foundry catalog (trailing "/" = exact model)
+
+# (c) Amazon Bedrock (SCP)
+enable_bedrock_scp = false
+approved_bedrock_model_arns = [
+  # "arn:aws:bedrock:*::foundation-model/meta.<approved-model-id>",
+]
+approved_bedrock_inference_profile_arns = [
+  # "arn:aws:bedrock:*:ACCOUNT_ID:inference-profile/<profile-id>",
+]
+bedrock_scp_target_ids = [] # e.g. ["ou-xxxx-xxxxxxxx"]

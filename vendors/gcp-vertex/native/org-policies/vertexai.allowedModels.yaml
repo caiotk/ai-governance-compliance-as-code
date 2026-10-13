@@ -1,0 +1,9 @@
+# AIG-06: only listed Model Garden models may be used (format
+# publishers/PUBLISHER/models/MODEL:ACTION, ACTION = predict|deploy|tune).
+# Replace PARENT with organizations/ORG_ID, folders/FOLDER_ID or projects/PROJECT_ID.
+name: PARENT/policies/vertexai.allowedModels
+spec:
+  rules:
+  - values:
+      allowedValues:
+      - publishers/google/models/gemini-3.5-flash:predict

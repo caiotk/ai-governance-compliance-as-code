@@ -1,0 +1,275 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Frameworks catalogue — status verified 13 Oct 2026 (see docs/SOURCES.md).
+#
+# verification:
+#   primary    — checked against the issuer's own text or site
+#   secondary  — located via a reputable secondary source; re-check the primary text
+#   unverified — included for completeness; must be confirmed before reliance
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: aigov/v1
+kind: FrameworkCatalog
+asOf: "2026-10-13"
+
+frameworks:
+
+  - id: iso27001
+    name: ISO/IEC 27001:2022 + Amd 1:2024
+    type: certifiable-standard
+    baseline: true
+    scope: global
+    issuer: ISO/IEC JTC 1/SC 27
+    status: in-force
+    notes: Annex A has 93 controls in four themes. The 2013 transition period ended 31 Oct 2025.
+    url: https://www.iso.org/standard/27001
+    verification: primary
+
+  - id: iso42001
+    name: ISO/IEC 42001:2023 AI management system
+    type: certifiable-standard
+    baseline: true
+    scope: global
+    issuer: ISO/IEC JTC 1/SC 42
+    status: in-force
+    related:
+      - ISO/IEC 23894:2023 (AI risk management guidance)
+      - ISO/IEC 42005:2025 (AI system impact assessment, published 28 May 2025)
+      - ISO/IEC 42006:2025 (requirements for certification bodies, published 7 Jul 2025)
+    notes: >-
+      Annex A control titles below come from a secondary source and must be checked
+      against the purchased standard before certification use.
+    url: https://www.iso.org/standard/81230.html
+    verification: secondary
+
+  - id: zero-trust
+    name: Zero trust (NIST SP 800-207, CISA ZTMM v2.0)
+    type: architecture-guidance
+    baseline: true
+    scope: global
+    issuer: NIST / CISA
+    status: voluntary
+    components:
+      - NIST SP 800-207 Zero Trust Architecture (Aug 2020) — seven tenets (§2.1)
+      - NIST SP 1800-35 Implementing a Zero Trust Architecture (final 10 Jun 2025)
+      - CISA Zero Trust Maturity Model v2.0 (Apr 2023) — five pillars
+      - Careful Adoption of Agentic AI Services (CISA, NSA, ASD ACSC, UK NCSC, CCCS, NZ NCSC, 1 May 2026)
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-207.pdf
+    verification: primary
+    notes: The 2026 joint agentic AI guidance was confirmed through a secondary summary only.
+
+  - id: eu-ai-act
+    name: EU AI Act — Regulation (EU) 2024/1689, as amended by Regulation (EU) 2026/1744
+    type: regulation
+    scope: EU/EEA (extraterritorial)
+    issuer: European Parliament and Council
+    status: in-force-phased
+    key_dates:
+      - { date: "2025-02-02", applies: "Art 4 AI literacy (now an obligation to support literacy) and Art 5 prohibitions" }
+      - { date: "2025-08-02", applies: "GPAI obligations (Arts 53, 55), governance, penalties" }
+      - { date: "2026-08-02", applies: "General application; Art 50 transparency; Commission GPAI enforcement powers" }
+      - { date: "2026-12-02", applies: "Art 50(2) marking for generative systems already on the market; new Art 5 bans on non-consensual intimate imagery and CSAM" }
+      - { date: "2027-12-02", applies: "Annex III high-risk systems (moved from 2 Aug 2026 by Reg (EU) 2026/1744)" }
+      - { date: "2028-08-02", applies: "Annex I product-embedded high-risk systems (moved from 2 Aug 2027)" }
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
+    amendment_url: https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng
+    verification: primary
+    notes: >-
+      The operative Art 113 text as amended could not be machine-extracted; the 2 Dec 2027
+      and 2 Aug 2028 dates are confirmed in the Omnibus recitals and multiple secondary sources.
+      Whether new Art 4a (special-category data for bias detection) reaches beyond high-risk systems is unsettled.
+
+  - id: us-ai
+    name: United States AI obligations (no single federal AI Act)
+    type: bundle
+    scope: US (federal + state)
+    issuer: Multiple
+    status: in-force-phased
+    key_dates:
+      - { date: "2026-01-01", applies: "Texas TRAIGA; California SB 53; Illinois HB 3773; California CCPA risk-assessment rules" }
+      - { date: "2027-01-01", applies: "Colorado SB 26-189 ADMT notice, explanation and human review; California CCPA ADMT obligations" }
+      - { date: "2027-07-01", applies: "Utah AI Policy Act sunset" }
+      - { date: "2027-10-01", applies: "Connecticut SB 5 (2026) employment AEDT notice" }
+      - { date: "2028-04-01", applies: "California CCPA risk-assessment attestations and first cybersecurity audit certifications (revenue > $100m)" }
+    notes: >-
+      There is no federal "AI Act". Obligations come from state statutes, sector regulators and
+      federal procurement memos. EO 14365 (11 Dec 2025) targets state AI laws through litigation and
+      funding conditions, but an executive order cannot preempt state law on its own, so state laws are treated as live.
+    components:
+      - { id: tx-traiga, name: "Texas Responsible AI Governance Act (HB 149)", effective: "2026-01-01", verification: secondary }
+      - { id: ca-sb53, name: "California SB 53 Transparency in Frontier AI Act", effective: "2026-01-01", verification: secondary }
+      - { id: ca-admt, name: "California CCPA regulations on ADMT, risk assessments and cybersecurity audits", effective: "2026-01-01 (ADMT duties 2027-01-01; attestations 2028-04-01)", verification: secondary }
+      - { id: co-sb26-189, name: "Colorado SB 26-189 Automated Decision-Making Technology (repealed and replaced SB 24-205)", effective: "2027-01-01", verification: secondary, notes: "Signing confirmed via secondary sources; the legislature page rendered stale." }
+      - { id: il-hb3773, name: "Illinois HB 3773 (Human Rights Act — AI in employment)", effective: "2026-01-01", verification: secondary }
+      - { id: nyc-ll144, name: "NYC Local Law 144 automated employment decision tools", effective: "2023-07-05", verification: secondary }
+      - { id: sr26-2, name: "SR 26-2 Supervisory Guidance on Model Risk Management (Fed/FDIC/OCC; supersedes SR 11-7; excludes generative AI)", effective: "2026-04-17", verification: secondary }
+      - { id: omb-m-25-21, name: "OMB M-25-21 Accelerating Federal Use of AI", effective: "2025-04-03", verification: secondary }
+      - { id: hipaa, name: "HIPAA Privacy and Security Rules (45 CFR Parts 160, 164)", effective: "in force", verification: unverified }
+      - { id: nist-ai-rmf, name: "NIST AI RMF 1.0 + NIST AI 600-1 Generative AI Profile (voluntary)", effective: "2023-01-26 / 2024-07-26", verification: primary }
+    url: https://www.nist.gov/itl/ai-risk-management-framework
+    verification: secondary
+
+  # ── National laws outside the horizontal frameworks (keyed on country) ──────
+
+  - id: br-lgpd
+    name: Brazil LGPD — Lei 13.709/2018
+    type: statute
+    scope: Brazil
+    issuer: Congresso Nacional; ANPD
+    status: in-force
+    notes: Art 20 review of solely automated decisions; Arts 33–36 international transfers (ANPD Res. 19/2024 SCCs); Art 38 impact report.
+    url: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm
+    verification: primary
+
+  - id: br-cfm
+    name: Brazil CFM Resolution 2.454/2026 on AI in medicine
+    type: sector-regulation
+    scope: Brazil — medical practice
+    issuer: Conselho Federal de Medicina
+    status: in-force
+    notes: Physician makes the final decision; patients told when AI is used; AI use recorded in the chart; institutional AI governance. In force about 180 days after publication on 27 Feb 2026.
+    url: https://portal.cfm.org.br/noticias/cfm-normatiza-uso-da-ia-na-medicina
+    verification: primary
+
+  - id: cl-21719
+    name: Chile Ley 21.719 personal data protection
+    type: statute
+    scope: Chile
+    issuer: Congreso Nacional; Agencia de Protección de Datos Personales
+    status: phased
+    key_dates:
+      - { date: "2026-12-01", applies: "Entry into force (bill 18.623-07 would postpone it to 2027-12-01 or by six months)" }
+    notes: Art 8 bis automated individual decisions and profiling. Replaces Ley 19.628.
+    url: https://www.cariola.cl/app/uploads/2026/09/Alerta-legal_-2septiembre.pdf
+    verification: secondary
+
+  - id: cl-21663
+    name: Chile Ley 21.663 Ley Marco de Ciberseguridad
+    type: statute
+    scope: Chile — operators of vital importance
+    issuer: Congreso Nacional; ANCI
+    status: in-force
+    applies_when: { entity_type: critical_infrastructure }
+    notes: OIV duties and incident reporting to the CSIRT Nacional from 1 Mar 2025.
+    url: https://www.carey.cl/entrada-en-vigencia-de-la-ley-de-ciberseguridad
+    verification: secondary
+
+  - id: ar-25326
+    name: Argentina Ley 25.326 personal data protection
+    type: statute
+    scope: Argentina
+    issuer: Congreso de la Nación; AAIP
+    status: in-force
+    notes: Art 20 challenge of judicial/administrative assessments based solely on automated processing (clause wording not re-read — verify); Art 12 international transfers; Ley 27.699 adopts Convention 108+.
+    url: https://abogados.com.ar/promulgacion-de-la-ley-27699-de-adhesion-al-convenio-108-en-materia-de-proteccion-de-datos-personales/31732
+    verification: unverified
+
+  - id: jp-appi
+    name: Japan Act on the Protection of Personal Information (APPI), as amended by Act No. 56 of 2026
+    type: statute
+    scope: Japan
+    issuer: Diet; Personal Information Protection Commission
+    status: phased
+    key_dates:
+      - { date: "2027-01-17", applies: "Administrative surcharges and penalties under the 2026 amendment" }
+    notes: Purpose-of-use and third-party transfer rules apply today; the 2026 amendment adds a consent exemption for low-risk statistical creation including AI training, effective by Cabinet Order no later than 17 Jul 2028.
+    url: https://www.aoshearman.com/en/insights/ao-shearman-on-data/amendments-to-the-act-on-the-protection-of-personal-information-promulgated
+    verification: secondary
+
+  - id: sg-pdpa
+    name: Singapore PDPA 2012 + PDPC advisory guidelines on AI recommendation and decision systems
+    type: statute
+    scope: Singapore
+    issuer: Parliament; PDPC
+    status: in-force
+    notes: s 26 transfer limitation; PDPC AI guidelines (1 Mar 2024) on consent, notification and accountability.
+    url: https://www.rajahtannasia.com/viewpoints/pdpc-issues-advisory-guidelines-on-use-of-personal-data-in-ai-recommendation-and-decision-systems/
+    verification: secondary
+
+  - id: sg-mas-airm
+    name: MAS Guidelines on Artificial Intelligence Risk Management
+    type: sector-regulation
+    scope: Singapore — MAS-regulated financial institutions
+    issuer: Monetary Authority of Singapore
+    status: phased
+    applies_when: { entity_type: mas_regulated }
+    key_dates:
+      - { date: "2027-10-01", applies: "Sections 3–4 (governance, inventory and materiality) take effect (source gives the month only; day assumed)" }
+      - { date: "2028-10-01", applies: "Sections 5–6 (lifecycle controls, third-party AI) take effect (source gives the month only; day assumed)" }
+    notes: Finalised Oct 2026. Agentic AI consultation planned for 2027.
+    url: https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions
+    verification: primary
+
+  - id: gdpr
+    name: GDPR — Regulation (EU) 2016/679
+    type: regulation
+    scope: EU/EEA (extraterritorial)
+    issuer: European Parliament and Council; EDPB guidance
+    status: in-force
+    notes: >-
+      The GDPR part of the Digital Omnibus (2025/0360(COD)) is NOT law as of Oct 2026, so the current text is the baseline.
+      EDPB Opinion 28/2024 on AI models applies. Draft EDPB guidelines on anonymisation and on web scraping for
+      generative AI are open for consultation until 30 Oct 2026.
+    url: https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng
+    verification: primary
+
+  - id: apra
+    name: APRA prudential standards (CPS 230, CPS 234, CPS 220) + APRA letter on AI
+    type: prudential-regulation
+    scope: Australia — APRA-regulated entities
+    issuer: Australian Prudential Regulation Authority
+    status: in-force
+    applies_when: { entity_type: apra_regulated }
+    key_dates:
+      - { date: "2019-07-01", applies: "CPS 234 Information Security" }
+      - { date: "2025-07-01", applies: "CPS 230 Operational Risk Management" }
+      - { date: "2026-04-30", applies: "APRA letter to industry on AI (supervisory expectations under existing standards)" }
+      - { date: "2026-07-01", applies: "CPS 230 applies to pre-existing service-provider contracts (earlier of renewal or this date)" }
+    url: https://www.apra.gov.au/apra-letter-to-industry-on-artificial-intelligence-ai
+    verification: primary
+
+  - id: rbnz-bs11
+    name: RBNZ BS11 Outsourcing Policy (registered banks)
+    type: prudential-regulation
+    scope: New Zealand — NZ-incorporated registered banks with liabilities (net of amounts owed to related parties) ≥ NZ$10bn
+    issuer: Reserve Bank of New Zealand
+    status: in-force
+    applies_when: { entity_type: nz_registered_bank }
+    notes: >-
+      Current version issued Sep 2022. Expected to be replaced by the Deposit Takers Act outsourcing standard (exposure
+      draft Jun 2026); DTA standards are due to be issued by 31 May 2027 and commence 1 Dec 2028, but the BS11 revocation
+      date is not confirmed. RBNZ has issued no AI-specific guidance.
+    url: https://www.rbnz.govt.nz/regulation-and-supervision/banks/prudential-requirements/outsourcing-policy
+    verification: primary
+
+  - id: au-privacy
+    name: Australian Privacy Act 1988 (APPs) incl. POLA Act 2024
+    type: statute
+    scope: Australia
+    issuer: Commonwealth Parliament; OAIC
+    status: in-force-phased
+    key_dates:
+      - { date: "2025-06-10", applies: "Statutory tort for serious invasions of privacy" }
+      - { date: "2026-12-10", applies: "APP 1.7–1.9 automated decision-making transparency in privacy policies" }
+    related:
+      - OAIC guidance on commercially available AI products and on training generative AI (21 Oct 2024)
+      - Guidance for AI Adoption (NAIC, 17 Oct 2025) — six essential practices, voluntary
+      - National AI Plan (Dec 2025) — no mandatory AI guardrails
+    url: https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles
+    verification: primary
+
+  - id: nz-privacy
+    name: New Zealand Privacy Act 2020 (IPPs) incl. IPP 3A and Biometric Processing Privacy Code 2025
+    type: statute
+    scope: New Zealand
+    issuer: Parliament; Office of the Privacy Commissioner
+    status: in-force-phased
+    key_dates:
+      - { date: "2025-11-03", applies: "Biometric Processing Privacy Code 2025 for new processing" }
+      - { date: "2026-05-01", applies: "IPP 3A — notify individuals when collecting from another source" }
+      - { date: "2026-08-03", applies: "Biometric code applies to processing begun before 3 Nov 2025" }
+    related:
+      - OPC "Artificial intelligence and the Information Privacy Principles" (Sep 2023)
+      - Public Service AI Framework (GCDO, 29 Jan 2025)
+      - Responsible AI Guidance for Businesses (MBIE, 8 Jul 2025)
+      - Algorithm Charter for Aotearoa New Zealand (2020)
+    url: https://www.privacy.org.nz/resources-and-learning/a-z-topics/ipp3a/
+    verification: primary

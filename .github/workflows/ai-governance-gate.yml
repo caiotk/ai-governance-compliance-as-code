@@ -1,0 +1,85 @@
+# The MLOps governance gate. Runs on any change to an AI system record and can
+# be called from other repositories' model pipelines:
+#
+#   jobs:
+#     governance:
+#       uses: caiotk/ai-governance-compliance-as-code/.github/workflows/ai-governance-gate.yml@main
+#       with:
+#         systems: "ai-systems/*.yaml"
+#
+# A record with any "deny" finding fails the job, so the model cannot be promoted.
+name: AI governance gate
+
+on:
+  pull_request:
+    paths:
+      - "systems/**"
+      - "mlops/**"
+      - "catalog/**"
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      systems:
+        description: Glob of AI system records to evaluate
+        type: string
+        default: "systems/*.yaml"
+      policy_ref:
+        description: Git ref of this policy repository to evaluate against
+        type: string
+        default: main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the caller's repository
+        uses: actions/checkout@v4
+
+      - name: Check out the policy repository
+        uses: actions/checkout@v4
+        with:
+          repository: caiotk/ai-governance-compliance-as-code
+          ref: ${{ inputs.policy_ref || github.sha }}
+          path: .aigov
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install pyyaml jsonschema
+
+      - uses: open-policy-agent/setup-opa@v2
+        with:
+          version: "1.21.2"
+
+      - name: Evaluate AI system records
+        id: gate
+        shell: bash
+        run: |
+          shopt -s nullglob
+          files=( ${{ inputs.systems || 'systems/*.yaml' }} )
+          if [ ${#files[@]} -eq 0 ]; then
+            # In this repository, demonstrate the gate on the bundled examples.
+            python3 .aigov/tools/gate.py --markdown gate.md .aigov/mlops/examples/compliant/*.yaml
+            exit 0
+          fi
+          set +e
+          python3 .aigov/tools/gate.py --markdown gate.md "${files[@]}"
+          echo "exit=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Comment on the pull request
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && hashFiles('gate.md') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr comment "$PR" --edit-last --body-file gate.md || gh pr comment "$PR" --body-file gate.md
+
+      - name: Enforce the gate
+        if: steps.gate.outputs.exit != '' && steps.gate.outputs.exit != '0'
+        run: |
+          echo "::error title=AI governance gate::One or more AI systems have blocking findings. See the job summary."
+          exit 1

@@ -1,0 +1,305 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Unified AI governance control set (AIG-01 … AIG-20).
+#
+# Each control is implemented once and evidenced many times: `mappings` lists
+# the clauses it satisfies in each framework, `evidence` lists the fields in an
+# AI system record (mlops/schema) that the Rego policies check, and the vendor
+# packs under vendors/*/mapping.yaml point back here by control ID.
+#
+# Clause references are as verified in docs/SOURCES.md. ISO/IEC 42001 Annex A
+# titles come from a secondary source — confirm against the standard.
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: aigov/v1
+kind: ControlCatalog
+
+controls:
+
+  - id: AIG-01
+    title: AI governance, policy and accountable ownership
+    objective: Every AI system has an approved AI policy behind it, a named accountable owner, and board-level oversight proportionate to risk.
+    evidence: [metadata.owner, governance.policy_approved, governance.accountable_executive]
+    mappings:
+      iso42001: ["5.2 AI policy", "A.2.2 AI policy", "A.3.2 AI roles and responsibilities"]
+      iso27001: ["A.5.1 Policies for information security", "A.5.2 Information security roles and responsibilities"]
+      eu-ai-act: ["Art 17 Quality management system", "Art 26 Obligations of deployers"]
+      us-ai: ["sr26-2 governance and accountability", "omb-m-25-21 Chief AI Officer", "nist-ai-rmf GOVERN"]
+      apra: ["CPS 230 paras 20–23 board and senior management", "CPS 234 para 13 board responsibility", "AI letter: lifecycle ownership and board AI literacy"]
+      rbnz-bs11: ["Board-approved outsourcing policy and plan"]
+      au-privacy: ["APP 1 open and transparent management"]
+      nz-privacy: ["s 201 privacy officer"]
+      zero-trust: ["CISA ZTMM cross-cutting: Governance"]
+      gdpr: ["Art 5(2) accountability", "Art 24 responsibility of the controller"]
+      br-cfm: ["Institutional AI governance for medical AI"]
+      sg-mas-airm: ["Board and senior management oversight of AI"]
+
+  - id: AIG-02
+    title: AI system and agent inventory
+    objective: Maintain a single registry of AI systems, models, agents and their non-human identities, including shadow AI discovered in the environment.
+    evidence: [governance.registered_in_inventory]
+    mappings:
+      iso42001: ["A.4.2 Resource documentation", "A.6.2.7 AI system technical documentation"]
+      iso27001: ["A.5.9 Inventory of information and other associated assets"]
+      eu-ai-act: ["Art 49 Registration (high-risk and Art 6(3) systems)"]
+      us-ai: ["omb-m-25-21 AI use case inventory"]
+      apra: ["AI letter: inventory of AI tooling and use cases", "CPS 230 paras 49–52 material service provider register"]
+      zero-trust: ["SP 800-207 tenet 1 all data sources and computing services are resources", "Careful Adoption of Agentic AI Services: trusted agent registry"]
+      au-privacy: ["APP 1.7–1.9 identify automated decisions for the privacy policy"]
+      nz-privacy: ["Public Service AI Framework: governance pillar"]
+      sg-mas-airm: ["AI inventory and materiality assessment (sections 3–4)"]
+
+  - id: AIG-03
+    title: Risk classification and impact assessment
+    objective: Classify each system by risk before build, and complete the impact assessments the law requires (AI impact assessment, DPIA, FRIA) before deployment.
+    evidence: [risk.classification, risk.impact_assessment.completed, risk.dpia.completed, risk.fria.completed]
+    mappings:
+      iso42001: ["6.1 Actions to address risks and opportunities", "A.5.2 AI system impact assessment process", "A.5.4 Assessing AI system impact on individuals or groups of individuals", "ISO/IEC 42005:2025"]
+      eu-ai-act: ["Art 6 Classification rules for high-risk AI systems", "Art 9 Risk management system", "Art 27 Fundamental rights impact assessment"]
+      gdpr: ["Art 35 Data protection impact assessment"]
+      us-ai: ["ca-admt risk assessments", "nist-ai-rmf MAP"]
+      apra: ["CPS 230 paras 26–28 assess operational risk before material change"]
+      au-privacy: ["OAIC AI guidance: privacy impact assessment"]
+      nz-privacy: ["OPC AI guidance: privacy impact assessment", "Biometric Processing Privacy Code rule 1 proportionality assessment"]
+      iso27001: ["Clause 6.1.2 Information security risk assessment"]
+      br-lgpd: ["Art 38 data protection impact report"]
+      sg-mas-airm: ["Materiality assessment"]
+
+  - id: AIG-04
+    title: Data governance, quality and provenance
+    objective: Training, grounding and evaluation data has a documented source, lawful basis, quality checks and lineage.
+    evidence: [data.provenance_documented, data.lawful_basis, data.quality_checks]
+    mappings:
+      iso42001: ["A.7.2 Data for development and enhancement of AI system", "A.7.3 Acquisition of data", "A.7.4 Quality of data for AI systems", "A.7.5 Data provenance", "A.7.6 Data preparation"]
+      eu-ai-act: ["Art 10 Data and data governance", "Art 53(1)(d) training content summary (GPAI)"]
+      gdpr: ["Art 5(1)(d) accuracy", "Art 6 lawfulness", "EDPB Opinion 28/2024"]
+      au-privacy: ["APP 3 collection", "APP 10 quality"]
+      nz-privacy: ["IPP 1 purpose", "IPP 8 accuracy before use"]
+      iso27001: ["A.5.12 Classification of information", "A.8.33 Test information"]
+      us-ai: ["co-sb26-189 developer documentation of training-data categories"]
+      br-lgpd: ["Arts 7 and 11 legal bases"]
+      jp-appi: ["Purpose of use; 2026 amendment statistical-creation exemption"]
+      sg-pdpa: ["Consent, business improvement and research exceptions"]
+
+  - id: AIG-05
+    title: Personal data protection and minimisation
+    objective: Personal information sent to or produced by models is minimised, masked or filtered, and sensitive categories are handled lawfully.
+    evidence: [runtime.pii_filtering, data.personal_data, data.special_category]
+    mappings:
+      gdpr: ["Art 5(1)(c) data minimisation", "Art 9 special categories", "Art 25 data protection by design and by default"]
+      iso27001: ["A.5.34 Privacy and protection of PII", "A.8.11 Data masking", "A.8.12 Data leakage prevention"]
+      iso42001: ["A.7.4 Quality of data for AI systems", "A.9.2 Processes for responsible use"]
+      au-privacy: ["APP 6 use or disclosure", "APP 11 security", "OAIC: avoid entering personal information into public GenAI tools"]
+      nz-privacy: ["IPP 5 storage and security", "IPP 10 limits on use", "IPP 11 disclosure"]
+      eu-ai-act: ["Art 10(5) / Art 4a special-category data for bias detection only where strictly necessary"]
+      us-ai: ["hipaa §164.312 technical safeguards", "ca-admt"]
+      br-lgpd: ["Art 11 sensitive personal data"]
+      cl-21719: ["Sensitive data incl. health data"]
+      ar-25326: ["Sensitive data rules"]
+      jp-appi: ["Special care-required personal information"]
+      sg-pdpa: ["Protection obligation"]
+
+  - id: AIG-06
+    title: Approved models and AI supply chain
+    objective: Only approved models, publishers and versions can be deployed; vendors are assessed and contracts cover data use, retention and exit.
+    evidence: [model.approved, supplier.assessed, supplier.no_training_on_customer_data]
+    mappings:
+      iso42001: ["A.10.2 Allocating responsibilities", "A.10.3 Suppliers", "A.4.4 Tooling resources"]
+      iso27001: ["A.5.19 Information security in supplier relationships", "A.5.20 Supplier agreements", "A.5.21 ICT supply chain", "A.5.22 Monitoring of supplier services", "A.5.23 Cloud services"]
+      eu-ai-act: ["Art 25 Responsibilities along the AI value chain", "Art 53 GPAI provider obligations"]
+      apra: ["CPS 230 paras 47–60 service providers", "AI letter: AI supply chain incl. fourth parties"]
+      rbnz-bs11: ["Outsourcing arrangements must not compromise the four required outcomes"]
+      us-ai: ["sr26-2 third-party models remain the institution's responsibility", "omb-m-25-22 AI acquisition"]
+      gdpr: ["Art 28 Processor"]
+      zero-trust: ["CISA ZTMM: Applications & Workloads"]
+      sg-mas-airm: ["Accountability for third-party AI (sections 5–6)"]
+
+  - id: AIG-07
+    title: Workload and agent identity with least privilege
+    objective: AI workloads and agents authenticate with managed, short-lived, scoped identities — no shared keys, no standing privilege.
+    evidence: [security.local_auth_disabled, security.managed_identity, security.least_privilege]
+    mappings:
+      zero-trust: ["SP 800-207 tenet 3 per-session access", "tenet 6 dynamic, strictly enforced authentication", "CISA ZTMM: Identity", "Careful Adoption of Agentic AI Services: least privilege for agents"]
+      iso27001: ["A.5.15 Access control", "A.5.16 Identity management", "A.5.17 Authentication information", "A.5.18 Access rights", "A.8.2 Privileged access rights", "A.8.5 Secure authentication"]
+      apra: ["CPS 234 paras 21–22 controls", "AI letter: privileged access management for non-human identities"]
+      iso42001: ["A.4.5 System and computing resources"]
+      eu-ai-act: ["Art 15 Accuracy, robustness and cybersecurity"]
+      gdpr: ["Art 32 Security of processing"]
+      au-privacy: ["APP 11 security"]
+      nz-privacy: ["IPP 5 storage and security"]
+      cl-21663: ["OIV security duties (Art 8)"]
+
+  - id: AIG-08
+    title: Network isolation and data residency
+    objective: Model endpoints are private, egress is allow-listed, and processing stays in approved regions.
+    evidence: [security.private_network, security.data_residency_region]
+    mappings:
+      zero-trust: ["SP 800-207 tenet 2 all communication secured regardless of location", "CISA ZTMM: Networks"]
+      iso27001: ["A.8.20 Networks security", "A.8.22 Segregation of networks"]
+      gdpr: ["Arts 44–49 international transfers"]
+      apra: ["CPS 234 paras 21–22 controls"]
+      rbnz-bs11: ["Systems and data accessible to RBNZ and a statutory manager"]
+      au-privacy: ["APP 8 cross-border disclosure"]
+      nz-privacy: ["IPP 12 disclosure outside New Zealand"]
+      eu-ai-act: ["Art 15 cybersecurity"]
+
+  - id: AIG-09
+    title: Encryption and key management
+    objective: Data, fine-tuned weights and logs are encrypted at rest with customer-managed keys where the risk tier requires it.
+    evidence: [security.cmk]
+    mappings:
+      iso27001: ["A.8.24 Use of cryptography"]
+      gdpr: ["Art 32(1)(a) encryption"]
+      apra: ["CPS 234 paras 21–22 controls"]
+      zero-trust: ["CISA ZTMM: Data"]
+      us-ai: ["hipaa §164.312 encryption (addressable)"]
+      au-privacy: ["APP 11 security"]
+      nz-privacy: ["IPP 5 storage and security"]
+
+  - id: AIG-10
+    title: Runtime guardrails and content safety
+    objective: Prompts and outputs pass deterministic filters for prompt injection, harmful content, sensitive data and ungrounded answers, enforced outside the model.
+    evidence: [runtime.content_filters, runtime.prompt_attack_detection, runtime.guardrail_enforced_centrally]
+    mappings:
+      eu-ai-act: ["Art 15 robustness incl. adversarial attacks", "Art 55 systemic-risk GPAI mitigation"]
+      iso42001: ["A.6.2.6 AI system operation and monitoring"]
+      iso27001: ["A.8.26 Application security requirements", "A.5.7 Threat intelligence"]
+      zero-trust: ["SP 800-207 policy enforcement point (PEP)", "Careful Adoption of Agentic AI Services"]
+      us-ai: ["tx-traiga prohibited intents (manipulation, CSAM, sexual deepfakes)", "nist-ai-rmf MANAGE; NIST AI 600-1"]
+      apra: ["AI letter: enforceable technical controls rather than policy alone"]
+
+  - id: AIG-11
+    title: Human oversight of consequential decisions and actions
+    objective: People can understand, intervene in, override and stop the system; consequential or irreversible actions need a named human approval.
+    evidence: [oversight.human_in_the_loop, oversight.override_and_stop]
+    mappings:
+      eu-ai-act: ["Art 14 Human oversight", "Art 26(2) assign human oversight"]
+      gdpr: ["Art 22 Automated individual decision-making"]
+      iso42001: ["A.9.2 Processes for responsible use", "A.9.4 Intended use"]
+      us-ai: ["co-sb26-189 meaningful human review", "ca-admt", "omb-m-25-21 high-impact AI minimum practices"]
+      apra: ["AI letter: human involvement in high-risk decisions"]
+      au-privacy: ["Guidance for AI Adoption practice 6: maintain human control"]
+      nz-privacy: ["OPC AI guidance: human review of automated decisions", "Algorithm Charter: human oversight"]
+      zero-trust: ["Careful Adoption of Agentic AI Services: human approval gates"]
+      br-lgpd: ["Art 20 review of solely automated decisions"]
+      br-cfm: ["Physician makes the final decision"]
+      cl-21719: ["Art 8 bis automated decisions and profiling"]
+      ar-25326: ["Art 20 solely automated decisions"]
+
+  - id: AIG-12
+    title: Transparency, notice and explanation
+    objective: People know when they deal with AI, when AI materially influences a decision about them and why, and synthetic content is marked.
+    evidence: [transparency.ai_disclosure, transparency.adm_notice, transparency.synthetic_content_marking, transparency.indirect_collection_notice]
+    mappings:
+      eu-ai-act: ["Art 13 Transparency to deployers", "Art 50 Transparency obligations (chatbots, synthetic content, deepfakes)"]
+      gdpr: ["Arts 13–14 information to data subjects", "Art 15(1)(h) logic involved in automated decisions"]
+      au-privacy: ["APP 1.7–1.9 automated decisions in the privacy policy (from 10 Dec 2026)", "APP 5 notification"]
+      nz-privacy: ["IPP 3 collection notice", "IPP 3A notice of indirect collection (from 1 May 2026)"]
+      us-ai: ["co-sb26-189 pre-use notice and adverse-decision explanation", "tx-traiga government AI interaction disclosure", "ca-admt pre-use notice", "il-hb3773 employee notice", "nyc-ll144 candidate notice"]
+      iso42001: ["A.8.2 System documentation and information for users", "A.8.5 Information for interested parties"]
+      br-cfm: ["Patients told when AI is used"]
+      cl-21719: ["Information rights on automated decisions"]
+      sg-pdpa: ["PDPC AI guidelines: notification of AI use and purpose"]
+
+  - id: AIG-13
+    title: Logging, monitoring and record-keeping
+    objective: Invocations, tool calls, policy decisions and administrative changes are logged, retained and monitored for drift and misuse.
+    evidence: [logging.invocation_logging, logging.retention_days, monitoring.drift_and_bias]
+    mappings:
+      eu-ai-act: ["Art 12 Record-keeping", "Art 26(6) deployers keep logs ≥ 6 months", "Art 72 Post-market monitoring"]
+      iso42001: ["A.6.2.8 AI system recording of event logs", "A.6.2.6 AI system operation and monitoring"]
+      iso27001: ["A.8.15 Logging", "A.8.16 Monitoring activities"]
+      zero-trust: ["SP 800-207 tenet 5 monitor integrity and posture", "tenet 7 collect information to improve posture", "CISA ZTMM cross-cutting: Visibility & Analytics"]
+      apra: ["AI letter: continuous validation for drift and bias", "CPS 234 paras 23–25 detection"]
+      us-ai: ["hipaa §164.312(b) audit controls", "co-sb26-189 record retention (3 years)"]
+      br-cfm: ["AI use recorded in the clinical chart"]
+      sg-mas-airm: ["Lifecycle monitoring (sections 5–6)"]
+
+  - id: AIG-14
+    title: Pre-deployment testing, evaluation and red-teaming
+    objective: Accuracy, robustness, security and safety are evaluated and adversarially tested before release and after material change.
+    evidence: [testing.evaluation_completed, testing.red_team_completed]
+    mappings:
+      eu-ai-act: ["Art 9(6)–(8) testing", "Art 15 Accuracy, robustness and cybersecurity", "Art 55(1)(a) adversarial testing (systemic-risk GPAI)"]
+      iso42001: ["A.6.2.4 AI system verification and validation"]
+      iso27001: ["A.8.29 Security testing in development and acceptance"]
+      us-ai: ["sr26-2 model validation", "nist-ai-rmf MEASURE"]
+      apra: ["CPS 234 paras 26–31 testing control effectiveness", "AI letter: security testing of AI-generated code"]
+      au-privacy: ["Guidance for AI Adoption practice 5: test and monitor"]
+      sg-mas-airm: ["Validation and testing across the AI lifecycle"]
+
+  - id: AIG-15
+    title: Change management and model lifecycle
+    objective: Model, prompt and configuration changes are versioned and promoted through gated environments with rollback.
+    evidence: [lifecycle.versioned, lifecycle.promotion_gate]
+    mappings:
+      iso42001: ["A.6.1.3 Processes for responsible design and development", "A.6.2.5 AI system deployment"]
+      iso27001: ["A.8.25 Secure development life cycle", "A.8.31 Separation of environments", "A.8.32 Change management", "A.8.9 Configuration management"]
+      eu-ai-act: ["Art 43(4) substantial modification triggers new conformity assessment"]
+      apra: ["CPS 230 paras 26–28 assessment before material change"]
+      us-ai: ["sr26-2 ongoing monitoring and change control"]
+      sg-mas-airm: ["Change management across the AI lifecycle"]
+
+  - id: AIG-16
+    title: Incident management and regulator notification
+    objective: AI incidents are detected, triaged and reported within each regulator's deadline.
+    evidence: [incident.runbook, incident.notification_matrix]
+    mappings:
+      eu-ai-act: ["Art 73 Reporting of serious incidents"]
+      gdpr: ["Art 33 notify supervisory authority within 72 hours", "Art 34 communicate to data subjects"]
+      apra: ["CPS 230 paras 32–33 notify APRA within 72h of material incident", "CPS 234 para 35 notify within 72h; para 36 within 10 business days"]
+      iso27001: ["A.5.24–5.28 incident management"]
+      iso42001: ["A.8.4 Communication of incidents"]
+      us-ai: ["ca-sb53 critical safety incident reporting (15 days / 24h)"]
+      au-privacy: ["Notifiable Data Breaches scheme (Part IIIC)"]
+      nz-privacy: ["Part 6 notifiable privacy breaches"]
+      cl-21663: ["Art 9 incident reporting to the CSIRT Nacional"]
+
+  - id: AIG-17
+    title: Operational resilience, outsourcing and exit
+    objective: Critical operations that depend on AI providers stay within tolerance, have tested fallbacks and a credible exit or substitution plan.
+    evidence: [resilience.fallback_tested, resilience.exit_plan]
+    mappings:
+      apra: ["CPS 230 paras 34–46 business continuity and tolerance levels", "CPS 230 paras 53–56 agreement terms", "AI letter: tested exit, substitution and portability"]
+      rbnz-bs11: ["Backup capability and separation plan", "Four required outcomes (clearing/settlement, risk monitoring, RBNZ access, basic banking services)"]
+      iso27001: ["A.5.29 Information security during disruption", "A.5.30 ICT readiness for business continuity", "A.8.13 Information backup"]
+      iso42001: ["A.10.3 Suppliers"]
+      eu-ai-act: ["Art 15(4) resilience and fail-safe plans"]
+
+  - id: AIG-18
+    title: Cross-border transfer safeguards
+    objective: Personal data reaching a model outside the home jurisdiction has a lawful transfer mechanism.
+    evidence: [data.cross_border_transfer, data.transfer_mechanism]
+    mappings:
+      gdpr: ["Art 44 general principle", "Art 45 adequacy", "Art 46 appropriate safeguards", "Art 49 derogations"]
+      au-privacy: ["APP 8 cross-border disclosure"]
+      nz-privacy: ["IPP 12 disclosure outside New Zealand"]
+      rbnz-bs11: ["Offshore outsourcing must preserve RBNZ and statutory manager access"]
+      iso27001: ["A.5.14 Information transfer"]
+      br-lgpd: ["Arts 33–36 international transfers; ANPD Res. 19/2024 SCCs"]
+      cl-21719: ["International transfer rules"]
+      ar-25326: ["Art 12 international transfers"]
+      jp-appi: ["Art 28 transfers to third parties abroad"]
+      sg-pdpa: ["s 26 transfer limitation"]
+
+  - id: AIG-19
+    title: AI literacy and training
+    objective: Staff who build, operate or rely on AI are trained in its capabilities, limits and the organisation's rules.
+    evidence: [governance.ai_literacy_training]
+    mappings:
+      eu-ai-act: ["Art 4 AI literacy (support AI literacy of staff, as amended)"]
+      iso27001: ["A.6.3 Information security awareness, education and training"]
+      iso42001: ["A.4.6 Human resources", "7.2 Competence"]
+      apra: ["AI letter: board AI literacy"]
+      us-ai: ["omb-m-25-21 workforce AI training"]
+
+  - id: AIG-20
+    title: Fairness and non-discrimination
+    objective: Outcomes are tested for bias against protected groups before release and monitored in production.
+    evidence: [testing.bias_assessment]
+    mappings:
+      eu-ai-act: ["Art 10(2)(f)–(g) examination for biases", "Art 4a special-category data for bias correction"]
+      gdpr: ["Art 5(1)(a) fairness"]
+      us-ai: ["il-hb3773 discriminatory effect in employment", "nyc-ll144 annual bias audit", "tx-traiga intentional unlawful discrimination"]
+      iso42001: ["A.5.4 Assessing AI system impact on individuals or groups of individuals", "A.5.5 societal impacts"]
+      apra: ["AI letter: continuous validation for bias"]
+      nz-privacy: ["Algorithm Charter: people and data commitments"]
+      au-privacy: ["Guidance for AI Adoption practice 2: understand impacts"]

@@ -1,0 +1,97 @@
+# Sector profiles: the most common AI scenarios, what pushes them into a higher
+# risk tier, and which controls get stricter evidence requirements.
+apiVersion: aigov/v1
+kind: SectorCatalog
+
+sectors:
+
+  - id: health
+    name: Health
+    scenarios:
+      - Clinical documentation and ambient scribing
+      - Clinical decision support and diagnostic imaging triage
+      - Patient-facing triage and navigation assistants
+      - Claims, coding and revenue-cycle automation
+    high_risk_triggers:
+      - { text: "AI that is or is part of a medical device (EU MDR → AI Act Annex I from 2028-08-02)", jurisdictions: [PT, ES] }
+      - { text: "AI that is or is part of a software medical device (TGA, HSA, ANVISA, ANMAT, PMDA, FDA device rules)", jurisdictions: [AU, SG, BR, AR, JP, US] }
+      - { text: "Decisions about access to healthcare services or benefits (AI Act Annex III(5))", jurisdictions: [PT, ES] }
+      - { text: "Health data is special-category / sensitive data", jurisdictions: all }
+    emphasised_controls: [AIG-03, AIG-05, AIG-09, AIG-11, AIG-12, AIG-14, AIG-15, AIG-20]
+
+  - id: fsi
+    name: Financial services
+    scenarios:
+      - Credit decisioning and affordability assessment
+      - Fraud and financial-crime detection
+      - Customer service agents and advice assistants
+      - Software engineering and operations copilots on core systems
+    high_risk_triggers:
+      - { text: "Creditworthiness assessment and life/health insurance pricing (AI Act Annex III(5)(b)–(c); FRIA under Art 27)", jurisdictions: [PT, ES] }
+      - { text: "Material service provider or outsourcing of critical operations (APRA CPS 230)", jurisdictions: [AU] }
+      - { text: "Outsourcing a function that affects the four BS11 outcomes (registered banks ≥ NZ$10bn)", jurisdictions: [NZ] }
+      - { text: "ICT third-party risk for AI and cloud providers (DORA)", jurisdictions: [PT, ES] }
+      - { text: "Adverse action on credit (ECOA/Reg B; Colorado SB 26-189 from 2027-01-01)", jurisdictions: [US] }
+      - { text: "Model risk management for predictive models (SR 26-2; FSA AI Discussion Paper; MAS AI Risk Management Guidelines from Oct 2027)", jurisdictions: [US, JP, SG] }
+      - { text: "Consequential decisions about customers (LGPD Art 20; Ley 21.719 Art 8 bis; Ley 25.326 Art 20)", jurisdictions: [BR, CL, AR] }
+    emphasised_controls: [AIG-02, AIG-03, AIG-06, AIG-07, AIG-11, AIG-13, AIG-14, AIG-15, AIG-16, AIG-17, AIG-20]
+
+  - id: public
+    name: Public sector
+    scenarios:
+      - Eligibility and entitlement decisions for benefits and services
+      - Caseworker and contact-centre assistants
+      - Policy drafting, summarisation and translation
+      - Fraud and compliance risk scoring
+    high_risk_triggers:
+      - { text: "Access to essential public services and benefits (AI Act Annex III(5)(a)); FRIA mandatory for public bodies (Art 27)", jurisdictions: [PT, ES] }
+      - { text: "Law enforcement, migration and justice uses (AI Act Annex III(6)–(8))", jurisdictions: [PT, ES] }
+      - { text: "Government AI policies require registers, accountable officials and impact assessments (AU DTA policy; US OMB M-25-21; JP Digital Agency guideline; NZ Public Service AI Framework; Spain LO bill; Argentina JGM Disp. 2/2023)", jurisdictions: [AU, US, JP, NZ, ES, AR] }
+      - { text: "Decisions about citizens' rights and entitlements are consequential decisions under data-protection law", jurisdictions: all }
+    emphasised_controls: [AIG-01, AIG-02, AIG-03, AIG-08, AIG-11, AIG-12, AIG-18, AIG-20]
+
+  - id: agriculture
+    name: Agriculture
+    scenarios:
+      - Yield, disease and pest prediction from imagery and sensors
+      - Autonomous and semi-autonomous farm machinery
+      - Supply-chain traceability and biosecurity analytics
+      - Agronomy advice assistants for growers
+    high_risk_triggers:
+      - { text: "Safety components of machinery (EU Machinery Regulation; moved to AI Act Annex I Section B by Reg (EU) 2026/1744, so AI requirements apply through the Machinery Regulation rather than AI Act Chapter III directly — confirm against the consolidated text)", jurisdictions: [PT, ES] }
+      - { text: "Connected-product data access and sharing (EU Data Act from 2025-09-12)", jurisdictions: [PT, ES] }
+      - { text: "Farmer data used to train models without consent (AU Farm Data Code, NZ Farm Data Code, JP MAFF guidelines, US Ag Data Transparent)", jurisdictions: [AU, NZ, JP, US] }
+      - { text: "Autonomous machinery operating near people — general work health and safety law applies", jurisdictions: all }
+    emphasised_controls: [AIG-04, AIG-06, AIG-11, AIG-14, AIG-17, AIG-18]
+
+  - id: mining
+    name: Mining and resources
+    scenarios:
+      - Autonomous haulage and drilling
+      - Predictive maintenance on fixed and mobile plant
+      - Geological and ore-body modelling
+      - Safety monitoring with computer vision (fatigue, proximity, exclusion zones)
+    high_risk_triggers:
+      - { text: "Autonomous mobile plant operating near people (WA Code of Practice; Chile Sernageomin autonomous-equipment guide; MSHA mobile-equipment programme)", jurisdictions: [AU, CL, US] }
+      - { text: "Safety components of machinery (Machinery Regulation; AI Act Annex I Section B)", jurisdictions: [PT, ES] }
+      - { text: "Biometric or behavioural monitoring of workers (AI Act Annex III(4))", jurisdictions: [PT, ES] }
+      - { text: "Biometric or behavioural monitoring of workers (Biometric Processing Privacy Code 2025)", jurisdictions: [NZ] }
+      - { text: "Worker monitoring and safety-critical automation under general work health and safety law", jurisdictions: all }
+    emphasised_controls: [AIG-03, AIG-11, AIG-13, AIG-14, AIG-15, AIG-16, AIG-17]
+
+  - id: tech
+    name: Technology companies
+    scenarios:
+      - Building and distributing AI products and agents to customers
+      - Fine-tuning or training models, including general-purpose models
+      - AI coding assistants in the software supply chain
+      - Consumer chat and content-generation features
+    high_risk_triggers:
+      - { text: "Providing a general-purpose AI model (AI Act Arts 53, 55; GPAI Code of Practice)", jurisdictions: [PT, ES] }
+      - { text: "Frontier model development (California SB 53 from 2026-01-01)", jurisdictions: [US] }
+      - { text: "Training on copyrighted or scraped data (DSM TDM opt-out; EDPB draft scraping guidelines)", jurisdictions: [PT, ES] }
+      - { text: "Training on copyrighted data (JP Copyright Act Art 30-4; SG Copyright Act s 244; AU has no TDM exception)", jurisdictions: [JP, SG, AU] }
+      - { text: "Products used by children (Brazil ECA Digital; Australia Online Safety Act; Singapore Online Safety Act 2025)", jurisdictions: [BR, AU, SG] }
+      - { text: "Synthetic content and chatbots (AI Act Art 50 from 2026-08-02)", jurisdictions: [PT, ES] }
+      - { text: "Consumer-facing AI claims and deception (FTC Act §5; consumer protection law)", jurisdictions: all }
+    emphasised_controls: [AIG-04, AIG-06, AIG-10, AIG-12, AIG-14, AIG-15, AIG-16]

@@ -1,0 +1,52 @@
+{
+  "displayName": "AIGov agent baseline",
+  "defaultConnectorsClassification": "Blocked",
+  "environmentType": "AllEnvironments",
+  "environments": [],
+  "connectorGroups": [
+    {
+      "classification": "Confidential",
+      "connectors": [
+        {
+          "id": "/providers/Microsoft.PowerApps/apis/shared_sql",
+          "name": "SQL Server",
+          "type": "Microsoft.PowerApps/apis"
+        }
+      ]
+    },
+    {
+      "classification": "General",
+      "connectors": []
+    },
+    {
+      "classification": "Blocked",
+      "connectors": [
+        {
+          "id": "/providers/Microsoft.PowerApps/apis/REPLACE_ME_HTTP",
+          "name": "HTTP",
+          "type": "Microsoft.PowerApps/apis"
+        },
+        {
+          "id": "/providers/Microsoft.PowerApps/apis/REPLACE_ME_CHAT_WITHOUT_ENTRA_AUTH",
+          "name": "Chat without Microsoft Entra ID authentication in Copilot Studio",
+          "type": "Microsoft.PowerApps/apis"
+        },
+        {
+          "id": "/providers/Microsoft.PowerApps/apis/REPLACE_ME_KNOWLEDGE_PUBLIC_WEBSITES",
+          "name": "Knowledge source with public websites and data in Copilot Studio",
+          "type": "Microsoft.PowerApps/apis"
+        },
+        {
+          "id": "/providers/Microsoft.PowerApps/apis/REPLACE_ME_FACEBOOK_CHANNEL",
+          "name": "Facebook channel in Copilot Studio",
+          "type": "Microsoft.PowerApps/apis"
+        },
+        {
+          "id": "/providers/Microsoft.PowerApps/apis/REPLACE_ME_WHATSAPP_CHANNEL",
+          "name": "WhatsApp channel in Copilot Studio",
+          "type": "Microsoft.PowerApps/apis"
+        }
+      ]
+    }
+  ]
+}

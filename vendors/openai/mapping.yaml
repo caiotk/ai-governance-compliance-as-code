@@ -1,0 +1,149 @@
+apiVersion: aigov/v1
+kind: VendorPack
+vendor: openai
+name: OpenAI API Platform
+verified: '2026-10-13'
+native_tools:
+- name: OpenAI Administration API
+  url: https://developers.openai.com/api/reference/administration/overview
+- name: Admin APIs guide
+  url: https://developers.openai.com/api/docs/guides/admin-apis.md
+- name: OpenAI Terraform provider (openai/openai)
+  url: https://developers.openai.com/api/docs/guides/terraform.md
+- name: Moderation API (omni-moderation-latest)
+  url: https://developers.openai.com/api/docs/guides/moderation.md
+- name: Your data (retention, ZDR/MAM, data residency)
+  url: https://developers.openai.com/api/docs/guides/your-data.md
+- name: API key permissions (restricted keys)
+  url: https://help.openai.com/en/articles/8867743-assign-api-key-permissions
+attestations:
+- name: SOC 2 Type 2
+  url: https://trust.openai.com/
+  scope: 2025 report covers API Platform, ChatGPT Enterprise, ChatGPT Edu, ChatGPT Team
+- name: ISO/IEC 27001:2022
+  url: https://trust.openai.com/
+  scope: API, ChatGPT Enterprise, ChatGPT Edu
+- name: ISO/IEC 27017:2015
+  url: https://trust.openai.com/
+  scope: listed on trust portal; scope per certificate
+- name: ISO/IEC 27018:2019
+  url: https://trust.openai.com/
+  scope: listed on trust portal; scope per certificate
+- name: ISO/IEC 27701:2019
+  url: https://trust.openai.com/
+  scope: listed on trust portal; scope per certificate
+- name: ISO/IEC 42001:2023
+  url: https://trust.openai.com/
+  scope: AI management system; listed on trust portal, scope per certificate
+- name: HIPAA BAA (API)
+  url: https://help.openai.com/en/articles/8660679-getting-a-business-associate-agreement-for-the-openai-api
+  scope: Self-serve for API orgs with usage history (Settings > Organization > General > HIPAA compliance support); irreversible
+    once enabled; no BAA for ChatGPT Business
+- name: OpenAI Data Processing Addendum
+  url: https://openai.com/policies/data-processing-addendum/
+  scope: Effective 2026-01-01
+policies:
+- name: Usage policies
+  url: https://openai.com/policies/usage-policies/
+  effective: '2025-10-29'
+- name: Model Spec
+  url: https://model-spec.openai.com/2026-08-18.html
+  effective: '2026-08-18'
+implements:
+- control: AIG-02
+  summary: One governed project per environment plus a named workload service account give an inventory of OpenAI workloads
+    and their non-human identities.
+  terraform:
+  - terraform/main.tf#openai_project.this
+  - terraform/main.tf#openai_project_service_account.workload
+  native:
+  - native/admin-api.sh
+- control: AIG-06
+  summary: Project model permissions in allow_list mode restrict each project to approved model IDs.
+  terraform:
+  - terraform/main.tf#openai_project_model_permissions.this
+  native:
+  - native/admin-api.sh
+- control: AIG-07
+  summary: Workloads use a project service account with a custom least-privilege project role assigned through a group (no
+    default role, no user keys); keys are created out of band with narrow scopes. Restricted key permissions (All / Restricted
+    / Read Only) are set in the dashboard and are not shown for service-account keys.
+  terraform:
+  - terraform/main.tf#openai_project_service_account.workload
+  - terraform/main.tf#openai_project_role.workload
+  - terraform/main.tf#openai_group.workload
+  - terraform/main.tf#openai_group_user.workload
+  - terraform/main.tf#openai_project_group_role.workload
+  native:
+  - native/admin-api.sh
+- control: AIG-05
+  summary: Project data-retention override (default inherits the organization policy; ZDR / MAM and enhanced variants once
+    OpenAI has approved them). API data is not used for training by default.
+  terraform:
+  - terraform/main.tf#openai_project_data_retention.this
+  - terraform/main.tf#openai_organization_data_retention.this
+  native:
+  - native/admin-api.sh
+- control: AIG-18
+  summary: Residency region and retention type together determine where prompts and outputs are stored and processed; non-US
+    regions require MAM or ZDR.
+  terraform:
+  - terraform/main.tf#openai_project.this
+  - terraform/main.tf#openai_project_data_retention.this
+  native:
+  - native/admin-api.sh
+- control: AIG-10
+  summary: Hosted tools (web search, remote MCP, Code Interpreter, file search, image generation) are disabled per project
+    by default; inputs are screened with the Moderation API (omni-moderation-latest) and fail closed.
+  terraform:
+  - terraform/main.tf#openai_project_hosted_tool_permissions.this
+  native:
+  - native/moderation-gate.py
+  - native/admin-api.sh
+- control: AIG-04
+  summary: Disabling file search, web search and MCP by default limits which data sources a project can pull into model context.
+  terraform:
+  - terraform/main.tf#openai_project_hosted_tool_permissions.this
+  native:
+  - native/admin-api.sh
+- control: AIG-13
+  summary: Audit logs (user actions and configuration changes) are exported from GET /v1/organization/audit_logs to JSONL
+    for the SIEM; spend alerts notify the platform team.
+  terraform:
+  - terraform/main.tf#openai_project_spend_alert.this
+  native:
+  - native/audit-log-export.sh
+  - native/admin-api.sh
+- control: AIG-17
+  summary: Hard monthly spend limits (project and optional organization) return 429 once reached and act as a blast-radius
+    control; spend alerts fire first; project rate limits cap request and token volume per approved model.
+  terraform:
+  - terraform/main.tf#openai_project_spend_limit.this
+  - terraform/main.tf#openai_organization_spend_limit.this
+  - terraform/main.tf#openai_project_spend_alert.this
+  - terraform/main.tf#openai_project_rate_limit.this
+  native:
+  - native/admin-api.sh
+gaps:
+- control: AIG-07
+  note: API-key scopes and restricted-key permissions are not managed by the Terraform provider (keys are created through
+    the Admin API, the value is returned once). SCIM for API Platform orgs is UNVERIFIED. Enforce key rotation and storage
+    in your secrets manager.
+- control: AIG-09
+  note: 'Customer-managed keys: openai_project exposes `external_key_id`, but CMK enrolment requirements were not verified;
+    not enabled by this pack.'
+- control: AIG-10
+  note: 'No org-wide enforced moderation: the Moderation API is opt-in per request; the application must call it (or use inline
+    moderation on Responses) and act on the result.'
+- control: AIG-13
+  note: Audit logs cover administrative actions, not prompt/response content. Whether audit logging must be enabled first
+    and its retention period are UNVERIFIED. Prompt/response logging is the application's responsibility (and conflicts with
+    ZDR).
+- control: AIG-05
+  note: ZDR, MAM and their enhanced variants require prior OpenAI approval; endpoints that keep state (assistants, threads,
+    vector_stores, files, fine_tuning, evals, batches) are not ZDR-eligible — block them in the application if ZDR is required.
+- control: AIG-11
+  note: Human oversight is an application-level design control; the platform has no native approval workflow.
+- control: AIG-08
+  note: No private network path to api.openai.com. Data residency is a sales-gated project option with regional prefixes (e.g.
+    eu.api.openai.com); it controls where data is stored/processed, not network isolation. Treat residency under AIG-18.

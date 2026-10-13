@@ -1,0 +1,121 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: BR
+name: Brazil
+frameworks: [br-lgpd, iso27001, iso42001, zero-trust]
+sector_frameworks:
+  health: [br-cfm]
+notes: No AI statute in force. PL 2338/2023 passed the Senate (Dec 2024) and sits with a Chamber special committee; a vote is expected after the Oct 2026 elections.
+instruments:
+  horizontal:
+    - id: br-pl-2338
+      name: Marco Legal da Inteligência Artificial (bill)
+      citation: PL 2338/2023
+      status: pending
+      ai_relevance: Risk-based AI framework; not law. Track for risk classification, impact assessment and oversight-body design.
+      url: https://www.mobiletime.com.br/noticias/24/08/2026/marco-ia-voto-fim-do-ano/
+      verification: secondary
+      controls: [AIG-03, AIG-11, AIG-12]
+    - id: br-pbia
+      name: Plano Brasileiro de Inteligência Artificial 2024–2028
+      citation: MCTI, Jul 2024
+      status: voluntary
+      url: https://dplnews.com/um-ano-de-plano-brasileiro-de-inteligencia-artificial-o-que-esta-sendo-feito/
+      verification: secondary
+      controls: [AIG-19]
+  data_protection:
+    - id: br-lgpd
+      name: Lei Geral de Proteção de Dados (LGPD)
+      citation: Lei 13.709/2018
+      status: in-force
+      regulator: ANPD (autarquia de natureza especial under Lei 15.352/2026)
+      ai_relevance: Art 20 review of decisions taken solely by automated processing; Arts 33–36 international transfers; Art 38 data protection impact report.
+      url: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm
+      verification: primary
+      controls: [AIG-03, AIG-05, AIG-11, AIG-12, AIG-18]
+    - id: br-anpd-res-19
+      name: ANPD standard contractual clauses for international transfers
+      citation: Resolução CD/ANPD 19/2024
+      status: in-force
+      effective: "SCC adoption deadline 2025-08-23"
+      url: https://lefosse.com/noticias/alerta/transferencia-internacional-de-dados-prazo-para-adocao-das-clausulas-padrao-da-anpd-se-encerra-em-23-de-agosto/
+      verification: secondary
+      controls: [AIG-18]
+  cyber:
+    - id: br-pnciber
+      name: Política Nacional de Cibersegurança
+      citation: Decreto 11.856/2023
+      status: in-force
+      url: https://planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/d11856.htm
+      verification: primary
+      controls: [AIG-07, AIG-16]
+  sectors:
+    health:
+      - id: br-anvisa-rdc-657
+        name: ANVISA software as a medical device rules
+        citation: RDC 657/2022; RDC 751/2022
+        status: in-force
+        ai_relevance: AI SaMD must describe training and validation datasets and justify the AI technique.
+        url: https://antigo.anvisa.gov.br/documents/10181/5141677/RDC_657_2022_COMP.pdf/d2da154d-bd76-40ba-87ee-3d9baadb5dd3
+        verification: primary
+        controls: [AIG-04, AIG-14, AIG-15]
+      - id: br-cfm-2454
+        name: CFM resolution on AI in medicine
+        citation: Resolução CFM 2.454/2026
+        status: in-force
+        effective: "~2026-08 (180 days after publication on 2026-02-27)"
+        ai_relevance: Physician makes the final decision; patients told when AI is used; AI use recorded in the chart; risk tiers; institutional AI governance.
+        url: https://portal.cfm.org.br/noticias/cfm-normatiza-uso-da-ia-na-medicina
+        verification: primary
+        controls: [AIG-01, AIG-03, AIG-11, AIG-12, AIG-13]
+    fsi:
+      - id: br-cmn-4893
+        name: Cybersecurity policy and cloud/data-processing outsourcing for financial institutions
+        citation: Resolução CMN 4.893/2021, amended by Resolução CMN 5.274/2025
+        status: in-force
+        effective: "Amendment adjustments due 2026-03-01"
+        ai_relevance: No AI-specific provisions; governs cloud and processing outsourcing used by AI services. BCB does not plan AI rules before end-2026.
+        url: https://okai.com.br/documento/2025-12-18/resolucao-cmn-n-5-274
+        verification: secondary
+        controls: [AIG-06, AIG-07, AIG-13, AIG-16, AIG-17]
+    public:
+      - id: br-lgpd-public
+        name: LGPD Chapter IV — processing by public authorities
+        citation: Lei 13.709/2018 Arts 23–32
+        status: in-force
+        url: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm
+        verification: primary
+        controls: [AIG-03, AIG-12]
+    agriculture:
+      - id: br-agri-none
+        name: No AI-specific agricultural rule found — LGPD applies to farmer personal data; Embrapa agri-data studies are non-binding
+        status: none
+        url: https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/1170049/1/LV-Agrodados-Regulacao-2024.pdf
+        verification: secondary
+        controls: [AIG-04]
+    mining:
+      - id: br-nr-22
+        name: NR-22 Segurança e Saúde Ocupacional na Mineração (no autonomous-equipment rule)
+        citation: Portaria MTE 225/2024
+        status: in-force
+        url: https://conexaotrabalho.portaldaindustria.com.br/publicacoes/detalhe/trabalhista/-geral/publicada-nova-redacao-da-nr-22-seguranca-e-saude-na-mineracao
+        verification: secondary
+        controls: [AIG-11, AIG-14, AIG-17]
+    tech:
+      - id: br-eca-digital
+        name: ECA Digital (children and adolescents online)
+        citation: Lei 15.211/2025; Decreto 12.880/2026
+        status: in-force
+        effective: "2026-03-17 (sanctions from ~Nov 2026)"
+        regulator: ANPD
+        ai_relevance: Age assurance, no ad-profiling of minors, ban on manipulative design, child-rights impact assessments.
+        url: https://www.mayerbrown.com/pt/insights/publications/2026/04/enforcement-of-brazils-eca-digital-introduces-new-obligations-for-companies
+        verification: secondary
+        controls: [AIG-03, AIG-05, AIG-12]
+      - id: br-marco-civil
+        name: Marco Civil da Internet
+        citation: Lei 12.965/2014
+        status: in-force
+        url: https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm
+        verification: primary
+        controls: [AIG-13]

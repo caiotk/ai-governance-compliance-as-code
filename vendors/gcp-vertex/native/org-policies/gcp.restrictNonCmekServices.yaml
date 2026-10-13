@@ -1,0 +1,8 @@
+# AIG-09: services in deniedValues may not create resources without CMEK,
+# so denying aiplatform.googleapis.com requires CMEK for Vertex AI resources.
+name: PARENT/policies/gcp.restrictNonCmekServices
+spec:
+  rules:
+  - values:
+      deniedValues:
+      - aiplatform.googleapis.com

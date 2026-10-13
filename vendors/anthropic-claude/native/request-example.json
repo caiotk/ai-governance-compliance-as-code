@@ -1,0 +1,11 @@
+{
+  "model": "<a Claude 4.6 or later model id>",
+  "max_tokens": 1024,
+  "inference_geo": "us",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Summarize the key points of this document."
+    }
+  ]
+}

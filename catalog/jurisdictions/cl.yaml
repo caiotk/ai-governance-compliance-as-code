@@ -1,0 +1,101 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: CL
+name: Chile
+frameworks: [cl-21719, cl-21663, iso27001, iso42001, zero-trust]
+notes: The AI bill is in the Senate and the government plans an innovation-first substitute text. Ley 21.719 is due in force 1 Dec 2026, but bill 18.623-07 would postpone it.
+instruments:
+  horizontal:
+    - id: cl-ai-bill
+      name: Proyecto de ley que regula los sistemas de inteligencia artificial
+      citation: Boletines 16821-19 y 15869-19
+      status: pending
+      ai_relevance: Risk tiers and ban on subliminal manipulation as passed by the Chamber; Senate review with a likely substitute text.
+      url: https://www.senado.cl/comunicaciones/noticias/senadores-conocen-propuesta-del-ejecutivo-para-ley-marco-de-ia
+      verification: primary
+      controls: [AIG-03, AIG-10, AIG-12]
+    - id: cl-politica-ia
+      name: Política Nacional de Inteligencia Artificial (2024 update, to 2031)
+      citation: Decreto 12/2024 (MinCiencia), DO 2025-01-28
+      status: voluntary
+      url: https://www.diariooficial.interior.gob.cl/publicaciones/2025/01/28/44060/01/2600578.pdf
+      verification: primary
+      controls: [AIG-01, AIG-19]
+  data_protection:
+    - id: cl-ley-21719
+      name: Ley de Protección de Datos Personales
+      citation: Ley 21.719 (replaces Ley 19.628)
+      status: phased
+      effective: "2026-12-01 — pending bill 18.623-07 would postpone (to 2027-12-01 or by 6 months)"
+      regulator: Agencia de Protección de Datos Personales (council not yet appointed)
+      ai_relevance: Art 8 bis automated individual decisions and profiling; health data becomes sensitive data.
+      url: https://www.cariola.cl/app/uploads/2026/09/Alerta-legal_-2septiembre.pdf
+      verification: secondary
+      controls: [AIG-03, AIG-05, AIG-11, AIG-12, AIG-18]
+  cyber:
+    - id: cl-ley-21663
+      name: Ley Marco de Ciberseguridad
+      citation: Ley 21.663
+      status: in-force
+      effective: "2025-01-01 (OIV duties and incident reporting from 2025-03-01)"
+      regulator: ANCI; CSIRT Nacional
+      url: https://www.carey.cl/entrada-en-vigencia-de-la-ley-de-ciberseguridad
+      verification: secondary
+      controls: [AIG-07, AIG-13, AIG-16]
+  sectors:
+    health:
+      - id: cl-ley-20584
+        name: Derechos y deberes de los pacientes (ficha clínica confidentiality)
+        citation: Ley 20.584
+        status: in-force
+        url: https://www.superdesalud.gob.cl/app/uploads/2025/12/ficha-clinica-desafios-en-ley-de-derechos-y-acreditacion-en-salud.pdf
+        verification: secondary
+        controls: [AIG-05, AIG-12]
+    fsi:
+      - id: cl-cmf-ran-20-10
+        name: CMF information security and cybersecurity rules for banks
+        citation: RAN 20-10
+        status: in-force
+        url: https://transtecnia.cl/articulo-contable/cmf-publica-normativa-para-la-gestion-de-la-seguridad-de-la-informacion-y-ciberseguridad/
+        verification: secondary
+        controls: [AIG-07, AIG-13, AIG-16, AIG-17]
+      - id: cl-ley-fintec
+        name: Ley Fintec and Sistema de Finanzas Abiertas
+        citation: Ley 21.521
+        status: phased
+        effective: "Open finance implementation 2027"
+        url: https://www.cmfchile.cl/portal/prensa/615/w3-article-110881.html
+        verification: primary
+        controls: [AIG-06, AIG-18]
+    public:
+      - id: cl-transparencia
+        name: Consejo para la Transparencia — algorithmic transparency role proposed in the AI bill
+        citation: Ley 20.285 (bill would extend)
+        status: pending
+        url: https://www.camara.cl/cms/?p=90888
+        verification: primary
+        controls: [AIG-02, AIG-12]
+    agriculture:
+      - id: cl-agri-none
+        name: No AI-specific agricultural rule found — Ley 21.719 applies
+        status: none
+        url: https://www.cariola.cl/app/uploads/2026/09/Alerta-legal_-2septiembre.pdf
+        verification: secondary
+        controls: [AIG-04]
+    mining:
+      - id: cl-sernageomin-autonomous
+        name: Sernageomin guide on pilots and validation of autonomous equipment
+        citation: Guía Sernageomin / Centro Nacional de Pilotaje, 2021-03-31; DS 132/2002 Reglamento de Seguridad Minera
+        status: voluntary
+        ai_relevance: Hardware, software and firmware verification; communications and navigation checks; stable network design for autonomous equipment.
+        url: https://www.df.cl/df-lab/transformacion-digital/sernageomin-lanzo-primera-guia-para-pilotar-equipos-autonomos-en-faenas
+        verification: secondary
+        controls: [AIG-11, AIG-14, AIG-15, AIG-17]
+    tech:
+      - id: cl-consumer
+        name: Consumer protection law (no AI copyright/TDM exception confirmed)
+        citation: Ley 19.496
+        status: in-force
+        url: https://www.bcn.cl/leychile/navegar?idNorma=61438
+        verification: unverified
+        controls: [AIG-12]

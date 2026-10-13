@@ -1,0 +1,44 @@
+# Copy to terraform.tfvars and replace every placeholder. Never commit real IDs.
+
+project_id    = "my-vertex-project"
+policy_parent = "organizations/123456789012"
+# policy_parent = "folders/123456789012"
+
+# ── Organization policies ────────────────────────────────────────────────────
+allowed_models = [
+  "publishers/google/models/gemini-3.5-flash:predict",
+  # "publishers/anthropic/models/<model>:predict",
+  # "publishers/meta/models/<model>:deploy",
+]
+
+# Choose a value group that matches your residency requirement, e.g.
+# ["in:australia-locations"] or ["in:eu-locations"]. Check the value group
+# exists in the Resource Locations documentation before applying.
+# Applies to every location-bound service under policy_parent, not only Vertex AI.
+allowed_resource_locations = ["in:australia-locations"]
+enforce_resource_locations = true
+
+require_cmek                    = true
+disable_google_search_grounding = true
+allowed_partner_model_features  = [] # keep partner web_search / structured_outputs blocked
+
+# ── Model Armor ──────────────────────────────────────────────────────────────
+# model_armor_floor_setting_parent = "projects/my-vertex-project"
+model_armor_confidence_level           = "MEDIUM_AND_ABOVE"
+model_armor_block                      = true
+model_armor_template_location          = "us-central1"
+model_armor_template_id                = "aigov-baseline"
+grant_model_armor_user_to_vertex_agent = true
+
+# ── Audit logs ───────────────────────────────────────────────────────────────
+data_access_audit_services = ["aiplatform.googleapis.com"]
+audit_log_exempted_members = []
+
+# ── VPC Service Controls ─────────────────────────────────────────────────────
+enable_vpc_service_controls   = false
+access_policy_name            = "accessPolicies/000000000000"
+perimeter_name                = "aigov_vertex_ai"
+perimeter_project_numbers     = [] # defaults to project_id's number
+perimeter_restricted_services = ["aiplatform.googleapis.com", "modelarmor.googleapis.com"]
+perimeter_access_levels       = []
+perimeter_dry_run             = true

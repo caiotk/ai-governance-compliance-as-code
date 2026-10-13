@@ -1,0 +1,145 @@
+apiVersion: aigov/v1
+kind: VendorPack
+vendor: azure-foundry
+name: Microsoft Foundry / Azure OpenAI / Azure AI services
+verified: '2026-10-13'
+native_tools:
+- name: Azure Policy (built-in AI Services and Cognitive Services definitions)
+  url: https://learn.microsoft.com/en-us/azure/governance/policy/samples/built-in-policies
+- name: Foundry model deployment policies
+  url: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/model-deployment-policy
+- name: Azure Policy regulatory compliance initiatives (EU AI Act 2024 1689; NIST AI RMF v1.0)
+  url: https://learn.microsoft.com/en-us/azure/governance/policy/samples/built-in-initiatives
+- name: Microsoft Defender for Cloud threat protection for AI services
+  url: https://learn.microsoft.com/en-us/azure/defender-for-cloud/ai-threat-protection
+- name: Microsoft Purview DSPM for AI
+  url: https://learn.microsoft.com/en-us/purview/ai-microsoft-purview
+- name: Microsoft Purview Compliance Manager templates (ISO/IEC 42001:2023
+  EU Artificial Intelligence Act: null
+  NIST AI RMF 1.0): null
+  url: https://learn.microsoft.com/en-us/purview/compliance-manager-templates-list
+- name: Azure AI Content Safety / Foundry content filters (raiPolicies)
+  url: https://learn.microsoft.com/en-us/azure/templates/microsoft.cognitiveservices/accounts/raipolicies
+attestations:
+- name: ISO/IEC 42001:2023
+  url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-iso-42001
+  scope: Microsoft Foundry is in scope of Microsoft's ISO/IEC 42001 certification; certificate and audit report on the Service
+    Trust Portal (https://servicetrust.microsoft.com/viewpage/ISOIEC). Covers Microsoft's AI management system as provider,
+    not the customer's deployment.
+implements:
+- control: AIG-06
+  summary: Built-in 'Foundry model deployments should only use approved models' (aafe3651) assigned with Deny and an allowedPublishers/allowedAssetIds
+    register; sample deployment pins a model version with NoAutoUpgrade.
+  terraform:
+  - terraform/policy.tf#azurerm_management_group_policy_assignment.approved_models
+  - terraform/main.tf#azurerm_cognitive_deployment.sample
+  native:
+  - native/policy/assignments.bicep
+  - native/policy/approved-models.parameters.json
+  - native/policy/assign.sh
+  - native/bicep/foundry-account.bicep
+- control: AIG-07
+  summary: Key (local) authentication denied (71ef260a, Deny) and managed identity required (fe3fd216, Deny); reference account
+    sets local_auth_enabled=false with a managed identity.
+  terraform:
+  - terraform/policy.tf#azurerm_management_group_policy_assignment.simple
+  - terraform/main.tf#azurerm_cognitive_account.this
+  native:
+  - native/policy/assignments.bicep
+  - native/policy/assign.sh
+  - native/bicep/foundry-account.bicep
+- control: AIG-08
+  summary: Public network access denied unless default-deny firewall (037eea7a, Deny); Private Link audited (d6759c02); reference
+    account has public access off, network ACL default Deny, outbound FQDN allow-list and a private endpoint. Deployment SKU
+    selects regional/data-zone processing.
+  terraform:
+  - terraform/policy.tf#azurerm_management_group_policy_assignment.simple
+  - terraform/main.tf#azurerm_cognitive_account.this
+  - terraform/main.tf#azurerm_private_endpoint.account
+  - terraform/policy.tf#azurerm_management_group_policy_assignment.eu_ai_act
+  native:
+  - native/policy/assignments.bicep
+  - native/policy/assign.sh
+  - native/bicep/foundry-account.bicep
+- control: AIG-09
+  summary: CMK policy (67121cc7) assigned (Audit by default, Deny optional) with excludedKinds overridden so AIServices accounts
+    are evaluated; reference account supports a customer-managed key.
+  terraform:
+  - terraform/policy.tf#azurerm_management_group_policy_assignment.cmk
+  - terraform/main.tf#azurerm_cognitive_account.this
+  native:
+  - native/policy/assignments.bicep
+  - native/policy/assign.sh
+  - native/bicep/foundry-account.bicep
+- control: AIG-10
+  summary: 'Content filter (raiPolicies) in Blocking mode: Hate, Sexual, Violence, Selfharm blocked at Medium on prompt and
+    completion; Jailbreak on prompt; Protected Material Text/Code on completion; bound to the deployment via rai_policy_name.'
+  terraform:
+  - terraform/main.tf#azurerm_cognitive_account_rai_policy.this
+  - terraform/main.tf#azurerm_cognitive_deployment.sample
+  native:
+  - native/bicep/foundry-account.bicep
+- control: AIG-13
+  summary: Diagnostic logs policy (1b4d1c4e, AuditIfNotExists); allLogs + AllMetrics diagnostic setting to Log Analytics;
+    EU AI Act 2024 1689 initiative in audit mode; Defender for AI services alerts.
+  terraform:
+  - terraform/policy.tf#azurerm_management_group_policy_assignment.simple
+  - terraform/policy.tf#azurerm_management_group_policy_assignment.eu_ai_act
+  - terraform/main.tf#azurerm_monitor_diagnostic_setting.account
+  - terraform/defender.tf#azurerm_security_center_subscription_pricing.ai
+  native:
+  - native/policy/assignments.bicep
+  - native/policy/assign.sh
+  - native/bicep/foundry-account.bicep
+  - native/bicep/defender-ai.bicep
+- control: AIG-15
+  summary: Deployments pin model version and set version_upgrade_option = NoAutoUpgrade so model upgrades go through the change
+    process.
+  terraform:
+  - terraform/main.tf#azurerm_cognitive_deployment.sample
+  native:
+  - native/bicep/foundry-account.bicep
+- control: AIG-16
+  summary: Defender for AI services (threat protection for AI services plan) raises security alerts on AI workloads for incident
+    response; the specific alert catalogue is not verified here — see the Defender for Cloud alerts reference.
+  terraform:
+  - terraform/defender.tf#azurerm_security_center_subscription_pricing.ai
+  native:
+  - native/bicep/defender-ai.bicep
+gaps:
+- control: AIG-01
+  note: Ownership and policy approval are organisational. Use resource tags (tags variable) for owner metadata and record
+    approval in the AI system record.
+- control: AIG-03
+  note: Risk classification and impact assessments are process controls. Purview Compliance Manager templates (ISO/IEC 42001,
+    EU AI Act, NIST AI RMF) can track them but do not perform them.
+- control: AIG-04
+  note: Data provenance and quality for grounding/fine-tuning data is outside the Foundry control plane; use Purview Data
+    Map/lineage and the data governance process.
+- control: AIG-05
+  note: Content filters do not mask personal data. Use Purview DLP / DSPM for AI (Entra user-context calls only; Foundry agent
+    data is not included) or an application-side PII filter.
+- control: AIG-10
+  note: Groundedness detection, Indirect Attack and custom blocklists are not in this baseline; the built-in content-filter
+    policies (f3a9c2e0, af253d37, 930f48f9, initiative 5207647b) are Preview and Audit-only, so this pack sets filters directly
+    rather than enforcing them by policy.
+- control: AIG-11
+  note: Foundry has no platform control that forces human approval of consequential actions; implement approval steps in the
+    agent/application workflow.
+- control: AIG-12
+  note: AI disclosure, explanation and synthetic-content marking are application responsibilities.
+- control: AIG-14
+  note: Evaluations and red-teaming are not enforced by Azure Policy; gate release in CI and evidence results in the AI system
+    record.
+- control: AIG-17
+  note: Resilience and exit (multi-region deployments, alternative providers) are architecture decisions outside this pack.
+- control: AIG-18
+  note: Global* deployment SKUs can process data outside the account region; choose Standard (regional) or DataZone* SKUs
+    and document the transfer mechanism. Not enforceable by a built-in policy verified for this pack.
+- control: AIG-19
+  note: Training is organisational.
+- control: AIG-20
+  note: Fairness testing is model- and use-case-specific; use evaluation tooling and the testing process.
+- control: AIG-02
+  note: Azure has no single authoritative AI registry. Defender for Cloud (AI workloads plan) and Purview DSPM for AI discover
+    AI usage and feed an inventory, but the register of record stays in your governance tooling; evidence it with governance.registered_in_inventory.

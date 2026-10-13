@@ -1,0 +1,149 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: US
+name: United States
+frameworks: [us-ai, iso27001, iso42001, zero-trust]
+notes: >-
+  No federal AI statute. State laws apply by where the people affected are; EO 14365 (11 Dec 2025)
+  challenges state AI laws but does not itself preempt them. Profiles list the main state laws; scope them to the states you operate in.
+instruments:
+  horizontal:
+    - id: us-tx-traiga
+      name: Texas Responsible Artificial Intelligence Governance Act
+      citation: HB 149 (89th Leg.)
+      status: in-force
+      effective: "2026-01-01"
+      ai_relevance: Bans AI developed or deployed with intent to manipulate toward harm, infringe rights, unlawfully discriminate, or produce CSAM/sexual deepfakes; government AI disclosure.
+      url: https://www.ashurstperkinscoie.com/en/insights/update/texas-enacts-responsible-artificial-intelligence-governance-act/
+      verification: secondary
+      controls: [AIG-10, AIG-12, AIG-20]
+    - id: us-co-sb26-189
+      name: Colorado Automated Decision-Making Technology law (replaced the Colorado AI Act SB 24-205)
+      citation: SB 26-189
+      status: phased
+      effective: "2027-01-01"
+      ai_relevance: Pre-use notice, adverse-decision explanation within 30 days, data correction and human review, 3-year records; developer documentation to deployers.
+      url: https://www.finnegan.com/en/insights/articles/colorado-replaces-landmark-ai-act-an-overview-of-the-new-sb-26-189-framework.html
+      verification: secondary
+      controls: [AIG-04, AIG-11, AIG-12, AIG-13]
+    - id: us-ca-sb53
+      name: California Transparency in Frontier Artificial Intelligence Act
+      citation: SB 53
+      status: in-force
+      effective: "2026-01-01"
+      ai_relevance: Frontier developers (>10^26 FLOPs) publish frameworks and transparency reports, report critical safety incidents.
+      url: https://www.mofo.com/pdf/resources/insights/251001-california-enacts-ai-safety-transparency-regulation-tfaia-sb-53
+      verification: secondary
+      controls: [AIG-14, AIG-16]
+    - id: us-employment-ai
+      name: AI in employment — Illinois HB 3773 (from 2026-01-01), NYC Local Law 144 bias audits (NYC only), Connecticut SB 5 (from 2027-10-01)
+      status: in-force
+      url: https://www.nelsonmullins.com/insights/blogs/ai-task-force/ai/states-take-aim-at-ai-in-employment-decisions-illinois-s-disclosure-and-anti-discrimination-requirements-enforcement-gaps-under-nyc-s-local-law-144-and-connecticut-s-new-ai-law
+      verification: secondary
+      controls: [AIG-12, AIG-20]
+    - id: us-ut-aipa
+      name: Utah Artificial Intelligence Policy Act (GenAI disclosure when asked or in high-risk interactions; mental-health chatbots)
+      citation: SB 149 (2024), SB 226 and HB 452 (2025); sunset 2027-07-01
+      status: in-force
+      url: https://fpf.org/blog/chatbots-in-check-utahs-latest-ai-legislation/
+      verification: secondary
+      controls: [AIG-12]
+    - id: us-nist-ai-rmf
+      name: NIST AI RMF 1.0 and Generative AI Profile (voluntary)
+      citation: NIST AI 100-1; NIST AI 600-1
+      status: voluntary
+      url: https://www.nist.gov/itl/ai-risk-management-framework
+      verification: primary
+      controls: [AIG-01, AIG-03, AIG-10, AIG-13, AIG-14]
+  data_protection:
+    - id: us-ca-admt
+      name: California CCPA regulations on ADMT, risk assessments and cybersecurity audits
+      citation: Cal. Code Regs. tit. 11 (CPPA)
+      status: phased
+      effective: "Risk assessments 2026-01-01; ADMT duties 2027-01-01; attestations 2028-04-01"
+      url: https://www.hunton.com/privacy-and-cybersecurity-law-blog/newly-approved-ccpa-regulations-have-staggered-deadlines-for-compliance
+      verification: secondary
+      controls: [AIG-03, AIG-11, AIG-12]
+  cyber:
+    - id: us-nydfs-500
+      name: NYDFS Cybersecurity Regulation (amended)
+      citation: 23 NYCRR 500
+      status: in-force
+      effective: "Final phase 2025-11-01"
+      url: https://hlc.com/en/publications/nydfs-final-set-of-cybersecurity-requirements-under-amended-part-500-take-effect-november-1-2025
+      verification: secondary
+      controls: [AIG-02, AIG-07, AIG-16]
+  sectors:
+    health:
+      - id: us-hipaa
+        name: HIPAA Privacy and Security Rules
+        citation: 45 CFR Parts 160 and 164
+        status: in-force
+        url: https://www.hhs.gov/hipaa/for-professionals/security/index.html
+        verification: unverified
+        controls: [AIG-05, AIG-07, AIG-09, AIG-13]
+      - id: us-1557-92-210
+        name: ACA §1557 non-discrimination in patient care decision support tools
+        citation: 45 CFR 92.210
+        status: in-force
+        url: https://www.crowell.com/en/insights/client-alerts/hhs-applies-discrimination-prohibitions-to-use-of-automated-and-non-automated-patient-care-decision-support-tools
+        verification: secondary
+        controls: [AIG-20]
+      - id: us-fda-ai-devices
+        name: FDA PCCP guidance for AI-enabled device software functions (final, Dec 2024); AI lifecycle management guidance (Jan 2025 — final status unconfirmed); revised CDS software guidance (Jan 2026)
+        status: in-force
+        url: https://fda.gov/regulatory-information/search-fda-guidance-documents/artificial-intelligence-enabled-device-software-functions-lifecycle-management-and-marketing
+        verification: unverified
+        controls: [AIG-14, AIG-15]
+    fsi:
+      - id: us-sr26-2
+        name: Supervisory Guidance on Model Risk Management (supersedes SR 11-7; excludes generative AI)
+        citation: SR 26-2 (Fed/FDIC/OCC)
+        status: in-force
+        effective: "2026-04-17"
+        url: https://www.bakertilly.com/insights/updated-interagency-guidance-on-model-risk-management
+        verification: secondary
+        controls: [AIG-01, AIG-06, AIG-14, AIG-15]
+      - id: us-ecoa-adverse-action
+        name: ECOA / Regulation B adverse action reasons for AI credit models (CFPB Circular 2023-03)
+        status: in-force
+        url: https://www.cooley.com/news/insight/2023/2023-09-25-cfpb-mandates-additional-specificity-in-adverse-action-communications-based-on-ai-or-complex-credit-models
+        verification: unverified
+        controls: [AIG-12, AIG-20]
+      - id: us-glba
+        name: Gramm-Leach-Bliley Act — FTC Safeguards Rule
+        citation: 16 CFR Part 314
+        status: in-force
+        url: https://www.ftc.gov/legal-library/browse/rules/safeguards-rule
+        verification: unverified
+        controls: [AIG-05, AIG-07, AIG-09]
+    public:
+      - id: us-omb-m-25-21
+        name: Accelerating Federal Use of AI through Innovation, Governance, and Public Trust
+        citation: OMB M-25-21
+        status: in-force
+        effective: "2025-04-03"
+        url: https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-21-Accelerating-Federal-Use-of-AI-through-Innovation-Governance-and-Public-Trust.pdf
+        verification: secondary
+        controls: [AIG-01, AIG-02, AIG-03, AIG-11, AIG-19]
+    agriculture:
+      - id: us-ag-data-transparent
+        name: Ag Data Transparent certification (Farm Bureau Core Principles, voluntary)
+        status: voluntary
+        url: https://dairyproducer.com/updated-core-principles-for-ag-data-2024-by-todd-janzen/
+        verification: secondary
+        controls: [AIG-04, AIG-06]
+    mining:
+      - id: us-msha-mobile-equipment
+        name: MSHA Safety Program for Surface Mobile Equipment (no autonomous-specific rule)
+        status: in-force
+        url: https://www.msha.gov/final-rule-safety-program-surface-mobile-equipment
+        verification: primary
+        controls: [AIG-11, AIG-14, AIG-17]
+    tech:
+      - id: us-ftc-s5
+        name: FTC Act §5 deception and unfairness enforcement on AI claims
+        status: in-force
+        url: https://www.hklaw.com/en/insights/media-entities/2026/09/the-federal-trade-commissions-current-approach-to-ai-regulation
+        verification: secondary
+        controls: [AIG-12, AIG-14]

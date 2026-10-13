@@ -1,0 +1,102 @@
+# Shared EU layer — inherited by Portugal and Spain.
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: EU
+name: European Union (shared layer)
+frameworks: [eu-ai-act, gdpr]
+instruments:
+  horizontal:
+    - id: eu-ai-act
+      name: Artificial Intelligence Act
+      citation: Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744
+      status: phased
+      effective: "Prohibitions 2025-02-02; GPAI 2025-08-02; Art 50 2026-08-02; Annex III high-risk 2027-12-02; Annex I 2028-08-02"
+      regulator: AI Office (Commission) + national market surveillance authorities
+      url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
+      amendment_url: https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng
+      verification: primary
+      controls: [AIG-01, AIG-02, AIG-03, AIG-04, AIG-10, AIG-11, AIG-12, AIG-13, AIG-14, AIG-16, AIG-19, AIG-20]
+  data_protection:
+    - id: gdpr
+      name: General Data Protection Regulation
+      citation: Regulation (EU) 2016/679
+      status: in-force
+      effective: "2018-05-25"
+      regulator: National DPAs; EDPB
+      ai_relevance: Art 22 automated decisions, Art 35 DPIA, Chapter V transfers; EDPB Opinion 28/2024 on AI models.
+      url: https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng
+      verification: primary
+      controls: [AIG-03, AIG-04, AIG-05, AIG-11, AIG-12, AIG-16, AIG-18]
+  cyber:
+    - id: nis2
+      name: NIS2 Directive
+      citation: Directive (EU) 2022/2555
+      status: in-force
+      effective: "National transposition varies (Portugal DL 125/2025 in force; Spain not transposed)"
+      regulator: National competent authorities
+      url: https://eur-lex.europa.eu/eli/dir/2022/2555/oj
+      verification: unverified
+      controls: [AIG-07, AIG-13, AIG-16]
+  sectors:
+    health:
+      - id: eu-mdr
+        name: Medical Devices Regulation
+        citation: Regulation (EU) 2017/745
+        status: in-force
+        ai_relevance: AI software as a medical device; AI Act Annex I high-risk from 2028-08-02.
+        url: https://eur-lex.europa.eu/eli/reg/2017/745/oj
+        verification: primary
+        controls: [AIG-03, AIG-14, AIG-15]
+      - id: ehds
+        name: European Health Data Space Regulation
+        citation: Regulation (EU) 2025/327
+        status: phased
+        effective: "In force 2025-03-26; general application 2027-03-26; most primary/secondary use 2029-03-26"
+        url: https://eur-lex.europa.eu/eli/reg/2025/327/oj
+        verification: secondary
+        controls: [AIG-04, AIG-05, AIG-18]
+    fsi:
+      - id: dora
+        name: Digital Operational Resilience Act
+        citation: Regulation (EU) 2022/2554
+        status: in-force
+        effective: "2025-01-17"
+        ai_relevance: ICT risk and ICT third-party risk, including AI and cloud providers.
+        url: https://eur-lex.europa.eu/eli/reg/2022/2554/oj
+        verification: unverified
+        controls: [AIG-06, AIG-13, AIG-16, AIG-17]
+      - id: eu-ai-act-annex-iii-credit
+        name: AI Act Annex III point 5 — creditworthiness and life/health insurance pricing
+        citation: Regulation (EU) 2024/1689 Annex III(5)(b)–(c); FRIA under Art 27
+        status: phased
+        effective: "2027-12-02"
+        url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
+        verification: secondary
+        controls: [AIG-03, AIG-11, AIG-12, AIG-20]
+    agriculture:
+      - id: eu-data-act
+        name: Data Act
+        citation: Regulation (EU) 2023/2854
+        status: in-force
+        effective: "2025-09-12"
+        ai_relevance: Users' access and sharing rights over connected-product data such as farm machinery and IoT.
+        url: https://eur-lex.europa.eu/eli/reg/2023/2854/oj
+        verification: secondary
+        controls: [AIG-04, AIG-06]
+    public:
+      - id: eu-ai-act-fria
+        name: AI Act Art 27 fundamental rights impact assessment (public bodies and private bodies providing public services; credit and life/health insurance deployers)
+        citation: Regulation (EU) 2024/1689 Art 27
+        status: phased
+        effective: "2027-12-02"
+        url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
+        verification: primary
+        controls: [AIG-03, AIG-12]
+    tech:
+      - id: dsm-tdm
+        name: Copyright DSM Directive text-and-data-mining exception with opt-out, plus AI Act Art 53(1)(c) copyright policy
+        citation: Directive (EU) 2019/790 Art 4; Regulation (EU) 2024/1689 Art 53(1)(c)
+        status: in-force
+        url: https://eur-lex.europa.eu/eli/dir/2019/790/oj
+        verification: primary
+        controls: [AIG-04, AIG-06]

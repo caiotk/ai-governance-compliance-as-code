@@ -1,0 +1,21 @@
+{
+  "bedrock": {
+    "guardrail_inference": {
+      "ap-southeast-2": {
+        "aig10_baseline": {
+          "identifier": {
+            "@@assign": "arn:aws:bedrock:ap-southeast-2:MANAGEMENT_ACCOUNT_ID:guardrail/GUARDRAIL_ID:1"
+          },
+          "selective_content_guarding": {
+            "system": { "@@assign": "comprehensive" },
+            "messages": { "@@assign": "comprehensive" }
+          },
+          "model_enforcement": {
+            "included_models": { "@@assign": ["ALL"] },
+            "excluded_models": { "@@assign": ["amazon.titan-embed-text-v2:0"] }
+          }
+        }
+      }
+    }
+  }
+}

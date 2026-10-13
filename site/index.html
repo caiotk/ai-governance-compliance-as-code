@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Governance Compliance Explorer</title>
+  <meta name="description" content="Explore AI governance obligations by country and sector: the laws that apply, the controls they require, and which vendor policy packs (Azure Foundry, Copilot Studio, Bedrock, Vertex AI, OpenAI, Claude, Llama) implement them.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/explorer.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#top" aria-label="AI Governance Compliance Explorer, home">
+        <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18M3 12h18M3 19h18"/><path d="M7 5v14M17 5v14"/></svg>
+        <span>AI Governance <em>Compliance as Code</em></span>
+      </a>
+      <nav aria-label="Sections">
+        <a href="#profile">Profile</a>
+        <a href="#crosswalk">Crosswalk</a>
+        <a href="#vendors">Vendors</a>
+        <a href="https://github.com/caiotk/ai-governance-compliance-as-code" class="nav-cta">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" id="top">
+      <p class="kicker">Policy as code · verified <span id="asof"></span></p>
+      <h1>Pick a country and a sector.<br><span class="accent">See what applies.</span></h1>
+      <p class="lede">Ten countries, six sectors, ten horizontal frameworks and the national laws beneath them, mapped to twenty controls and to the native governance tooling of seven AI platforms.</p>
+      <div class="picker" role="group" aria-label="Choose a profile">
+        <label>Country <select id="country"></select></label>
+        <label>Sector <select id="sector"></select></label>
+        <a id="profile-link" class="btn primary" href="#">Open the profile on GitHub</a>
+      </div>
+      <div class="stats" id="stats" aria-live="polite"></div>
+    </section>
+
+    <section class="wrap block" id="profile" aria-labelledby="profile-h">
+      <div class="block-head">
+        <h2 id="profile-h">Obligations for <span id="profile-title">…</span></h2>
+        <p>Frameworks the gate applies, the laws and guidance behind them, and the controls they require. ★ marks controls the sector treats as high-stakes.</p>
+      </div>
+      <div id="profile-body"></div>
+    </section>
+
+    <section class="wrap block" id="crosswalk" aria-labelledby="xw-h">
+      <div class="block-head">
+        <h2 id="xw-h">Control crosswalk</h2>
+        <p>Each control is implemented once and evidenced many times. Select a control to see every clause it satisfies.</p>
+      </div>
+      <div class="table-scroll"><table class="matrix" id="xw"></table></div>
+      <div id="xw-detail" class="detail" aria-live="polite"></div>
+    </section>
+
+    <section class="wrap block" id="vendors" aria-labelledby="v-h">
+      <div class="block-head">
+        <h2 id="v-h">Vendor coverage</h2>
+        <p>● the pack enforces or evidences the control with the platform's native tooling · ○ a documented platform gap you must close elsewhere.</p>
+      </div>
+      <div class="table-scroll"><table class="matrix" id="vendor-matrix"></table></div>
+      <div id="vendor-detail" class="detail" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>Built by <a href="https://www.linkedin.com/in/caiotk">Caio Augusto Tkalec</a>. MIT licensed. Not legal advice.</p>
+      <p class="muted">Labels: ✓ primary source · ◐ secondary source · ⚠ unverified</p>
+    </div>
+  </footer>
+
+  <script type="module" src="assets/explorer.js"></script>
+</body>
+</html>

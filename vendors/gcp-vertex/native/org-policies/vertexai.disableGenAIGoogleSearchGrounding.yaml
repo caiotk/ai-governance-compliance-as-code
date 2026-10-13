@@ -1,0 +1,5 @@
+# AIG-10 AIG-18: boolean constraint; disables Grounding with Google Search.
+name: PARENT/policies/vertexai.disableGenAIGoogleSearchGrounding
+spec:
+  rules:
+  - enforce: true

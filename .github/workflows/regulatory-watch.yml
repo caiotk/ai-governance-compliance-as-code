@@ -1,0 +1,38 @@
+# Monitor: every Monday, list framework obligations that commence in the next
+# 120 days and open or update an issue so owners can prepare. Also flags when
+# the catalogue's "as of" date is more than 90 days old (time to re-verify).
+name: Regulatory watch
+
+on:
+  schedule:
+    - cron: "41 19 * * 0"   # Mondays 08:41 NZDT (07:41 NZST)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Find upcoming obligations
+        id: watch
+        run: python3 tools/deadlines.py --days 120 --markdown watch.md
+      - name: Open or update the watch issue
+        if: steps.watch.outputs.items != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create regulatory-watch --color 0E8A16 --description "Upcoming AI regulatory obligations" --force
+          existing=$(gh issue list --label regulatory-watch --state open --json number --jq '.[0].number')
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file watch.md
+          else
+            gh issue create --title "Upcoming AI regulatory obligations" --label regulatory-watch --body-file watch.md
+          fi

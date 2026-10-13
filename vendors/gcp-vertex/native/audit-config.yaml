@@ -1,0 +1,22 @@
+# AIG-13: Data Access audit logs for Vertex AI (Gemini Enterprise Agent Platform).
+# Admin Activity logs are always on; Data Access logs are OFF by default.
+#
+# This is a FRAGMENT of a project IAM policy, not a complete policy.
+# `gcloud projects set-iam-policy` always overwrites `bindings` and `etag`,
+# so never apply this file on its own: merge auditConfigs into the output of
+# `gcloud projects get-iam-policy` and set the merged policy. The script
+# apply-audit-config.sh does exactly that.
+#
+# Manual procedure:
+#   gcloud projects get-iam-policy PROJECT_ID --format=yaml > policy.yaml
+#   # add or replace the auditConfigs entries below in policy.yaml (keep etag)
+#   gcloud projects set-iam-policy PROJECT_ID policy.yaml
+#
+# Model Armor's own Data Access logging was not verified for this pack; Model
+# Armor filter results reach Cloud Logging through enableCloudLogging on the
+# floor setting and log_sanitize_operations on templates instead.
+auditConfigs:
+- service: aiplatform.googleapis.com
+  auditLogConfigs:
+  - logType: DATA_READ
+  - logType: DATA_WRITE

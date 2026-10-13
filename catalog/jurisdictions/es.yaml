@@ -1,0 +1,88 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: ES
+name: Spain
+inherits: [EU]
+frameworks: [eu-ai-act, gdpr, iso27001, iso42001, zero-trust]
+notes: Spain's national AI law is a Proyecto de Ley Orgánica before the Congreso (BOCG 12 Jun 2026). NIS2 is not transposed; the Commission referred Spain to the CJEU on 8 Jul 2026.
+instruments:
+  horizontal:
+    - id: es-plo-ia
+      name: Proyecto de Ley Orgánica para el buen uso y la gobernanza de la inteligencia artificial
+      citation: BOCG 15-A-97-1 (2026-06-12)
+      status: pending
+      ai_relevance: Fines up to €35m / 7%; AESIA sandbox; public bodies must inventory AI systems and appoint an AI delegate.
+      url: https://www.congreso.es/public_oficiales/L15/CONG/BOCG/A/BOCG-15-A-97-1.PDF
+      verification: primary
+      controls: [AIG-01, AIG-02, AIG-03]
+    - id: es-aesia
+      name: AESIA — Agencia Española de Supervisión de la Inteligencia Artificial
+      citation: Market surveillance authority and single point of contact
+      status: in-force
+      url: https://www.osborneclarke.com/es/insights/espana-avanza-en-la-regulacion-de-la-ia-claves-de-la-nueva-ley-organica-de-gobernanza
+      verification: secondary
+      controls: [AIG-16]
+  data_protection:
+    - id: es-lopdgdd
+      name: Ley Orgánica de Protección de Datos Personales y garantía de los derechos digitales
+      citation: LO 3/2018
+      status: in-force
+      regulator: AEPD
+      url: https://www.boe.es/eli/es/lo/2018/12/05/3/con
+      verification: unverified
+      controls: [AIG-05, AIG-12, AIG-18]
+  cyber:
+    - id: es-ens
+      name: Esquema Nacional de Seguridad and NIS1-era law (NIS2 not transposed)
+      citation: RD 311/2022 (ENS); RDL 12/2018; RD 43/2021
+      status: in-force
+      url: https://www.legiscope.com/blog/nis2-espana-transposicion.html
+      verification: secondary
+      controls: [AIG-07, AIG-13, AIG-16]
+  sectors:
+    health:
+      - id: es-aemps
+        name: AEMPS as device authority under EU MDR; EHDS applies
+        status: in-force
+        url: https://digital.gob.es/content/dam/portal-mtdfp/comunicacion/comunicacion_ministro/2026/05/2026-05-26/260526%20NP%20CMin%20APL%20IA.pdf
+        verification: primary
+        controls: [AIG-14, AIG-15]
+    fsi:
+      - id: es-fsi-supervisors
+        name: Banco de España, CNMV and DGSFP keep sectoral AI supervision; DORA applies
+        status: in-force
+        url: https://www.osborneclarke.com/es/insights/espana-avanza-en-la-regulacion-de-la-ia-claves-de-la-nueva-ley-organica-de-gobernanza
+        verification: secondary
+        controls: [AIG-06, AIG-17]
+    public:
+      - id: es-public-ai-inventory
+        name: AI inventory, AI delegate and civil-servant training for public administrations (in the LO bill)
+        status: pending
+        url: https://digital.gob.es/content/dam/portal-mtdfp/comunicacion/comunicacion_ministro/2026/05/2026-05-26/260526%20NP%20CMin%20APL%20IA.pdf
+        verification: primary
+        controls: [AIG-02, AIG-19]
+    agriculture:
+      - id: es-siex
+        name: SIEX — digital farm notebook (cuaderno digital de explotación)
+        citation: RD 1054/2022, amended BOE-A-2025-998
+        status: voluntary
+        effective: "Voluntary until the next CAP period (2027)"
+        url: https://servicio.mapama.gob.es/ca/prensa/250122boecuadernodigitaldeexplotacion_tcm34-700096.pdf
+        verification: primary
+        controls: [AIG-04]
+    mining:
+      - id: es-rd-863-1985
+        name: Reglamento General de Normas Básicas de Seguridad Minera (not AI-specific)
+        citation: RD 863/1985
+        status: in-force
+        url: https://boe.gob.es/boe/dias/1985/06/12/pdfs/A17869-17877.pdf
+        verification: primary
+        controls: [AIG-11, AIG-17]
+    tech:
+      - id: es-tdm
+        name: DSM Directive TDM opt-out (transposition) and AI Act Art 53; LO bill adds enforcement of the new prohibitions
+        citation: RDL 24/2021 (citation unverified)
+        status: in-force
+        url: https://digital.gob.es/content/dam/portal-mtdfp/comunicacion/comunicacion_ministro/2026/05/2026-05-26/260526%20NP%20CMin%20APL%20IA.pdf
+        verification: unverified
+        controls: [AIG-04, AIG-06, AIG-10]

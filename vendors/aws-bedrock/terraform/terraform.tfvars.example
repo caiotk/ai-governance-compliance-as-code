@@ -1,0 +1,71 @@
+# Copy to terraform.tfvars and replace every placeholder. Never commit real IDs.
+
+aws_region  = "ap-southeast-2"
+name_prefix = "aigov"
+
+# ── Guardrail ────────────────────────────────────────────────────────────────
+content_filter_strength = "HIGH"
+prompt_attack_strength  = "HIGH"
+guardrail_tier          = "CLASSIC"
+# guardrail_tier               = "STANDARD"
+# guardrail_profile_identifier = "<system-defined guardrail profile ID or ARN>"
+
+additional_pii_entities = [
+  { type = "INTERNATIONAL_BANK_ACCOUNT_NUMBER", action = "BLOCK" },
+  { type = "IP_ADDRESS", action = "ANONYMIZE" },
+]
+
+# Example for an identifier with no managed PII type (validate the pattern first).
+# pii_regexes = [
+#   { name = "nz-ird-number", description = "NZ IRD number", pattern = "\\b\\d{2,3}-?\\d{3}-?\\d{3}\\b", action = "ANONYMIZE" },
+# ]
+
+denied_topics = [
+  {
+    name       = "Legal advice"
+    definition = "Requests for, or responses giving, specific legal advice or legal opinions about an individual's own circumstances."
+    examples   = ["Should I sign this contract?", "Can I sue my landlord over this?"]
+  },
+]
+
+grounding_threshold = 0.75
+relevance_threshold = 0.75
+
+# guardrail_kms_key_arn = "arn:aws:kms:ap-southeast-2:111122223333:key/00000000-0000-0000-0000-000000000000"
+
+# ── Invocation logging ───────────────────────────────────────────────────────
+enable_invocation_logging = true
+log_retention_days        = 400
+log_key_prefix            = "bedrock"
+# logging_kms_key_arn     = "arn:aws:kms:ap-southeast-2:111122223333:key/00000000-0000-0000-0000-000000000000"
+
+# ── AWS Organizations (management account only) ──────────────────────────────
+manage_organization_policies   = false
+organization_policy_target_ids = ["ou-xxxx-xxxxxxxx"]
+
+approved_foundation_model_ids = [
+  "amazon.titan-embed-text-v2:0",
+  "<provider.model-id:version>",
+]
+approved_inference_profile_ids = [
+  "apac.<provider.model-id:version>",
+]
+
+enforce_guardrail_in_scp       = true
+guardrail_exempt_resource_arns = [] # e.g. ["arn:aws:bedrock:*::foundation-model/amazon.titan-embed-text-v2:0"] if embeddings run without a guardrail
+
+# Geographic cross-Region inference needs every destination Region listed here.
+allowed_regions                     = ["ap-southeast-2", "ap-southeast-4"]
+allow_global_cross_region_inference = false
+
+enforce_guardrail_via_bedrock_policy = true
+bedrock_policy_excluded_models       = ["amazon.titan-embed-text-v2:0"]
+
+invocation_logging_admin_role_arns = ["arn:aws:iam::*:role/<platform-admin-role>"]
+
+# ── Private connectivity ─────────────────────────────────────────────────────
+enable_vpc_endpoints   = false
+vpc_id                 = "vpc-00000000000000000"
+subnet_ids             = ["subnet-00000000000000000", "subnet-11111111111111111"]
+endpoint_allowed_cidrs = ["10.0.0.0/16"]
+vpc_endpoint_services  = ["bedrock", "bedrock-runtime", "bedrock-agent-runtime"]

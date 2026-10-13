@@ -1,0 +1,29 @@
+{
+  "TableName": "PowerPlatformResources",
+  "Clauses": [
+    {
+      "$type": "where",
+      "FieldName": "type",
+      "Operator": "==",
+      "Values": ["'microsoft.copilotstudio/agents'"]
+    },
+    {
+      "$type": "project",
+      "FieldList": [
+        "name",
+        "location",
+        "properties.displayName",
+        "properties.environmentId",
+        "properties.createdBy",
+        "properties.createdAt",
+        "properties.lastPublishedAt",
+        "properties.authentication",
+        "properties.entraAgentId"
+      ]
+    },
+    {
+      "$type": "take",
+      "TakeCount": 1000
+    }
+  ]
+}

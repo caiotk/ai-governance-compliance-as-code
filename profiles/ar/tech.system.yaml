@@ -1,0 +1,114 @@
+# Pre-filled AI system record — complete every field, then run tools/gate.py.
+# Field meanings: mlops/schema/ai-system.schema.json. Notification matrix tokens: APRA:72h, CSIRT-Nacional.
+# system.generative defaults to true (GenAI); set false for predictive models so bank model-risk rules (SR 26-2) apply.
+apiVersion: aigov/v1
+kind: AISystem
+metadata:
+  id: ar-tech-example
+  name: Argentina — Technology companies reference system
+  owner: owner@example.com
+context:
+  countries:
+  - AR
+  sector: tech
+  role: deployer
+  public_body: false
+  provides_public_service: false
+  entity_types: []
+system:
+  purpose: Building and distributing AI products and agents to customers
+  decision_impact: assistive
+  annex_iii_area: null
+  user_facing: true
+  generates_synthetic_content: false
+  agentic: false
+  irreversible_actions: false
+  critical_operation: false
+  fully_automated_decision: false
+  generative: true
+  biometric_processing: false
+  prohibited_practice: false
+  placed_on_market_before_2026_08_02: false
+  model:
+    vendor: other
+    model_id: ''
+    hosting_region: ''
+governance:
+  policy_approved: false
+  registered_in_inventory: false
+  ai_literacy_training: false
+  eu_database_registered: false
+risk:
+  classification: limited
+  impact_assessment:
+    completed: false
+  dpia:
+    completed: false
+  fria:
+    completed: false
+  biometric_proportionality_assessment: false
+data:
+  personal_data: true
+  special_category: false
+  provenance_documented: false
+  lawful_basis: 'FILL IN: lawful basis for processing personal data'
+  cross_border_transfer: false
+  transfer_mechanism: 'FILL IN: transfer mechanism, or leave if cross_border_transfer
+    is false'
+  indirect_collection: false
+model:
+  approved: false
+supplier:
+  assessed: false
+  no_training_on_customer_data: false
+  outsourced: false
+  material_service_provider: false
+  register_entry: false
+  regulator_access_assured: false
+security:
+  local_auth_disabled: false
+  least_privilege: false
+  private_network: false
+  data_residency_region: 'FILL IN: processing region'
+  cmk: false
+  short_lived_credentials: false
+  tool_allowlist: false
+  non_human_identity_pam: false
+runtime:
+  content_filters: false
+  prompt_attack_detection: false
+  pii_filtering: false
+  guardrail_enforced_centrally: false
+oversight:
+  human_in_the_loop: false
+  override_and_stop: false
+  contest_and_review: false
+transparency:
+  ai_disclosure: false
+  adm_notice: false
+  adverse_decision_explanation: false
+  synthetic_content_marking: false
+  privacy_policy_adm_disclosure: false
+  indirect_collection_notice: false
+logging:
+  invocation_logging: false
+  retention_days: 0
+monitoring:
+  drift_and_bias: false
+testing:
+  evaluation_completed: false
+  red_team_completed: false
+  bias_assessment: false
+  independent_bias_audit: false
+  independent_validation: false
+lifecycle:
+  versioned: false
+  promotion_gate: false
+incident:
+  runbook: false
+  notification_matrix: []
+resilience:
+  fallback_tested: false
+  exit_plan: false
+  tolerance_levels_set: false
+  backup_capability: false

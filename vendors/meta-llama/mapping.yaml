@@ -1,0 +1,78 @@
+apiVersion: aigov/v1
+kind: VendorPack
+vendor: meta-llama
+name: Meta Llama (open weights)
+verified: '2026-10-13'
+native_tools:
+- name: Llama 4 Community License Agreement
+  url: https://www.llama.com/llama4/license/
+- name: Llama 4 Acceptable Use Policy
+  url: https://www.llama.com/llama4/use-policy/
+- name: Llama Guard 4 (12B)
+  url: https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-4/
+- name: Llama Prompt Guard 2
+  url: https://www.llama.com/docs/model-cards-and-prompt-formats/prompt-guard/
+- name: LlamaFirewall
+  url: https://github.com/meta-llama/PurpleLlama/blob/main/LlamaFirewall/README.md
+- name: CyberSecEval 4
+  url: https://github.com/meta-llama/PurpleLlama/blob/main/CybersecurityBenchmarks/README.md
+- name: OGX (formerly Llama Stack) 1.0 release notes
+  url: https://github.com/ogx-ai/ogx/blob/main/docs/releases/RELEASE_NOTES_1.0.md
+- name: Developer Use Guide for Llama
+  url: https://www.llama.com/developer-use-guide/
+- name: Vertex AI model access (vertexai.allowedModels)
+  url: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/control-model-access
+- name: Foundry model deployment policies
+  url: https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/model-deployment-policy
+- name: Bedrock identity-based policy examples (SCP)
+  url: https://docs.aws.amazon.com/bedrock/latest/userguide/security_iam_id-based-policy-examples.html
+attestations: []
+implements:
+- control: AIG-06
+  summary: Approved Llama models enforced per host — Vertex AI vertexai.allowedModels org policy, Azure built-in policy aafe3651-cb78-4f68-9f81-e7e41509110f
+    (approved publishers/asset IDs), Bedrock SCP denying non-approved foundation-model ARNs; Llama 4 license obligations (700M
+    MAU, AUP, EU multimodal restriction, derived-model naming) tracked as a checklist.
+  terraform:
+  - terraform/main.tf#google_org_policy_policy.vertex_allowed_models
+  - terraform/main.tf#azurerm_management_group_policy_assignment.foundry_approved_llama
+  - terraform/main.tf#aws_organizations_policy.bedrock_approved_models
+  - terraform/main.tf#aws_organizations_policy_attachment.bedrock_approved_models
+  native:
+  - native/license-compliance.yaml
+- control: AIG-10
+  summary: Llama Guard 4 hazard policy (S1–S14, block/flag per category, fail closed), Prompt Guard 2 for injection/jailbreak,
+    LlamaFirewall input gate, and OGX >= 1.0 moderation via an OpenAI-compatible /v1/moderations endpoint.
+  terraform: []
+  native:
+  - native/llama-guard-policy.yaml
+  - native/llamafirewall_gate.py
+  - native/moderation-ogx.md
+gaps:
+- control: AIG-13
+  note: 'Self-hosted Llama has no vendor logging: prompt/response, guardrail-decision and access logging are the operator''s
+    responsibility (gateway / inference-server logs to the SIEM). Hosted Llama uses the cloud''s logging (Bedrock invocation
+    logging is off by default; Vertex Data Access logs are off by default) — see the cloud packs.'
+- control: AIG-07
+  note: 'Self-hosted inference endpoints have no built-in identity: front them with workload identity, mTLS and per-agent
+    authorization (see the zero-trust controls).'
+- control: AIG-08
+  note: Network isolation for self-hosted Llama is the operator's responsibility (private subnets, no public endpoint, egress
+    control); for hosted Llama use the cloud's private endpoints.
+- control: AIG-06
+  note: Exact Llama 4 model IDs per cloud (Vertex model names, Foundry publisher/asset IDs, Bedrock meta.* model IDs) were
+    not verified from cloud docs in this pass — copy them from each model catalog. Model-weight integrity (hash/signature
+    checks on downloaded weights) must be enforced in the MLOps pipeline.
+- control: AIG-10
+  note: Hosted-cloud default content filters for Llama (Bedrock Guardrails, Azure AI Content Safety, Model Armor) are UNVERIFIED
+    for Llama specifically; apply the cloud packs' guardrails explicitly. OGX >= 1.0 has no shields API.
+- control: AIG-14
+  note: CyberSecEval 4 is a benchmark suite, not a control this pack automates; run it in your evaluation pipeline and record
+    the result in testing.evaluation_completed / red_team_completed. llamafirewall_gate.py is a runtime input gate (AIG-10),
+    not a test harness.
+- control: AIG-12
+  note: Attribution ('Built with Llama', 'Llama' naming prefix, NOTICE file) is a licence obligation evidenced by the checklist
+    in native/license-compliance.yaml; nothing in this pack enforces it at runtime.
+- control: AIG-18
+  note: The EU multimodal licence restriction and hosting-region choice are recorded in native/license-compliance.yaml as
+    a checklist; region enforcement comes from the hosting cloud's pack (resource location org policy, SCP region condition,
+    Azure region).

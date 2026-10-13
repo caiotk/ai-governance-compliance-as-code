@@ -1,0 +1,15 @@
+# Copy to terraform.tfvars. Provide the Admin key through the environment:
+#   export TF_VAR_anthropic_admin_api_key=sk-ant-admin...
+# This module only reads the Admin API and verifies posture; it changes nothing.
+
+required_workspaces             = ["production", "staging", "development"]
+allow_default_workspace_keys    = false
+max_active_api_keys             = 50
+max_key_age_days                = 90
+require_key_expiry              = true
+service_account_only_workspaces = ["production"]
+us_only_workspaces              = ["production"]
+require_workspace_rate_limits   = true
+
+# true in CI (plan fails on violations); false for a report-only run.
+fail_on_violation = true

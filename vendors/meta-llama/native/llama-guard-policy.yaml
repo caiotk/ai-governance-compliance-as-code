@@ -1,0 +1,102 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Llama Guard 4 hazard policy — per-category actions and AIG control mapping.
+# Controls: AIG-10 (runtime guardrails), plus the per-category controls below.
+#
+# Taxonomy verified 2026-10-13 from the Llama Guard 4 model card:
+#   https://github.com/meta-llama/PurpleLlama/blob/main/Llama-Guard4/12B/MODEL_CARD.md
+#   https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-4/
+# "based on the MLCommons safety taxonomy. We include an additional category,
+#  Code Interpreter Abuse."  The llama.com prompt template uses shorter labels
+# for S3, S4 and S11; `aliases` lists them so parsers accept either form.
+#
+# Llama Guard returns "safe" or "unsafe" followed by the violated category
+# codes (e.g. "S1,S10"). Policy engines should match on `code`, not label.
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: aigov/v1
+kind: GuardrailPolicy
+vendor: meta-llama
+verified: "2026-10-13"
+
+model:
+  id: meta-llama/Llama-Guard-4-12B   # natively multimodal (text + multiple images), single GPU
+  replaces: [Llama Guard 3 8B, Llama Guard 3 11B]
+  apply_to: [user_input, model_output]
+  prompt_template_url: https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-4/
+
+# Actions:
+#   block — refuse the request/response and log the event (AIG-13).
+#   flag  — allow, but log and route to human review (AIG-11) above the review SLA threshold.
+defaults:
+  on_unparseable_output: block     # fail closed if the classifier output is not "safe"/"unsafe ..."
+  on_classifier_unavailable: block # fail closed when the guard model is down
+  log_decisions: true              # decision + category codes only; never the raw content
+
+categories:
+  - code: S1
+    label: "Violent Crimes"
+    action: block
+    controls: [AIG-10]
+  - code: S2
+    label: "Non-Violent Crimes"
+    action: block
+    controls: [AIG-10]
+  - code: S3
+    label: "Sex-Related Crimes"
+    aliases: ["Sex Crimes"]
+    action: block
+    controls: [AIG-10]
+  - code: S4
+    label: "Child Sexual Exploitation"
+    aliases: ["Child Exploitation"]
+    action: block
+    controls: [AIG-10, AIG-16]   # mandatory escalation / reporting path
+  - code: S5
+    label: "Defamation"
+    action: flag
+    controls: [AIG-10, AIG-11]
+  - code: S6
+    label: "Specialized Advice"
+    action: flag                 # legal/medical/financial advice → human oversight in regulated use cases
+    controls: [AIG-10, AIG-11]
+  - code: S7
+    label: "Privacy"
+    action: block
+    controls: [AIG-10, AIG-05]
+  - code: S8
+    label: "Intellectual Property"
+    action: flag
+    controls: [AIG-10, AIG-04]
+  - code: S9
+    label: "Indiscriminate Weapons"
+    action: block
+    controls: [AIG-10]
+  - code: S10
+    label: "Hate"
+    action: block
+    controls: [AIG-10, AIG-20]
+  - code: S11
+    label: "Suicide & Self-Harm"
+    aliases: ["Self-Harm"]
+    action: block                # pair with a safe-messaging / support-resources response
+    controls: [AIG-10]
+  - code: S12
+    label: "Sexual Content"
+    action: block
+    controls: [AIG-10]
+  - code: S13
+    label: "Elections"
+    action: flag
+    controls: [AIG-10, AIG-12]
+  - code: S14
+    label: "Code Interpreter Abuse"
+    scope_note: "text only"
+    action: block
+    controls: [AIG-10, AIG-07]   # pair with sandboxed, least-privilege tool execution
+
+# Companion input classifier (prompt injection / jailbreak).
+prompt_guard:
+  model: meta-llama/Llama-Prompt-Guard-2-86M   # or meta-llama/Llama-Prompt-Guard-2-22M for low latency
+  labels: [benign, malicious]                  # Prompt Guard 2 dropped the separate "injection" label
+  action_on_malicious: block
+  apply_to: [user_input, tool_output]          # untrusted content entering the context
+  controls: [AIG-10]

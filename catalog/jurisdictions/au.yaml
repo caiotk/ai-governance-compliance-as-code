@@ -1,0 +1,124 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: AU
+name: Australia
+frameworks: [au-privacy, iso27001, iso42001, zero-trust]
+sector_frameworks:
+  fsi: [apra]
+notes: The National AI Plan (Dec 2025) relies on existing laws; there are no mandatory AI guardrails.
+instruments:
+  horizontal:
+    - id: au-ai-adoption
+      name: Guidance for AI Adoption (six essential practices)
+      citation: National AI Centre, 17 Oct 2025 (updates the Voluntary AI Safety Standard)
+      status: voluntary
+      url: https://www.industry.gov.au/publications/guidance-for-ai-adoption
+      verification: primary
+      controls: [AIG-01, AIG-03, AIG-11, AIG-12, AIG-14]
+  data_protection:
+    - id: au-privacy-act
+      name: Privacy Act 1988 — Australian Privacy Principles
+      citation: Privacy Act 1988 (Cth); Privacy and Other Legislation Amendment Act 2024
+      status: phased
+      effective: "Statutory tort 2025-06-10; APP 1.7–1.9 ADM transparency 2026-12-10"
+      regulator: OAIC
+      ai_relevance: APP 1.7–1.9 disclose automated decisions in the privacy policy; APP 6 secondary use; APP 8 cross-border; APP 11 security. OAIC AI guidance (Oct 2024; ADM transparency resources Sep 2026).
+      url: https://www.oaic.gov.au/news/media-centre/new-resources-on-transparency-for-use-of-ai-and-automated-decision-making
+      verification: primary
+      controls: [AIG-02, AIG-04, AIG-05, AIG-08, AIG-12, AIG-16, AIG-18]
+  cyber:
+    - id: au-soci
+      name: Security of Critical Infrastructure Act 2018 (SOCI)
+      status: in-force
+      url: https://www.legislation.gov.au/C2018A00029/latest
+      verification: unverified
+      controls: [AIG-02, AIG-07, AIG-16, AIG-17]
+    - id: au-cyber-security-act
+      name: Cyber Security Act 2024 (ransomware payment reporting)
+      status: in-force
+      effective: "2025-05-30"
+      url: https://www.minterellison.com/articles/new-ransomware-payment-reporting-obligations-in-australia
+      verification: secondary
+      controls: [AIG-16]
+  sectors:
+    health:
+      - id: au-tga-samd
+        name: TGA software-based medical device regulation incl. AI (Jul 2025 review findings)
+        citation: Therapeutic Goods Act 1989
+        status: in-force
+        url: https://www.minterellison.com/articles/tga-publishes-findings-on-ai-and-medical-devices
+        verification: secondary
+        controls: [AIG-14, AIG-15]
+      - id: au-my-health-records
+        name: My Health Records Act 2012
+        status: in-force
+        url: https://www.legislation.gov.au/C2012A00063/latest
+        verification: unverified
+        controls: [AIG-05, AIG-07]
+    fsi:
+      - id: au-apra-cps230
+        name: APRA CPS 230 Operational Risk Management
+        status: in-force
+        effective: "2025-07-01 (legacy contracts by 2026-07-01)"
+        url: https://www.apra.gov.au/sites/default/files/2023-07/Prudential%20Standard%20CPS%20230%20Operational%20Risk%20Management%20-%20clean.pdf
+        verification: primary
+        controls: [AIG-02, AIG-03, AIG-06, AIG-15, AIG-16, AIG-17]
+      - id: au-apra-cps234
+        name: APRA CPS 234 Information Security
+        status: in-force
+        effective: "2019-07-01"
+        url: https://www.apra.gov.au/sites/default/files/cps_234_july_2019_for_public_release.pdf
+        verification: primary
+        controls: [AIG-01, AIG-07, AIG-08, AIG-09, AIG-13, AIG-14, AIG-16]
+      - id: au-apra-ai-letter
+        name: APRA letter to industry on artificial intelligence (supervisory expectations under existing standards)
+        citation: 30 Apr 2026
+        status: voluntary
+        url: https://www.apra.gov.au/apra-letter-to-industry-on-artificial-intelligence-ai
+        verification: primary
+        controls: [AIG-01, AIG-02, AIG-06, AIG-07, AIG-10, AIG-11, AIG-13, AIG-14, AIG-17, AIG-19, AIG-20]
+      - id: au-asic-rep-798
+        name: ASIC REP 798 Beware the gap — governance arrangements in the face of AI innovation
+        citation: 29 Oct 2024
+        status: voluntary
+        url: https://asic.gov.au/regulatory-resources/find-a-document/reports/rep-798-beware-the-gap-governance-arrangements-in-the-face-of-ai-innovation/
+        verification: primary
+        controls: [AIG-01, AIG-02]
+    public:
+      - id: au-gov-ai-policy
+        name: Policy for the responsible use of AI in government (updated)
+        citation: DTA, effective 15 Dec 2025
+        status: in-force
+        ai_relevance: Accountable officials, internal AI register, mandatory AI impact assessment.
+        url: https://www.digital.gov.au/ai/ai-in-government-policy
+        verification: primary
+        controls: [AIG-01, AIG-02, AIG-03, AIG-12]
+    agriculture:
+      - id: au-farm-data-code
+        name: NFF Australian Farm Data Code v2 (consent for AI training on farm data)
+        citation: May 2023
+        status: voluntary
+        url: https://nff.org.au/programs/australian-farm-data-code/
+        verification: primary
+        controls: [AIG-04, AIG-06]
+    mining:
+      - id: au-wa-autonomous-mining
+        name: WA Code of Practice — Safe mobile autonomous mining in Western Australia
+        citation: Republished Feb 2025 under the WHS Act 2020 (WA)
+        status: in-force
+        url: https://worksafe.wa.gov.au/publications/safe-mobile-autonomous-mining-western-australia-code-practice
+        verification: primary
+        controls: [AIG-11, AIG-14, AIG-15, AIG-17]
+    tech:
+      - id: au-online-safety
+        name: Online Safety Act 2021, Phase 2 industry codes and social media minimum age (from 10 Dec 2025)
+        status: in-force
+        url: https://www.bakermckenzie.com/en/insight/publications/alerts/2025/09/australia-phase-2-online-safety-codes-registered-by-esafety-commissioner
+        verification: secondary
+        controls: [AIG-10, AIG-12]
+      - id: au-no-tdm
+        name: No text-and-data-mining copyright exception (government ruled one out, Oct 2025)
+        status: none
+        url: https://www.simpsons.com.au/news/update-australian-government-rules-out-text-and-data-mining-exception-for-ai-training
+        verification: secondary
+        controls: [AIG-04]

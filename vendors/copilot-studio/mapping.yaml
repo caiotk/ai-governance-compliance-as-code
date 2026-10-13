@@ -1,0 +1,94 @@
+apiVersion: aigov/v1
+kind: VendorPack
+vendor: copilot-studio
+name: Microsoft Copilot Studio / Power Platform
+verified: "2026-10-13"
+
+native_tools:
+  - { name: Power Platform data policies (DLP) for agents, url: "https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-data-loss-prevention" }
+  - { name: Managed Environments agent sharing limits, url: "https://learn.microsoft.com/en-us/power-platform/admin/managed-environment-sharing-limits" }
+  - { name: Power Platform cross-tenant restrictions (tenant isolation), url: "https://learn.microsoft.com/en-us/power-platform/admin/cross-tenant-restrictions" }
+  - { name: Copilot Studio agent inventory (Power Platform admin center / inventory API / Azure Resource Graph), url: "https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-agent-inventory" }
+  - { name: Microsoft Purview audit for Copilot Studio, url: "https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-logging-copilot-studio" }
+  - { name: Microsoft Purview DSPM for AI, url: "https://learn.microsoft.com/en-us/purview/ai-microsoft-purview" }
+  - { name: Copilot Studio security and governance controls, url: "https://learn.microsoft.com/en-us/microsoft-copilot-studio/security-and-governance" }
+  - { name: Microsoft.PowerApps.Administration.PowerShell, url: "https://learn.microsoft.com/en-us/powershell/module/microsoft.powerapps.administration.powershell/" }
+  - { name: Power Platform CLI (pac admin), url: "https://learn.microsoft.com/en-us/power-platform/developer/cli/reference/admin" }
+
+attestations:
+  - name: "ISO/IEC 42001:2023"
+    url: "https://learn.microsoft.com/en-us/compliance/regulatory/offering-iso-42001"
+    scope: "Microsoft Copilot Studio is in scope of Microsoft's ISO/IEC 42001 certification; reports on the Service Trust Portal (https://servicetrust.microsoft.com/viewpage/ISOIEC). Covers Microsoft as provider, not the customer's agents."
+
+implements:
+  - control: AIG-02
+    summary: "Agent inventory (microsoft.copilotstudio/agents in PowerPlatformResources) queried through pac resource-query as evidence; Managed Environment usage insights left on."
+    terraform: [terraform/main.tf#powerplatform_managed_environment.production]
+    native: [native/pac-cli.sh, native/agent-inventory-query.json]
+  - control: AIG-05
+    summary: "Tenant-wide data policy keeps business data connectors apart from everything else: default classification Blocked, an explicit Business list, and public-website knowledge and consumer channels blocked."
+    terraform: [terraform/main.tf#powerplatform_data_loss_prevention_policy.agent_baseline]
+    native: [native/dlp-policy.json, native/New-AgentDlpPolicy.ps1]
+  - control: AIG-06
+    summary: "Only approved connectors (and custom connectors matching approved host patterns) are usable by agents; blocking connectors also blocks tools in connected MCP servers; preview/experimental AI models disabled in the environment."
+    terraform:
+      - terraform/main.tf#powerplatform_data_loss_prevention_policy.agent_baseline
+      - terraform/main.tf#powerplatform_environment_settings.production
+    native: [native/dlp-policy.json, native/New-AgentDlpPolicy.ps1]
+  - control: AIG-07
+    summary: "Blocking 'Chat without Microsoft Entra ID authentication in Copilot Studio' forces agents to authenticate users with Entra ID; Managed Environment limits agent sharing to individuals (no security groups), caps viewers and blocks Editor grants."
+    terraform:
+      - terraform/main.tf#powerplatform_data_loss_prevention_policy.agent_baseline
+      - terraform/main.tf#powerplatform_managed_environment.production
+    native: [native/dlp-policy.json, native/New-AgentDlpPolicy.ps1, native/pac-cli.sh]
+  - control: AIG-08
+    summary: "HTTP connector blocked (or limited to an endpoint allow-list); tenant isolation blocks cross-tenant connections for Entra-authenticated connectors except to allowed tenants; optional example disables cross-region data movement and Bing search."
+    terraform:
+      - terraform/main.tf#powerplatform_data_loss_prevention_policy.agent_baseline
+      - terraform/main.tf#powerplatform_tenant_isolation_policy.this
+      - terraform/examples/governed-environment/main.tf#powerplatform_environment.agents
+    native: [native/dlp-policy.json, native/New-AgentDlpPolicy.ps1]
+  - control: AIG-13
+    summary: "Purview audit for Copilot Studio is on by default and cannot be disabled (BotCreate, BotUpdateOperation-BotPublish, BotUpdateOperation-BotShare, CopilotInteraction ...): evidence, not configuration. Dataverse auditing enabled with retention in the environment."
+    terraform: [terraform/main.tf#powerplatform_environment_settings.production]
+    native: [native/pac-cli.sh]
+  - control: AIG-15
+    summary: "Managed Environment with solution checker set to Block on solution import, so agent solutions are checked before promotion."
+    terraform: [terraform/main.tf#powerplatform_managed_environment.production]
+    native: [native/pac-cli.sh]
+  - control: AIG-18
+    summary: "Tenant isolation limits which external tenants agents' connectors can reach; the optional environment example sets allow_moving_data_across_regions = false."
+    terraform:
+      - terraform/main.tf#powerplatform_tenant_isolation_policy.this
+      - terraform/examples/governed-environment/main.tf#powerplatform_environment.agents
+    native: []
+
+gaps:
+  - control: AIG-01
+    note: "Agent ownership and approval are organisational; the inventory records createdBy but not an accountable owner."
+  - control: AIG-03
+    note: "Risk classification and impact assessment happen outside Copilot Studio; Purview Compliance Manager templates can track them."
+  - control: AIG-04
+    note: "Knowledge-source provenance and quality (SharePoint, uploaded documents) is not enforced; endpoint filtering on knowledge connectors can restrict sources but this pack does not set it."
+  - control: AIG-05
+    note: "Data policies separate connectors but do not inspect content. Use Purview sensitivity labels, DLP and DSPM for AI for prompt/response data."
+  - control: AIG-08
+    note: "Tenant isolation is documented for canvas apps and Power Automate flows; whether it applies explicitly to Copilot Studio is UNVERIFIED."
+  - control: AIG-09
+    note: "Customer-managed keys for Copilot Studio use Power Platform enterprise policies (Azure Key Vault); not configured by this pack."
+  - control: AIG-10
+    note: "Copilot Studio content moderation and runtime protection are per-agent or tenant settings not exposed in the verified Terraform/PowerShell surface; configure in Copilot Studio and the Power Platform admin center."
+  - control: AIG-11
+    note: "Human approval of consequential agent actions must be designed into agent flows (e.g. approval steps); no platform-wide control."
+  - control: AIG-12
+    note: "AI disclosure to end users is an agent design responsibility."
+  - control: AIG-14
+    note: "Agent evaluation and red-teaming are not enforced; gate publishing through ALM pipelines."
+  - control: AIG-16
+    note: "No incident workflow; route Purview audit and Sentinel alerts into the incident process."
+  - control: AIG-17
+    note: "Resilience and exit planning are outside the platform."
+  - control: AIG-19
+    note: "Maker training is organisational; the Managed Environment maker welcome content can point to it (not set here)."
+  - control: AIG-20
+    note: "Fairness testing is use-case-specific."

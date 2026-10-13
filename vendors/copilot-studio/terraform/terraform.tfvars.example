@@ -1,0 +1,38 @@
+# Copy to terraform.tfvars and replace every placeholder. Do not commit real IDs.
+
+dlp_policy_display_name = "AIGov agent baseline"
+
+# Business data group: connectors your agents may use with business data.
+business_connector_ids = [
+  "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+  "/providers/Microsoft.PowerApps/apis/shared_office365",
+  "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+]
+
+# High-risk Copilot Studio connectors (resolved by display name).
+# Run `terraform plan` and inspect output.unresolved_blocked_connectors; for any
+# name that does not resolve, add its ID here after confirming it in the
+# Power Platform admin center (Policies > Data policies > Prebuilt connectors).
+blocked_connector_id_overrides = {
+  # "Chat without Microsoft Entra ID authentication in Copilot Studio" = "/providers/Microsoft.PowerApps/apis/<id-from-admin-center>"
+}
+
+# Leave empty to block HTTP. To allow HTTP to specific endpoints only:
+# http_allowed_endpoints = ["https://api.contoso.com"]
+http_allowed_endpoints = []
+
+custom_connector_business_host_patterns = []
+
+# Production environment that hosts agents.
+environment_id = "00000000-0000-0000-0000-000000000000"
+
+copilot_limit_sharing_mode     = "ExcludeSharingToSecurityGroups"
+copilot_max_limit_user_sharing = 20
+canvas_max_limit_user_sharing  = 20
+solution_checker_mode          = "Block"
+dataverse_audit_retention_days = 365
+
+# Tenant isolation (tenant-wide). Partner tenants are listed in
+# allowed-tenants.json, e.g.
+#   [{ "tenant_id": "11111111-1111-1111-1111-111111111111", "inbound": true, "outbound": true }]
+enable_tenant_isolation = true

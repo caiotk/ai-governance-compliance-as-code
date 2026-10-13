@@ -1,0 +1,135 @@
+apiVersion: aigov/v1
+kind: VendorPack
+vendor: gcp-vertex
+name: Google Cloud Vertex AI (Gemini Enterprise Agent Platform)
+verified: "2026-10-13"
+
+native_tools:
+  - { name: Organization Policy constraints, url: "https://cloud.google.com/resource-manager/docs/organization-policy/org-policy-constraints" }
+  - { name: Control access to Model Garden models, url: "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/control-model-access" }
+  - { name: gcloud org-policies set-policy, url: "https://docs.cloud.google.com/organization-policy/create-organization-policies" }
+  - { name: Model Armor floor settings, url: "https://docs.cloud.google.com/model-armor/configure-floor-settings" }
+  - { name: Model Armor integration with Vertex AI, url: "https://docs.cloud.google.com/model-armor/model-armor-vertex-integration" }
+  - { name: Vertex AI audit logging, url: "https://docs.cloud.google.com/vertex-ai/docs/general/audit-logging" }
+  - { name: VPC Service Controls supported products, url: "https://docs.cloud.google.com/vpc-service-controls/docs/supported-products" }
+  - { name: Configure safety filters (Gemini), url: "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/multimodal/configure-safety-filters" }
+  - { name: Security Command Center AI Protection, url: "https://docs.cloud.google.com/security-command-center/docs/ai-protection-overview" }
+
+attestations:
+  - name: "ISO/IEC 42001:2023"
+    url: "https://cloud.google.com/security/compliance/iso-42001"
+    scope: >-
+      Google Cloud, Google Workspace and Gemini (App) are certified. In-scope products include Gemini
+      Enterprise Agent Platform (formerly Vertex AI Platform) and Generative AI on Gemini Enterprise Agent
+      Platform. Certificates are available through Compliance Reports Manager; the page does not name the
+      certification body.
+
+implements:
+  - control: AIG-05
+    summary: >-
+      Model Armor Sensitive Data Protection basic configuration is enabled in the floor setting and the
+      per-request template, so prompts and responses with sensitive data are inspected (and blocked in
+      INSPECT_AND_BLOCK mode).
+    terraform:
+      - terraform/model_armor.tf#google_model_armor_floorsetting.baseline
+      - terraform/model_armor.tf#google_model_armor_template.baseline
+    native: [native/model-armor-floor-setting.json, native/apply-model-armor.sh]
+
+  - control: AIG-06
+    summary: >-
+      constraints/vertexai.allowedModels allows only listed Model Garden models (publishers/P/models/M:ACTION);
+      partner model features stay blocked by default (constraints/vertexai.allowedPartnerModelFeatures is
+      only set when you allow a feature).
+    terraform:
+      - terraform/org_policies.tf#google_org_policy_policy.vertexai_allowed_models
+      - terraform/org_policies.tf#google_org_policy_policy.allowed_partner_model_features
+    native:
+      - native/org-policies/vertexai.allowedModels.yaml
+      - native/org-policies/vertexai.allowedPartnerModelFeatures.yaml.example
+      - native/apply-org-policies.sh
+
+  - control: AIG-07
+    summary: >-
+      Grants the Vertex AI service agent only roles/modelarmor.user so Vertex can call Model Armor; no
+      user-facing roles are granted by this pack.
+    terraform: [terraform/model_armor.tf#google_project_iam_member.vertex_agent_model_armor_user]
+    native: [native/apply-model-armor.sh]
+
+  - control: AIG-08
+    summary: >-
+      constraints/gcp.resourceLocations restricts where Vertex AI resources are created; an optional VPC
+      Service Controls perimeter restricts aiplatform.googleapis.com and modelarmor.googleapis.com.
+    terraform:
+      - terraform/org_policies.tf#google_org_policy_policy.resource_locations
+      - terraform/network.tf#google_access_context_manager_service_perimeter.vertex_ai
+    native: [native/org-policies/gcp.resourceLocations.yaml, native/apply-org-policies.sh]
+
+  - control: AIG-09
+    summary: >-
+      constraints/gcp.restrictNonCmekServices with deniedValues aiplatform.googleapis.com requires CMEK for
+      new Vertex AI resources.
+    terraform: [terraform/org_policies.tf#google_org_policy_policy.require_cmek_vertex]
+    native: [native/org-policies/gcp.restrictNonCmekServices.yaml, native/apply-org-policies.sh]
+
+  - control: AIG-10
+    summary: >-
+      Model Armor floor setting with all four Responsible AI filters at MEDIUM_AND_ABOVE, prompt-injection and
+      jailbreak detection, malicious URL detection and SDP basic, enforced (inspect and block, Cloud Logging
+      on) for AI_PLATFORM; per-request template with the same filters; Grounding with Google Search disabled.
+    terraform:
+      - terraform/model_armor.tf#google_model_armor_floorsetting.baseline
+      - terraform/model_armor.tf#google_model_armor_template.baseline
+      - terraform/org_policies.tf#google_org_policy_policy.disable_google_search_grounding
+    native:
+      - native/model-armor-floor-setting.json
+      - native/apply-model-armor.sh
+      - native/org-policies/vertexai.disableGenAIGoogleSearchGrounding.yaml
+
+  - control: AIG-13
+    summary: >-
+      Enables DATA_READ and DATA_WRITE Data Access audit logs for aiplatform.googleapis.com (off by default;
+      Admin Activity logs are always on); Model Armor filter results are written to Cloud Logging.
+    terraform:
+      - terraform/logging.tf#google_project_iam_audit_config.data_access
+      - terraform/model_armor.tf#google_model_armor_floorsetting.baseline
+    native: [native/audit-config.yaml, native/apply-audit-config.sh]
+
+  - control: AIG-18
+    summary: >-
+      Location restriction, the optional perimeter and disabling Grounding with Google Search limit where
+      prompts and AI resources go.
+    terraform:
+      - terraform/org_policies.tf#google_org_policy_policy.resource_locations
+      - terraform/org_policies.tf#google_org_policy_policy.disable_google_search_grounding
+    native:
+      - native/org-policies/gcp.resourceLocations.yaml
+      - native/org-policies/vertexai.disableGenAIGoogleSearchGrounding.yaml
+
+gaps:
+  - control: AIG-10
+    note: >-
+      Gemini safety filters are set per request (safetySettings) and there is no org policy for them; for
+      gemini-3.5-flash and later the default threshold is OFF. The Model Armor floor setting is therefore the
+      central control, and it covers generateContent only (documents and file uploads are not screened; if
+      Model Armor is unavailable or errors, requests proceed unscreened). Applications should still set
+      explicit safety thresholds.
+  - control: AIG-06
+    note: >-
+      vertexai.allowedModels applies to Model Garden models only, not Model Registry; models must be listed
+      individually (no group wildcards; 500-value limit), and with no policy every model is allowed.
+  - control: AIG-13
+    note: >-
+      UNVERIFIED whether publisher-model generateContent calls emit Data Access audit logs; the audit-logging
+      page lists endpoints.predict, rawPredict, explain and similar methods. Rely on Model Armor Cloud Logging
+      and application logs for prompt-level evidence until confirmed.
+  - control: AIG-08
+    note: >-
+      UNVERIFIED whether constraints/gcp.resourceLocations limits where online inference on publisher models
+      is processed (for example via the global endpoint). Pin regional endpoints in clients.
+  - control: AIG-02
+    note: >-
+      Not covered. Security Command Center AI Protection (Premium/Enterprise) provides AI asset inventory and
+      the "Google Recommended AI Essentials - Gemini Enterprise Agent Platform" Compliance Manager framework;
+      the SCC Enterprise tier shuts down on 2027-05-21.
+  - control: AIG-11
+    note: Human oversight is an application and process control; the platform provides no enforcement.

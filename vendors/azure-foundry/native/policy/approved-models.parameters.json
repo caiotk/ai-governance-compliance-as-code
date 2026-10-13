@@ -1,0 +1,10 @@
+{
+  "effect": { "value": "Deny" },
+  "allowedPublishers": { "value": ["OpenAI"] },
+  "allowedAssetIds": {
+    "value": [
+      "azureml://registries/azure-openai/models/gpt-5/",
+      "azureml://registries/azure-openai/models/gpt-5.2/versions/1"
+    ]
+  }
+}

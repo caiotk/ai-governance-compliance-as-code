@@ -1,0 +1,107 @@
+apiVersion: aigov/v1
+kind: Jurisdiction
+id: PT
+name: Portugal
+inherits: [EU]
+frameworks: [eu-ai-act, gdpr, iso27001, iso42001, zero-trust]
+instruments:
+  horizontal:
+    - id: pt-ai-authorities
+      name: AI Act national authorities — ANACOM (market surveillance, single point of contact) and 14 Art 77 fundamental-rights authorities
+      citation: Designation Sep 2025 (legal instrument unverified)
+      status: in-force
+      url: https://cms.law/en/int/expert-guides/ai-regulation-scanner/portugal
+      verification: secondary
+      controls: [AIG-16]
+    - id: pt-ania
+      name: Agenda Nacional de Inteligência Artificial 2026–2030
+      citation: RCM 2/2026
+      status: voluntary
+      url: https://cms.law/pt/prt/news-information/agenda-nacional-de-inteligencia-artificial-2026-2030
+      verification: secondary
+      controls: [AIG-19]
+    - id: pt-carta-digital
+      name: Carta Portuguesa de Direitos Humanos na Era Digital (Art 9 AI)
+      citation: Lei 27/2021
+      status: in-force
+      url: https://www.lexmundi.com/guides/ai-legislative-guide/jurisdictions/europe/portugal/
+      verification: secondary
+      controls: [AIG-11, AIG-12, AIG-20]
+    - id: pt-lei-13-2023
+      name: Labour Code amendment on algorithmic and AI employment decisions (all employers)
+      citation: Lei 13/2023
+      status: in-force
+      url: https://www.lexmundi.com/guides/ai-legislative-guide/jurisdictions/europe/portugal/
+      verification: secondary
+      controls: [AIG-12, AIG-20]
+  data_protection:
+    - id: pt-lei-58-2019
+      name: GDPR national execution law
+      citation: Lei 58/2019
+      status: in-force
+      regulator: CNPD
+      url: https://diariodarepublica.pt/dr/detalhe/lei/58-2019-123815982
+      verification: unverified
+      controls: [AIG-05, AIG-12, AIG-18]
+  cyber:
+    - id: pt-dl-125-2025
+      name: Regime Jurídico da Cibersegurança (NIS2 transposition)
+      citation: Decreto-Lei 125/2025
+      status: in-force
+      effective: "2026-04-03"
+      regulator: CNCS
+      url: https://www.ecija.com/adcecija/novo-regime-juridico-da-ciberseguranca-entrou-em-vigor-em-portugal/
+      verification: secondary
+      controls: [AIG-07, AIG-13, AIG-16]
+  sectors:
+    health:
+      - id: pt-health-authorities
+        name: Infarmed (devices) and ERS (Art 77 authority) under EU MDR and EHDS
+        status: in-force
+        url: https://www.lexmundi.com/guides/ai-legislative-guide/jurisdictions/europe/portugal/
+        verification: secondary
+        controls: [AIG-14, AIG-16]
+    fsi:
+      - id: pt-fsi-authorities
+        name: Banco de Portugal and CMVM as sectoral AI coordinating authorities; DORA applies
+        status: in-force
+        url: https://cms.law/en/int/expert-guides/ai-regulation-scanner/portugal
+        verification: secondary
+        controls: [AIG-06, AIG-17]
+    public:
+      - id: pt-ama-guide
+        name: Guia para a IA ética, transparente e responsável na Administração Pública
+        citation: AMA, 2022
+        status: voluntary
+        url: https://digital.gov.pt/en/documentos/guia-para-a-inteligencia-artificial-sumario-executivo
+        verification: primary
+        controls: [AIG-01, AIG-03, AIG-12]
+    agriculture:
+      - id: pt-agri-none
+        name: No Portuguese AI-specific agricultural rule found — EU Data Act applies
+        status: none
+        url: https://www.garrigues.com/en_GB/garrigues-digital/data-act-and-regulated-access-data-essentials
+        verification: secondary
+        controls: [AIG-04]
+    mining:
+      - id: pt-mining-none
+        name: No AI-specific mining rule found
+        status: none
+        url: https://www.lexmundi.com/guides/ai-legislative-guide/jurisdictions/europe/portugal/
+        verification: unverified
+        controls: [AIG-11, AIG-17]
+    tech:
+      - id: pt-dl-47-2023
+        name: DSM Directive transposition (TDM exception and opt-out)
+        citation: Decreto-Lei 47/2023
+        status: in-force
+        url: https://www.lexmundi.com/guides/ai-legislative-guide/jurisdictions/europe/portugal/
+        verification: secondary
+        controls: [AIG-04, AIG-06]
+      - id: pt-dsa-execution
+        name: Digital Services Act national execution law
+        citation: 2026
+        status: in-force
+        url: https://www.plmj.com/xms/files/03_Novidades_legislativas/2026/DSA-Publicada_a_Lei_de_Execucao_em_Portugal.pdf
+        verification: secondary
+        controls: [AIG-10, AIG-12]

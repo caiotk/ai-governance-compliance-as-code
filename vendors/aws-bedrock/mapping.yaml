@@ -1,0 +1,151 @@
+apiVersion: aigov/v1
+kind: VendorPack
+vendor: aws-bedrock
+name: Amazon Bedrock
+verified: "2026-10-13"
+
+native_tools:
+  - { name: Amazon Bedrock Guardrails, url: "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-components.html" }
+  - { name: Guardrail enforcements (account and organization level), url: "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-enforcements.html" }
+  - { name: AWS Organizations Bedrock policies (BEDROCK_POLICY), url: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_bedrock_syntax.html" }
+  - { name: Service control policies, url: "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_syntax.html" }
+  - { name: Model invocation logging, url: "https://docs.aws.amazon.com/bedrock/latest/userguide/model-invocation-logging.html" }
+  - { name: AWS CloudTrail for Bedrock, url: "https://docs.aws.amazon.com/bedrock/latest/userguide/logging-using-cloudtrail.html" }
+  - { name: Interface VPC endpoints (AWS PrivateLink), url: "https://docs.aws.amazon.com/bedrock/latest/userguide/vpc-interface-endpoints.html" }
+  - { name: AWS CloudFormation AWS::Bedrock resources, url: "https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/AWS_Bedrock.html" }
+  - { name: AWS Audit Manager - AWS Generative AI Best Practices Framework v2, url: "https://docs.aws.amazon.com/audit-manager/latest/userguide/aws-generative-ai-best-practices.html" }
+
+attestations:
+  - name: "ISO/IEC 42001:2023"
+    url: "https://aws.amazon.com/compliance/iso-42001-faqs/"
+    scope: >-
+      Certified by Schellman Compliance, LLC (ANAB-accredited). Initial scope included Amazon Bedrock,
+      Amazon Q Business, Amazon Textract and Amazon Transcribe; download the current certificate
+      and scope from AWS Artifact.
+  - name: "AWS Audit Manager: AWS Generative AI Best Practices Framework v2"
+    url: "https://docs.aws.amazon.com/audit-manager/latest/userguide/aws-generative-ai-best-practices.html"
+    scope: >-
+      Prebuilt assessment framework (72 automated and 38 manual controls, 8 control sets) covering
+      Amazon Bedrock and Amazon SageMaker AI. Evidence tooling, not a certification. Audit Manager
+      is no longer open to new customers.
+
+implements:
+  - control: AIG-05
+    summary: >-
+      Guardrail sensitive-information filters anonymise EMAIL, PHONE, NAME and ADDRESS and block card
+      numbers, CVVs, passwords and AWS keys on input and output; extra PII types and regexes are variables.
+    terraform: [terraform/main.tf#aws_bedrock_guardrail.baseline]
+    native: [native/cloudformation/guardrail.yaml#Guardrail]
+
+  - control: AIG-06
+    summary: >-
+      SCP denies InvokeModel and InvokeModelWithResponseStream (which also covers Converse and
+      StartAsyncInvoke) on every foundation model and inference profile not in the approved list.
+    terraform:
+      - terraform/organizations.tf#aws_organizations_policy.bedrock_scp
+      - terraform/organizations.tf#aws_organizations_policy_attachment.bedrock_scp
+    native: [native/scp/deny-unapproved-models.json]
+
+  - control: AIG-07
+    summary: >-
+      SCP condition on bedrock:GuardrailIdentifier makes every InvokeModel/Converse call name the approved
+      guardrail ARN:version; the log-delivery role trusts only bedrock.amazonaws.com for this account and
+      Region and can write only the invocation log stream; an optional SCP lets only named admin roles
+      change invocation logging.
+    terraform:
+      - terraform/organizations.tf#aws_organizations_policy.bedrock_scp
+      - terraform/logging.tf#aws_iam_role.bedrock_logging
+      - terraform/logging.tf#aws_iam_role_policy.bedrock_logging
+    native:
+      - native/scp/require-guardrail.json
+      - native/scp/protect-invocation-logging.json
+      - native/enable-invocation-logging.sh
+
+  - control: AIG-08
+    summary: >-
+      Interface VPC endpoints with private DNS for bedrock, bedrock-runtime and bedrock-agent-runtime;
+      SCP denies Bedrock calls outside approved Regions (aws:RequestedRegion) and, unless allowed, global
+      cross-Region inference.
+    terraform:
+      - terraform/network.tf#aws_vpc_endpoint.bedrock
+      - terraform/network.tf#aws_security_group.bedrock_endpoints
+      - terraform/organizations.tf#aws_organizations_policy.bedrock_scp
+    native: [native/scp/restrict-regions.json]
+
+  - control: AIG-09
+    summary: >-
+      Optional customer managed KMS keys for the guardrail (kms_key_arn), the invocation-log bucket
+      (SSE-KMS) and the log group; SSE-S3 and a TLS-only bucket policy otherwise.
+    terraform:
+      - terraform/main.tf#aws_bedrock_guardrail.baseline
+      - terraform/logging.tf#aws_s3_bucket_server_side_encryption_configuration.invocations
+      - terraform/logging.tf#aws_cloudwatch_log_group.invocations
+    native:
+      - native/cloudformation/guardrail.yaml#Guardrail
+      - native/enable-invocation-logging.sh
+
+  - control: AIG-10
+    summary: >-
+      Baseline guardrail (HATE, INSULTS, SEXUAL, VIOLENCE, MISCONDUCT at HIGH; PROMPT_ATTACK at HIGH on input;
+      denied topics; managed profanity list; grounding and relevance at 0.75) with a numbered version, enforced
+      organization-wide through BEDROCK_POLICY and account-wide through EnforcedGuardrailConfiguration.
+    terraform:
+      - terraform/main.tf#aws_bedrock_guardrail.baseline
+      - terraform/main.tf#aws_bedrock_guardrail_version.baseline
+      - terraform/organizations.tf#aws_organizations_policy.bedrock_guardrail_enforcement
+      - terraform/organizations.tf#aws_organizations_policy_attachment.bedrock_guardrail_enforcement
+    native:
+      - native/cloudformation/guardrail.yaml#Guardrail
+      - native/cloudformation/guardrail.yaml#GuardrailVersion
+      - native/cloudformation/guardrail.yaml#EnforcedGuardrail
+      - native/cloudformation/guardrail.yaml#GuardrailOrganizationPolicy
+      - native/bedrock-policy.json
+
+  - control: AIG-13
+    summary: >-
+      Model invocation logging (off by default) to CloudWatch Logs with 400-day retention and to a versioned,
+      private S3 bucket that also holds payloads over 100 KB. InvokeModel and Converse are CloudTrail management
+      events (logged by default); agent, knowledge-base, flow and ApplyGuardrail calls are data events that must
+      be enabled separately in CloudTrail.
+    terraform:
+      - terraform/logging.tf#aws_bedrock_model_invocation_logging_configuration.this
+      - terraform/logging.tf#aws_cloudwatch_log_group.invocations
+      - terraform/logging.tf#aws_s3_bucket.invocations
+      - terraform/logging.tf#aws_s3_bucket_versioning.invocations
+      - terraform/logging.tf#aws_s3_bucket_public_access_block.invocations
+      - terraform/logging.tf#aws_s3_bucket_policy.invocations
+    native: [native/enable-invocation-logging.sh]
+
+  - control: AIG-15
+    summary: >-
+      Guardrail changes produce a new, immutable numbered version; old versions are retained for audit and
+      rollback, and enforcement always references a numbered version, never DRAFT.
+    terraform: [terraform/main.tf#aws_bedrock_guardrail_version.baseline]
+    native: [native/cloudformation/guardrail.yaml#GuardrailVersion]
+
+gaps:
+  - control: AIG-02
+    note: >-
+      This pack does not build an inventory. Bedrock has no single AI-asset inventory; combine AWS Config
+      resource recording for AWS::Bedrock::* types, invocation logs (which model each workload calls) and the
+      repository's AI system records under mlops/.
+  - control: AIG-10
+    note: >-
+      Automated Reasoning checks have no argument in aws_bedrock_guardrail (CloudFormation has
+      AutomatedReasoningPolicyConfig), and guardrails that use Automated Reasoning cannot be enforced. No
+      Terraform resource for account-level enforcement (PutEnforcedGuardrailConfiguration) was found; use the
+      CloudFormation template.
+  - control: AIG-10
+    note: >-
+      The bedrock:GuardrailIdentifier condition applies to InvokeModel, InvokeModelWithResponseStream, Converse
+      and ConverseStream only. RetrieveAndGenerate, InvokeAgent and InvokeInlineAgent need their own guardrail
+      configuration, and input tags let callers limit which prompt content is evaluated. BEDROCK_POLICY
+      enforcement covers those gaps for the Regions it lists.
+  - control: AIG-13
+    note: >-
+      AWS Config has no managed rule for "guardrail attached" or "invocation logging enabled"; the only Bedrock
+      managed rules cover data-source and AgentCore settings. Detect drift with a custom Config rule or with
+      the SCP that protects the logging configuration. Invocation logging covers bedrock-runtime only, not
+      bedrock-mantle.
+  - control: AIG-11
+    note: Human oversight is an application and process control; Bedrock provides no platform enforcement.

@@ -1,0 +1,21 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AIG07AIG10DenyInvokeWithoutApprovedGuardrail",
+      "Effect": "Deny",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream"
+      ],
+      "NotResource": [
+        "arn:aws:bedrock:*::foundation-model/amazon.titan-embed-text-v2:0"
+      ],
+      "Condition": {
+        "StringNotEquals": {
+          "bedrock:GuardrailIdentifier": "arn:aws:bedrock:REGION:MANAGEMENT_ACCOUNT_ID:guardrail/GUARDRAIL_ID:1"
+        }
+      }
+    }
+  ]
+}

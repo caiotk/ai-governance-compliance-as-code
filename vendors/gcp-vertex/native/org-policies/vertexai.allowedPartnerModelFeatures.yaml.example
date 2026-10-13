@@ -1,0 +1,10 @@
+# AIG-06 AIG-10: OPTIONAL. Partner model features (web_search, structured_outputs)
+# are blocked by default for projects in an organization, so no policy is applied
+# by default. Rename to .yaml and edit only if you need to allow a feature.
+# Values: publishers/anthropic, publishers/anthropic/models/MODEL, or .../MODEL:web_search
+name: PARENT/policies/vertexai.allowedPartnerModelFeatures
+spec:
+  rules:
+  - values:
+      allowedValues:
+      - publishers/anthropic/models/MODEL:web_search
