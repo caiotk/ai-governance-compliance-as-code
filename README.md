@@ -63,18 +63,17 @@ Every pack's `mapping.yaml` lists the controls it **implements** and the **gaps*
 
 ## How the pieces fit
 
-```
-mermaid
+```mermaid
 flowchart LR
-  C[catalog/<br/>frameworks · controls<br/>jurisdictions · sectors] --> B[tools/build.py]
-  B --> P[profiles/<br/>60 country × sector]
+  C["catalog/<br/>frameworks · controls<br/>jurisdictions · sectors"] --> B[tools/build.py]
+  B --> P["profiles/<br/>60 country × sector"]
   B --> X[docs/CROSSWALK.md]
   B --> D[mlops/data/catalog.json]
-  D --> G{MLOps gate<br/>OPA/Rego}
+  D --> G{"MLOps gate<br/>OPA/Rego"}
   S[AI system record] --> G
   G -- deny --> Blocked
   G -- allow --> Promote
-  V[vendors/*<br/>Terraform + native] -. mapping.yaml .-> C
+  V["vendors/*<br/>Terraform + native"] -.->|mapping.yaml| C
 ```
 
 ## Automation
