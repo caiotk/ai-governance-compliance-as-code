@@ -1,0 +1,47 @@
+# Governance workflow on GitHub: every Monday, find reviews that fall due in the
+# next 30 days (impact-assessment review dates, annual internal audits, DR
+# drills, evidence expiry, open high incidents) and open or update one issue
+# per AI system, assigned to the record's owner when they are a collaborator.
+name: Review reminders
+
+on:
+  schedule:
+    - cron: "29 20 * * 0"   # Mondays 09:29 NZDT
+  workflow_dispatch:
+    inputs:
+      days:
+        description: Horizon in days
+        type: number
+        default: 30
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  reminders:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "pyyaml==6.0.3"
+      - name: Find reviews falling due
+        run: python3 tools/reviews.py --days "${{ inputs.days || 30 }}" --out-dir build/reviews --summary
+      - name: Open or update one issue per system
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          shopt -s nullglob
+          gh label create review-due --color D93F0B --description "AI governance review falling due" --force
+          for f in build/reviews/*.md; do
+            id=$(basename "$f" .md)
+            title="Governance review due: $id"
+            existing=$(gh issue list --label review-due --state open --search "\"$title\" in:title" --json number --jq '.[0].number')
+            if [ -n "$existing" ]; then
+              gh issue edit "$existing" --body-file "$f"
+            else
+              gh issue create --title "$title" --label review-due --body-file "$f"
+            fi
+          done

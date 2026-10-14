@@ -3,11 +3,15 @@
 #
 #   jobs:
 #     governance:
-#       uses: caiotk/ai-governance-compliance-as-code/.github/workflows/ai-governance-gate.yml@main
+#       uses: caiotk/ai-governance-compliance-as-code/.github/workflows/ai-governance-gate.yml@v1
 #       with:
 #         systems: "ai-systems/*.yaml"
+#         # policy_repo: my-org/my-fork   # forks: evaluate against your own copy
+#         # policy_ref: v1.0.0           # pin the catalogue version
 #
-# A record with any "deny" finding fails the job, so the model cannot be promoted.
+# A record with any "deny" finding fails the job, so the model cannot be
+# promoted. Findings are also uploaded as SARIF, so they appear in the
+# repository's Security → Code scanning tab and as pull-request annotations.
 name: AI governance gate
 
 on:
@@ -23,18 +27,33 @@ on:
         description: Glob of AI system records to evaluate
         type: string
         default: "systems/*.yaml"
+      policy_repo:
+        description: Repository holding the catalogue and policies (owner/name)
+        type: string
+        default: caiotk/ai-governance-compliance-as-code
       policy_ref:
-        description: Git ref of this policy repository to evaluate against
+        description: Git ref (tag, branch or SHA) of the policy repository
         type: string
         default: main
+      upload_sarif:
+        description: Upload findings to GitHub code scanning (needs security-events write)
+        type: boolean
+        default: true
+    outputs:
+      result:
+        description: allow or deny
+        value: ${{ jobs.gate.outputs.result }}
 
 permissions:
   contents: read
   pull-requests: write
+  security-events: write
 
 jobs:
   gate:
     runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.gate.outputs.result }}
     steps:
       - name: Check out the caller's repository
         uses: actions/checkout@v4
@@ -42,7 +61,7 @@ jobs:
       - name: Check out the policy repository
         uses: actions/checkout@v4
         with:
-          repository: caiotk/ai-governance-compliance-as-code
+          repository: ${{ inputs.policy_repo || github.repository }}
           ref: ${{ inputs.policy_ref || github.sha }}
           path: .aigov
 
@@ -59,17 +78,30 @@ jobs:
       - name: Evaluate AI system records
         id: gate
         shell: bash
+        env:
+          SYSTEMS: ${{ inputs.systems || 'systems/*.yaml' }}
         run: |
           shopt -s nullglob
-          files=( ${{ inputs.systems || 'systems/*.yaml' }} )
+          files=( $SYSTEMS )
           if [ ${#files[@]} -eq 0 ]; then
-            # In this repository, demonstrate the gate on the bundled examples.
-            python3 .aigov/tools/gate.py --markdown gate.md .aigov/mlops/examples/compliant/*.yaml
+            # Nothing to evaluate yet: demonstrate the gate on the bundled examples.
+            python3 .aigov/tools/gate.py --markdown gate.md --sarif gate.sarif .aigov/mlops/examples/compliant/*.yaml
+            echo "result=allow" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           set +e
-          python3 .aigov/tools/gate.py --markdown gate.md "${files[@]}"
-          echo "exit=$?" >> "$GITHUB_OUTPUT"
+          python3 .aigov/tools/gate.py --markdown gate.md --sarif gate.sarif "${files[@]}"
+          rc=$?
+          echo "exit=$rc" >> "$GITHUB_OUTPUT"
+          echo "result=$([ "$rc" = 0 ] && echo allow || echo deny)" >> "$GITHUB_OUTPUT"
+
+      - name: Upload findings to code scanning
+        if: (inputs.upload_sarif != false) && hashFiles('gate.sarif') != ''
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: gate.sarif
+          category: ai-governance-gate
+        continue-on-error: true
 
       - name: Comment on the pull request
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && hashFiles('gate.md') != ''

@@ -1,0 +1,92 @@
+# Cuts a release when a v* tag is pushed: runs the full validation, bundles the
+# catalogue, policies, profiles and the NXGD-AIGovMap visual, attaches checksums
+# and publishes release notes from CHANGELOG.md. Consumers pin the reusable gate
+# workflow to the tag (…/ai-governance-gate.yml@v1.0.0) or to the moving major
+# tag (@v1), which this workflow advances.
+name: Release
+
+on:
+  push:
+    tags: ["v[0-9]+.[0-9]+.[0-9]+"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to (re)publish, e.g. v1.0.0
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - uses: open-policy-agent/setup-opa@v2
+        with:
+          version: "1.21.2"
+
+      - name: Validate before publishing
+        run: |
+          python3 tools/build.py --check
+          opa test mlops/policies mlops/tests mlops/data/catalog.json
+          python3 tools/gate.py mlops/examples/compliant/*.yaml >/dev/null
+          python3 tools/gate.py --expect-fail mlops/examples/noncompliant/*.yaml >/dev/null
+          test "v$(cat VERSION)" = "$TAG" || { echo "VERSION file ($(cat VERSION)) does not match tag $TAG"; exit 1; }
+
+      - name: Build the bundle
+        run: |
+          mkdir -p dist
+          name="aigov-catalogue-${TAG}"
+          mkdir -p "dist/$name"
+          cp -r catalog mlops profiles tools api mcp hooks systems LICENSE NOTICE TRADEMARKS.md CHANGELOG.md VERSION "dist/$name/"
+          mkdir -p "dist/$name/docs" && cp docs/CROSSWALK.md docs/RISKS.md docs/SOURCES.md docs/EDITIONS.md docs/NXGD-AIGovMap.png "dist/$name/docs/"
+          (cd dist && zip -qr "$name.zip" "$name" && rm -rf "$name")
+          cp docs/NXGD-AIGovMap.png "dist/NXGD-AIGovMap-${TAG}.png"
+          cp mlops/data/catalog.json "dist/catalog-${TAG}.json"
+          (cd dist && sha256sum * > SHA256SUMS)
+          ls -la dist
+
+      - name: Release notes from CHANGELOG
+        run: |
+          v="${TAG#v}"
+          awk -v v="$v" '
+            $0 ~ "^## \\[" v "\\]" {p=1; next}
+            p && /^## \[/ {exit}
+            p {print}
+          ' CHANGELOG.md > notes.md
+          if [ ! -s notes.md ]; then echo "No CHANGELOG section for $v; using tag message." > notes.md; fi
+          printf '\n---\nCatalogue verified as of %s. Not legal advice. Licensed under Apache-2.0; NexGuide.AI, NexGuide.AI GovMap and NXGD-AIGovMap are trademarks (see TRADEMARKS.md).\n' "$(python3 -c "import yaml;print(yaml.safe_load(open('catalog/frameworks.yaml'))['asOf'])")" >> notes.md
+          cat notes.md
+
+      - name: Publish the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+            gh release edit "$TAG" --notes-file notes.md
+          else
+            gh release create "$TAG" dist/* --title "$TAG" --notes-file notes.md
+          fi
+
+      - name: Advance the major tag (v1 → this release)
+        run: |
+          major="${TAG%%.*}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -f "$major" "$TAG"
+          git push -f origin "$major"
