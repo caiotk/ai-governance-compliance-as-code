@@ -1,5 +1,5 @@
 # Dev container / Codespace image with every CLI pinned to the versions CI uses.
-FROM mcr.microsoft.com/devcontainers/python:3.12
+FROM mcr.microsoft.com/devcontainers/python:3.14
 
 ARG OPA_VERSION=1.21.2
 ARG TERRAFORM_VERSION=1.13.4
