@@ -1,0 +1,12 @@
+name: Vendor pack request or bug
+description: A new platform pack, or a resource/policy in an existing pack that is wrong.
+labels: [vendor-pack]
+body:
+  - type: input
+    id: vendor
+    attributes: { label: Vendor / platform }
+    validations: { required: true }
+  - type: textarea
+    id: detail
+    attributes: { label: Details, description: Resource type, argument, policy id or API path, and the vendor documentation that confirms the correct value. }
+    validations: { required: true }

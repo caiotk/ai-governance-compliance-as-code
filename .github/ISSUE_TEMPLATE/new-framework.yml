@@ -1,0 +1,23 @@
+name: New framework or jurisdiction
+description: Propose a law, standard or guidance for the catalogue.
+labels: [catalogue, enhancement]
+body:
+  - type: input
+    id: name
+    attributes: { label: Name and issuer }
+    validations: { required: true }
+  - type: input
+    id: url
+    attributes: { label: Primary source URL }
+    validations: { required: true }
+  - type: dropdown
+    id: scope
+    attributes: { label: Scope, options: [global baseline standard, jurisdiction law, sector regime, vendor guidance] }
+    validations: { required: true }
+  - type: textarea
+    id: status
+    attributes: { label: Status and key dates, description: In force / phased / proposed, with commencement dates. }
+    validations: { required: true }
+  - type: textarea
+    id: controls
+    attributes: { label: Which AIG controls it maps to, description: "e.g. AIG-03 (Art 9 risk management), AIG-12 (Art 50 transparency)" }

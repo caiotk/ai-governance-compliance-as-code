@@ -1,0 +1,24 @@
+name: Catalogue correction
+description: A framework, control, risk, date or status in catalog/ is wrong or out of date.
+labels: [catalogue]
+body:
+  - type: input
+    id: entry
+    attributes: { label: Catalogue entry, description: "File and id, e.g. catalog/frameworks.yaml eu-ai-act", placeholder: catalog/frameworks.yaml / eu-ai-act }
+    validations: { required: true }
+  - type: textarea
+    id: wrong
+    attributes: { label: What is wrong, description: Quote the current text. }
+    validations: { required: true }
+  - type: textarea
+    id: right
+    attributes: { label: What it should say }
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes: { label: Primary source, description: URL of the issuer's own text (law, standard page, regulator notice). }
+    validations: { required: true }
+  - type: dropdown
+    id: verification
+    attributes: { label: How you verified it, options: [primary — checked the issuer's text, secondary — reputable secondary source, unverified] }
+    validations: { required: true }

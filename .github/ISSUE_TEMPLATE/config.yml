@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/caiotk/ai-governance-compliance-as-code/security/advisories/new
+    about: Report privately. Do not open a public issue.
+  - name: NexGuide.AI GovMap (commercial edition)
+    url: https://github.com/caiotk/ai-governance-compliance-as-code/blob/main/docs/EDITIONS.md
+    about: Evidence database, approvals, PDF audit packs and hosted API.
