@@ -143,4 +143,6 @@ decision := {
 	"allow": count(deny) == 0,
 	"deny": deny,
 	"warn": warn,
+	"risks": risks,
+	"evidence": evidence_status,
 }
