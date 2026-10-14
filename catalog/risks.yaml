@@ -1,0 +1,532 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# AI risk catalogue (RSK-01 … RSK-36).
+#
+# A risk is a thing that can go wrong; a control (catalog/controls.yaml) is what
+# you do about it. Every risk lists the AIG controls that treat it and the
+# public taxonomies it comes from (OWASP GenAI LLM Top 10 2026 and Agentic Top
+# 10, MITRE ATLAS mitigations, NIST AI 600-1 section 2 risks, ISO/IEC 23894).
+#
+# `applies_when` lists conditions on the AI system record (mlops/schema); the
+# risk applies to a system when ANY condition holds. `always: true` risks apply
+# to every system. tools/build.py validates control ids and field paths and
+# emits the catalogue into mlops/data/catalog.json, so the gate decision names
+# the risks that apply, and generates docs/RISKS.md.
+#
+# Reference identifiers are as verified in docs/sources/standards-2.md and
+# docs/sources/frameworks.md. Descriptions are this repository's own wording,
+# not quotations from the taxonomies.
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: aigov/v1
+kind: RiskCatalog
+
+categories:
+  security: Adversarial and cyber risks to the model, its data and its surroundings
+  privacy: Personal data and confidentiality
+  safety: Harmful, unsafe or inaccurate output
+  fairness: Bias, discrimination and unequal treatment
+  transparency: People not knowing AI is involved or why it decided
+  agentic: Risks specific to agents that plan, call tools and act
+  operational: Availability, resilience, cost and change
+  supply-chain: Third-party models, data, components and services
+  compliance: Regulatory, contractual and intellectual-property exposure
+
+risks:
+
+  # ── Security ──────────────────────────────────────────────────────────────
+  - id: RSK-01
+    title: Prompt injection (direct and indirect, cross-modal)
+    category: security
+    severity: high
+    description: Instructions hidden in user input, documents, web pages, images or tool results override the system's intended behaviour, exfiltrate data or trigger actions.
+    applies_when: { always: true }
+    controls: [AIG-10, AIG-14, AIG-07]
+    references:
+      owasp-genai: ["LLM01:2026 Prompt Injection", "ASI01 Agent Goal Hijack"]
+      mitre-atlas: ["AML.M0020 Generative AI Guardrails", "AML.M0030 Restrict AI Agent Tool Invocation on Untrusted Data"]
+      nist-ai-rmf: ["AI 600-1 2.9 Information Security"]
+    verification: primary
+
+  - id: RSK-02
+    title: Sensitive information disclosure
+    category: security
+    severity: high
+    description: The model reveals personal data, secrets, system prompts or other parties' data from its context, training data or retrieval store.
+    applies_when: { always: true }
+    controls: [AIG-05, AIG-10, AIG-13]
+    references:
+      owasp-genai: ["LLM02:2026 Sensitive Information Disclosure", "LLM08:2026 Hidden Context Exposure"]
+      nist-ai-rmf: ["AI 600-1 2.4 Data Privacy", "AI 600-1 2.9 Information Security"]
+    verification: primary
+
+  - id: RSK-03
+    title: Data and model poisoning
+    category: security
+    severity: high
+    description: Training, fine-tuning, grounding or embedding data is tampered with so the model behaves wrongly on chosen inputs or carries a backdoor.
+    applies_when: { always: true }
+    controls: [AIG-04, AIG-06, AIG-14]
+    references:
+      owasp-genai: ["LLM05:2026 Data and Model Poisoning", "LLM09:2026 Vector and Embedding Weaknesses"]
+      mitre-atlas: ["AML.M0007 Sanitize Training Data", "AML.M0025 Maintain AI Dataset Provenance", "AML.M0008 Validate AI Model"]
+    verification: primary
+
+  - id: RSK-04
+    title: Improper output handling leading to downstream exploitation
+    category: security
+    severity: high
+    description: Model output is passed unvalidated to browsers, shells, databases or other systems, enabling injection, code execution or privilege escalation.
+    applies_when:
+      any:
+        - { path: system.agentic, equals: true }
+        - { path: system.user_facing, equals: true }
+    controls: [AIG-10, AIG-14]
+    references:
+      owasp-genai: ["LLM10:2026 Improper Output Handling", "ASI05 Unexpected Code Execution (RCE)"]
+    verification: primary
+
+  - id: RSK-05
+    title: Credential and identity compromise of the AI workload
+    category: security
+    severity: high
+    description: Shared or long-lived API keys, over-privileged service identities or unmanaged non-human identities let an attacker use the model or its tools as the workload.
+    applies_when: { always: true }
+    controls: [AIG-07, AIG-09, AIG-13]
+    references:
+      owasp-genai: ["ASI03 Identity and Privilege Abuse"]
+      mitre-atlas: ["AML.M0019 Control Access to AI Models and Data in Production", "AML.M0026 Privileged AI Agent Permissions Configuration"]
+      zero-trust: ["SP 800-207 tenets 2, 3 and 6"]
+    verification: primary
+
+  - id: RSK-06
+    title: Model theft, extraction and inversion
+    category: security
+    severity: medium
+    description: Repeated queries reconstruct model behaviour, training data or weights; exposed model artefacts are copied.
+    applies_when:
+      any:
+        - { path: context.role, equals: provider }
+        - { path: context.role, equals: provider_and_deployer }
+        - { path: system.user_facing, equals: true }
+    controls: [AIG-08, AIG-09, AIG-13, AIG-22]
+    references:
+      mitre-atlas: ["AML.M0004 Limit AI Service Query Volume and Rate", "AML.M0001 Limit Model Artifact Release", "AML.M0005 Control Access to AI Models and Data at Rest"]
+    verification: primary
+
+  - id: RSK-07
+    title: Unbounded consumption and denial of wallet
+    category: security
+    severity: medium
+    description: Uncapped prompts, loops or abuse exhaust tokens, rate limits or budget, degrading service or creating runaway cost.
+    applies_when: { always: true }
+    controls: [AIG-22, AIG-10, AIG-17]
+    references:
+      owasp-genai: ["LLM06:2026 Unbounded Consumption"]
+      mitre-atlas: ["AML.M0004 Limit AI Service Query Volume and Rate"]
+      finops: ["FinOps for AI: anomaly detection and budgets"]
+    verification: primary
+
+  - id: RSK-08
+    title: Vector store and retrieval weaknesses
+    category: security
+    severity: medium
+    description: Retrieval-augmented systems leak across tenants, return poisoned or stale documents, or expose embeddings that can be inverted.
+    applies_when:
+      any:
+        - { path: system.generative, equals: true }
+        - { path: system.user_facing, equals: true }
+    controls: [AIG-04, AIG-07, AIG-08]
+    references:
+      owasp-genai: ["LLM09:2026 Vector and Embedding Weaknesses"]
+    verification: primary
+
+  # ── Privacy ───────────────────────────────────────────────────────────────
+  - id: RSK-09
+    title: Unlawful or excessive processing of personal data
+    category: privacy
+    severity: high
+    description: Personal data is used for training, grounding or inference without a lawful basis, beyond the purpose collected for, or without minimisation.
+    applies_when:
+      any:
+        - { path: data.personal_data, equals: true }
+    controls: [AIG-05, AIG-04, AIG-03]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.4 Data Privacy"]
+      gdpr: ["Art 5, 6, 9"]
+    verification: primary
+
+  - id: RSK-10
+    title: Special-category or biometric data exposure
+    category: privacy
+    severity: high
+    description: Health, biometric, financial or other sensitive data is inferred, revealed or processed without the heightened safeguards the law requires.
+    applies_when:
+      any:
+        - { path: data.special_category, equals: true }
+        - { path: system.biometric_processing, equals: true }
+    controls: [AIG-05, AIG-09, AIG-03]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.4 Data Privacy"]
+      gdpr: ["Art 9, Art 35"]
+    verification: primary
+
+  - id: RSK-11
+    title: Cross-border transfer without safeguards
+    category: privacy
+    severity: medium
+    description: Prompts, outputs or training data leave the jurisdiction (hosting region, vendor processing, support access) without a recognised transfer mechanism.
+    applies_when:
+      any:
+        - { path: data.cross_border_transfer, equals: true }
+    controls: [AIG-18, AIG-08]
+    references:
+      gdpr: ["Chapter V"]
+    verification: primary
+
+  - id: RSK-12
+    title: Vendor training on customer data
+    category: privacy
+    severity: medium
+    description: The model provider retains or trains on prompts and outputs, breaching confidentiality and purpose limitation.
+    applies_when: { always: true }
+    controls: [AIG-06, AIG-05]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.12 Value Chain and Component Integration"]
+    verification: primary
+
+  # ── Safety ────────────────────────────────────────────────────────────────
+  - id: RSK-13
+    title: Confabulation and misinformation
+    category: safety
+    severity: high
+    description: Confident, fluent output that is false, fabricated or unsupported is acted on by people or downstream systems.
+    applies_when: { always: true }
+    controls: [AIG-14, AIG-11, AIG-12]
+    references:
+      owasp-genai: ["LLM07:2026 Misinformation"]
+      nist-ai-rmf: ["AI 600-1 2.2 Confabulation", "AI 600-1 2.8 Information Integrity"]
+    verification: primary
+
+  - id: RSK-14
+    title: Dangerous, violent, hateful or abusive content
+    category: safety
+    severity: high
+    description: The system generates or amplifies content that incites harm, harasses, degrades or is sexually abusive, including towards minors.
+    applies_when:
+      any:
+        - { path: system.user_facing, equals: true }
+        - { path: system.generates_synthetic_content, equals: true }
+    controls: [AIG-10, AIG-14, AIG-16]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.3 Dangerous, Violent, or Hateful Content", "AI 600-1 2.11 Obscene, Degrading, and/or Abusive Content"]
+      mitre-atlas: ["AML.M0020 Generative AI Guardrails", "AML.M0022 Generative AI Model Alignment"]
+    verification: primary
+
+  - id: RSK-15
+    title: CBRN and cyber-offence uplift
+    category: safety
+    severity: high
+    description: The model lowers the barrier to chemical, biological, radiological, nuclear or offensive-cyber harm.
+    applies_when:
+      any:
+        - { path: context.role, equals: provider }
+        - { path: context.role, equals: provider_and_deployer }
+        - { path: system.user_facing, equals: true }
+    controls: [AIG-10, AIG-14, AIG-06]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.1 CBRN Information or Capabilities", "AI 600-1 2.9 Information Security"]
+    verification: primary
+
+  - id: RSK-16
+    title: Harmful automated decision without human review
+    category: safety
+    severity: high
+    description: A consequential decision about a person (credit, employment, benefits, health, access to services) is taken or materially shaped by the system without meaningful human oversight or a route to contest it.
+    applies_when:
+      any:
+        - { path: system.decision_impact, equals: consequential }
+        - { path: system.fully_automated_decision, equals: true }
+    controls: [AIG-11, AIG-12, AIG-20, AIG-03]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.7 Human-AI Configuration"]
+      gdpr: ["Art 22"]
+      eu-ai-act: ["Art 14 Human oversight", "Art 26 Deployer obligations"]
+    verification: primary
+
+  - id: RSK-17
+    title: Over-reliance and automation bias
+    category: safety
+    severity: medium
+    description: Operators defer to the system beyond its competence, stop checking, or cannot tell when it is wrong.
+    applies_when:
+      any:
+        - { path: system.decision_impact, equals: consequential }
+        - { path: system.decision_impact, equals: assistive }
+    controls: [AIG-19, AIG-11, AIG-12]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.7 Human-AI Configuration"]
+      eu-ai-act: ["Art 14(4)(b) awareness of automation bias", "Art 4 AI literacy"]
+    verification: primary
+
+  - id: RSK-18
+    title: Unsafe behaviour in physical or operational-technology environments
+    category: safety
+    severity: high
+    description: Outputs or actions reach plant, grid, medical or vehicle systems where an error causes physical harm or an outage.
+    applies_when:
+      any:
+        - { path: system.ot_connected, equals: true }
+        - { path: system.critical_operation, equals: true }
+        - { path: system.annex_iii_area, equals: critical_infrastructure }
+    controls: [AIG-11, AIG-17, AIG-08, AIG-14]
+    references:
+      energy-ci: ["IEC 62443 zones and conduits", "NERC CIP"]
+    verification: primary
+
+  # ── Fairness ──────────────────────────────────────────────────────────────
+  - id: RSK-19
+    title: Harmful bias and discrimination
+    category: fairness
+    severity: high
+    description: Outputs or decisions systematically disadvantage people by protected attribute, through training data, proxies, prompts or deployment context.
+    applies_when:
+      any:
+        - { path: data.personal_data, equals: true }
+        - { path: system.decision_impact, equals: consequential }
+    controls: [AIG-20, AIG-14, AIG-04, AIG-13]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.6 Harmful Bias and Homogenization"]
+    verification: primary
+
+  - id: RSK-20
+    title: Homogenisation and loss of diversity of outcomes
+    category: fairness
+    severity: low
+    description: Many decisions route through the same model, so one error or bias is replicated at scale and alternatives disappear.
+    applies_when:
+      any:
+        - { path: system.decision_impact, equals: consequential }
+    controls: [AIG-20, AIG-13, AIG-17]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.6 Harmful Bias and Homogenization"]
+    verification: primary
+
+  # ── Transparency ──────────────────────────────────────────────────────────
+  - id: RSK-21
+    title: Undisclosed AI interaction
+    category: transparency
+    severity: medium
+    description: People do not know they are dealing with an AI system, or that a decision about them was automated.
+    applies_when:
+      any:
+        - { path: system.user_facing, equals: true }
+        - { path: system.fully_automated_decision, equals: true }
+    controls: [AIG-12]
+    references:
+      eu-ai-act: ["Art 50(1) and (4)"]
+      au-privacy: ["APP 1.7–1.9 (from 10 Dec 2026)"]
+    verification: primary
+
+  - id: RSK-22
+    title: Unmarked synthetic media and deepfakes
+    category: transparency
+    severity: medium
+    description: Generated audio, image, video or text is passed off as real, enabling fraud, impersonation or manipulation.
+    applies_when:
+      any:
+        - { path: system.generates_synthetic_content, equals: true }
+    controls: [AIG-12, AIG-10]
+    references:
+      eu-ai-act: ["Art 50(2) and (4)"]
+      nist-ai-rmf: ["AI 600-1 2.8 Information Integrity"]
+    verification: primary
+
+  - id: RSK-23
+    title: Unexplainable adverse decisions
+    category: transparency
+    severity: medium
+    description: A person adversely affected cannot get a meaningful explanation, the inputs used or a route to correction.
+    applies_when:
+      any:
+        - { path: system.decision_impact, equals: consequential }
+    controls: [AIG-12, AIG-11, AIG-13]
+    references:
+      us-ai: ["Colorado SB 26-189 notice, explanation and human review (from 1 Jan 2027)"]
+      gdpr: ["Art 13–15, Art 22(3)"]
+    verification: primary
+
+  # ── Agentic ───────────────────────────────────────────────────────────────
+  - id: RSK-24
+    title: Excessive agency and tool misuse
+    category: agentic
+    severity: high
+    description: An agent has more tools, permissions or autonomy than its task needs and uses them in unintended ways.
+    applies_when:
+      any:
+        - { path: system.agentic, equals: true }
+    controls: [AIG-07, AIG-10, AIG-11]
+    references:
+      owasp-genai: ["LLM03:2026 Excessive Agency", "ASI02 Tool Misuse and Exploitation"]
+      mitre-atlas: ["AML.M0028 AI Agent Tools Permissions Configuration", "AML.M0027 Single-User AI Agent Permissions Configuration"]
+      anthropic-zero-trust: ["least agency"]
+    verification: primary
+
+  - id: RSK-25
+    title: Irreversible action without approval
+    category: agentic
+    severity: high
+    description: An agent sends, pays, deletes, deploys or changes something that cannot be undone, without a human approving that specific action.
+    applies_when:
+      any:
+        - { path: system.irreversible_actions, equals: true }
+    controls: [AIG-11, AIG-07, AIG-13]
+    references:
+      mitre-atlas: ["AML.M0029 Human In-the-Loop for AI Agent Actions"]
+      anthropic-zero-trust: ["per-action approval for irreversible actions"]
+    verification: primary
+
+  - id: RSK-26
+    title: Memory and context poisoning
+    category: agentic
+    severity: medium
+    description: Persistent memory, scratchpads or shared context are seeded with false facts or instructions that steer later sessions.
+    applies_when:
+      any:
+        - { path: system.agentic, equals: true }
+    controls: [AIG-04, AIG-10, AIG-13]
+    references:
+      owasp-genai: ["ASI06 Memory & Context Poisoning"]
+      mitre-atlas: ["AML.M0031 Memory Hardening"]
+    verification: primary
+
+  - id: RSK-27
+    title: Insecure inter-agent communication and rogue agents
+    category: agentic
+    severity: medium
+    description: Agents trust each other's messages without authentication or validation; a compromised or misaligned agent spreads bad instructions through the system.
+    applies_when:
+      any:
+        - { path: system.agentic, equals: true }
+    controls: [AIG-07, AIG-08, AIG-13]
+    references:
+      owasp-genai: ["ASI07 Insecure Inter-Agent Communication", "ASI10 Rogue Agents"]
+    verification: primary
+
+  - id: RSK-28
+    title: Cascading failures across agents and tools
+    category: agentic
+    severity: medium
+    description: One wrong output or failed tool propagates through chained agents and automations before anyone notices.
+    applies_when:
+      any:
+        - { path: system.agentic, equals: true }
+    controls: [AIG-13, AIG-17, AIG-11]
+    references:
+      owasp-genai: ["ASI08 Cascading Failures"]
+      mitre-atlas: ["AML.M0024 AI Telemetry Logging"]
+    verification: primary
+
+  - id: RSK-29
+    title: Scope drift and goal hijack
+    category: agentic
+    severity: high
+    description: The agent's effective goal changes through manipulation or accumulated context and it pursues outcomes nobody authorised.
+    applies_when:
+      any:
+        - { path: system.agentic, equals: true }
+    controls: [AIG-13, AIG-10, AIG-11]
+    references:
+      owasp-genai: ["ASI01 Agent Goal Hijack", "ASI09 Human-Agent Trust Exploitation"]
+      mitre-atlas: ["AML.M0024 AI Telemetry Logging"]
+    verification: primary
+
+  # ── Operational ───────────────────────────────────────────────────────────
+  - id: RSK-30
+    title: Model or provider outage without a fallback
+    category: operational
+    severity: high
+    description: A critical operation depends on one model, region or vendor and has no tested secondary route, RTO or exit plan.
+    applies_when:
+      any:
+        - { path: system.critical_operation, equals: true }
+    controls: [AIG-17, AIG-06, AIG-22]
+    references:
+      bcp-dr: ["NIST SP 800-34", "CSF 2.0 RC/PR.IR", "ISO 22301"]
+      apra: ["CPS 230 paras 36–43"]
+    verification: primary
+
+  - id: RSK-31
+    title: Silent model change, drift and degradation
+    category: operational
+    severity: medium
+    description: The vendor updates or retires the model, data drifts, or quality degrades, and nobody re-tests or re-approves.
+    applies_when: { always: true }
+    controls: [AIG-15, AIG-13, AIG-14]
+    references:
+      iso42001: ["A.6.2.6 AI system operation and monitoring"]
+      nist-ai-rmf: ["MEASURE 2.4", "MANAGE 4.1"]
+    verification: primary
+
+  - id: RSK-32
+    title: Uncontrolled cost and no cost allocation
+    category: operational
+    severity: medium
+    description: Spend grows without a budget, token limits or allocation to the workload that incurs it; the wrong model tier is used for the job.
+    applies_when: { always: true }
+    controls: [AIG-22]
+    references:
+      finops: ["FinOps for AI: budgets, allocation, unit economics"]
+    verification: primary
+
+  - id: RSK-33
+    title: Incident not detected, escalated or reported in time
+    category: operational
+    severity: high
+    description: Harmful output, a breach or a serious malfunction is not logged, not routed to the SOC, and regulator or affected-person notifications miss their deadlines.
+    applies_when: { always: true }
+    controls: [AIG-16, AIG-13]
+    references:
+      nist-sp-800-61: ["CSF 2.0 DE.CM, RS.MA, RS.CO"]
+      eu-ai-act: ["Art 73 Reporting of serious incidents"]
+    verification: primary
+
+  # ── Supply chain ──────────────────────────────────────────────────────────
+  - id: RSK-34
+    title: Unvetted model, dataset or component
+    category: supply-chain
+    severity: high
+    description: A model, dataset, plugin, MCP server or library is used without assessment, is not what it claims to be, or carries a licence you cannot meet.
+    applies_when: { always: true }
+    controls: [AIG-06, AIG-04, AIG-14]
+    references:
+      owasp-genai: ["LLM04:2026 Supply Chain", "ASI04 Agentic Supply Chain Vulnerabilities"]
+      mitre-atlas: ["AML.M0023 AI Bill of Materials", "AML.M0014 Verify AI Artifacts", "AML.M0013 Code Signing"]
+      nist-ai-rmf: ["AI 600-1 2.12 Value Chain and Component Integration"]
+    verification: primary
+
+  - id: RSK-35
+    title: Outsourcing concentration and lost regulator access
+    category: supply-chain
+    severity: medium
+    description: A material service provider cannot be exited, audited or reached by the regulator; concentration in one vendor becomes a prudential issue.
+    applies_when:
+      any:
+        - { path: supplier.outsourced, equals: true }
+        - { path: supplier.material_service_provider, equals: true }
+    controls: [AIG-17, AIG-06, AIG-21]
+    references:
+      apra: ["CPS 230 paras 44–58"]
+      rbnz-bs11: ["Outsourcing policy"]
+    verification: primary
+
+  # ── Compliance ────────────────────────────────────────────────────────────
+  - id: RSK-36
+    title: Intellectual-property and licence infringement
+    category: compliance
+    severity: medium
+    description: Training data, prompts or outputs infringe copyright or trade secrets, or the model's licence restricts the use the system makes of it.
+    applies_when: { always: true }
+    controls: [AIG-04, AIG-06, AIG-12]
+    references:
+      nist-ai-rmf: ["AI 600-1 2.10 Intellectual Property"]
+      eu-ai-act: ["Art 53(1)(c) copyright policy (GPAI providers)"]
+    verification: primary
