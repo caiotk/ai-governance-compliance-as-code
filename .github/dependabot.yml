@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly, day: monday, time: "08:00", timezone: Pacific/Auckland }
+    labels: [dependencies, ci]
+  - package-ecosystem: pip
+    directory: /
+    schedule: { interval: weekly, day: monday, time: "08:00", timezone: Pacific/Auckland }
+    labels: [dependencies]
+  - package-ecosystem: terraform
+    directories: ["/vendors/*/terraform", "/finops/iac/terraform/*", "/bcp/terraform/*"]
+    schedule: { interval: monthly }
+    labels: [dependencies, terraform]
+  - package-ecosystem: docker
+    directory: /.devcontainer
+    schedule: { interval: monthly }
+    labels: [dependencies]

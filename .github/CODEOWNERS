@@ -1,0 +1,13 @@
+# Reviews from these owners are required by branch protection on main.
+# Catalogue facts, policies and vendor packs carry legal and security weight,
+# so they always need a maintainer's review.
+*                       @caiotk
+/catalog/               @caiotk
+/mlops/policies/        @caiotk
+/mlops/schema/          @caiotk
+/vendors/               @caiotk
+/.github/workflows/     @caiotk
+/LICENSE                @caiotk
+/NOTICE                 @caiotk
+/TRADEMARKS.md          @caiotk
+/CLA.md                 @caiotk
