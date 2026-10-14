@@ -1,10 +1,18 @@
 # AI Governance Compliance as Code
 
-Vendor-native AI governance policies, an MLOps compliance gate, and country × sector compliance profiles — all as code, each fact checked against its source on **13 October 2026** and labelled primary, secondary or unverified.
+[![Validate policy packs](https://github.com/caiotk/ai-governance-compliance-as-code/actions/workflows/validate.yml/badge.svg)](https://github.com/caiotk/ai-governance-compliance-as-code/actions/workflows/validate.yml)
+[![Licence: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue.svg)](LICENSE)
+[![Catalogue verified](https://img.shields.io/badge/catalogue%20verified-13%20Oct%202026-success.svg)](docs/SOURCES.md)
+
+Vendor-native AI governance policies, an MLOps compliance gate, a risk catalogue, an inventory and country × sector compliance profiles — all as code, each fact checked against its source on **13 October 2026** and labelled primary, secondary or unverified.
+
+**Free and open source** (Apache-2.0). The commercial edition, **NexGuide.AI GovMap**, adds an evidence database, approval workflows, PDF audit packs and a hosted API on the same catalogue — see [Editions](#editions).
 
 **Explore the crosswalk:** https://caiotk.github.io/ai-governance-compliance-as-code/
 
-![NXGD-AIGovMP: the periodic table of AI governance. 30 laws and standards grouped by family, the 22 shared AIG controls they map to, and the 8 vendor policy packs that implement them](docs/NXGD-AIGovMP.png)
+![NXGD-AIGovMap — the NexGuide.AI Governance Map: 30 laws and standards grouped by family, the 22 shared AIG controls they map to, and the 8 vendor policy packs that implement them](docs/NXGD-AIGovMap.png)
+
+<sub>**NXGD-AIGovMap** — the NexGuide.AI Governance Map. Reproduce it unmodified with its footer; see [TRADEMARKS.md](TRADEMARKS.md).</sub>
 
 > Not legal advice. This repository turns published obligations into reviewable, testable controls. The catalogue labels every fact `primary`, `secondary` or `unverified` ([docs/SOURCES.md](docs/SOURCES.md)); check the primary text before you rely on it.
 
@@ -18,6 +26,11 @@ Vendor-native AI governance policies, an MLOps compliance gate, and country × s
 | **Vendor policy packs** | [`vendors/`](vendors/) | Terraform **and** native-format policies for Microsoft Foundry, Copilot Studio, Amazon Bedrock, Google Cloud Vertex AI, OpenAI, Anthropic Claude, Mistral AI and Meta Llama, each mapped to the controls and validated in CI. |
 | **MLOps governance gate** | [`mlops/`](mlops/) | OPA/Rego policies that evaluate an AI system record against every framework that applies to its countries, sector and entity types. Date-aware: obligations not yet in force are warnings with their start date. Reusable as a GitHub Actions workflow. |
 | **Compliance profiles** | [`profiles/`](profiles/) | 70 generated profiles (10 countries × 7 sectors): the laws and guidance that apply, what pushes a system into higher risk, the required controls, which vendor packs cover them, and a pre-filled system record to run through the gate. |
+| **Risk catalogue** | [`catalog/risks.yaml`](catalog/risks.yaml) | 36 AI risks in 9 categories (security, privacy, safety, fairness, transparency, agentic, operational, supply chain, compliance), each mapped to the controls that treat it and to OWASP LLM/Agentic Top 10, MITRE ATLAS and NIST AI 600-1. The gate names the risks that apply to each system. [RISKS.md](docs/RISKS.md). |
+| **Inventory and evidence** | [`systems/`](systems/) | Your AI register in git: one record per system, an `evidence` block with freshness checks, `tools/inventory.py` for the Markdown/CSV/JSON register, weekly review reminders as issues. [INVENTORY.md](docs/INVENTORY.md). |
+| **Runtime hooks and incidents** | [`hooks/`](hooks/), [`incidents/`](incidents/) | A webhook receiver that turns Bedrock, Defender for AI, Model Armor and moderation-gate events into incident records linked to the system, surfaced in the inventory, reports and reminders. |
+| **Audit reports** | [`tools/report.py`](tools/report.py) | A Markdown audit pack per system: decision, frameworks, every required control with clause references, evidence on file, vendor coverage, applicable risks, incidents and the review calendar. |
+| **API and MCP server** | [`api/`](api/), [`mcp/`](mcp/) | Read-only HTTP/JSON API and a Model Context Protocol server over the catalogue, profiles, inventory and gate, so assistants and pipelines query verified facts instead of guessing. |
 
 Countries: Brazil, Chile, Argentina, Portugal, Spain, United States, Australia, New Zealand, Japan, Singapore.
 Sectors: health, financial services, public sector, agriculture, mining, technology companies, energy (oil, gas and electricity).
@@ -43,13 +56,27 @@ OWASP, MITRE ATLAS and the Anthropic guidance are not law; where the gate says *
 
 ## Quick start
 
+Use this repository as a **template** ("Use this template" on GitHub) or fork it, then:
+
 ```bash
-pip install pyyaml jsonschema cfn-lint  # plus opa, terraform, bicep on PATH
-python3 tools/build.py  # validate the catalogue, regenerate profiles and crosswalk
+make setup      # pip deps; reports missing opa / terraform / bicep / cfn-lint (or open the dev container)
+make build      # validate the catalogue, regenerate profiles, crosswalk, risks, catalog.json
+make test       # everything CI runs (TF=0 to skip Terraform)
+make gate       # evaluate systems/*.yaml → build/gate.md + gate.sarif
+make inventory  # docs/INVENTORY.md, inventory.csv, inventory.json
+make report     # Markdown audit pack per system → build/reports/
+make reviews    # what falls due in 30 days (evidence, assessments, audits, drills)
+make api        # read-only API on :8080   ·   make mcp → MCP server on stdio
+```
+
+Without make:
+
+```bash
+pip install -r requirements.txt  # plus opa, terraform, bicep on PATH
+python3 tools/build.py
 opa test mlops/policies mlops/tests mlops/data/catalog.json
 python3 tools/gate.py mlops/examples/compliant/*.yaml  # ALLOW
 python3 tools/gate.py --expect-fail mlops/examples/noncompliant/*.yaml  # DENY, with every finding
-tools/ci.sh  # everything CI runs
 python3 tools/select_model.py finops/examples/eu-support-chatbot.yaml  # price a workload, decide routing, emit broker config
 python3 tools/dr.py drill --workload eu-support-chatbot --rto-minutes 30  # timed failover drill
 ```
@@ -58,19 +85,31 @@ python3 tools/dr.py drill --workload eu-support-chatbot --rto-minutes 30  # time
 
 1. Copy the pre-filled record for your country and sector, e.g. [`profiles/nz/fsi.system.yaml`](profiles/nz/fsi.system.yaml).
 2. Complete every field (meanings are in [`mlops/schema/ai-system.schema.json`](mlops/schema/ai-system.schema.json)). Set `context.entity_types` to switch on gated regimes (`apra_regulated`, `nz_registered_bank`, `mas_regulated`, `critical_infrastructure`, `us_bank`, `gpai_provider`); the baseline standards above apply automatically, and `context.us_states` / `us_localities` for US state and city laws.
-3. `python3 tools/gate.py my-system.yaml` — exit code 1 means a blocking finding.
+3. Add an `evidence` block (see [`systems/customer-support-assistant.yaml`](systems/customer-support-assistant.yaml)) listing where the proof for each control lives and when it was last reviewed; the gate warns on missing and expired evidence and, with `enforce: true`, blocks on expired evidence.
+4. `python3 tools/gate.py my-system.yaml` — exit code 1 means a blocking finding. The decision also lists the risks that apply (`docs/RISKS.md`) and the evidence status per control.
 
 ### Use the gate in your model pipeline
 
 ```yaml
 jobs:
   governance:
-    uses: caiotk/ai-governance-compliance-as-code/.github/workflows/ai-governance-gate.yml@main
+    uses: caiotk/ai-governance-compliance-as-code/.github/workflows/ai-governance-gate.yml@v1
     with:
       systems: "ai-systems/*.yaml"
+      # policy_repo: my-org/my-fork   # forks evaluate against their own copy
+      # policy_ref: v1.0.0            # pin the catalogue version
 ```
 
-The job fails on any `deny` finding, so a model cannot be promoted until its record is compliant.
+The job fails on any `deny` finding, so a model cannot be promoted until its record is compliant. Findings are posted as a pull-request comment, a job summary and SARIF (Security → Code scanning). Other CI systems: run `python3 tools/gate.py --sarif gate.sarif systems/*.yaml` in any job with Python 3.12 and `opa`.
+
+### Ask the catalogue (API and MCP)
+
+```bash
+python3 api/server.py --port 8080      # GET /v1/jurisdictions/AU?sector=fsi · /v1/controls/AIG-11 · /v1/risks?category=agentic · POST /v1/evaluate
+python3 mcp/server.py                  # MCP over stdio: frameworks_for, get_control, crosswalk, list_risks, get_profile, evaluate_system, list_systems …
+```
+
+Claude Desktop / Claude Code / Cursor: `{"mcpServers": {"ai-governance": {"command": "python3", "args": ["/path/to/repo/mcp/server.py"]}}}`.
 
 ## Vendor packs
 
@@ -92,13 +131,17 @@ Every pack's `mapping.yaml` lists the controls it **implements** and the **gaps*
 ```mermaid
 flowchart LR
   C["catalog/<br/>frameworks · controls<br/>jurisdictions · sectors"] --> B[tools/build.py]
-  B --> P["profiles/<br/>60 country × sector"]
+  B --> P["profiles/<br/>70 country × sector"]
   B --> X[docs/CROSSWALK.md]
+  B --> K[docs/RISKS.md]
   B --> D[mlops/data/catalog.json]
   D --> G{"MLOps gate<br/>OPA/Rego"}
-  S[AI system record] --> G
+  S["systems/*.yaml<br/>record + evidence"] --> G
   G -- deny --> Blocked
   G -- allow --> Promote
+  G --> I["tools/inventory.py<br/>tools/report.py"]
+  H["hooks/receiver.py"] --> N["incidents/"] --> I
+  D --> A["api/ · mcp/"]
   V["vendors/*<br/>Terraform + native"] -.->|mapping.yaml| C
 ```
 
@@ -107,7 +150,11 @@ flowchart LR
 | Workflow | Purpose |
 |---|---|
 | [`validate.yml`](.github/workflows/validate.yml) | Catalogue validation, generated files up to date, Rego tests, gate examples, Terraform fmt/validate, Bicep build, cfn-lint, JSON/YAML/shell/Python syntax |
-| [`ai-governance-gate.yml`](.github/workflows/ai-governance-gate.yml) | The MLOps gate as a reusable workflow; comments findings on pull requests |
+| [`ai-governance-gate.yml`](.github/workflows/ai-governance-gate.yml) | The MLOps gate as a reusable workflow (`policy_repo` / `policy_ref` inputs); comments findings on pull requests and uploads SARIF |
+| [`inventory.yml`](.github/workflows/inventory.yml) | Builds the AI inventory from `systems/` on every change and weekly; keeps `docs/INVENTORY.md` current |
+| [`review-reminders.yml`](.github/workflows/review-reminders.yml) | Weekly: one issue per system for evidence, impact-assessment reviews, audits, DR drills and model-selection refreshes falling due in 30 days, plus open high incidents |
+| [`release.yml`](.github/workflows/release.yml) | Tags `vX.Y.Z` → validated release with the catalogue bundle, `catalog.json`, the NXGD-AIGovMap visual and checksums; moves the `v1` tag |
+| [`cla.yml`](.github/workflows/cla.yml) | Asks first-time contributors to sign the [CLA](CLA.md) |
 | [`regulatory-watch.yml`](.github/workflows/regulatory-watch.yml) | Weekly: opens an issue listing obligations commencing in the next 120 days, and warns when the catalogue needs re-verification |
 | [`deploy-site.yml`](.github/workflows/deploy-site.yml) | Publishes the crosswalk explorer to GitHub Pages after validation passes |
 | [`model-selection.yml`](.github/workflows/model-selection.yml) | Prices every workload profile, decides routing, posts the decision on pull requests; weekly catalogue-freshness check opens a refresh issue |
@@ -122,10 +169,27 @@ flowchart LR
 - Australian APP 1.7–1.9 automated-decision transparency starts **10 Dec 2026**; NZ IPP 3A has applied since 1 May 2026.
 - MAS finalised its AI Risk Management Guidelines in Oct 2026 (phased from Oct 2027). Brazil's PL 2338, Chile's AI bill and Spain's national AI law are still bills.
 
+## Editions
+
+This repository is the **free, open-source edition** and is complete for teams that run AI governance from git. Where a capability needs a server, a database or a team behind it, the tools say so with a short note — "available in NexGuide.AI GovMap" — and keep working.
+
+| | Open source (here) | NexGuide.AI GovMap |
+|---|---|---|
+| Catalogue, controls, risks, profiles, vendor packs, gate, CI workflow | ✅ | ✅ same catalogue |
+| Inventory | YAML in `systems/` + generated register | Database register with search, ownership views, history; imports from Foundry, Bedrock and Copilot Studio exports |
+| Evidence | Evidence-as-code block, freshness checks | Evidence vault: upload, hash, versioning, reuse, reviewer sign-off |
+| Workflow | CODEOWNERS, required reviews, reminder issues | Approval workflows with roles and an audit trail |
+| Runtime | Webhook receiver → incident records | Hosted receivers, triage, automatic re-evaluation, promotion block on critical incidents, Slack/Teams |
+| Reports | Markdown audit pack | PDF audit packs with the evidence register, portfolio dashboard |
+| API / MCP | Read-only, self-hosted | Write API with API keys and roles |
+| Support | Community | Commercial |
+
+Details and roadmap: [docs/EDITIONS.md](docs/EDITIONS.md).
+
 ## Contributing
 
-Facts go in `catalog/`, never in generated files. Run `python3 tools/build.py` and `tools/ci.sh` before opening a pull request. Vendor packs follow [docs/VENDOR_PACK_SPEC.md](docs/VENDOR_PACK_SPEC.md).
+Facts go in `catalog/`, never in generated files. Run `make build` and `make test` before opening a pull request; first-time contributors sign the [CLA](CLA.md). See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) and [docs/VENDOR_PACK_SPEC.md](docs/VENDOR_PACK_SPEC.md).
 
-## Licence
+## Licence and trademarks
 
-MIT. Built by [Caio TK](https://www.linkedin.com/in/caiotk).
+[Apache License 2.0](LICENSE) with the attribution in [NOTICE](NOTICE). **NexGuide.AI**, **NexGuide.AI GovMap** and **NXGD-AIGovMap** are trademarks of Caio Augusto Tkalec; the code is free to use, the names are not — [TRADEMARKS.md](TRADEMARKS.md). Built by [Caio TK](https://www.linkedin.com/in/caiotk).

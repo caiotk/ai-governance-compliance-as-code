@@ -1,0 +1,28 @@
+AI Governance Compliance as Code
+Copyright 2026 Caio Augusto Tkalec
+
+This product is licensed under the Apache License, Version 2.0 (the
+"License"). You may obtain a copy of the License in the LICENSE file or at
+http://www.apache.org/licenses/LICENSE-2.0.
+
+Trademarks
+----------
+"NexGuide.AI", "NexGuide.AI GovMap", "NXGD-AIGovMap" and the NXGD-AIGovMap
+elements-table visual are trademarks of Caio Augusto Tkalec. The Apache
+License does not grant permission to use these names and marks except as
+required for reasonable and customary use in describing the origin of the
+work (License section 6). See TRADEMARKS.md for the trademark policy.
+
+Attribution requirement
+-----------------------
+Redistributions of this work, with or without modification, must retain this
+NOTICE file (License section 4(d)). If you distribute a modified version, add
+your own notices below this line rather than editing the text above.
+
+Third-party content
+-------------------
+The catalogue cites laws, regulations, standards and vendor documentation by
+reference only (see docs/SOURCES.md). No standard's text is reproduced.
+Standard titles and clause numbers remain the property of their issuers
+(ISO/IEC, NIST, OWASP, MITRE, the European Union, national legislatures and
+regulators, and the cloud and model vendors named in vendors/).
