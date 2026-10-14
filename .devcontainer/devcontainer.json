@@ -1,0 +1,14 @@
+{
+  "name": "AI Governance Compliance as Code",
+  "build": { "dockerfile": "Dockerfile", "context": ".." },
+  "features": { "ghcr.io/devcontainers/features/github-cli:1": {} },
+  "customizations": {
+    "vscode": {
+      "extensions": ["tsandall.opa", "hashicorp.terraform", "ms-azuretools.vscode-bicep", "redhat.vscode-yaml", "ms-python.python"],
+      "settings": { "yaml.schemas": { "mlops/schema/ai-system.schema.json": ["systems/*.yaml", "mlops/examples/**/*.yaml", "profiles/**/*.system.yaml"] } }
+    }
+  },
+  "postCreateCommand": "make setup && make check",
+  "forwardPorts": [8080, 8081],
+  "portsAttributes": { "8080": { "label": "Catalogue API" }, "8081": { "label": "Webhook receiver" } }
+}
