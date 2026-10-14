@@ -1,6 +1,6 @@
 # Runtime dependencies for the tools in tools/, api/, mcp/ and hooks/.
 # Everything else used by the tools is in the Python standard library.
 pyyaml==6.0.3
-jsonschema==4.23.0
+jsonschema==4.26.0
 # CloudFormation linting (CI only)
 cfn-lint==1.57.2
