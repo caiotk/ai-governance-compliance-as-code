@@ -6,10 +6,11 @@ framework using the Rego policies in mlops/policies.
 
     python3 tools/gate.py mlops/examples/compliant/*.yaml
     python3 tools/gate.py --expect-fail mlops/examples/noncompliant/*.yaml
-    python3 tools/gate.py --markdown report.md system.yaml
+    python3 tools/gate.py --markdown report.md --sarif gate.sarif --json gate.json systems/*.yaml
 
 Exit code 1 if any system is denied (or, with --expect-fail, if any passes).
-Requires the `opa` binary on PATH (or OPA_BIN).
+Requires the `opa` binary on PATH (or OPA_BIN). Other tools import
+`load_record`, `validate_schema` and `evaluate` from this module.
 """
 from __future__ import annotations
 
@@ -25,10 +26,19 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-OPA = os.environ.get("OPA_BIN") or shutil.which("opa")
-if not OPA:
-    sys.exit("opa not found on PATH (set OPA_BIN or install from https://www.openpolicyagent.org/)")
 SCHEMA = ROOT / "mlops/schema/ai-system.schema.json"
+SARIF_RULE_URL = "https://github.com/caiotk/ai-governance-compliance-as-code/blob/main/docs/CROSSWALK.md"
+
+
+def opa_bin() -> str:
+    opa = os.environ.get("OPA_BIN") or shutil.which("opa")
+    if not opa:
+        sys.exit("opa not found on PATH (set OPA_BIN or install from https://www.openpolicyagent.org/)")
+    return opa
+
+
+def load_record(path: Path) -> dict:
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
 def validate_schema(doc: dict, path: Path) -> list[str]:
@@ -41,13 +51,17 @@ def validate_schema(doc: dict, path: Path) -> list[str]:
     return [f"{path}: schema: {'/'.join(map(str, e.path)) or '(root)'}: {e.message}" for e in v.iter_errors(doc)]
 
 
-def evaluate(doc: dict) -> dict:
+def evaluate(doc: dict, date: str | None = None) -> dict:
+    """Run the Rego decision for one record. Returns data.aigov.decision."""
+    if date:
+        doc = dict(doc)
+        doc["context"] = {**doc.get("context", {}), "evaluation_date": date}
     with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
         json.dump(doc, fh, default=str)
         inp = fh.name
     try:
         out = subprocess.run(
-            [OPA, "eval", "--format", "json", "-d", str(ROOT / "mlops/policies"), "-d", str(ROOT / "mlops/data/catalog.json"),
+            [opa_bin(), "eval", "--format", "json", "-d", str(ROOT / "mlops/policies"), "-d", str(ROOT / "mlops/data/catalog.json"),
              "-i", inp, "data.aigov.decision"],
             check=True, capture_output=True, text=True,
         )
@@ -67,25 +81,60 @@ def render(path: Path, d: dict) -> str:
     return "\n".join(lines) + "\n"
 
 
+def sarif(results: list[tuple[Path, dict]]) -> dict:
+    """SARIF 2.1.0 log: one result per finding, anchored on the record file."""
+    rules: dict[str, dict] = {}
+    out = []
+    for path, d in results:
+        for f in d["deny"] + d["warn"]:
+            rid = f["id"]
+            rules.setdefault(rid, {
+                "id": rid,
+                "name": f["control"],
+                "shortDescription": {"text": f"{f['control']} ({', '.join(f['frameworks'])})"},
+                "helpUri": SARIF_RULE_URL + "#" + f["control"].lower(),
+                "defaultConfiguration": {"level": "error" if f["severity"] == "deny" else "warning"},
+            })
+            out.append({
+                "ruleId": rid,
+                "level": "error" if f["severity"] == "deny" else "warning",
+                "message": {"text": f"[{f['control']}] {f['message']} (frameworks: {', '.join(f['frameworks'])})"},
+                "locations": [{"physicalLocation": {"artifactLocation": {"uri": str(path).replace(os.sep, "/"), "uriBaseId": "%SRCROOT%"},
+                                                     "region": {"startLine": 1}}}],
+                "partialFingerprints": {"systemAndRule": f"{d['system']}:{rid}"},
+            })
+    return {
+        "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+        "version": "2.1.0",
+        "runs": [{
+            "tool": {"driver": {"name": "AI governance gate", "informationUri": "https://github.com/caiotk/ai-governance-compliance-as-code",
+                                "version": (ROOT / "VERSION").read_text().strip() if (ROOT / "VERSION").exists() else "0",
+                                "rules": list(rules.values())}},
+            "results": out,
+        }],
+    }
+
+
 def main() -> int:
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("files", nargs="+", type=Path)
     ap.add_argument("--expect-fail", action="store_true", help="succeed only if every system is denied")
     ap.add_argument("--markdown", type=Path, help="write a Markdown report")
+    ap.add_argument("--sarif", type=Path, help="write findings as SARIF 2.1.0 (GitHub code scanning)")
+    ap.add_argument("--json", type=Path, help="write every decision as JSON")
     ap.add_argument("--date", help="evaluate as of this date (YYYY-MM-DD), overriding the record")
     args = ap.parse_args()
 
-    failures, report = 0, ["## AI governance gate", ""]
+    failures, report, results = 0, ["## AI governance gate", ""], []
     for path in args.files:
-        doc = yaml.safe_load(path.read_text(encoding="utf-8"))
+        doc = load_record(path)
         problems = validate_schema(doc, path)
         if problems:
             print("\n".join(problems), file=sys.stderr)
             failures += 1
             continue
-        if args.date:
-            doc.setdefault("context", {})["evaluation_date"] = args.date
-        d = evaluate(doc)
+        d = evaluate(doc, args.date)
+        results.append((path, d))
         text = render(path, d)
         print(text)
         report.append(text)
@@ -93,10 +142,17 @@ def main() -> int:
             failures += 1
 
     if args.markdown:
+        args.markdown.parent.mkdir(parents=True, exist_ok=True)
         args.markdown.write_text("\n".join(report), encoding="utf-8")
         if os.environ.get("GITHUB_STEP_SUMMARY"):
             with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as fh:
                 fh.write("\n".join(report))
+    if args.sarif:
+        args.sarif.parent.mkdir(parents=True, exist_ok=True)
+        args.sarif.write_text(json.dumps(sarif(results), indent=2), encoding="utf-8")
+    if args.json:
+        args.json.parent.mkdir(parents=True, exist_ok=True)
+        args.json.write_text(json.dumps([{"file": str(p), **d} for p, d in results], indent=2), encoding="utf-8")
     if failures:
         print(f"Gate {'did not deny every system as expected' if args.expect_fail else 'BLOCKED'}: {failures} system(s).", file=sys.stderr)
         return 1

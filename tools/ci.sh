@@ -18,6 +18,47 @@ python3 tools/gate.py mlops/examples/compliant/*.yaml >/dev/null
 python3 tools/gate.py --expect-fail mlops/examples/noncompliant/*.yaml >/dev/null
 echo "ok"
 
+step "Inventory records in systems/ pass the gate; SARIF, inventory, reviews and reports build"
+tmp=$(mktemp -d)
+python3 tools/gate.py --markdown "$tmp/gate.md" --sarif "$tmp/gate.sarif" --json "$tmp/gate.json" systems/*.yaml >/dev/null
+python3 -c "import json,sys; s=json.load(open(sys.argv[1])); assert s['version']=='2.1.0' and s['runs'][0]['tool']['driver']['name']" "$tmp/gate.sarif"
+python3 tools/inventory.py --out-dir "$tmp/inv" >/dev/null
+python3 tools/reviews.py --days 30 --out-dir "$tmp/rev" >/dev/null
+python3 tools/report.py --out-dir "$tmp/rep" systems/*.yaml >/dev/null
+test -s "$tmp/inv/INVENTORY.md" && test -s "$tmp/inv/inventory.csv" && ls "$tmp/rep"/*.md >/dev/null
+rm -rf "$tmp"
+echo "ok"
+
+step "Incident records are well-formed"
+python3 - <<'PY2'
+import pathlib, yaml
+n = 0
+for p in sorted(pathlib.Path("incidents").glob("INC-*.yaml")):
+    r = yaml.safe_load(p.read_text())
+    assert r["kind"] == "AIIncident" and r["id"] == p.stem, p
+    assert r["severity"] in ("low", "medium", "high", "critical") and r["status"] in ("open", "closed"), p
+    n += 1
+print(f"ok ({n} records)")
+PY2
+
+step "API and MCP server answer"
+python3 - <<'PY3'
+import json, subprocess, sys
+sys.path.insert(0, "api")
+import data
+s = data.summary()
+assert s["counts"]["controls"] == 22 and s["counts"]["frameworks"] >= 30 and s["counts"]["risks"] >= 36
+assert data.control("AIG-11")["implemented_by"] is not None
+assert "apra" in data.frameworks_for("AU", "fsi")
+reqs = [{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18"}},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
+        {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "get_risk", "arguments": {"id": "RSK-24"}}}]
+out = subprocess.run([sys.executable, "mcp/server.py"], input="\n".join(json.dumps(r) for r in reqs) + "\n", capture_output=True, text=True, check=True).stdout
+msgs = [json.loads(l) for l in out.splitlines() if l.strip()]
+assert len(msgs) == 3 and len(msgs[1]["result"]["tools"]) >= 15 and not msgs[2]["result"]["isError"]
+print("ok")
+PY3
+
 step "FinOps: selector unit tests, example workloads and DR tooling"
 python3 -m unittest discover -s finops/tests -q
 tmp=$(mktemp -d)
@@ -75,12 +116,23 @@ print(f"ok ({n} files)")
 PY
 
 step "Shell syntax"
-find vendors tools finops bcp -name '*.sh' -print0 | xargs -0 -n1 bash -n
+find vendors tools finops bcp hooks -name '*.sh' -print0 | xargs -0 -n1 bash -n
 echo "ok"
 
 step "Python syntax"
-find vendors tools finops bcp -name '*.py' -print0 | xargs -0 python3 -m py_compile
+find vendors tools finops bcp api mcp hooks -name '*.py' -print0 | xargs -0 python3 -m py_compile
 echo "ok"
+
+step "Workflow and config YAML parses; VERSION matches CHANGELOG"
+python3 - <<'PY4'
+import pathlib, re, yaml
+for p in sorted(pathlib.Path(".github").rglob("*.yml")) + [pathlib.Path(".github/dependabot.yml")]:
+    yaml.safe_load(p.read_text())
+v = pathlib.Path("VERSION").read_text().strip()
+assert re.match(r"^\d+\.\d+\.\d+$", v), v
+assert f"## [{v}]" in pathlib.Path("CHANGELOG.md").read_text(), f"CHANGELOG.md has no section for {v}"
+print(f"ok (v{v})")
+PY4
 
 step "CloudFormation (cfn-lint)"
 cfn-lint vendors/aws-bedrock/native/cloudformation/*.yaml
