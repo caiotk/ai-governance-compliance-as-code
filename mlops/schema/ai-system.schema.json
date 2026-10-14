@@ -766,6 +766,86 @@
           "description": "Routing state carries a fallback on another platform/vendor"
         }
       }
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Evidence as code: one item per piece of evidence that a control is implemented. When this block is present the gate warns on required controls with no evidence and on expired evidence (deny when enforce is true).",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "enforce": {
+          "type": "boolean",
+          "default": false,
+          "description": "Treat expired evidence as a blocking (deny) finding"
+        },
+        "default_valid_days": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 365,
+          "description": "Validity window applied to items without valid_days"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "control",
+              "type",
+              "ref",
+              "date"
+            ],
+            "properties": {
+              "control": {
+                "type": "string",
+                "pattern": "^AIG-\\d{2}$"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "policy",
+                  "document",
+                  "ticket",
+                  "scan",
+                  "test-report",
+                  "attestation",
+                  "audit-report",
+                  "config",
+                  "log-export",
+                  "screenshot",
+                  "link"
+                ]
+              },
+              "ref": {
+                "type": "string",
+                "description": "URL, ticket id, document id or repository path where the evidence lives"
+              },
+              "date": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "Date the evidence was produced or last reviewed (YYYY-MM-DD)"
+              },
+              "valid_days": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Days the evidence stays valid from `date` (overrides default_valid_days)"
+              },
+              "owner": {
+                "type": "string",
+                "description": "Who maintains this evidence (email)"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$",
+                "description": "Optional content hash of the evidence file at the time of review"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
