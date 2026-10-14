@@ -369,3 +369,54 @@ test_apra_annual_exercise_is_mandatory if {
 	f.control == "AIG-17"
 	"apra" in f.frameworks
 }
+
+# ── Risks ─────────────────────────────────────────────────────────────────────
+
+test_risks_listed_for_baseline if {
+	d := decide(base)
+	"RSK-01" in d.risks # prompt injection applies to every system
+	not "RSK-24" in d.risks # not agentic
+}
+
+test_agentic_system_gets_agentic_risks if {
+	d := decide(with_(agent_ok))
+	"RSK-24" in d.risks
+	"RSK-25" in d.risks
+	"RSK-29" in d.risks
+}
+
+# ── Evidence as code ──────────────────────────────────────────────────────────
+
+ev(items, enforce) := {"evidence": {"enforce": enforce, "default_valid_days": 365, "items": items}}
+
+test_no_evidence_block_is_not_checked if {
+	d := decide(base)
+	count(d.evidence) == 0
+}
+
+test_missing_evidence_warns_per_required_control if {
+	d := decide(with_(ev([{"control": "AIG-01", "type": "policy", "ref": "POL-1", "date": "2026-09-01"}], false)))
+	d.allow
+	d.evidence["AIG-01"] == "fresh"
+	d.evidence["AIG-02"] == "missing"
+	has_warn(d, "AIG-02", "iso42001")
+}
+
+test_stale_evidence_warns_by_default if {
+	d := decide(with_(ev([{"control": "AIG-01", "type": "policy", "ref": "POL-1", "date": "2025-01-01"}], false)))
+	d.allow
+	d.evidence["AIG-01"] == "stale"
+	some f in d.warn
+	f.id == "evidence:AIG-01:stale"
+}
+
+test_stale_evidence_denies_when_enforced if {
+	d := decide(with_(ev([{"control": "AIG-01", "type": "policy", "ref": "POL-1", "date": "2025-01-01"}], true)))
+	not d.allow
+	has_deny(d, "AIG-01")
+}
+
+test_valid_days_override_extends_freshness if {
+	d := decide(with_(ev([{"control": "AIG-01", "type": "policy", "ref": "POL-1", "date": "2025-01-01", "valid_days": 1000}], true)))
+	d.evidence["AIG-01"] == "fresh"
+}
