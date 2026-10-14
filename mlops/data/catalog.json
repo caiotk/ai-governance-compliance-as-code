@@ -416,6 +416,732 @@
         ]
       }
     },
+    "risks": {
+      "RSK-01": {
+        "title": "Prompt injection (direct and indirect, cross-modal)",
+        "category": "security",
+        "severity": "high",
+        "controls": [
+          "AIG-10",
+          "AIG-14",
+          "AIG-07"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-02": {
+        "title": "Sensitive information disclosure",
+        "category": "security",
+        "severity": "high",
+        "controls": [
+          "AIG-05",
+          "AIG-10",
+          "AIG-13"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-03": {
+        "title": "Data and model poisoning",
+        "category": "security",
+        "severity": "high",
+        "controls": [
+          "AIG-04",
+          "AIG-06",
+          "AIG-14"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-04": {
+        "title": "Improper output handling leading to downstream exploitation",
+        "category": "security",
+        "severity": "high",
+        "controls": [
+          "AIG-10",
+          "AIG-14"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "agentic"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "user_facing"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-05": {
+        "title": "Credential and identity compromise of the AI workload",
+        "category": "security",
+        "severity": "high",
+        "controls": [
+          "AIG-07",
+          "AIG-09",
+          "AIG-13"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-06": {
+        "title": "Model theft, extraction and inversion",
+        "category": "security",
+        "severity": "medium",
+        "controls": [
+          "AIG-08",
+          "AIG-09",
+          "AIG-13",
+          "AIG-22"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "context",
+              "role"
+            ],
+            "equals": "provider"
+          },
+          {
+            "path": [
+              "context",
+              "role"
+            ],
+            "equals": "provider_and_deployer"
+          },
+          {
+            "path": [
+              "system",
+              "user_facing"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-07": {
+        "title": "Unbounded consumption and denial of wallet",
+        "category": "security",
+        "severity": "medium",
+        "controls": [
+          "AIG-22",
+          "AIG-10",
+          "AIG-17"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-08": {
+        "title": "Vector store and retrieval weaknesses",
+        "category": "security",
+        "severity": "medium",
+        "controls": [
+          "AIG-04",
+          "AIG-07",
+          "AIG-08"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "generative"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "user_facing"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-09": {
+        "title": "Unlawful or excessive processing of personal data",
+        "category": "privacy",
+        "severity": "high",
+        "controls": [
+          "AIG-05",
+          "AIG-04",
+          "AIG-03"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "data",
+              "personal_data"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-10": {
+        "title": "Special-category or biometric data exposure",
+        "category": "privacy",
+        "severity": "high",
+        "controls": [
+          "AIG-05",
+          "AIG-09",
+          "AIG-03"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "data",
+              "special_category"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "biometric_processing"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-11": {
+        "title": "Cross-border transfer without safeguards",
+        "category": "privacy",
+        "severity": "medium",
+        "controls": [
+          "AIG-18",
+          "AIG-08"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "data",
+              "cross_border_transfer"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-12": {
+        "title": "Vendor training on customer data",
+        "category": "privacy",
+        "severity": "medium",
+        "controls": [
+          "AIG-06",
+          "AIG-05"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-13": {
+        "title": "Confabulation and misinformation",
+        "category": "safety",
+        "severity": "high",
+        "controls": [
+          "AIG-14",
+          "AIG-11",
+          "AIG-12"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-14": {
+        "title": "Dangerous, violent, hateful or abusive content",
+        "category": "safety",
+        "severity": "high",
+        "controls": [
+          "AIG-10",
+          "AIG-14",
+          "AIG-16"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "user_facing"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "generates_synthetic_content"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-15": {
+        "title": "CBRN and cyber-offence uplift",
+        "category": "safety",
+        "severity": "high",
+        "controls": [
+          "AIG-10",
+          "AIG-14",
+          "AIG-06"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "context",
+              "role"
+            ],
+            "equals": "provider"
+          },
+          {
+            "path": [
+              "context",
+              "role"
+            ],
+            "equals": "provider_and_deployer"
+          },
+          {
+            "path": [
+              "system",
+              "user_facing"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-16": {
+        "title": "Harmful automated decision without human review",
+        "category": "safety",
+        "severity": "high",
+        "controls": [
+          "AIG-11",
+          "AIG-12",
+          "AIG-20",
+          "AIG-03"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "decision_impact"
+            ],
+            "equals": "consequential"
+          },
+          {
+            "path": [
+              "system",
+              "fully_automated_decision"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-17": {
+        "title": "Over-reliance and automation bias",
+        "category": "safety",
+        "severity": "medium",
+        "controls": [
+          "AIG-19",
+          "AIG-11",
+          "AIG-12"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "decision_impact"
+            ],
+            "equals": "consequential"
+          },
+          {
+            "path": [
+              "system",
+              "decision_impact"
+            ],
+            "equals": "assistive"
+          }
+        ]
+      },
+      "RSK-18": {
+        "title": "Unsafe behaviour in physical or operational-technology environments",
+        "category": "safety",
+        "severity": "high",
+        "controls": [
+          "AIG-11",
+          "AIG-17",
+          "AIG-08",
+          "AIG-14"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "ot_connected"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "critical_operation"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "annex_iii_area"
+            ],
+            "equals": "critical_infrastructure"
+          }
+        ]
+      },
+      "RSK-19": {
+        "title": "Harmful bias and discrimination",
+        "category": "fairness",
+        "severity": "high",
+        "controls": [
+          "AIG-20",
+          "AIG-14",
+          "AIG-04",
+          "AIG-13"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "data",
+              "personal_data"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "decision_impact"
+            ],
+            "equals": "consequential"
+          }
+        ]
+      },
+      "RSK-20": {
+        "title": "Homogenisation and loss of diversity of outcomes",
+        "category": "fairness",
+        "severity": "low",
+        "controls": [
+          "AIG-20",
+          "AIG-13",
+          "AIG-17"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "decision_impact"
+            ],
+            "equals": "consequential"
+          }
+        ]
+      },
+      "RSK-21": {
+        "title": "Undisclosed AI interaction",
+        "category": "transparency",
+        "severity": "medium",
+        "controls": [
+          "AIG-12"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "user_facing"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "system",
+              "fully_automated_decision"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-22": {
+        "title": "Unmarked synthetic media and deepfakes",
+        "category": "transparency",
+        "severity": "medium",
+        "controls": [
+          "AIG-12",
+          "AIG-10"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "generates_synthetic_content"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-23": {
+        "title": "Unexplainable adverse decisions",
+        "category": "transparency",
+        "severity": "medium",
+        "controls": [
+          "AIG-12",
+          "AIG-11",
+          "AIG-13"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "decision_impact"
+            ],
+            "equals": "consequential"
+          }
+        ]
+      },
+      "RSK-24": {
+        "title": "Excessive agency and tool misuse",
+        "category": "agentic",
+        "severity": "high",
+        "controls": [
+          "AIG-07",
+          "AIG-10",
+          "AIG-11"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "agentic"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-25": {
+        "title": "Irreversible action without approval",
+        "category": "agentic",
+        "severity": "high",
+        "controls": [
+          "AIG-11",
+          "AIG-07",
+          "AIG-13"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "irreversible_actions"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-26": {
+        "title": "Memory and context poisoning",
+        "category": "agentic",
+        "severity": "medium",
+        "controls": [
+          "AIG-04",
+          "AIG-10",
+          "AIG-13"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "agentic"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-27": {
+        "title": "Insecure inter-agent communication and rogue agents",
+        "category": "agentic",
+        "severity": "medium",
+        "controls": [
+          "AIG-07",
+          "AIG-08",
+          "AIG-13"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "agentic"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-28": {
+        "title": "Cascading failures across agents and tools",
+        "category": "agentic",
+        "severity": "medium",
+        "controls": [
+          "AIG-13",
+          "AIG-17",
+          "AIG-11"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "agentic"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-29": {
+        "title": "Scope drift and goal hijack",
+        "category": "agentic",
+        "severity": "high",
+        "controls": [
+          "AIG-13",
+          "AIG-10",
+          "AIG-11"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "agentic"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-30": {
+        "title": "Model or provider outage without a fallback",
+        "category": "operational",
+        "severity": "high",
+        "controls": [
+          "AIG-17",
+          "AIG-06",
+          "AIG-22"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "system",
+              "critical_operation"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-31": {
+        "title": "Silent model change, drift and degradation",
+        "category": "operational",
+        "severity": "medium",
+        "controls": [
+          "AIG-15",
+          "AIG-13",
+          "AIG-14"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-32": {
+        "title": "Uncontrolled cost and no cost allocation",
+        "category": "operational",
+        "severity": "medium",
+        "controls": [
+          "AIG-22"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-33": {
+        "title": "Incident not detected, escalated or reported in time",
+        "category": "operational",
+        "severity": "high",
+        "controls": [
+          "AIG-16",
+          "AIG-13"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-34": {
+        "title": "Unvetted model, dataset or component",
+        "category": "supply-chain",
+        "severity": "high",
+        "controls": [
+          "AIG-06",
+          "AIG-04",
+          "AIG-14"
+        ],
+        "always": true,
+        "any": []
+      },
+      "RSK-35": {
+        "title": "Outsourcing concentration and lost regulator access",
+        "category": "supply-chain",
+        "severity": "medium",
+        "controls": [
+          "AIG-17",
+          "AIG-06",
+          "AIG-21"
+        ],
+        "always": false,
+        "any": [
+          {
+            "path": [
+              "supplier",
+              "outsourced"
+            ],
+            "equals": true
+          },
+          {
+            "path": [
+              "supplier",
+              "material_service_provider"
+            ],
+            "equals": true
+          }
+        ]
+      },
+      "RSK-36": {
+        "title": "Intellectual-property and licence infringement",
+        "category": "compliance",
+        "severity": "medium",
+        "controls": [
+          "AIG-04",
+          "AIG-06",
+          "AIG-12"
+        ],
+        "always": true,
+        "any": []
+      }
+    },
     "jurisdictions": {
       "AR": {
         "frameworks": [
