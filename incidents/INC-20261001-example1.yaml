@@ -1,0 +1,25 @@
+# Example incident record (closed). hooks/receiver.py writes these from platform
+# events; tools/incident.py opens, annotates, links and closes them. Open
+# incidents appear in the inventory, reports and review reminders.
+apiVersion: aigov/v1
+kind: AIIncident
+id: INC-20261001-example1
+system: customer-support-assistant
+source: aws-bedrock
+event_type: guardrail_intervened
+severity: medium
+title: Bedrock guardrail blocked a prompt-attack attempt
+occurred: "2026-10-01T03:12:41Z"
+opened: "2026-10-01T03:12:44Z"
+status: closed
+closed: "2026-10-01T09:30:00Z"
+resolution: Confirmed as an injection attempt from a public web form; guardrail version gr-support-v4 handled it; no data left the boundary. Added the pattern to the red-team suite.
+controls: [AIG-10, AIG-16]
+details:
+  detail-type: Bedrock Guardrail Intervention
+  region: ap-southeast-2
+  action: BLOCKED
+  guardrailId: gr-support-v4
+notes:
+  - at: "2026-10-01T08:05:00Z"
+    text: Reviewed invocation log; single source IP; no customer data in the prompt.
