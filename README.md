@@ -10,9 +10,9 @@ Vendor-native AI governance policies, an MLOps compliance gate, a risk catalogue
 
 **Explore the crosswalk:** https://caiotk.github.io/ai-governance-compliance-as-code/
 
-![NXGD-AIGovMap — the NexGuide.AI Governance Map: 30 laws and standards grouped by family, the 22 shared AIG controls they map to, and the 8 vendor policy packs that implement them](docs/NXGD-AIGovMap.png)
+![NXGDAI-GovMap — the NexGuide.AI Governance Map: 30 laws and standards grouped by family, the 22 shared AIG controls they map to, and the 8 vendor policy packs that implement them](docs/NXGDAI-GovMap.png)
 
-<sub>**NXGD-AIGovMap** — the NexGuide.AI Governance Map. Reproduce it unmodified with its footer; see [TRADEMARKS.md](TRADEMARKS.md).</sub>
+<sub>**NXGDAI-GovMap** — the NexGuide.AI Governance Map. Reproduce it unmodified with its footer; see [TRADEMARKS.md](TRADEMARKS.md).</sub>
 
 > Not legal advice. This repository turns published obligations into reviewable, testable controls. The catalogue labels every fact `primary`, `secondary` or `unverified` ([docs/SOURCES.md](docs/SOURCES.md)); check the primary text before you rely on it.
 
