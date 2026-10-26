@@ -9,6 +9,46 @@ corrections and fixes.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-26
+
+### Added
+- **ISO/IEC 27090:2026** (security threats and compromises to AI systems,
+  published 14 Oct 2026) as an organisational baseline standard, mapped to
+  AIG-04/05/06/07/10/13/14/15 and referenced from risks RSK-01/02/03/04/06.
+- **EN 18286:2026**, the first harmonised standard under the EU AI Act
+  (quality management system, Art 17), cited by Implementing Decision (EU)
+  2026/2274 on 14 Oct 2026. Added to the EU layer (inherited by Portugal and
+  Spain) and mapped to AIG-01/03/04/06/13/14/15/16 by Art 17(1) point. The
+  `eu-ai-act` entry records the citation date and a `harmonised_standards`
+  list, and notes that Art 17(2)–(4) are not covered and ISO/IEC 42001 is not
+  harmonised.
+- **IEEE 2863-2026** (recommended practice for organisational governance of
+  AI, published 16 Oct 2026) as an organisational baseline, mapped to
+  AIG-01/03/20.
+- **Australian AI standards** (`au-ai-standards`): the Guidance for AI
+  Adoption (AI6) mapped practice by practice to nine controls, with AS
+  ISO/IEC 42001:2023, the Voluntary AI Safety Standard and the Australian
+  Standards for AI announced on 15 Jul 2026. The announced standards are
+  tracked as a `proposed` instrument in the Australian profiles.
+- `tools/govmap.py` and `catalog/govmap.yaml`: the NXGDAI-GovMap visual is now
+  generated from the catalogue (`make govmap`), so its counts, links and
+  status markers cannot drift; CI validates the layout.
+- `docs/sources/standards-3.md` with the sources for this release.
+
+### Changed
+- The visual is renamed **NXGDAI-GovMap** (`docs/NXGDAI-GovMap.png`); the
+  former name NXGD-AIGovMap stays reserved in `TRADEMARKS.md`. It now shows 34
+  laws, standards and frameworks.
+- Catalogue `asOf` is 26 Oct 2026.
+
+### Fixed
+- NZ Privacy Act 2020 is `in-force`: IPP 3A has applied since 1 May 2026, and
+  the biometric code has covered existing processing since 3 Aug 2026.
+- MAS AI Risk Management Guidelines take effect on 7 Oct 2027 (sections 5–6
+  by 7 Oct 2028), not 1 Oct; the gate's warning date moved with them.
+- Guidance for AI Adoption was published on 21 Oct 2025, not 17 Oct 2025.
+- The control catalogue header now says AIG-01 … AIG-22.
+
 ## [1.0.0] - 2026-10-14
 
 ### Changed

@@ -44,6 +44,7 @@ risks:
       owasp-genai: ["LLM01:2026 Prompt Injection", "ASI01 Agent Goal Hijack"]
       mitre-atlas: ["AML.M0020 Generative AI Guardrails", "AML.M0030 Restrict AI Agent Tool Invocation on Untrusted Data"]
       nist-ai-rmf: ["AI 600-1 2.9 Information Security"]
+      iso27090: ["Prompt injection; outputs carrying injection attacks"]
     verification: primary
 
   - id: RSK-02
@@ -56,6 +57,7 @@ risks:
     references:
       owasp-genai: ["LLM02:2026 Sensitive Information Disclosure", "LLM08:2026 Hidden Context Exposure"]
       nist-ai-rmf: ["AI 600-1 2.4 Data Privacy", "AI 600-1 2.9 Information Security"]
+      iso27090: ["Sensitive information in outputs"]
     verification: primary
 
   - id: RSK-03
@@ -68,6 +70,7 @@ risks:
     references:
       owasp-genai: ["LLM05:2026 Data and Model Poisoning", "LLM09:2026 Vector and Embedding Weaknesses"]
       mitre-atlas: ["AML.M0007 Sanitize Training Data", "AML.M0025 Maintain AI Dataset Provenance", "AML.M0008 Validate AI Model"]
+      iso27090: ["Data poisoning, incl. operational data reused for retraining; direct model poisoning"]
     verification: primary
 
   - id: RSK-04
@@ -82,6 +85,7 @@ risks:
     controls: [AIG-10, AIG-14]
     references:
       owasp-genai: ["LLM10:2026 Improper Output Handling", "ASI05 Unexpected Code Execution (RCE)"]
+      iso27090: ["Outputs carrying injection attacks to downstream systems"]
     verification: primary
 
   - id: RSK-05
@@ -110,6 +114,7 @@ risks:
     controls: [AIG-08, AIG-09, AIG-13, AIG-22]
     references:
       mitre-atlas: ["AML.M0004 Limit AI Service Query Volume and Rate", "AML.M0001 Limit Model Artifact Release", "AML.M0005 Control Access to AI Models and Data at Rest"]
+      iso27090: ["Model stealing and exfiltration through legitimate-looking queries; membership inference; model inversion"]
     verification: primary
 
   - id: RSK-07

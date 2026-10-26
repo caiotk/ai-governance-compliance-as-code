@@ -53,9 +53,9 @@ instruments:
     fsi:
       - id: sg-mas-ai-rm
         name: MAS Guidelines on Artificial Intelligence Risk Management
-        citation: Final, Oct 2026
+        citation: Final, issued 7 Oct 2026
         status: phased
-        effective: "Sections 3–4 Oct 2027; sections 5–6 Oct 2028"
+        effective: "Sections 3–4 from 2027-10-07; sections 5–6 by 2028-10-07"
         ai_relevance: Board oversight, AI inventory and materiality assessment, lifecycle controls, accountability for third-party AI.
         url: https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions
         verification: primary

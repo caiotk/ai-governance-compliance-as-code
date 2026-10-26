@@ -20,8 +20,8 @@ instruments:
     - id: nz-privacy-act
       name: Privacy Act 2020 — Information Privacy Principles incl. IPP 3A
       citation: Privacy Act 2020 (2020 No 31); Privacy Amendment Act 2025
-      status: phased
-      effective: "IPP 3A from 2026-05-01"
+      status: in-force
+      effective: "2020-12-01; IPP 3A in force from 2026-05-01"
       regulator: Office of the Privacy Commissioner
       ai_relevance: IPP 3A notice when collecting from another source; IPP 8 accuracy; IPP 12 offshore disclosure; OPC AI guidance (Sep 2023).
       url: https://www.privacy.org.nz/resources-and-learning/a-z-topics/ipp3a/

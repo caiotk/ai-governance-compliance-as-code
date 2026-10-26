@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Frameworks catalogue — status verified 13 Oct 2026 (see docs/SOURCES.md).
+# Frameworks catalogue — as of 26 Oct 2026; sources verified 13 and 26 Oct 2026 (see docs/SOURCES.md).
 #
 # verification:
 #   primary    — checked against the issuer's own text or site
@@ -8,7 +8,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 apiVersion: aigov/v1
 kind: FrameworkCatalog
-asOf: "2026-10-13"
+asOf: "2026-10-26"
 
 frameworks:
 
@@ -34,6 +34,8 @@ frameworks:
       - ISO/IEC 23894:2023 (AI risk management guidance)
       - ISO/IEC 42005:2025 (AI system impact assessment, published 28 May 2025)
       - ISO/IEC 42006:2025 (requirements for certification bodies, published 7 Jul 2025)
+      - EN ISO/IEC 42001:2026 (European adoption) — not harmonised under the AI Act; EN 18286:2026 is the harmonised QMS route
+      - AS ISO/IEC 42001:2023 (adopted by Standards Australia, 16 Feb 2024)
     notes: >-
       Annex A control titles below come from a secondary source and must be checked
       against the purchased standard before certification use.
@@ -66,9 +68,12 @@ frameworks:
       - { date: "2025-02-02", applies: "Art 4 AI literacy (now an obligation to support literacy) and Art 5 prohibitions" }
       - { date: "2025-08-02", applies: "GPAI obligations (Arts 53, 55), governance, penalties" }
       - { date: "2026-08-02", applies: "General application; Art 50 transparency; Commission GPAI enforcement powers" }
+      - { date: "2026-10-14", applies: "First harmonised standard cited in the OJ: EN 18286:2026 (Art 17 quality management system), Implementing Decision (EU) 2026/2274" }
       - { date: "2026-12-02", applies: "Art 50(2) marking for generative systems already on the market; new Art 5 bans on non-consensual intimate imagery and CSAM" }
       - { date: "2027-12-02", applies: "Annex III high-risk systems (moved from 2 Aug 2026 by Reg (EU) 2026/1744)" }
       - { date: "2028-08-02", applies: "Annex I product-embedded high-risk systems (moved from 2 Aug 2027)" }
+    harmonised_standards:
+      - { id: en-18286, reference: "EN 18286:2026", covers: "Art 17 quality management system (Art 17(2)–(4) not covered)", cited: "2026-10-14", decision: "Implementing Decision (EU) 2026/2274" }
     url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
     amendment_url: https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng
     verification: primary
@@ -76,6 +81,28 @@ frameworks:
       The operative Art 113 text as amended could not be machine-extracted; the 2 Dec 2027
       and 2 Aug 2028 dates are confirmed in the Omnibus recitals and multiple secondary sources.
       Whether new Art 4a (special-category data for bias detection) reaches beyond high-risk systems is unsettled.
+      Art 40 presumption of conformity: EN 18286:2026 is the only harmonised standard cited so far (QMS); risk management,
+      data governance, accuracy, robustness and cybersecurity standards are still being drafted by CEN-CENELEC JTC 21.
+
+  - id: en-18286
+    name: EN 18286:2026 — Artificial intelligence — Quality management system for EU AI Act regulatory purposes
+    type: harmonised-standard
+    scope: EU/EEA — providers of AI systems, primarily high-risk (AI Act Art 17)
+    issuer: CEN and CENELEC (harmonised under Regulation (EU) 2024/1689)
+    status: voluntary
+    key_dates:
+      - { date: "2026-07-12", applies: "Approved by CEN" }
+      - { date: "2026-10-14", applies: "Reference published in the Official Journal by Implementing Decision (EU) 2026/2274 (adopted 12 Oct 2026); presumption of conformity with Art 17 begins" }
+      - { date: "2027-12-02", applies: "Art 17 QMS obligation applies to Annex III high-risk providers (Annex I: 2028-08-02)" }
+    notes: >-
+      Use is voluntary; it is one route to conformity with Art 17, not the QMS the Act requires. The presumption covers only
+      the provisions listed in Annex ZA (Table ZA.1 marks Art 17(2), 17(3) and 17(4) as not covered; some rows are conditional,
+      e.g. 17(1)(g) only where the risk management system complies with Art 9) and lasts while the OJ reference stands.
+      Annex C gives a clause correspondence with EN ISO/IEC 42001:2026; ISO/IEC 42001 has no Annex ZA and gives no
+      presumption of conformity, and the two are not equivalent. CEN-CENELEC clause numbers were not read; the mappings
+      below cite the Art 17(1) points the standard implements.
+    url: https://eur-lex.europa.eu/eli/dec_impl/2026/2274/oj/eng
+    verification: secondary
 
   - id: us-ai
     name: United States AI obligations (no single federal AI Act)
@@ -175,6 +202,47 @@ frameworks:
       Annex B with ISO/IEC 23894, Annex D aligns with other assessments (privacy/DPIA, human rights, etc.). It is the method this repository
       expects behind risk.impact_assessment.
     url: https://www.iso.org/standard/44545.html
+    verification: primary
+
+  - id: iso27090
+    name: ISO/IEC 27090:2026 — Cybersecurity — Artificial intelligence — Addressing security threats and compromises to AI systems
+    type: guidance-standard
+    scope: global
+    issuer: ISO/IEC JTC 1/SC 27
+    status: voluntary
+    baseline: true
+    key_dates:
+      - { date: "2026-10-14", applies: "Edition 1 published (56 pages)" }
+    notes: >-
+      Guidance, not certifiable; builds on ISO/IEC 27001/27002 and complements ISO/IEC 42001 (draws on ISO/IEC 22989,
+      5338, 42001 and 38507). Covers deliberate attacks across the AI life cycle: data poisoning (incl. operational data
+      reused for retraining), direct model poisoning, evasion, membership inference, model inversion, model stealing and
+      exfiltration through legitimate-looking queries, prompt injection, sensitive information in outputs and outputs
+      carrying injection attacks. Mitigation themes: governance, zero trust, secure engineering and development
+      environments, supply chain, threat modelling, red teaming, logging and monitoring, malicious-input detection and
+      limiting model use. Annexes map attacks to life-cycle stages and assets and cover federated learning. Accidental
+      failures and insider threats are largely out of scope. Publication date and page count are from secondary sources
+      (iso.org still showed the FDIS stage on 26 Oct 2026); clause numbers were not read, so mappings cite threat and
+      mitigation themes.
+    url: https://www.iso.org/standard/56581.html
+    verification: secondary
+
+  - id: ieee-2863
+    name: IEEE 2863-2026 — Recommended Practice for Organizational Governance of Artificial Intelligence
+    type: guidance-standard
+    scope: global
+    issuer: IEEE Standards Association
+    status: voluntary
+    baseline: true
+    key_dates:
+      - { date: "2026-06-04", applies: "Approved by the IEEE SA Standards Board" }
+      - { date: "2026-10-16", applies: "Published" }
+    notes: >-
+      A recommended practice (guidance, not requirements) for organisations that develop or use AI: governance principles
+      for the governing body to consider and prioritise, processes to implement them, and case studies on resolving
+      tensions between principles. Mappings are taken from the published scope; clause references were not read —
+      confirm against the purchased text.
+    url: https://standards.ieee.org/ieee/2863/10142/
     verification: primary
 
   - id: owasp-genai
@@ -385,9 +453,9 @@ frameworks:
     status: phased
     applies_when: { entity_type: mas_regulated }
     key_dates:
-      - { date: "2027-10-01", applies: "Sections 3–4 (governance, inventory and materiality) take effect (source gives the month only; day assumed)" }
-      - { date: "2028-10-01", applies: "Sections 5–6 (lifecycle controls, third-party AI) take effect (source gives the month only; day assumed)" }
-    notes: Finalised Oct 2026. Agentic AI consultation planned for 2027.
+      - { date: "2027-10-07", applies: "Guidelines take effect; sections 3–4 (governance, inventory and materiality) apply" }
+      - { date: "2028-10-07", applies: "Sections 5–6 (lifecycle controls, third-party AI) apply" }
+    notes: Final guidelines issued 7 Oct 2026 (MAS media release); institutions may phase in implementation. Agentic AI consultation planned for 2027.
     url: https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions
     verification: primary
 
@@ -444,17 +512,48 @@ frameworks:
       - { date: "2026-12-10", applies: "APP 1.7–1.9 automated decision-making transparency in privacy policies" }
     related:
       - OAIC guidance on commercially available AI products and on training generative AI (21 Oct 2024)
-      - Guidance for AI Adoption (NAIC, 17 Oct 2025) — six essential practices, voluntary
-      - National AI Plan (Dec 2025) — no mandatory AI guardrails
+      - Guidance for AI Adoption (NAIC, 21 Oct 2025) — six essential practices, voluntary (see au-ai-standards)
+      - National AI Plan (2 Dec 2025) — did not proceed with mandatory AI guardrails
+      - Australian Standards for AI — announced 15 Jul 2026, legislation expected early 2027 (see au-ai-standards)
     url: https://www.oaic.gov.au/privacy/australian-privacy-principles/read-the-australian-privacy-principles
     verification: primary
+
+  - id: au-ai-standards
+    name: Australian AI standards — Guidance for AI Adoption (AI6) and the announced Australian Standards for AI
+    type: national-ai-framework
+    scope: Australia
+    issuer: Australian Government (National AI Centre, DISR; Office of AI, PM&C); Standards Australia
+    status: voluntary
+    key_dates:
+      - { date: "2024-02-16", applies: "Standards Australia adopts AS ISO/IEC 42001:2023" }
+      - { date: "2024-09-05", applies: "Voluntary AI Safety Standard (10 guardrails) published; it remains available as a detailed reference" }
+      - { date: "2025-10-21", applies: "Guidance for AI Adoption (AI6) published: six essential practices that streamline the 10 guardrails" }
+      - { date: "2025-12-02", applies: "National AI Plan: mandatory AI guardrails not pursued; reliance on existing technology-neutral law" }
+      - { date: "2026-07-15", applies: "Prime Minister announces the Government will establish Australian Standards for AI; Office of AI set up in PM&C; legislation expected early 2027 (no bill tabled as of 19 Oct 2026)" }
+      - { date: "2026-08-26", applies: "National Cabinet endorses mandatory national data-centre standards (energy, water, land use, skills)" }
+    components:
+      - "AI6 practice 1 Accountability — named owner per AI use case; a senior leader accountable for AI governance"
+      - "AI6 practice 2 Impacts — identify affected people; plan for privacy, safety, fairness and other harms before deployment"
+      - "AI6 practice 3 Risk — treat AI as a material business risk: screening, risk register, defined controls"
+      - "AI6 practice 4 Information — tell people when AI is used and its limits; keep an AI system register"
+      - "AI6 practice 5 Testing and monitoring — test before use, monitor in use, defined incident thresholds"
+      - "AI6 practice 6 Human control — people stay responsible, with points to pause, override or shut down"
+    notes: >-
+      Practice names above are shortened. Today this is voluntary guidance (AI6, with AS ISO/IEC 42001:2023 as the certifiable standard). The Australian
+      Standards for AI announced on 15 Jul 2026 are not yet defined: who is covered, thresholds and penalties are open, and
+      the first focus is large data centres and AI training. A Joint Select Committee gave early advice on 12 Oct 2026
+      (risk-based framework, incident reporting, data sovereignty) and reports by 30 Nov 2026. Commonwealth agencies are
+      separately bound by the DTA policy for the responsible use of AI in government. Re-check before relying on any date
+      after Jul 2026.
+    url: https://www.industry.gov.au/publications/guidance-for-ai-adoption
+    verification: secondary
 
   - id: nz-privacy
     name: New Zealand Privacy Act 2020 (IPPs) incl. IPP 3A and Biometric Processing Privacy Code 2025
     type: statute
     scope: New Zealand
     issuer: Parliament; Office of the Privacy Commissioner
-    status: in-force-phased
+    status: in-force
     key_dates:
       - { date: "2025-11-03", applies: "Biometric Processing Privacy Code 2025 for new processing" }
       - { date: "2026-05-01", applies: "IPP 3A — notify individuals when collecting from another source" }

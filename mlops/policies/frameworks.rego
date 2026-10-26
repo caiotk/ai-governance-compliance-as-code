@@ -358,7 +358,7 @@ framework_findings contains ff("sg-pdpa", "AIG-12", "deny", "Singapore PDPA s 20
 	no(["transparency", "adm_notice"])
 }
 
-framework_findings contains ff("sg-mas-airm", "AIG-02", dated("2027-10-01"), "MAS Guidelines on AI Risk Management: maintain an AI inventory with a materiality assessment for each system (sections 3–4 effective Oct 2027)") if {
+framework_findings contains ff("sg-mas-airm", "AIG-02", dated("2027-10-07"), "MAS Guidelines on AI Risk Management: maintain an AI inventory with a materiality assessment for each system (sections 3–4 apply from 2027-10-07)") if {
 	in_country("SG")
 	entity("mas_regulated")
 	not sg_inventory_ok

@@ -2,20 +2,32 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: AU
 name: Australia
-frameworks: [au-privacy]
+frameworks: [au-privacy, au-ai-standards]
 sector_frameworks:
   energy: [energy-ci, iec62443, iso27019]
   fsi: [apra]
-notes: The National AI Plan (Dec 2025) relies on existing laws; there are no mandatory AI guardrails.
+notes: >-
+  No AI-specific statute yet. The National AI Plan (Dec 2025) relies on existing laws, and the voluntary Guidance for
+  AI Adoption (AI6) sets the six practices. On 15 Jul 2026 the Government announced Australian Standards for AI, with
+  legislation expected in early 2027; until a bill is tabled, track them but do not treat them as law.
 instruments:
   horizontal:
-    - id: au-ai-adoption
-      name: Guidance for AI Adoption (six essential practices)
-      citation: National AI Centre, 17 Oct 2025 (updates the Voluntary AI Safety Standard)
+    - id: au-ai-standards
+      name: Guidance for AI Adoption (AI6) — six essential practices
+      citation: National AI Centre, 21 Oct 2025 (streamlines the Voluntary AI Safety Standard's 10 guardrails)
       status: voluntary
       url: https://www.industry.gov.au/publications/guidance-for-ai-adoption
       verification: primary
-      controls: [AIG-01, AIG-03, AIG-11, AIG-12, AIG-14]
+      controls: [AIG-01, AIG-02, AIG-03, AIG-11, AIG-12, AIG-13, AIG-14, AIG-16, AIG-20]
+    - id: au-ai-standards-legislation
+      name: Australian Standards for AI (announced 15 Jul 2026)
+      citation: Prime Minister's announcement; Office of AI (PM&C); legislation expected early 2027
+      status: proposed
+      effective: "No bill tabled as of 2026-10-19; data-centre standards first (National Cabinet, 26 Aug 2026)"
+      url: https://safeaiaus.org/safety-standards/australian-standards-for-ai/
+      verification: secondary
+      ai_relevance: Scope not yet defined. The Joint Select Committee's early advice (12 Oct 2026) points to a risk-based framework, incident reporting and data-sovereignty rules, which the controls below anticipate.
+      controls: [AIG-03, AIG-08, AIG-16]
   data_protection:
     - id: au-privacy-act
       name: Privacy Act 1988 — Australian Privacy Principles
