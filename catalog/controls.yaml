@@ -419,7 +419,7 @@ controls:
       au-privacy: ["Guidance for AI Adoption practice 2: understand impacts"]
       nist-ai-rmf: ["MEASURE 2.11 fairness and bias; AI 600-1 2.6 Harmful Bias and Homogenization"]
       iso42005: ["6.7 Relevant interested parties; Annex C harms and benefits taxonomy"]
-      ieee-2863: ["Principles for responsible and ethical development and use of AI"]
+      ieee-2863: ["Principles for responsible and ethical development and use of AI (indirect: the published scope does not name fairness)"]
       au-ai-standards: ["AI6 practice 2 Impacts: fairness harms planned for before deployment"]
 
   - id: AIG-21

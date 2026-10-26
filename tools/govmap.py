@@ -118,7 +118,7 @@ def marker_svg(kind: str, colour: str, size: int = 12) -> str:
         body = f'<circle cx="{c}" cy="{c}" r="{r + 0.6}" fill="{colour}"/>'
     elif kind == "phasing":
         body = (f'<circle cx="{c}" cy="{c}" r="{r}" fill="none" stroke="{colour}" stroke-width="1.8"/>'
-                f'<path d="M{c} {c - r} A{r} {r} 0 0 1 {c} {c + r} Z" fill="{colour}"/>')
+                f'<path d="M{c} {c - r} A{r} {r} 0 0 0 {c} {c + r} Z" fill="{colour}"/>')  # left half filled: ◐
     elif kind == "voluntary":
         body = f'<circle cx="{c}" cy="{c}" r="{r}" fill="none" stroke="{colour}" stroke-width="1.8"/>'
     else:
@@ -201,7 +201,7 @@ def build_html() -> str:
     # Section labels and title.
     parts.append(f'<div class="sec" style="left:{LAW_X[0]}px;top:70px">LAW &amp; REGULATION</div>')
     parts.append(f'<div class="sec" style="left:{STD_X[0]}px;top:70px">STANDARDS &amp; FRAMEWORKS</div>')
-    parts.append(f'<div class="eyebrow" style="left:{CTRL_X[0]}px;top:105px">{esc(t["eyebrow"].format(asof=asof.strftime("%-d %b %Y").upper()))}</div>')
+    parts.append(f'<div class="eyebrow" style="left:{CTRL_X[0]}px;top:105px">{esc(t["eyebrow"].format(asof=f"{asof.day} {asof:%b %Y}".upper()))}</div>')
     parts.append(f'<div class="title" style="left:{CTRL_X[0] - 3}px;top:128px"><span style="color:{AMBER}">{esc(t["title_accent"])}</span>{esc(t["title_rest"])}</div>')
     parts.append(f'<div class="subtitle" style="left:{CTRL_X[0]}px;top:254px;width:930px">'
                  f'{esc(t["subtitle"].format(frameworks=len(frameworks), controls=len(controls), vendors=len(vendors)))}</div>')
@@ -233,7 +233,7 @@ def build_html() -> str:
     )
 
     # Legend.
-    items = [(f["name"], f["colour"], "") for f in fams.values()] + [("Unified controls", CTRL_BG, f"box-shadow:inset 0 0 0 1.5px {CTRL_EDGE};"), ("Vendor packs", VENDOR_BG, "")]
+    items = [(f["name"], f["colour"], "") for f in fams.values()] + [("Unified controls", CTRL_BG, "box-shadow:inset 0 0 0 1.5px #4a6080;"), ("Vendor packs", VENDOR_BG, "")]
     lx = 1010
     for i, (name, colour, extra) in enumerate(items):
         x = lx + (i % 4) * 335

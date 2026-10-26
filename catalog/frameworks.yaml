@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Frameworks catalogue — status verified 26 Oct 2026 (see docs/SOURCES.md).
+# Frameworks catalogue — as of 26 Oct 2026; sources verified 13 and 26 Oct 2026 (see docs/SOURCES.md).
 #
 # verification:
 #   primary    — checked against the issuer's own text or site
@@ -529,8 +529,8 @@ frameworks:
       - { date: "2024-09-05", applies: "Voluntary AI Safety Standard (10 guardrails) published; it remains available as a detailed reference" }
       - { date: "2025-10-21", applies: "Guidance for AI Adoption (AI6) published: six essential practices that streamline the 10 guardrails" }
       - { date: "2025-12-02", applies: "National AI Plan: mandatory AI guardrails not pursued; reliance on existing technology-neutral law" }
-      - { date: "2026-07-15", applies: "Prime Minister announces the Government will establish Australian Standards for AI; Office of AI set up in PM&C" }
-      - { date: "2026-08-26", applies: "National Cabinet endorses mandatory national data-centre standards (energy, water, land use, skills); legislation expected early 2027, no bill tabled as of Oct 2026" }
+      - { date: "2026-07-15", applies: "Prime Minister announces the Government will establish Australian Standards for AI; Office of AI set up in PM&C; legislation expected early 2027 (no bill tabled as of 19 Oct 2026)" }
+      - { date: "2026-08-26", applies: "National Cabinet endorses mandatory national data-centre standards (energy, water, land use, skills)" }
     components:
       - "AI6 practice 1 Accountability — named owner per AI use case; a senior leader accountable for AI governance"
       - "AI6 practice 2 Impacts — identify affected people; plan for privacy, safety, fairness and other harms before deployment"
@@ -539,7 +539,7 @@ frameworks:
       - "AI6 practice 5 Testing and monitoring — test before use, monitor in use, defined incident thresholds"
       - "AI6 practice 6 Human control — people stay responsible, with points to pause, override or shut down"
     notes: >-
-      Today this is voluntary guidance (AI6, with AS ISO/IEC 42001:2023 as the certifiable standard). The Australian
+      Practice names above are shortened. Today this is voluntary guidance (AI6, with AS ISO/IEC 42001:2023 as the certifiable standard). The Australian
       Standards for AI announced on 15 Jul 2026 are not yet defined: who is covered, thresholds and penalties are open, and
       the first focus is large data centres and AI training. A Joint Select Committee gave early advice on 12 Oct 2026
       (risk-based framework, incident reporting, data sovereignty) and reports by 30 Nov 2026. Commonwealth agencies are

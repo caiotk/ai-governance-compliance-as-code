@@ -428,7 +428,7 @@ Outcomes are tested for bias against protected groups before release and monitor
 - **Australian Privacy Act 1988 (APPs) incl. POLA Act 2024**: Guidance for AI Adoption practice 2: understand impacts
 - **NIST AI Risk Management Framework 1.0 + Generative AI Profile**: MEASURE 2.11 fairness and bias; AI 600-1 2.6 Harmful Bias and Homogenization
 - **ISO/IEC 42005:2025 AI system impact assessment**: 6.7 Relevant interested parties; Annex C harms and benefits taxonomy
-- **IEEE 2863-2026 — Recommended Practice for Organizational Governance of Artificial Intelligence**: Principles for responsible and ethical development and use of AI
+- **IEEE 2863-2026 — Recommended Practice for Organizational Governance of Artificial Intelligence**: Principles for responsible and ethical development and use of AI (indirect: the published scope does not name fairness)
 - **Australian AI standards — Guidance for AI Adoption (AI6) and the announced Australian Standards for AI**: AI6 practice 2 Impacts: fairness harms planned for before deployment
 
 ### AIG-21 — Internal audit and independent assurance

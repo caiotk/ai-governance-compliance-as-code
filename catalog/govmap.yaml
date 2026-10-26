@@ -7,7 +7,7 @@
 # catalog/frameworks.yaml, catalog/controls.yaml and vendors/*/mapping.yaml by
 # tools/govmap.py, so the picture cannot drift from the catalogue.
 #
-# links = controls a law or framework maps to · frameworks a control satisfies ·
+# links = controls a law or framework maps to · frameworks a control maps to ·
 #         controls a vendor pack implements natively.
 # status marker = ● in force · ◐ phasing in · ○ voluntary (baseline standards and
 #         anything with status voluntary are drawn as voluntary).
@@ -37,7 +37,7 @@ frameworks:
   us-ai:            { family: ai-law, symbol: Us, label: "US state AI laws", scope: US }
   sg-mas-airm:      { family: ai-law, symbol: Ma, label: "MAS AI risk\nguidelines", scope: SG }
   br-cfm:           { family: ai-law, symbol: Cf, label: "CFM 2.454\nAI in medicine", scope: BR }
-  au-ai-standards:  { family: ai-law, symbol: As, label: "AU AI standards (AI6)", scope: AU }
+  au-ai-standards:  { family: ai-law, symbol: As, label: "AI6 now,\nlaw due 2027", scope: AU }
   # ── Data protection & privacy ──
   gdpr:             { family: data-protection, symbol: Gd, label: "GDPR", scope: EU }
   br-lgpd:          { family: data-protection, symbol: Lg, label: "LGPD", scope: BR }
@@ -57,7 +57,7 @@ frameworks:
   iso42001:         { family: management, symbol: Am, label: "ISO/IEC 42001", scope: BASE }
   iso42005:         { family: management, symbol: Ia, label: "ISO/IEC 42005", scope: BASE }
   iso19011:         { family: management, symbol: Ag, label: "ISO 19011", scope: BASE }
-  ieee-2863:        { family: management, symbol: Ie, label: "IEEE 2863", scope: BASE }
+  ieee-2863:        { family: management, symbol: Ig, label: "IEEE 2863", scope: BASE }
   en-18286:         { family: management, symbol: Qm, label: "EN 18286\nAI Act QMS", scope: EU }
   iec62443:         { family: management, symbol: Ot, label: "IEC 62443", scope: ENERGY }
   iso27019:         { family: management, symbol: Ut, label: "ISO/IEC 27019", scope: ENERGY }
@@ -119,6 +119,6 @@ text:
   coverage_line: "{countries} countries × {sectors} sectors = {profiles} compliance profiles"
   sectors: ["Health", "Financial services", "Public sector", "Agriculture", "Mining", "Technology", "Energy"]
   scopes: "BASE = organisational baseline that applies to every country and sector · ENERGY = energy-sector framework · MULTI = several national regimes"
-  links: "links (top right) = controls a law or framework maps to · frameworks a control satisfies · controls a vendor pack implements natively"
+  links: "links (top right) = controls a law or framework maps to · frameworks a control maps to · controls a vendor pack implements natively"
   footer_left: "github.com/caiotk/ai-governance-compliance-as-code"
   footer_right: "NXGDAI-GovMap · Every fact labelled primary, secondary or unverified · Not legal advice · Apache-2.0 · Caio Augusto Tkalec"

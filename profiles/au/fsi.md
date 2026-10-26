@@ -34,7 +34,7 @@
 | Instrument | Citation | Status / effective | Drives controls | Source |
 |---|---|---|---|---|
 | Guidance for AI Adoption (AI6) — six essential practices | National AI Centre, 21 Oct 2025 (streamlines the Voluntary AI Safety Standard's 10 guardrails) | Voluntary | AIG-01, AIG-02, AIG-03, AIG-11, AIG-12, AIG-13, AIG-14, AIG-16, AIG-20 | [✓ primary](https://www.industry.gov.au/publications/guidance-for-ai-adoption) |
-| Australian Standards for AI (announced 15 Jul 2026) | Prime Minister's announcement; Office of AI (PM&C); legislation expected early 2027 | Proposed · No bill tabled as of 2026-10-26; data-centre standards first (National Cabinet, 26 Aug 2026) | AIG-03, AIG-08, AIG-16 | [◐ secondary](https://safeaiaus.org/safety-standards/australian-standards-for-ai/) |
+| Australian Standards for AI (announced 15 Jul 2026) | Prime Minister's announcement; Office of AI (PM&C); legislation expected early 2027 | Proposed · No bill tabled as of 2026-10-19; data-centre standards first (National Cabinet, 26 Aug 2026) | AIG-03, AIG-08, AIG-16 | [◐ secondary](https://safeaiaus.org/safety-standards/australian-standards-for-ai/) |
 
 ### Data protection
 

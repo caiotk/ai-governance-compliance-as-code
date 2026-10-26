@@ -42,8 +42,8 @@ corrections and fixes.
 - Catalogue `asOf` is 26 Oct 2026.
 
 ### Fixed
-- NZ Privacy Act 2020 is `in-force`: IPP 3A has applied since 1 May 2026 and
-  the biometric code since 3 Aug 2026.
+- NZ Privacy Act 2020 is `in-force`: IPP 3A has applied since 1 May 2026, and
+  the biometric code has covered existing processing since 3 Aug 2026.
 - MAS AI Risk Management Guidelines take effect on 7 Oct 2027 (sections 5–6
   by 7 Oct 2028), not 1 Oct; the gate's warning date moved with them.
 - Guidance for AI Adoption was published on 21 Oct 2025, not 17 Oct 2025.

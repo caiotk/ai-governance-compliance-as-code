@@ -11,7 +11,7 @@ Headline corrections versus the brief (a LinkedIn post, 18 Oct 2026):
 Also corrected in this batch (found while re-checking related entries):
 
 - **MAS AI Risk Management Guidelines**: issued 7 Oct 2026, take effect **7 Oct 2027**; sections 5–6 apply by **7 Oct 2028**. The catalogue previously assumed 1 Oct.
-- **NZ Privacy Act 2020**: every phased date has passed (IPP 3A since 1 May 2026; biometric code since 3 Aug 2026), so the framework is now `in-force`.
+- **NZ Privacy Act 2020**: every phased date has passed (IPP 3A since 1 May 2026; the biometric code, in force since 3 Nov 2025, has covered existing processing since 3 Aug 2026), so the framework is now `in-force`.
 - **Guidance for AI Adoption** was published on **21 Oct 2025** (the catalogue said 17 Oct 2025).
 
 ---
@@ -20,7 +20,7 @@ Also corrected in this batch (found while re-checking related entries):
 
 | Item | Fact | Source | Label |
 |---|---|---|---|
-| Title | "Cybersecurity — Artificial intelligence (AI) — Addressing security threats and compromises to AI systems" (iso.org FDIS page: "Guidance for addressing security threats and compromises to artificial intelligence systems") | https://www.iso27001security.com/html/27090 ; https://www.iso.org/standard/56581.html | primary (title wording varies between the FDIS and published records) |
+| Title | "Cybersecurity — Artificial intelligence (AI) — Addressing security threats and compromises to AI systems" (iso.org FDIS page: "Guidance for addressing security threats and compromises to artificial intelligence systems") | https://www.iso27001security.com/html/27090 ; https://www.iso.org/standard/56581.html | secondary (published title from iso27001security.com and cyberdelegate.com; the iso.org FDIS title differs) |
 | Committee | ISO/IEC JTC 1/SC 27; edition 1 | https://www.iso.org/standard/56581.html | primary |
 | Publication | Published 14 Oct 2026, 56 pages | https://www.cyberdelegate.com/iso-iec-27090-a-security-rulebook-for-ai-systems-finally-arrives/ | secondary — iso.org still showed stage 50.00 (FDIS) when checked on 26 Oct 2026 |
 | Scope | Guidance for any organisation that develops or uses AI: understand, detect and mitigate security threats to AI systems across the life cycle; builds on ISO/IEC 27001/27002; draws on ISO/IEC 22989, 5338, 42001 and 38507 | iso.org abstract; iso27001security.com | primary |
