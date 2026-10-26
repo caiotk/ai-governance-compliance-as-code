@@ -1,0 +1,124 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# NXGDAI-GovMap — layout of the elements-table visual (docs/NXGDAI-GovMap.png).
+#
+# Only presentation lives here: tile symbols, short labels, scope labels and the
+# family each framework sits in. Every number on the visual (element count, the
+# "links" in each tile's top-right corner, the status marker) is computed from
+# catalog/frameworks.yaml, catalog/controls.yaml and vendors/*/mapping.yaml by
+# tools/govmap.py, so the picture cannot drift from the catalogue.
+#
+# links = controls a law or framework maps to · frameworks a control satisfies ·
+#         controls a vendor pack implements natively.
+# status marker = ● in force · ◐ phasing in · ○ voluntary (baseline standards and
+#         anything with status voluntary are drawn as voluntary).
+# ─────────────────────────────────────────────────────────────────────────────
+apiVersion: aigov/v1
+kind: GovMapLayout
+
+families:
+  ai-law: { name: "AI law & AI regulators", colour: "#f4b740" }
+  data-protection: { name: "Data protection & privacy", colour: "#4fd1c5" }
+  prudential: { name: "Prudential & critical infrastructure", colour: "#f28b82" }
+  management: { name: "Management & governance standards", colour: "#7aa2f7" }
+  threat: { name: "Risk & threat frameworks", colour: "#b794f6" }
+  operations: { name: "Zero trust & operations", colour: "#9ae6b4" }
+
+# Elements are numbered in this order: the law block column by column, then
+# the standards block column by column. Rows are numbered 0–4. Each family
+# starts a new column and fills it from start_rows[column] to end_rows[column]
+# before spilling into the next column. In the standards block the first row of
+# the first two columns is left free for the key tile.
+law_block: { families: [ai-law, data-protection, prudential], start_rows: [0, 0, 0, 0], end_rows: [4, 3, 3, 3] }
+standards_block: { families: [management, threat, operations], start_rows: [1, 1, 0, 0], end_rows: [4, 4, 4, 4] }
+
+frameworks:
+  # ── AI law & AI regulators ──
+  eu-ai-act:        { family: ai-law, symbol: Eu, label: "EU AI Act", scope: EU }
+  us-ai:            { family: ai-law, symbol: Us, label: "US state AI laws", scope: US }
+  sg-mas-airm:      { family: ai-law, symbol: Ma, label: "MAS AI risk\nguidelines", scope: SG }
+  br-cfm:           { family: ai-law, symbol: Cf, label: "CFM 2.454\nAI in medicine", scope: BR }
+  au-ai-standards:  { family: ai-law, symbol: As, label: "AU AI standards (AI6)", scope: AU }
+  # ── Data protection & privacy ──
+  gdpr:             { family: data-protection, symbol: Gd, label: "GDPR", scope: EU }
+  br-lgpd:          { family: data-protection, symbol: Lg, label: "LGPD", scope: BR }
+  cl-21719:         { family: data-protection, symbol: Cl, label: "Ley 21.719", scope: CL }
+  ar-25326:         { family: data-protection, symbol: Ar, label: "Ley 25.326", scope: AR }
+  jp-appi:          { family: data-protection, symbol: Jp, label: "APPI", scope: JP }
+  sg-pdpa:          { family: data-protection, symbol: Pd, label: "PDPA", scope: SG }
+  au-privacy:       { family: data-protection, symbol: Au, label: "Privacy Act 1988", scope: AU }
+  nz-privacy:       { family: data-protection, symbol: Nz, label: "Privacy Act 2020", scope: NZ }
+  # ── Prudential & critical infrastructure ──
+  apra:             { family: prudential, symbol: Ap, label: "APRA CPS 230/234", scope: AU }
+  rbnz-bs11:        { family: prudential, symbol: Bs, label: "RBNZ BS11", scope: NZ }
+  energy-ci:        { family: prudential, symbol: En, label: "Energy critical\ninfrastructure", scope: MULTI }
+  cl-21663:         { family: prudential, symbol: Cy, label: "Ley 21.663\ncybersecurity", scope: CL }
+  # ── Management & governance standards ──
+  iso27001:         { family: management, symbol: Sm, label: "ISO/IEC 27001", scope: BASE }
+  iso42001:         { family: management, symbol: Am, label: "ISO/IEC 42001", scope: BASE }
+  iso42005:         { family: management, symbol: Ia, label: "ISO/IEC 42005", scope: BASE }
+  iso19011:         { family: management, symbol: Ag, label: "ISO 19011", scope: BASE }
+  ieee-2863:        { family: management, symbol: Ie, label: "IEEE 2863", scope: BASE }
+  en-18286:         { family: management, symbol: Qm, label: "EN 18286\nAI Act QMS", scope: EU }
+  iec62443:         { family: management, symbol: Ot, label: "IEC 62443", scope: ENERGY }
+  iso27019:         { family: management, symbol: Ut, label: "ISO/IEC 27019", scope: ENERGY }
+  # ── Risk & threat frameworks ──
+  nist-ai-rmf:      { family: threat, symbol: Rm, label: "NIST AI RMF", scope: BASE }
+  nist-sp-800-61:   { family: threat, symbol: Ir, label: "NIST SP 800-61r3", scope: BASE }
+  iso27090:         { family: threat, symbol: Ac, label: "ISO/IEC 27090\nAI security", scope: BASE }
+  owasp-genai:      { family: threat, symbol: Ow, label: "OWASP LLM &\nAgentic Top 10", scope: BASE }
+  mitre-atlas:      { family: threat, symbol: At, label: "MITRE ATLAS", scope: BASE }
+  # ── Zero trust & operations ──
+  zero-trust:       { family: operations, symbol: Zt, label: "Zero trust\nSP 800-207", scope: BASE }
+  anthropic-zero-trust: { family: operations, symbol: Za, label: "Zero trust for\nAI agents", scope: BASE }
+  finops:           { family: operations, symbol: Fn, label: "FinOps for AI", scope: BASE }
+  bcp-dr:           { family: operations, symbol: Dr, label: "BCP / DR", scope: BASE }
+
+controls:
+  AIG-01: { symbol: Gv, label: "Governance & ownership" }
+  AIG-02: { symbol: In, label: "AI & agent inventory" }
+  AIG-03: { symbol: Rc, label: "Risk classification & impact" }
+  AIG-04: { symbol: Dg, label: "Data governance" }
+  AIG-05: { symbol: Pp, label: "Personal data" }
+  AIG-06: { symbol: Sc, label: "Model supply chain" }
+  AIG-07: { symbol: Id, label: "Agent identity" }
+  AIG-08: { symbol: Ni, label: "Isolation & residency" }
+  AIG-09: { symbol: Kr, label: "Encryption & keys" }
+  AIG-10: { symbol: Gr, label: "Runtime guardrails" }
+  AIG-11: { symbol: Ho, label: "Human oversight" }
+  AIG-12: { symbol: Tr, label: "Transparency" }
+  AIG-13: { symbol: Lo, label: "Logging & records" }
+  AIG-14: { symbol: Te, label: "Testing &\nred-teaming" }
+  AIG-15: { symbol: Cm, label: "Change & lifecycle" }
+  AIG-16: { symbol: Im, label: "Incident & notification" }
+  AIG-17: { symbol: Re, label: "Resilience & exit" }
+  AIG-18: { symbol: Xb, label: "Cross-border transfer" }
+  AIG-19: { symbol: Li, label: "AI literacy" }
+  AIG-20: { symbol: Fr, label: "Fairness" }
+  AIG-21: { symbol: Ad, label: "Internal audit" }
+  AIG-22: { symbol: Tb, label: "Token budgets" }
+
+vendors:
+  azure-foundry:    { symbol: Mf, lines: ["Microsoft Foundry", "Azure Policy"] }
+  copilot-studio:   { symbol: Cs, lines: ["Copilot Studio", "DLP policies"] }
+  aws-bedrock:      { symbol: Bk, lines: ["Amazon Bedrock", "Guardrails"] }
+  gcp-vertex:       { symbol: Vx, lines: ["Vertex AI", "Model Armor"] }
+  openai:           { symbol: Oa, lines: ["OpenAI", "Admin API"] }
+  anthropic-claude: { symbol: Cd, lines: ["Anthropic Claude", "Compliance API"] }
+  mistral:          { symbol: Mi, lines: ["Mistral AI", "Moderation"] }
+  meta-llama:       { symbol: Ll, lines: ["Meta Llama", "Llama Guard 4"] }
+
+text:
+  eyebrow: "NEXGUIDE.AI GOVERNANCE MAP · POLICY AS CODE · VERIFIED {asof}"
+  title_accent: "NXGDAI-"
+  title_rest: "GovMap"
+  subtitle: "The NexGuide.AI Governance Map: {frameworks} laws, standards and frameworks, mapped to {controls} shared controls and implemented through {vendors} vendor policy packs."
+  controls_strip: "▼ {controls} UNIFIED CONTROLS · AIG-01 … AIG-{last} — implement once, evidence against every framework it maps to"
+  vendors_heading: "VENDOR PACKS"
+  vendors_body: "Native governance tooling for {vendors_word} AI platforms, as Terraform plus each vendor's native IaC or admin API. Each pack maps to the controls above and lists its gaps."
+  coverage_heading: "COVERAGE"
+  coverage_line: "{countries} countries × {sectors} sectors = {profiles} compliance profiles"
+  sectors: ["Health", "Financial services", "Public sector", "Agriculture", "Mining", "Technology", "Energy"]
+  scopes: "BASE = organisational baseline that applies to every country and sector · ENERGY = energy-sector framework · MULTI = several national regimes"
+  links: "links (top right) = controls a law or framework maps to · frameworks a control satisfies · controls a vendor pack implements natively"
+  footer_left: "github.com/caiotk/ai-governance-compliance-as-code"
+  footer_right: "NXGDAI-GovMap · Every fact labelled primary, secondary or unverified · Not legal advice · Apache-2.0 · Caio Augusto Tkalec"

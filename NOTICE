@@ -7,7 +7,7 @@ http://www.apache.org/licenses/LICENSE-2.0.
 
 Trademarks
 ----------
-"NexGuide.AI", "NexGuide.AI GovMap", "NXGD-AIGovMap" and the NXGD-AIGovMap
+"NexGuide.AI", "NexGuide.AI GovMap", "NXGDAI-GovMap" and the NXGDAI-GovMap
 elements-table visual are trademarks of Caio Augusto Tkalec. The Apache
 License does not grant permission to use these names and marks except as
 required for reasonable and customary use in describing the origin of the
@@ -24,5 +24,6 @@ Third-party content
 The catalogue cites laws, regulations, standards and vendor documentation by
 reference only (see docs/SOURCES.md). No standard's text is reproduced.
 Standard titles and clause numbers remain the property of their issuers
-(ISO/IEC, NIST, OWASP, MITRE, the European Union, national legislatures and
-regulators, and the cloud and model vendors named in vendors/).
+(ISO/IEC, IEEE, CEN-CENELEC, Standards Australia, NIST, OWASP, MITRE, the
+European Union, national legislatures and regulators, and the cloud and model
+vendors named in vendors/).

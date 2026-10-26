@@ -58,7 +58,7 @@ test_baseline_is_allowed if {
 }
 
 test_baseline_frameworks_for_nz if {
-	decide(base).frameworks == ["anthropic-zero-trust", "bcp-dr", "finops", "iso19011", "iso27001", "iso42001", "iso42005", "mitre-atlas", "nist-ai-rmf", "nist-sp-800-61", "nz-privacy", "owasp-genai", "zero-trust"]
+	decide(base).frameworks == ["anthropic-zero-trust", "bcp-dr", "finops", "ieee-2863", "iso19011", "iso27001", "iso27090", "iso42001", "iso42005", "mitre-atlas", "nist-ai-rmf", "nist-sp-800-61", "nz-privacy", "owasp-genai", "zero-trust"]
 }
 
 test_baseline_has_no_warnings if {

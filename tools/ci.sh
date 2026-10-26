@@ -7,6 +7,7 @@ step() { printf '\n\033[1m▶ %s\033[0m\n' "$*"; }
 
 step "Catalogue validation and generated files up to date"
 python3 tools/build.py --check
+python3 tools/govmap.py --validate
 
 step "Rego: format, strict check, unit tests"
 opa fmt --fail --list mlops/policies mlops/tests

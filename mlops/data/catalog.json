@@ -1,6 +1,6 @@
 {
   "aigov_catalog": {
-    "asOf": "2026-10-13",
+    "asOf": "2026-10-26",
     "gates": {
       "cl-21663": {
         "entity_type": "critical_infrastructure"
@@ -23,6 +23,8 @@
       "nist-sp-800-61",
       "iso19011",
       "iso42005",
+      "iso27090",
+      "ieee-2863",
       "owasp-genai",
       "mitre-atlas",
       "anthropic-zero-trust",
@@ -35,10 +37,13 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "au-ai-standards",
           "au-privacy",
           "br-cfm",
+          "en-18286",
           "eu-ai-act",
           "gdpr",
+          "ieee-2863",
           "iso27001",
           "iso42001",
           "nist-ai-rmf",
@@ -54,6 +59,7 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "au-ai-standards",
           "au-privacy",
           "energy-ci",
           "eu-ai-act",
@@ -72,10 +78,13 @@
         "title": "Risk classification and impact assessment",
         "frameworks": [
           "apra",
+          "au-ai-standards",
           "au-privacy",
           "br-lgpd",
+          "en-18286",
           "eu-ai-act",
           "gdpr",
+          "ieee-2863",
           "iso27001",
           "iso42001",
           "iso42005",
@@ -91,9 +100,11 @@
           "anthropic-zero-trust",
           "au-privacy",
           "br-lgpd",
+          "en-18286",
           "eu-ai-act",
           "gdpr",
           "iso27001",
+          "iso27090",
           "iso42001",
           "iso42005",
           "jp-appi",
@@ -115,6 +126,7 @@
           "eu-ai-act",
           "gdpr",
           "iso27001",
+          "iso27090",
           "iso42001",
           "jp-appi",
           "mitre-atlas",
@@ -130,6 +142,7 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "en-18286",
           "energy-ci",
           "eu-ai-act",
           "finops",
@@ -137,6 +150,7 @@
           "iec62443",
           "iso27001",
           "iso27019",
+          "iso27090",
           "iso42001",
           "mitre-atlas",
           "nist-ai-rmf",
@@ -159,6 +173,7 @@
           "iec62443",
           "iso27001",
           "iso27019",
+          "iso27090",
           "iso42001",
           "mitre-atlas",
           "nist-ai-rmf",
@@ -206,6 +221,7 @@
           "apra",
           "eu-ai-act",
           "iso27001",
+          "iso27090",
           "iso42001",
           "mitre-atlas",
           "nist-ai-rmf",
@@ -220,6 +236,7 @@
           "anthropic-zero-trust",
           "apra",
           "ar-25326",
+          "au-ai-standards",
           "au-privacy",
           "br-cfm",
           "br-lgpd",
@@ -239,6 +256,7 @@
       "AIG-12": {
         "title": "Transparency, notice and explanation",
         "frameworks": [
+          "au-ai-standards",
           "au-privacy",
           "br-cfm",
           "cl-21719",
@@ -257,14 +275,17 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "au-ai-standards",
           "bcp-dr",
           "br-cfm",
+          "en-18286",
           "energy-ci",
           "eu-ai-act",
           "finops",
           "iec62443",
           "iso27001",
           "iso27019",
+          "iso27090",
           "iso42001",
           "mitre-atlas",
           "nist-ai-rmf",
@@ -280,9 +301,12 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "au-ai-standards",
           "au-privacy",
+          "en-18286",
           "eu-ai-act",
           "iso27001",
+          "iso27090",
           "iso42001",
           "iso42005",
           "mitre-atlas",
@@ -296,10 +320,12 @@
         "title": "Change management and model lifecycle",
         "frameworks": [
           "apra",
+          "en-18286",
           "eu-ai-act",
           "iec62443",
           "iso27001",
           "iso27019",
+          "iso27090",
           "iso42001",
           "iso42005",
           "mitre-atlas",
@@ -313,9 +339,11 @@
         "frameworks": [
           "anthropic-zero-trust",
           "apra",
+          "au-ai-standards",
           "au-privacy",
           "bcp-dr",
           "cl-21663",
+          "en-18286",
           "energy-ci",
           "eu-ai-act",
           "gdpr",
@@ -380,9 +408,11 @@
         "title": "Fairness and non-discrimination",
         "frameworks": [
           "apra",
+          "au-ai-standards",
           "au-privacy",
           "eu-ai-act",
           "gdpr",
+          "ieee-2863",
           "iso42001",
           "iso42005",
           "nist-ai-rmf",
@@ -1157,7 +1187,8 @@
       },
       "AU": {
         "frameworks": [
-          "au-privacy"
+          "au-privacy",
+          "au-ai-standards"
         ],
         "sector_frameworks": {
           "energy": [
@@ -1201,7 +1232,8 @@
       "ES": {
         "frameworks": [
           "eu-ai-act",
-          "gdpr"
+          "gdpr",
+          "en-18286"
         ],
         "sector_frameworks": {
           "energy": [
@@ -1214,7 +1246,8 @@
       "EU": {
         "frameworks": [
           "eu-ai-act",
-          "gdpr"
+          "gdpr",
+          "en-18286"
         ],
         "sector_frameworks": {
           "energy": [
@@ -1254,7 +1287,8 @@
       "PT": {
         "frameworks": [
           "eu-ai-act",
-          "gdpr"
+          "gdpr",
+          "en-18286"
         ],
         "sector_frameworks": {
           "energy": [

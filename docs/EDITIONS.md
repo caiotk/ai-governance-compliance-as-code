@@ -54,5 +54,5 @@ they never remove function from the open edition.
 ## Contact
 
 Discussions on this repository or https://www.linkedin.com/in/caiotk.
-NexGuide.AI, NexGuide.AI GovMap and NXGD-AIGovMap are trademarks of Caio
+NexGuide.AI, NexGuide.AI GovMap and NXGDAI-GovMap are trademarks of Caio
 Augusto Tkalec ([TRADEMARKS.md](../TRADEMARKS.md)).

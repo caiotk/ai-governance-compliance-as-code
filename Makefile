@@ -5,6 +5,7 @@
 #   make gate       evaluate systems/*.yaml (SYSTEMS=... to override)
 #   make inventory  build the inventory (docs/INVENTORY.md, .csv, .json)
 #   make report     audit pack for every system in systems/ (REPORT_DIR=...)
+#   make govmap     render docs/NXGDAI-GovMap.png from the catalogue (needs Playwright + Chromium)
 #   make test       everything CI runs; TF=0 skips Terraform
 #   make api        run the read-only API on :8080
 #   make mcp        run the MCP server on stdio
@@ -41,6 +42,9 @@ inventory:
 report:
 	$(PY) tools/report.py --out-dir $(REPORT_DIR) $(SYSTEMS)
 
+govmap:
+	$(PY) tools/govmap.py
+
 reviews:
 	$(PY) tools/reviews.py --days 30
 
@@ -60,4 +64,4 @@ mcp:
 clean:
 	rm -rf build __pycache__ */__pycache__ */*/__pycache__
 
-.PHONY: help setup build check gate inventory report reviews test api mcp clean
+.PHONY: help setup build check gate inventory report govmap reviews test api mcp clean

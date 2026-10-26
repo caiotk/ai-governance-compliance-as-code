@@ -1,5 +1,5 @@
 # Cuts a release when a v* tag is pushed: runs the full validation, bundles the
-# catalogue, policies, profiles and the NXGD-AIGovMap visual, attaches checksums
+# catalogue, policies, profiles and the NXGDAI-GovMap visual, attaches checksums
 # and publishes release notes from CHANGELOG.md. Consumers pin the reusable gate
 # workflow to the tag (…/ai-governance-gate.yml@v1.0.0) or to the moving major
 # tag (@v1), which this workflow advances.
@@ -53,9 +53,9 @@ jobs:
           name="aigov-catalogue-${TAG}"
           mkdir -p "dist/$name"
           cp -r catalog mlops profiles tools api mcp hooks systems LICENSE NOTICE TRADEMARKS.md CHANGELOG.md VERSION "dist/$name/"
-          mkdir -p "dist/$name/docs" && cp docs/CROSSWALK.md docs/RISKS.md docs/SOURCES.md docs/EDITIONS.md docs/NXGD-AIGovMap.png "dist/$name/docs/"
+          mkdir -p "dist/$name/docs" && cp docs/CROSSWALK.md docs/RISKS.md docs/SOURCES.md docs/EDITIONS.md docs/NXGDAI-GovMap.png "dist/$name/docs/"
           (cd dist && zip -qr "$name.zip" "$name" && rm -rf "$name")
-          cp docs/NXGD-AIGovMap.png "dist/NXGD-AIGovMap-${TAG}.png"
+          cp docs/NXGDAI-GovMap.png "dist/NXGDAI-GovMap-${TAG}.png"
           cp mlops/data/catalog.json "dist/catalog-${TAG}.json"
           (cd dist && sha256sum * > SHA256SUMS)
           ls -la dist
@@ -69,7 +69,7 @@ jobs:
             p {print}
           ' CHANGELOG.md > notes.md
           if [ ! -s notes.md ]; then echo "No CHANGELOG section for $v; using tag message." > notes.md; fi
-          printf '\n---\nCatalogue verified as of %s. Not legal advice. Licensed under Apache-2.0; NexGuide.AI, NexGuide.AI GovMap and NXGD-AIGovMap are trademarks (see TRADEMARKS.md).\n' "$(python3 -c "import yaml;print(yaml.safe_load(open('catalog/frameworks.yaml'))['asOf'])")" >> notes.md
+          printf '\n---\nCatalogue verified as of %s. Not legal advice. Licensed under Apache-2.0; NexGuide.AI, NexGuide.AI GovMap and NXGDAI-GovMap are trademarks (see TRADEMARKS.md).\n' "$(python3 -c "import yaml;print(yaml.safe_load(open('catalog/frameworks.yaml'))['asOf'])")" >> notes.md
           cat notes.md
 
       - name: Publish the GitHub release

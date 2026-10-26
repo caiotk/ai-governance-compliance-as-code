@@ -3,7 +3,7 @@ apiVersion: aigov/v1
 kind: Jurisdiction
 id: EU
 name: European Union (shared layer)
-frameworks: [eu-ai-act, gdpr]
+frameworks: [eu-ai-act, gdpr, en-18286]
 sector_frameworks:
   energy: [energy-ci, iec62443, iso27019]
 instruments:
@@ -14,6 +14,7 @@ instruments:
       status: phased
       effective: "Prohibitions 2025-02-02; GPAI 2025-08-02; Art 50 2026-08-02; Annex III high-risk 2027-12-02; Annex I 2028-08-02"
       regulator: AI Office (Commission) + national market surveillance authorities
+      ai_relevance: "Harmonised standards (Art 40): EN 18286:2026 for the Art 17 quality management system, cited 2026-10-14 by Implementing Decision (EU) 2026/2274."
       url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
       amendment_url: https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng
       verification: primary

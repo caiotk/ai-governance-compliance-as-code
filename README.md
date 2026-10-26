@@ -2,17 +2,17 @@
 
 [![Validate policy packs](https://github.com/caiotk/ai-governance-compliance-as-code/actions/workflows/validate.yml/badge.svg)](https://github.com/caiotk/ai-governance-compliance-as-code/actions/workflows/validate.yml)
 [![Licence: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue.svg)](LICENSE)
-[![Catalogue verified](https://img.shields.io/badge/catalogue%20verified-13%20Oct%202026-success.svg)](docs/SOURCES.md)
+[![Catalogue verified](https://img.shields.io/badge/catalogue%20verified-26%20Oct%202026-success.svg)](docs/SOURCES.md)
 
-Vendor-native AI governance policies, an MLOps compliance gate, a risk catalogue, an inventory and country × sector compliance profiles — all as code, each fact checked against its source on **13 October 2026** and labelled primary, secondary or unverified.
+Vendor-native AI governance policies, an MLOps compliance gate, a risk catalogue, an inventory and country × sector compliance profiles — all as code, each fact checked against its source (catalogue as of **26 October 2026**) and labelled primary, secondary or unverified.
 
 **Free and open source** (Apache-2.0). The commercial edition, **NexGuide.AI GovMap**, adds an evidence database, approval workflows, PDF audit packs and a hosted API on the same catalogue — see [Editions](#editions).
 
 **Explore the crosswalk:** https://caiotk.github.io/ai-governance-compliance-as-code/
 
-![NXGDAI-GovMap — the NexGuide.AI Governance Map: 30 laws and standards grouped by family, the 22 shared AIG controls they map to, and the 8 vendor policy packs that implement them](docs/NXGDAI-GovMap.png)
+![NXGDAI-GovMap — the NexGuide.AI Governance Map: 34 laws, standards and frameworks grouped by family, the 22 shared AIG controls they map to, and the 8 vendor policy packs that implement them](docs/NXGDAI-GovMap.png)
 
-<sub>**NXGDAI-GovMap** — the NexGuide.AI Governance Map. Reproduce it unmodified with its footer; see [TRADEMARKS.md](TRADEMARKS.md).</sub>
+<sub>**NXGDAI-GovMap** — the NexGuide.AI Governance Map, generated from the catalogue by `make govmap` (`tools/govmap.py`). Reproduce it unmodified with its footer; see [TRADEMARKS.md](TRADEMARKS.md).</sub>
 
 > Not legal advice. This repository turns published obligations into reviewable, testable controls. The catalogue labels every fact `primary`, `secondary` or `unverified` ([docs/SOURCES.md](docs/SOURCES.md)); check the primary text before you rely on it.
 
@@ -20,7 +20,7 @@ Vendor-native AI governance policies, an MLOps compliance gate, a risk catalogue
 
 | Layer | Where | What it gives you |
 |---|---|---|
-| **Unified control set** | [`catalog/controls.yaml`](catalog/controls.yaml) | 22 controls (AIG-01 … AIG-22) mapped clause-by-clause to ISO/IEC 27001, ISO/IEC 42001, ISO/IEC 42005 (impact assessment), ISO 19011:2026 (auditing), NIST AI RMF 1.0 and AI 600-1, NIST SP 800-61r3 (incident response), OWASP LLM Top 10 2026 and Agentic Top 10, MITRE ATLAS, zero trust (SP 800-207 and Anthropic's zero-trust-for-agents guidance), the EU AI Act (as amended by Reg (EU) 2026/1744), US federal and state law, GDPR, APRA CPS 230/234, RBNZ BS11, the Australian Privacy Act and the NZ Privacy Act, plus national laws for Brazil, Chile, Argentina, Japan and Singapore, and the energy-sector regimes (NERC CIP, SOCI/CIRMP, Ley 21.663, NIS2/NCCS/CER, ESP Act, Cybersecurity Act/CCoP 2026, IEC 62443, ISO/IEC 27019). [Crosswalk](docs/CROSSWALK.md). |
+| **Unified control set** | [`catalog/controls.yaml`](catalog/controls.yaml) | 22 controls (AIG-01 … AIG-22) mapped clause-by-clause to ISO/IEC 27001, ISO/IEC 42001, ISO/IEC 42005 (impact assessment), ISO/IEC 27090:2026 (AI security threats), ISO 19011:2026 (auditing), IEEE 2863-2026 (organisational AI governance), NIST AI RMF 1.0 and AI 600-1, NIST SP 800-61r3 (incident response), OWASP LLM Top 10 2026 and Agentic Top 10, MITRE ATLAS, zero trust (SP 800-207 and Anthropic's zero-trust-for-agents guidance), the EU AI Act (as amended by Reg (EU) 2026/1744) and its first harmonised standard EN 18286:2026 (quality management, Art 17), US federal and state law, GDPR, APRA CPS 230/234, RBNZ BS11, the Australian Privacy Act, Australia's AI standards (Guidance for AI Adoption, AI6) and the NZ Privacy Act, plus national laws for Brazil, Chile, Argentina, Japan and Singapore, and the energy-sector regimes (NERC CIP, SOCI/CIRMP, Ley 21.663, NIS2/NCCS/CER, ESP Act, Cybersecurity Act/CCoP 2026, IEC 62443, ISO/IEC 27019). [Crosswalk](docs/CROSSWALK.md). |
 | **AI FinOps and model selection** | [`finops/`](finops/) | A verified model catalogue with functional tiers (daily driver → workhorse → specialist), a selector that prices every workload and decides single- vs multi-model routing under RAI, residency, cost, quality and continuity constraints, token-cost brokerage (LiteLLM budgets, APIM token limits), cloud budgets and token alarms, OTel/Prometheus metrics. [README](finops/README.md). |
 | **Push-button BCP/DR** | [`bcp/`](bcp/) | Failover, failback and timed drills on the routing state from one workflow button, multi-region Terraform/Bicep, a runbook mapped to SP 800-34, CSF 2.0, CPS 230, DORA and the AI Act. [README](bcp/README.md). |
 | **Vendor policy packs** | [`vendors/`](vendors/) | Terraform **and** native-format policies for Microsoft Foundry, Copilot Studio, Amazon Bedrock, Google Cloud Vertex AI, OpenAI, Anthropic Claude, Mistral AI and Meta Llama, each mapped to the controls and validated in CI. |
@@ -44,6 +44,8 @@ Standards marked `baseline: true` in [`catalog/frameworks.yaml`](catalog/framewo
 | ISO/IEC 27001:2022, ISO/IEC 42001:2023 | Management-system controls behind AIG-01 … AIG-21; AIG-21 requires the system to sit in a planned internal audit programme (cl. 9.2). |
 | ISO 19011:2026 | Audit programme, last audit within the programme cycle (12 months here; ISO 19011 sets no cadence), findings tracked to closure (warnings). |
 | ISO/IEC 42005:2025 | Impact-assessment method recorded, scheduled review for high-risk/consequential systems, interested parties identified (warnings). |
+| ISO/IEC 27090:2026 | No rule of its own: evidenced through the shared controls it maps to (data and model poisoning, model extraction, prompt and output injection, logging, threat modelling and red teaming — AIG-04/05/06/07/10/13/14/15). |
+| IEEE 2863-2026 | No rule of its own: evidenced through AIG-01 (governing-body principles and accountable ownership), AIG-03 and AIG-20. |
 | NIST AI RMF 1.0 + AI 600-1 | Risk tolerance documented (MAP 1.5 / GOVERN 1.3), post-deployment monitoring (MEASURE 2.4 / MANAGE 4.1). |
 | NIST SP 800-61r3 (CSF 2.0 profile; r2 withdrawn 3 Apr 2025) | Lessons-learned loop (ID.IM), AI telemetry into the SOC (DE.CM). |
 | OWASP GenAI — LLM Top 10 2026, Agentic Top 10 | Threat model: required for agentic systems (deny), recommended for user-facing ones (warn); output validation for agents (deny). |
@@ -65,6 +67,7 @@ make test       # everything CI runs (TF=0 to skip Terraform)
 make gate       # evaluate systems/*.yaml → build/gate.md + gate.sarif
 make inventory  # docs/INVENTORY.md, inventory.csv, inventory.json
 make report     # Markdown audit pack per system → build/reports/
+make govmap     # re-render docs/NXGDAI-GovMap.png from the catalogue (Playwright + Chromium)
 make reviews    # what falls due in 30 days (evidence, assessments, audits, drills)
 make api        # read-only API on :8080   ·   make mcp → MCP server on stdio
 ```
@@ -153,7 +156,7 @@ flowchart LR
 | [`ai-governance-gate.yml`](.github/workflows/ai-governance-gate.yml) | The MLOps gate as a reusable workflow (`policy_repo` / `policy_ref` inputs); comments findings on pull requests and uploads SARIF |
 | [`inventory.yml`](.github/workflows/inventory.yml) | Builds the AI inventory from `systems/` on every change and weekly; keeps `docs/INVENTORY.md` current |
 | [`review-reminders.yml`](.github/workflows/review-reminders.yml) | Weekly: one issue per system for evidence, impact-assessment reviews, audits, DR drills and model-selection refreshes falling due in 30 days, plus open high incidents |
-| [`release.yml`](.github/workflows/release.yml) | Tags `vX.Y.Z` → validated release with the catalogue bundle, `catalog.json`, the NXGD-AIGovMap visual and checksums; moves the `v1` tag |
+| [`release.yml`](.github/workflows/release.yml) | Tags `vX.Y.Z` → validated release with the catalogue bundle, `catalog.json`, the NXGDAI-GovMap visual and checksums; moves the `v1` tag |
 | [`cla.yml`](.github/workflows/cla.yml) | Asks first-time contributors to sign the [CLA](CLA.md) |
 | [`regulatory-watch.yml`](.github/workflows/regulatory-watch.yml) | Weekly: opens an issue listing obligations commencing in the next 120 days, and warns when the catalogue needs re-verification |
 | [`deploy-site.yml`](.github/workflows/deploy-site.yml) | Publishes the crosswalk explorer to GitHub Pages after validation passes |
@@ -163,11 +166,14 @@ flowchart LR
 ## Status highlights the catalogue encodes (Oct 2026)
 
 - EU AI Act high-risk obligations were postponed by Regulation (EU) 2026/1744: Annex III from **2 Dec 2027**, Annex I from **2 Aug 2028**. Art 50 transparency applies from 2 Aug 2026.
+- The first AI Act harmonised standard, **EN 18286:2026** (quality management system, Art 17), was cited in the Official Journal on **14 Oct 2026** (Implementing Decision (EU) 2026/2274). It gives a presumption of conformity for the Art 17(1) points it covers, not for Art 17(2)–(4); ISO/IEC 42001 is not harmonised.
+- **ISO/IEC 27090:2026** (security threats and compromises to AI systems) was published on 14 Oct 2026 and **IEEE 2863-2026** (organisational governance of AI) on 16 Oct 2026; both join the organisational baseline.
 - The GDPR part of the Digital Omnibus is **not** law; the current GDPR is the baseline.
 - Colorado's AI Act was replaced by SB 26-189 (notice, explanation and human review), effective **1 Jan 2027**. SR 11-7 was superseded by SR 26-2, which excludes generative AI.
 - APRA's letter to industry on AI (30 Apr 2026) sets expectations under CPS 230/234. RBNZ BS11 stays in force until the Deposit Takers Act standards commence (due 1 Dec 2028; revocation date not confirmed).
 - Australian APP 1.7–1.9 automated-decision transparency starts **10 Dec 2026**; NZ IPP 3A has applied since 1 May 2026.
-- MAS finalised its AI Risk Management Guidelines in Oct 2026 (phased from Oct 2027). Brazil's PL 2338, Chile's AI bill and Spain's national AI law are still bills.
+- Australia announced **Australian Standards for AI** on 15 Jul 2026, with legislation expected in early 2027; until a bill is tabled the catalogue tracks them as proposed and applies the voluntary Guidance for AI Adoption (AI6).
+- MAS issued its final AI Risk Management Guidelines on 7 Oct 2026; they take effect on 7 Oct 2027, with sections 5–6 by 7 Oct 2028. Brazil's PL 2338, Chile's AI bill and Spain's national AI law are still bills.
 
 ## Editions
 
@@ -192,4 +198,4 @@ Facts go in `catalog/`, never in generated files. Run `make build` and `make tes
 
 ## Licence and trademarks
 
-[Apache License 2.0](LICENSE) with the attribution in [NOTICE](NOTICE). **NexGuide.AI**, **NexGuide.AI GovMap** and **NXGD-AIGovMap** are trademarks of Caio Augusto Tkalec; the code is free to use, the names are not — [TRADEMARKS.md](TRADEMARKS.md). Built by [Caio TK](https://www.linkedin.com/in/caiotk).
+[Apache License 2.0](LICENSE) with the attribution in [NOTICE](NOTICE). **NexGuide.AI**, **NexGuide.AI GovMap** and **NXGDAI-GovMap** are trademarks of Caio Augusto Tkalec; the code is free to use, the names are not — [TRADEMARKS.md](TRADEMARKS.md). Built by [Caio TK](https://www.linkedin.com/in/caiotk).

@@ -23,6 +23,10 @@ documentation are welcome.
   issuer's text), `secondary` (reputable secondary source, re-check before
   reliance) or `unverified`. Add the citation to `docs/SOURCES.md` or the
   matching `docs/sources/*.md`. Do not reproduce the text of a standard.
+- **The visual follows the catalogue.** A new framework, control or vendor
+  pack needs a tile in `catalog/govmap.yaml` (CI runs
+  `python3 tools/govmap.py --validate`); re-render
+  `docs/NXGDAI-GovMap.png` with `make govmap` (needs Playwright and Chromium).
 - **Policies are tested.** A new Rego rule needs a test in
   `mlops/tests/aigov_test.rego` for both the violation and the compliant case.
 - **Vendor packs follow the spec** in
@@ -48,6 +52,7 @@ Or open the repository in a dev container / GitHub Codespace: the
 - [ ] `make build` ran and the regenerated files are committed
 - [ ] `make test` passes locally (or `make test TF=0` if you have no Terraform)
 - [ ] New catalogue entries carry `verification:` and a source citation
+- [ ] New frameworks, controls or vendor packs have a tile in `catalog/govmap.yaml` and the visual is re-rendered
 - [ ] New Rego rules have tests; new tools have a `--help` and a CI step
 - [ ] `CHANGELOG.md` has an entry under **Unreleased**
 - [ ] No credentials, tenant IDs, account IDs or customer data
@@ -60,7 +65,7 @@ Or open the repository in a dev container / GitHub Codespace: the
 - Changes to `catalog/`, `mlops/policies/` and `vendors/` are owned by the
   maintainers listed in `CODEOWNERS`; their review is required.
 - Releases are tagged `vMAJOR.MINOR.PATCH` and cut by the **Release**
-  workflow, which attaches the catalogue bundle and the NXGD-AIGovMap visual.
+  workflow, which attaches the catalogue bundle and the NXGDAI-GovMap visual.
   Consumers pin the reusable gate workflow to a tag:
   `uses: caiotk/ai-governance-compliance-as-code/.github/workflows/ai-governance-gate.yml@v1`.
 
